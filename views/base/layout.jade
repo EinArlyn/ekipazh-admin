@@ -1,0 +1,28 @@
+doctype html
+html
+  link(rel="stylesheet", href="/assets/stylesheets/baseLayout.css")
+  include ../includes/head.jade
+  body
+    .wrapper
+      nav
+        .nav-panel
+          //.nav-logo
+            img(src="/assets/images/logo_window.png")
+          span#logo-brand
+            | Ekipazh Calculator admin panel
+          .nav-logout
+            span#nav-logout-button
+              img(src='/assets/images/logout.png', alt="Выход")
+              a(class="external-link", href="/logout" id="logout") Выйти
+          .nav-search
+            form(action=thisPageLink + "0" +'?type=' + type, method="get", id="search-query")
+              input(type="text", name="queryName", placeholder="Поиск...", class="search-input", value=(queryName ? queryName : ''))
+              a(href="#" id="search-btn")
+      .loader-wrapper
+        #logo-loader
+      main.load-content(style="display: none")
+        block content
+      footer.load-content(style="display: none")
+        #footer-text=i18n.copyright
+          sub=i18n.version
+      include ../includes/footer.jade

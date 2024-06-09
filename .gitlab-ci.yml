@@ -1,0 +1,52 @@
+
+image: ruby:2.1
+before_script:
+# install ssh-agent
+- 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
+
+# run ssh-agent
+- eval $(ssh-agent -s)
+
+# add ssh key stored in SSH_PRIVATE_KEY variable to the agent store
+- ssh-add <(echo "$SSH_PRIVATE_KEY")
+
+- mkdir -p ~/.ssh
+- echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config
+
+
+stages:
+  - test
+  - build
+  - deploy
+  - clean_up
+
+run_tests:
+  stage: test
+  script:
+    - echo "hello"
+
+build_prod:
+  stage: build
+  script:
+    - echo "build"
+  only:
+    - master
+    - develop
+
+deploy_prod:
+  stage: deploy
+  script:
+  - ssh serv@$PROJECT_PROD_SERVER "
+      cd $PROJECT_PROD_PATH ;
+      git pull origin $GIT_PROD_BRANCH ;
+      npm i ;
+      pm2 restart $PM2_PROD_NAME "
+  only:
+    - master
+
+
+clean_up_job:
+  stage: clean_up
+  script:
+    - rm -rf node_modules
+    - rm -rf ~/.node-gyp

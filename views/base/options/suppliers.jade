@@ -1,0 +1,55 @@
+extends ../layout
+
+block content
+  .main-nav
+    .nav-link
+      a(class="external-link", href="/")= i18n.__('Dashboard') 
+      | 
+      | -> 
+      span#nav-text
+        =i18n.__('Options')
+      img.loader-ico(src="/assets/images/loader_ico.GIF")
+  .main-select-option
+    select(id="lamination-select", name="", class="select-default selected-option", style="width: 180px;")
+      option(value="1")=i18n.__('Lamination')
+      option(value="2")=i18n.__('Discounts')
+      option(value="3")=i18n.__('Coefficients')
+      option(value="8" selected)=i18n.__('Suppliers')
+      option(value="9")=i18n.__('Currency')
+      option(value="10")=i18n.__('General options')
+      option(value="11")=i18n.__('Application options')
+      option(disabled)=i18n.__('Groups')
+      option(value="4")=i18n.__('Glazed window')
+      option(value="5")=i18n.__('Window sills')
+      option(value="6")=i18n.__('Spillways')
+      option(value="7")=i18n.__('Visors')
+      option(value="12")=i18n.__('Connectors')
+      option(value="13")=i18n.__('Mosquitos')
+      option(value="14")=i18n.__('Doorhandles')
+  .suppliers-option.checked-option
+    .main-content
+      .content-wrap
+        table.suppliers-table(cellspacing="0", cellpadding="0", border="0")
+          tr
+            td.table-supplier-id.tr-header
+              | ID
+            td.table-supplier-name.tr-header
+              =i18n.__('Name')
+          if (suppliers.length)
+            each supplier in suppliers
+              tr.supplier-table-tr(data-supplier=supplier.id)
+                td.table-supplier-id
+                  =supplier.id
+                td.table-name-td
+                  .editable-name(id=supplier.id)
+                    =supplier.name
+                  .btn-remove(data-supplier=supplier.id)
+          else
+            tr.supplier-table-empty-tr
+                td(colspan="2")
+                  =i18n.__('Empty')
+          tr.add-suplier-tr
+            td#add-supplier.add-suplier-td(colspan="2")
+              =i18n.__('Add +')
+  include includes/options-add-new-supplier.jade
+  include includes/alert-delete-supplier.jade

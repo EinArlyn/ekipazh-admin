@@ -1,0 +1,10 @@
+.pop-up-default.delete-alert
+  .pop-up-close-wrap
+    a.pop-up-close(value=".edit-profile-group-pop-up" href="#")
+  span.pop-up-header
+    =i18n.__('Removing sets')
+  .alert-name-pop-up
+    =i18n.__('Are you sure?') 
+  .btns-align
+    input.pop-up-submit-btn(id="delete-sets-submit", href="#", type="button" value=i18n.__('Remove'))
+    input.pop-up-deny-btn(id="delete-sets-deny", href="#", type="button" value=i18n.__('Cancel'))

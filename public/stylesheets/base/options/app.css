@@ -1,0 +1,310 @@
+select#lamination-select option:disabled{
+  border-bottom: 1px solid #cecece;
+  font-weight: bold;
+  color: #b9b9b9;
+}
+
+.main-nav {
+  background-color: #dadada;
+  height: 55px;
+  border: 1px solid #c6c6c6;
+}
+  .nav-link {
+    margin: 15px;
+  }
+  .nav-link a{
+    color: #434343;
+  }
+
+  .nav-link #nav-text {
+    color: #4f9e2e;
+  }
+
+.main-select-option {
+  height: 55px;
+  border: 1px solid #c6c6c6;
+  border-top: none;
+  border-bottom: none;
+}
+  .selected-option {
+    margin: 18px 0 0 10px;
+  }
+
+  .app-option {
+    border-left: 1px solid #c6c6c6;
+    border-right: 1px solid #c6c6c6;
+    padding: 0 10px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #c6c6c6;
+    min-height: 500px;
+  }
+
+    .main-content {
+      font-size: 12px;
+      padding: 5px;
+      border: 1px solid #ebebeb;
+      border-radius: 5px;
+      background-color: #ebebeb;
+    }
+
+.checked-option {
+  display: block;
+}
+
+.input-default {
+  height: 15px;
+  border: 1px solid #cdcdcd;
+  -webkit-border-radius: 2px; 
+  -moz-border-radius: 2px; 
+  -khtml-border-radius: 2px;  
+  border-radius: 2px;
+  color: #7b7a7a;
+  padding-left: 5px;  
+}
+
+.select-default {
+  width: 180px;
+  height: 22px;
+  appearance: none;
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  background: url(/assets/images/arrows.png) no-repeat center #fff;
+  background-position : calc(100% - 5px) 8px;
+  padding: 0px 5px;
+  border-radius: 2px;
+  -moz-box-sizing: border-box;
+  -o-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  box-sizing: border-box;
+  display: inline-block;
+  border: 1px solid #b7b7b7;
+  background-color: #fff;
+  padding:0px 5px;
+}
+
+.select-default:hover {
+  cursor: pointer;
+}
+
+.container {
+  height: 20px;
+  margin: 5px 0;
+}
+
+  #app-link-input {
+    width: 300px;
+  }
+
+  input.ok-button {
+    margin-left: 5px;
+    width: 30px;
+    height: 18px;
+    background: url("/assets/images/ok_inactive.png") no-repeat center;
+    text-shadow: 0px 1px 0px #45822b;
+    color: #fff;
+    font-family: Tahoma, Verdana, Segoe, sans-serif;
+    font-weight: bold;
+    font-size: 11px;
+    cursor: pointer;
+    outline: none;
+    border: 0;
+    border-radius: 2px;
+    box-shadow: inset 0px -1px 1px #626262;
+    -moz-box-shadow: inset 0px -1px 1px #626262;
+    -o-box-shadow: inset 0px 1px -1px #626262;
+    -webkit-box-shadow: inset 0px -1px 1px #626262;
+    box-shadow: inset 0px -1px 1px #626262;
+  }
+
+  input.ok-button:hover{
+    background: url("/assets/images/ok_active.png")no-repeat center;
+  }
+
+  input.ok-button:disabled {
+    opacity: 0.5;
+  }
+
+/** Template table */
+table#template-table {
+  width: 100%;
+}
+
+  tr.template-tr-head td {
+    width: 100%;
+    height: 20px;
+    font-size: 11px;
+    font-weight: bold;
+    background-color: #D4D4D4;
+    border: 1px solid #aaaaaa;
+    text-align: center;
+  }
+
+  tr.template-tr {
+    width: 100%;
+    height: 180px;
+  }
+
+    /*table#template-table tbody:first-child {
+      border-top: 1px solid #cecece;
+    }*/
+
+    td.template-image-td {
+      width: 60%;
+      padding: 5px;
+      text-align: center;
+      border-right: 1px solid #cecece;
+      border-bottom: 1px solid #cecece;
+      border-left: 1px solid #cecece;
+    }
+
+    td.template-info-td {
+      position: relative;
+      width: 40%;
+      border-bottom: 1px solid #cecece;
+      border-right: 1px solid #cecece;
+      padding: 5px;
+    }
+
+      .primary-text {
+        font-size: 12px;
+        font-weight: bold;
+      }
+
+      input.edit-template-btn {
+        position: absolute;
+        top: 5px;
+        right: 5px;
+        width: 24px;
+        height: 26px;
+        background: url("/assets/images/hardwares/edit_inactive.png") no-repeat center;
+        text-shadow: 0px 1px 0px #45822b;
+        color:#fff;
+        font-family: Tahoma, Verdana, Segoe, sans-serif;
+        font-weight:bold;
+        font-size: 12px;
+        cursor: pointer;
+        outline: none;
+        border: 0;
+        text-indent:-9999px;
+      }
+
+      input.edit-template-btn:hover {
+        background: url("/assets/images/hardwares/edit_active.png");
+      }
+
+    td.template-add-td {
+      height: 20px;
+      text-align: center;
+      background-color: #bebebe;
+      border: 1px solid #aaaaaa;
+    }
+
+    td.template-add-td:hover {
+      cursor: pointer;
+      background-color: #cecece;
+    }
+
+/** Popups */
+.pop-up {
+  display: none;
+}
+
+.add-new-tempalte-pop-up,
+.edit-tempalte-pop-up {
+  width: 320px;
+  height: 280px;
+  border: 1px solid #e5e5e5;
+  border-radius: 5px;
+  background-color: #e4e4e4;
+  padding: 0 30px;
+  font-size: 12px;
+}
+  .content-block {
+    position: relative;
+    height: 25px;
+  }
+
+  .content-text {
+    display: inline-block;
+    width: 130px;
+    text-align: right;
+    margin-right: 5px;
+  }
+
+  .content-block-image {
+    height: 80px;
+  }
+
+    #template-add-img,
+    #template-edit-img {
+      position: relative;
+      top: 10px;
+      display: inline-block;
+      width: 164px;
+      height: 64px;
+      background-image: url('/assets/images/add_img_btn_inactive.png');
+    }
+
+    #template-add-img:hover,
+    #template-edit-img:hover {
+      background-image: url('/assets/images/add_img_btn_active.png');
+    }
+
+    #template-add-img-box,
+    #template-edit-img-box {
+      position: relative;
+      top: 10px;
+      left: 10px;
+      max-width: 194px;
+      max-height: 64px;
+    }
+
+.submit-row {
+  text-align: center;
+  width: 100%;
+  height: 40px;
+}
+
+  input.btn-submit {
+    width: 148px;
+    border-radius: 3px;
+    color: #fff;
+    text-shadow: 0px 1px #9fb994;
+    font-size: 12px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -o-box-sizing: border-box;
+    box-sizing: border-box;
+    border: 0;
+    height: 35px;
+    background: url("/assets/images/save_inactive.png") no-repeat center;
+    cursor: pointer;
+    font-family: Tahoma, Verdana, Segoe, sans-serif;
+    font-weight: bold;
+    line-height: 12px;
+  }
+
+  input.btn-submit:hover {
+    background: url("/assets/images/save_active.png");
+  }
+
+  a.remove-template-btn {
+    background-color: none;
+    position: absolute;
+    right: 7px;
+    top: 35px;
+    height: 20px;
+    z-index: 5;
+    width: 20px;
+    background-image: url('/assets/images/remove_btn.png');
+  }
+
+  a.remove-template-btn:hover {
+    cursor: pointer;
+  }
+
+/** Functionality */
+.hidden {
+  display: none;
+}

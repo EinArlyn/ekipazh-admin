@@ -1,0 +1,89 @@
+.add-element-block
+  .header-add-element
+    | Добавить элемент:
+  .body-add-element-block 
+    .set-group-text
+      span.text-style
+        | Группа элемента:
+      br
+      span.text-style
+        | Элемент:
+      br
+      span.text-style
+        | Правило:
+    .set-group-input
+      select(id="add-element-select-group", name="element_group", class="input-default input-margin", style="width: 365px;", form="add-new-element-to-set")
+      select(id="add-element-select-name", name="elemet_name", class="input-default input-margin", style="width: 365px;", form="add-new-element-to-set")
+    .add-elemet-rules
+      .linear-peace(style="display: none;")
+        input(name="elemet_rule_value", type="text", class="input-default input-margin input-text", style="width: 40px;", form="add-new-element-to-set")
+        | 
+        select(name="elemet_rule", class="input-default input-margin", style="width: 315px;", form="add-new-element-to-set")
+          option(value="1") шт. на одного родителя
+          option(value="2") шт. на метр родителя
+      .linear-linear
+        select(name="elemet_rule", class="input-default input-margin", style="width: 255px;", form="add-new-element-to-set")
+          option(value="1") Меньше родителя
+        span#rule-margin
+          | на 
+        input(name="element_rule_value", type="text", class="input-default input-text", style="width: 40px;", form="add-new-element-to-set")        
+        span#rule-margin
+          | м
+      .linear-weight-liquid 
+        input(name="elemet_rule_value", type="text", class="input-default input-margin input-text", style="width: 40px;", form="add-new-element-to-set")
+        | 
+        select(name="elemet_rule", class="input-default input-margin", style="width: 315px;", form="add-new-element-to-set")
+          option(value="1") кг на одного родителя
+      .surface-linear
+        select(name="elemet_rule", class="input-default input-margin", style="width: 255px;", form="add-new-element-to-set")
+          option(value="1") Меньше ширины родителя
+          option(value="2") Меньше высоты родителя
+        span#rule-margin
+          | на 
+        input(name="element_rule_value", type="text", class="input-default input-text", style="width: 40px;", form="add-new-element-to-set")        
+        span#rule-margin
+          | м
+      .surface-surface
+        select(name="elemet_rule", class="input-default input-margin", style="width: 275px;", form="add-new-element-to-set")
+          option(value="1") На 1 м&#178; родителя 
+        span#rule-margin
+          input(name="element_rule_value", type="text", class="input-default input-text", style="width: 40px;", form="add-new-element-to-set") 
+        | м
+        sup 2
+      .surface-peace
+      .peace-peace
+      .peace-weight-liquid
+      //select(id="add-elemet-rule", name="elemet_rule", class="input-default input-margin", style="width: 220px;", form="add-new-element-to-set")
+        option(value="1") Меньше родителя
+      //span#rule-margin
+        | на 
+      //input(id="add-elemet-rule-value", type="text", name="element_rule_value", value="10", class="input-default input-text", style="width: 80px;", form="add-new-element-to-set")        
+      //span#rule-margin
+        | м
+    .color-select-text
+      span#color-profile
+        | Цвет профиля: 
+      | Цвет фурнитуры: 
+    .color-select-input
+      select(id="add-elemet-color-profile", name="element_color_profile", class="input-default", style="width: 220px;", form="add-new-element-to-set")
+        option(value="1") Наружная ламинация
+      select(id="add-elemet-color-furniture", name="element_color_furniture", class="input-default", style="width: 225px;", form="add-new-element-to-set")
+        option(value="1") Белый или золотой или серебристый
+    .open-direction
+      span#open-direction-text
+        | Направление открытия: 
+      span.direction-radios
+        input(id="direction-right", type="radio", name="direction", checked, form="add-new-element-to-set")
+        label(for="direction-right")
+          | правое
+      span.direction-radios
+        input(id="direction-left", type="radio", name="direction", form="add-new-element-to-set")
+        label(for="direction-left")
+          | левое
+      span.direction-radios
+        input(id="direction-none", type="radio", name="direction", form="add-new-element-to-set")
+        label(for="direction-none")
+          | не учитывать
+  .close-button
+    | Закрыть
+    a(href="#", id="add-new-element-btn") Добавить

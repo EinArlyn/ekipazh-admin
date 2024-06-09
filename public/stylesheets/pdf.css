@@ -1,0 +1,306 @@
+/*.active_svg, .glass-active, .corner_mark {fill: rgba(34, 34, 255, 0.5) !important;}
+.glass {-moz-transition: all 0.1s linear;-webkit-transition: all 0.1s linear;transition: all 0.1s linear;fill: rgba(155, 204, 255, 0.2);}
+.frame, .sash, .impost, .bead {-moz-transition: all 0.2s linear;-webkit-transition: all 0.2s linear;transition: all 0.2s linear;
+  fill: #f9f9f9;stroke: #363636;stroke-width: 2;}
+.frame-icon, .sash-icon, .impost-icon, .bead-icon {fill: #ccc; stroke: #000; stroke-width: 4;}
+.doorstep {fill: #4f4f4f;stroke: #4f4f4f;} .main-line {fill: #363636;}
+.size-line { fill: none; stroke: #D2D2D2; stroke-width: 1;} .size-box { cursor: pointer; }
+.size-rect, .size-rect-active { stroke: #6ed44a; stroke-width: 0.1875rem;fill: #fff;}
+.size-rect-active {fill: #6ed44a;}
+.size-value,
+.size-value-edit, .size-value-active {font-size: 5.625rem; stroke: #D2D2D2; stroke-width: 1px;text-anchor: middle;alignment-baseline: middle;}
+.size-value-edit {stroke: #6ed44a;fill: #6ed44a;}
+.size-value-active {stroke: #fff; fill: #fff;}
+.sash_mark {fill: none;stroke: #f98000;stroke-width: 2;}*/
+
+.frame {
+  -moz-transition: all 0.2s linear;
+  -webkit-transition: all 0.2s linear;
+  transition: all 0.2s linear;
+  fill: #f9f9f9;
+  stroke: #363636;
+  stroke-width: 2;
+}
+
+.frame-icon {
+  fill: #aaa;
+  stroke: #000;
+  stroke-width: 4;
+}
+
+.glass {
+  -moz-transition: all 0.1s linear;
+  -webkit-transition: all 0.1s linear;
+  transition: all 0.1s linear;
+  fill: rgba(155, 204, 255, 0.2);
+}
+
+/ line 18, ../../dev/sass/parts/svg.scss /
+.glass-icon {
+  fill: #94DEEE;
+}
+
+/ line 21, ../../dev/sass/parts/svg.scss /
+.active_svg, .frame-active, .glass-active, .corner_mark {
+  fill: rgba(34, 34, 255, 0.5) !important;
+}
+
+.sash_mark {
+  fill: none;
+  stroke: #f98000;
+  stroke-width: 2;
+}
+
+.corner_mark {
+  stroke: none;
+}
+
+.handle-mark {
+  fill: #f9f9f9;
+  stroke: #5E5E5E;
+  stroke-width: 1;
+}
+
+.error_glass {
+  fill: #f74f2e;
+}
+
+.dim_blockX, .dim_blockY {
+  -moz-transition: all 0.5s linear;
+  -webkit-transition: all 0.5s linear;
+  transition: all 0.5s linear;
+}
+
+.dim_shiftX {
+  -moz-transform: translate(0, -150px);
+  -ms-transform: translate(0, -150px);
+  -webkit-transform: translate(0, -150px);
+  transform: translate(0, -150px);
+}
+
+.dim_shiftY {
+  -moz-transform: translate(-200px, 0);
+  -ms-transform: translate(-200px, 0);
+  -webkit-transform: translate(-200px, 0);
+  transform: translate(-200px, 0);
+}
+
+.dim_block {
+  -moz-transition: all 0.5s linear;
+  -webkit-transition: all 0.5s linear;
+  transition: all 0.5s linear;
+  opacity: 1;
+  visibility: visible;
+}
+
+.dim_hidden {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.size-line {
+  fill: none;
+  stroke: #000;
+  stroke-width: 1;
+}
+
+.size-rect {
+  width: 160px;
+  height: 70px;
+  rx: 20px;
+  ry: 20px;
+  stroke: #6ed44a;
+  stroke-width: 3px;
+  fill-opacity: 0;
+}
+
+.size-rect.active {
+  fill: #6ed44a;
+  fill-opacity: 1;
+}
+
+.size-txt, .size-txt-edit {
+  font-size: 5.625rem;
+  stroke: #000;
+  stroke-width: 1px;
+  text-anchor: middle;
+  alignment-baseline: middle;
+}
+
+.size-txt-edit {
+  stroke: #6ed44a;
+  fill: #6ed44a;
+}
+.size-txt-edit.active {
+  stroke: #fff;
+  fill: #fff;
+}
+
+.doorstep {
+  fill: #4f4f4f;
+  stroke: #4f4f4f;
+}
+
+.main-line {
+  fill: #363636;
+}
+
+body {
+  /*background-color: #e3e3e3;*/
+  padding-top: 5px;
+}
+
+@media print {
+  #lang-selector {
+    display: none;
+  }
+}
+
+#lang-selector {
+  text-align: right;
+  padding-right: 25px;
+}
+
+#lang-rus,
+#lang-ua,
+#lang-es,
+#lang-it,
+#lang-eng {
+  text-decoration: none;
+  color: #333;
+}
+
+#lang-rus.selected,
+#lang-it.selected,
+#lang-ua.selected,
+#lang-es.selected,
+#lang-eng.selected {
+  color: #F44336;
+}
+
+  #wrapper {
+    background-color: #fff;
+    width: 750px;
+    margin: 0px auto;
+    padding: 10px;
+    /*box-shadow: 0 0 10px rgba(0,0,0,0.5);*/
+  }
+
+    .product-top {
+      min-height: 50px;
+      max-height: 50px;
+    }
+
+    .product {
+      position: relative;
+      min-height: 250px;
+      max-height: 250px;
+    }
+
+      .product-container {
+      }
+
+      .product-counter {
+        width: 30px;
+        height: 30px;
+        text-align: center;
+        border-radius: 50%;
+        background-color: #cecece;
+        position: relative;
+        top: -10px;
+      }
+
+        .counter-align {
+          position: relative;
+          top: 5px;
+        }
+
+        .product-description {
+          position: relative;
+          margin-left: 10px;
+          color: #283891;
+          font-size: 12px;
+          height: 46px;
+        }
+
+        .addelement-header {
+          margin-left: 10px;
+        }
+
+        .addelement-name {
+          position: relative;
+          top: 10px;
+          margin-left: 10px;
+        }
+
+        .addelement-description {
+          position: absolute;
+          top: 50px;
+          margin-left: 10px;
+          color: #283891;
+          font-size: 16px;
+          height: 46px;
+        }
+
+        .additional-logo {
+          height: 250px;
+          width: 300px;
+          position: relative;
+          left: 60px;
+          top: -18px;
+          display: inline-block;
+        }
+
+        .schemes {
+          position: relative;
+          max-height: 240px;
+          min-height: 240px;
+        }
+
+        table.product-table {
+          font-size: 12px!important;
+          width: 100%;
+        }
+
+         .product-table td {
+            border-bottom: 1px solid #d1d2d4;
+            padding: 2px;
+          }
+
+          .grey-line {
+            background: #e4e4e4;
+          }
+
+    .warning-label {
+      font-size: 12px;
+    }
+
+    span.signature {
+      border-bottom: 1px solid #a3a3a3;
+      min-width: 100px;
+      min-height: 14px;
+      width: 1%;
+      height: 1%;
+    }
+
+    span.signature:after {
+      content: '_______________________________';
+      visibility: hidden;
+    }
+
+    .bound {
+      max-height: 310px;
+      min-height: 310px;
+    }
+
+    .construct-divider {
+      display: block;
+      height: 180px;
+      max-height: 180px; 
+      min-height: 180px;
+    }
+
+hr {
+  margin: 2px!important;
+  clear: both;
+}

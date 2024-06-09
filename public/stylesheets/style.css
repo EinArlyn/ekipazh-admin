@@ -1,0 +1,250 @@
+body {
+  padding: 50px;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  background-color: #e4e4e4;
+}
+
+a {
+  color: #00B7FF; }
+
+.main_body {
+	background: #d1d1d1;
+	max-width: 850px;
+	min-width: 850px;
+	max-height: 950px;
+	min-height: 350px;
+	margin: auto;
+	border: 1px solid #afafaf;
+}
+
+.header {
+	float: left;
+	width: 375px;
+	text-align: right;
+}
+
+#header_id {
+	text-align: left;
+}
+
+.header_form {
+	float: right;
+	text-align: left;
+	width: 470px;
+	min-height: 54px;
+}
+
+.content_group {
+	clear: both;
+	text-align: center;
+}
+
+.content_group_form {
+	clear: both;
+	text-align: center;
+}
+
+select.group { 
+	width: 120px; 
+}
+
+select.type {
+	width: 120px;
+}
+
+select.currency {
+	width: 60px;
+}
+
+select#glass_type {
+	width: 120px;
+}
+
+.glass_group {
+	text-align: center;
+}
+
+.glass_group #glass_id{
+	text-align: left;
+}
+
+.glass_type_text {
+	margin: auto;
+	text-align: center;
+}
+
+.glass_type_form {
+	clear: both;
+	margin: 0 0 0 220px;
+}
+
+.profile_field {
+	margin: auto;
+	background: #ffffff;
+	max-width: 390px;
+	min-width: 390px;
+	max-height: 90px;
+	min-height: 70px;
+	overflow: auto;
+}
+/*
+.profile_item {
+	border: 1px solid;
+	width: 50px;
+	display: inline;
+}
+*/
+.factory_text {
+	margin: 0 150px 0 210px;
+}
+
+.factory_form {
+	margin: 0 150px 0 210px;
+}
+
+.glass_properties {
+	margin-left: 220px;
+	margin-top: 10px;
+}
+
+select.factory {
+	width: 120px;
+}
+
+.markup {
+	text-align: center;
+}
+
+.markup #markup_id {
+	text-align: left;
+}
+
+#main_glass {
+	display: none;
+}
+
+.footer {
+	text-align: center;
+}
+
+
+#submit {
+	position: absolute;
+	right: 50%;
+}
+
+.main_edit_list {
+	border: 1px solid;
+	max-width: 950px;
+	min-width: 950px;
+	min-height: 800px;
+	clear: both;
+	margin: auto;
+}
+
+.header_list_id {
+	float: left;
+}
+
+.header_list {
+	margin-left: 223px;
+	margin-bottom: 30px;
+	float: left;
+}
+
+.header_form_list {
+	margin-right: 310px;
+	float: right;
+}
+
+.header_content {
+	margin-left: 265px;
+	clear: both;
+}
+
+#type_list {
+	margin-left: 150px;
+}
+
+.header_content_form {
+	margin-left: 265px;
+}
+
+select.list_group {
+	width: 200px;
+}
+
+#list_type {
+	margin-left: 50px;
+}
+
+select.list_type {
+	width: 200px;
+}
+
+.window_profile_image {
+	float: left;
+	margin-left: 200px;
+	border: 1px solid;
+	background-color: #fff;
+	min-width: 200px;
+	max-width: 200px;
+	min-height: 200px;
+	max-height: 200px;
+}
+
+.window_profile_params {
+	float: right;
+	margin-right: 150px;
+}
+
+.items_list {
+	margin-top: 220px;
+	clear: both;
+	width: 100%;
+	min-height: 100px;
+	border: 1px dotted;
+}
+
+.buttons {
+	text-align: center;
+}
+
+.add_element {
+	float: left;
+}
+
+.add_element_content {
+	margin-left: 265px;
+}
+
+select.add_element_form {
+	width: 200px;
+}
+
+select.add_element_name {
+	margin-left: 40px;
+	width: 200px;
+}
+
+select.rules_select {
+	margin-left: 40px;
+	width: 200px;
+}
+
+select.lamination_types {
+	width: 200px;
+}
+
+select.window_hardware_colors {
+	width: 200px;
+}
+
+#save_list {
+	margin-left: 450px;
+}
+
+.currentPage {
+	font-weight:bold;
+	text-decoration:none;
+}

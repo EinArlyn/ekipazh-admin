@@ -1,0 +1,557 @@
+head
+  meta(charset="utf-8")
+  meta(http-equiv="X-UA-Compatible" content="IE=edge")
+  title=title
+  link(rel="stylesheet", href=cssSrc)
+body
+  #content
+    #side-panel
+      .text-margin
+        | Services:
+      ul
+        li
+          a(href="#login")
+            | /api/login
+        li
+          a(href="#signed")
+            | /api/signed
+          | 
+          //span.disabled-text
+            | disabled
+        li
+          a(href="#sync")
+            | /api/sync
+        li
+          a(href="#update")
+            | /api/update
+        li
+          a(href="#insert")
+            | /api/insert
+        li
+          a(href="#remove-order")
+            | /api/remove-order
+        li
+          a(href="#register")
+            | /api/register
+        li.disabled
+          a(href="#get-orders")
+            | /api/get/orders
+          | 
+          span.disabled-text
+            | disabled
+        li
+          a(href="#get-locations")
+            | /api/get/locations
+        li
+          a(href="#get-factories-by-country")
+            | /api/get/factories-by-country
+    #api-content
+      table.api-table(id="login" cellspacing="0" cellpadding="2" border="0")
+        tr
+          td(colspan="2")
+            h2 /api/login
+            | 
+            button.emit-btn(id="emit-login" type="button") emit
+        tr
+          td.primary
+            | method:
+          td.secondary
+            b POST
+        tr
+          td.primary
+            | query:
+          td.secondary
+            | -
+        tr
+          td.primary
+            | body:
+          td.secondary
+            pre
+              | {
+              |   login:    {
+              b string
+              | }      - user phone
+              | }
+        tr
+          td.primary
+            | response:
+          td.secondary
+            pre
+              | {
+              |   status: 
+              b true
+              | ,
+              |   user: 
+              |     {
+              |       ......,
+              |       ......
+              |     }
+              | }
+      table.api-table(id="signed" cellspacing="0" cellpadding="2" border="0")
+        tr
+          td(colspan="2")
+            h2 /api/signed
+            //span.disabled-text
+              | 
+              | disabled
+            | 
+            button.emit-btn(id="emit-signed" type="button") emit
+        tr
+          td.primary
+            | method:
+          td.secondary
+            b GET
+        tr
+          td.primary
+            | query:
+          td.secondary
+            | ?login=
+            b login
+            | &access_token=
+            b access_token
+            | &date=
+            b date
+            pre
+              |    login:           {
+              b string
+              | }      - user phone
+              |    access_token:    {
+              b string
+              | }      - user device_code
+              |    date:            {
+              b timestamp
+              | }   - date
+        tr
+          td.primary
+            | body:
+          td.secondary
+            | -
+        tr
+          td.primary
+            | response:
+          td.secondary
+            pre
+              | {
+              |   status: 
+              b true
+              | 
+              | }
+      table.api-table(id="sync" cellspacing="0" cellpadding="2" border="0")
+        tr
+          td(colspan="2")
+            h2 /api/sync
+            | 
+            button.emit-btn(id="emit-sync" type="button") emit
+        tr
+          td.primary
+            | method:
+          td.secondary
+            b GET
+        tr
+          td.primary
+            | query:
+          td.secondary
+            | ?login=
+            b login
+            | &access_token=
+            b access_token
+            pre
+              |    login:           {
+              b string
+              | }      - user phone
+              |    access_token:    {
+              b string
+              | }      - user device_code
+        tr
+          td.primary
+            | body:
+          td.secondary
+            | -
+        tr
+          td.primary
+            | response:
+          td.secondary
+            pre
+              | {
+              |   status: 
+              b true
+              | ,
+              |   tables: 
+              |     {
+              |       additional_colors: 
+              |         {
+              |           fields:    {
+              b array of strings
+              | }     - array with fields of current table,
+              |           rows:      {
+              b array of strings
+              | }     - array with values of current table
+              |         },
+              |       .......,
+              |       .......
+              |     }
+              | }
+      table.api-table(id="update" cellspacing="0" cellpadding="2" border="0")
+        tr
+          td(colspan="2")
+            h2 /api/update
+            | 
+            button.emit-btn(id="emit-update" type="button") emit
+        tr
+          td.primary
+            | method:
+          td.secondary
+            b POST
+        tr
+          td.primary
+            | query:
+          td.secondary
+            | ?login=
+            b login
+            | &access_token=
+            b access_token
+            pre
+              |    login:           {
+              b string
+              | }      - user phone
+              |    access_token:    {
+              b string
+              | }      - user device_code
+        tr
+          td.primary
+            | body:
+          td.secondary
+            pre
+              | {
+              |   model:    {
+              b string
+              | }      - table name,
+              |   rowId:    {
+              b integer
+              | }     - row id which you want to change,
+              |   field:    {
+              b string
+              | }      - string, where property name - field name which you want to change with new value
+              |                             { <'field_name'> : <'new_value'> }
+              | }
+        tr
+          td.primary
+            | response:
+          td.secondary
+            pre
+              | {
+              |   status: 
+              b true
+              | 
+              | }
+      table.api-table(id="insert" cellspacing="0" cellpadding="2" border="0")
+        tr
+          td(colspan="2")
+            h2 /api/insert
+            | 
+            button.emit-btn(id="emit-insert" type="button") emit
+        tr
+          td.primary
+            | method:
+          td.secondary
+            b POST
+        tr
+          td.primary
+            | query:
+          td.secondary
+            | ?login=
+            b login
+            | &access_token=
+            b access_token
+            pre
+              |    login:           {
+              b string
+              | }      - user phone
+              |    access_token:    {
+              b string
+              | }      - user device_code
+        tr
+          td.primary
+            | body:
+          td.secondary
+            pre
+              | {
+              |   model:    {
+              b string
+              | }      - table name,
+              |   row:    {
+              b string
+              | }      - string, where property name - field name which you want to change with new value
+              |                             { <'field_name'> : <'new_value'> }
+              | }
+        tr
+          td.primary
+            | response:
+          td.secondary
+            pre
+              | {
+              |   status: 
+              b true
+              | ,
+              |   id:     {
+              b integer
+              | }   -  id of new row
+              | }
+      table.api-table(id="remove-order" cellspacing="0" cellpadding="2" border="0")
+        tr
+          td(colspan="2")
+            h2 /api/remove-order
+            | 
+            button.emit-btn(id="emit-remove-order" type="button") emit
+        tr
+          td.primary
+            | method:
+          td.secondary
+            b POST
+        tr
+          td.primary
+            | query:
+          td.secondary
+            | ?login=
+            b login
+            | &access_token=
+            b access_token
+            pre
+              |    login:           {
+              b string
+              | }      - user phone
+              |    access_token:    {
+              b string
+              | }      - user device_code
+        tr
+          td.primary
+            | body:
+          td.secondary
+            pre
+              | {
+              |   orderId:    {
+              b numeric
+              | }      - order Id
+              | }
+        tr
+          td.primary
+            | response:
+          td.secondary
+            pre
+              | {
+              |   status: 
+              b true
+              | 
+              | }
+      table.api-table(id="register" cellspacing="0" cellpadding="2" border="0")
+        tr
+          td(colspan="2")
+            h2 /api/register
+            | 
+            button.emit-btn(id="emit-register" type="button") emit
+        tr
+          td.primary
+            | method:
+          td.secondary
+            b POST
+        tr
+          td.primary
+            | query:
+          td.secondary
+            | -
+        tr
+          td.primary
+            | body:
+          td.secondary
+            pre
+              | {
+              |   name:     {
+              b string
+              | }      - user name,
+              |   phone:    {
+              b string
+              | }      - user phone,
+              |   email:    {
+              b string
+              | }      - user email,
+              |   cityId:   {
+              b integer
+              | }     - city id,
+              |   password: {
+              b string
+              | }      - user password
+              | }
+        tr
+          td.primary
+            | response:
+          td.secondary
+            pre
+              | {
+              |   status: 
+              b true
+              | 
+              | }
+      table.api-table.disabled(id="get-orders" cellspacing="0" cellpadding="2" border="0")
+        tr
+          td(colspan="2")
+            h2 /api/get/orders
+            span.disabled-text
+              | 
+              | disabled
+            | 
+            button.emit-btn(id="emit-get-order" type="button") emit
+        tr
+          td.primary
+            | method:
+          td.secondary
+            b GET
+        tr
+          td.primary
+            | query:
+          td.secondary
+            | ?login=
+            b login
+            | &access_token=
+            b access_token
+            pre
+              |    login:           {
+              b string
+              | }      - user phone
+              |    access_token:    {
+              b string
+              | }      - user device_code
+        tr
+          td.primary
+            | body:
+          td.secondary
+            | -
+        tr
+          td.primary
+            | response:
+          td.secondary
+            pre
+              | {
+              |   status: 
+              b true
+              | ,
+              |   orders:            {
+              b array of sequelize objects
+              | }
+              |     [{
+              |       id:            {integer}      - order id,
+              |       seller_name:   {string}       - seller name,
+              |       ...........................................,
+              |     },
+              |     ........]
+              | }
+      table.api-table(id="get-locations" cellspacing="0" cellpadding="2" border="0")
+        tr
+          td(colspan="2")
+            h2 /api/get/locations
+            | 
+            button.emit-btn(id="emit-get-locations" type="button") emit
+        tr
+          td.primary
+            | method:
+          td.secondary
+            b GET
+        tr
+          td.primary
+            | query:
+          td.secondary
+            | ?login=
+            b login
+            | &access_token=
+            b access_token
+            pre
+              |    login:           {
+              b string
+              | }      - user phone
+              |    access_token:    {
+              b string
+              | }      - user device_code
+        tr
+          td.primary
+            | body:
+          td.secondary
+            | -
+        tr
+          td.primary
+            | response:
+          td.secondary
+            pre
+              | {
+              |   status: 
+              b true
+              | ,
+              |   tables: 
+              |     {
+              |       cities: 
+              |         {
+              |           fields:    {
+              b array of strings
+              | }     - array with fields of current table,
+              |           rows:      {
+              b array of strings
+              | }     - array with values of current table
+              |         },
+              |       countries: {},
+              |       regions: {}
+              |     }
+              | }
+      table.api-table(id="get-factories-by-country" cellspacing="0" cellpadding="2" border="0")
+        tr
+          td(colspan="2")
+            h2 /api/get/factories-by-country
+            | 
+            button.emit-btn(id="emit-get-factories-by-country" type="button") emit
+        tr
+          td.primary
+            | method:
+          td.secondary
+            b GET
+        tr
+          td.primary
+            | query:
+          td.secondary
+            | ?login=
+            b login
+            | &access_token=
+            b access_token
+            | &cities_ids=
+            b cities_ids
+            pre
+              |    login:           {
+              b string
+              | }      - user phone,
+              |    access_token:    {
+              b string
+              | }      - user device_code,
+              |    cities_ids:      {
+              b string
+              | }      - cities ids of current country
+        tr
+          td.primary
+            | body:
+          td.secondary
+            | -
+        tr
+          td.primary
+            | response:
+          td.secondary
+            pre
+              | {
+              |   status: 
+              b true
+              | ,
+              |   factories: {
+              b array of objects
+              | }     - array of factories,
+              |     {
+              |       .......,
+              |       .......
+              |     }
+              | }
+  script(src="/assets/javascripts/jquery-1.11.2.min.js")
+  each scriptSrc in scriptSrcs
+    script(src=scriptSrc)

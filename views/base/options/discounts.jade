@@ -1,0 +1,147 @@
+extends ../layout
+
+block content
+  .main-nav
+    .nav-link
+      a(class="external-link", href="/")= i18n.__('Dashboard') 
+      | 
+      | -> 
+      span#nav-text
+        =i18n.__('Options')
+      img.loader-ico(src="/assets/images/loader_ico.GIF")
+  .main-select-option
+    select(id="lamination-select", name="", class="select-default selected-option", style="width: 180px;")
+      option(value="1")=i18n.__('Lamination')
+      option(value="2" selected)=i18n.__('Discounts')
+      option(value="3")=i18n.__('Coefficients')
+      option(value="8")=i18n.__('Suppliers')
+      option(value="9")=i18n.__('Currency')
+      option(value="10")=i18n.__('General options')
+      option(value="11")=i18n.__('Application options')
+      option(disabled)=i18n.__('Groups')
+      option(value="4")=i18n.__('Glazed window')
+      option(value="5")=i18n.__('Window sills')
+      option(value="6")=i18n.__('Spillways')
+      option(value="7")=i18n.__('Visors')
+      option(value="12")=i18n.__('Connectors')
+      option(value="13")=i18n.__('Mosquitos')
+      option(value="14")=i18n.__('Doorhandles')
+  form(method='post', action='/base/option/save', id="main-form")
+    .discount-option.checked-option
+      .main-content
+        .main-content-header
+          .main-content-header-wrap
+            .standart-term
+              =i18n.__('Standard installation time order')
+              b.editable-discount(id="standart_time")
+                =discounts.standart_time
+              =i18n.__('days')
+            .min-term
+              =i18n.__('Minimum installation time order')
+              b.editable-discount(id="min_time")
+                =discounts.min_time
+              =i18n.__('days')
+          .discount-header
+            =i18n.__('Factory prices')
+            | :
+        .content-wrap
+          .content-wrap-header
+            span#period-content-header
+              =i18n.__('Period order')
+            span#discount-content-header
+              =i18n.__('Extras. surcharge / discount')
+            | %
+          .content-wrap-body
+            ul.rushOrder
+              - var n = discounts.min_time
+              - var i = 0
+              while n < discounts.standart_time
+                li
+                  span.period-content-body
+                    =i18n.__('Immediate order on')
+                    | 
+                    =n
+                    | 
+                    =i18n.__('day')
+                    | :
+                  span.discount-content-body
+                    =i18n.__('Markup')
+                  .editable-percent(id=n)
+                    =discounts.percents[n++]
+              li
+                span.period-content-body
+                  =i18n.__('Basic production time')
+                  | 
+                  =n
+                  | 
+                  =i18n.__('days')
+                  | :
+                span.discount-content-body
+                  =i18n.__('Discount')
+                .editable-percent(id=n)
+                  =discounts.percents[n++]
+              li
+                span.period-content-body
+                  =i18n.__('Set aside the order of 1 week of baseline')
+                  | :
+                span.discount-content-body
+                  =i18n.__('Discount')
+                span.percent-content-body.editable-discount(id="week_1")
+                  =discounts.week_1
+              li
+                span.period-content-body
+                  =i18n.__('Set aside the order of 2 weeks from the base')
+                  | :
+                span.discount-content-body
+                  =i18n.__('Discount')
+                span.percent-content-body.editable-discount(id="week_2")
+                  =discounts.week_2
+              li
+                span.period-content-body
+                  =i18n.__('Set aside the order of 3 weeks from the base')
+                  | :
+                span.discount-content-body
+                  =i18n.__('Discount')
+                span.percent-content-body.editable-discount(id="week_3")
+                  =discounts.week_3
+              li
+                span.period-content-body
+                  =i18n.__('Set aside the order of 4 weeks from the base')
+                  | :
+                span.discount-content-body
+                  =i18n.__('Discount')
+                span.percent-content-body.editable-discount(id="week_4")
+                  =discounts.week_4
+              li
+                span.period-content-body
+                  =i18n.__('Set aside the order of 5 weeks from the base')
+                  | :
+                span.discount-content-body
+                  =i18n.__('Discount')
+                span.percent-content-body.editable-discount(id="week_5")
+                  =discounts.week_5
+              li
+                span.period-content-body
+                  =i18n.__('Set aside the order of 6 weeks from the base')
+                  | :
+                span.discount-content-body
+                  =i18n.__('Discount')
+                span.percent-content-body.editable-discount(id="week_6")
+                  =discounts.week_6
+              li
+                span.period-content-body
+                  =i18n.__('Set aside the order of 7 weeks from the base')
+                  | :
+                span.discount-content-body
+                  =i18n.__('Discount')
+                span.percent-content-body.editable-discount(id="week_7")
+                  =discounts.week_7
+              li
+                span.period-content-body
+                  =i18n.__('Set aside the order of 8 weeks from the base')
+                  | :
+                span.discount-content-body
+                  =i18n.__('Discount')
+                span.percent-content-body.editable-discount(id="week_8")
+                  =discounts.week_8
+      .content-footer

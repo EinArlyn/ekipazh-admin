@@ -1,0 +1,83 @@
+extends layout
+
+block content
+  .main-nav 
+    .nav-link
+      a(class="external-link", href="/")= i18n.__('Dashboard') 
+      | 
+      | -> 
+      span#nav-text
+        =i18n.__('Elements')
+      img.loader-ico(src="/assets/images/loader_ico.GIF")
+  .main-options
+    .header-options
+      select(id="select-group", class="select-default")
+        each elementType in elementTypes
+          option(value= elementType.type, selected=(type === elementType.type ? "selected" : undefined))= elementType.name
+           
+      a(href="#" id="addItem" class=(type == '0' ? 'disabled' : ''))
+        span#addItemText 
+          =i18n.__('Create element')
+  .main-content
+    .content-header
+      .wrap-content-header
+        #choose
+          =i18n.__('Select')
+        #article
+          a(href= thisPageLink + "?type=" + type + "&order=sku" + '&changeElType=1&queryName=' + queryName)
+            =i18n.__('SKU')
+        #name
+          a(href= thisPageLink + "?type=" + type + "&order=name" + '&changeElType=1&queryName=' + queryName)
+            =i18n.__('Title')
+        #sets
+            =i18n.__('Sets number')
+        #supplier
+          a(href= thisPageLink + "?type=" + type + "&order=supplier_id" + '&changeElType=1&queryName=' + queryName)
+            =i18n.__('Supplier')
+        #price
+          a(href= thisPageLink + "?type=" + type + "&order=price" + '&changeElType=1&queryName=' + queryName)
+            =i18n.__('Price')
+        #currency
+          a(href= thisPageLink + "?type=" + type + "&order=currency" + '&changeElType=1&queryName=' + queryName)
+            =i18n.__('Сurrency')
+
+    .content
+      ul(class="element-wrapper")
+        each element in elements[0]
+          li(data=element.id, class="element-edit")
+            .element-choose
+              input(class="items-checkbox" id="checkbox" + element.id, type="checkbox", name="checkedElements", value=element.id)
+              label(for="checkbox" + element.id)
+                span#hide
+                  =null
+            .element-sku
+              =element.sku
+            .element-name
+              =element.name
+            .element-set(value=element.id)
+              | 0
+            .element-supplier
+              =element.supplier    
+            .element-price
+              =element.price
+            .element-currency
+               =element.currency
+  .content-footer
+    .content-footer-operation
+      select(class="select-default", id="selectOption", disabled)
+        option(value="1" disabled selected="selected")=i18n.__('Operation')
+        option(value="удалить")=i18n.__('Remove')
+        option(value="дублировать")=i18n.__('Duplicate')
+      .content-footer-operation-radio
+        .radio-fix
+          input(type="radio", name="option", id="radioSelected", checked, disabled)  
+          label(for="radioSelected")=i18n.__('With selected')
+        input(type="radio", name="option", id="radioUnSelected", disabled)
+        label(for="radioUnSelected")=i18n.__('With unselected')
+    #content-footer-ok
+      a(href="#", id="okItem")
+        span#okItemText
+          =i18n.__('Ok')
+    .content-footer-pagination
+      include ../includes/paginator.jade    
+      include ./includes/alert-delete-elements.jade

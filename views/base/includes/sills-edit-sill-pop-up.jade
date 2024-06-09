@@ -1,0 +1,12 @@
+.pop-up.edit-sill-pop-up
+  .pop-up-close-wrap
+    a(class="pop-up-close", href="#")
+  span.pop-up-header
+    =i18n.__('Edit sill')
+  .content
+    span.field-margin
+      =i18n.__('Group')
+      | :
+    select.select-default.select-medium#edit-sill-group-select
+  .submit-row
+    input.btn-submit#submit-edit-sill-group(type="button" data-sill="" value=i18n.__('Save'))

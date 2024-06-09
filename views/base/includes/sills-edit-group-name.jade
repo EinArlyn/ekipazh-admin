@@ -1,0 +1,12 @@
+.pop-up.edit-group-name-pop-up
+  .pop-up-close-wrap
+    a(class="pop-up-close", href="#")
+  span.pop-up-header
+    =i18n.__('Edit group')
+  .content
+    span.field-margin
+      =i18n.__('Group name')
+      | :
+    input.input-default#edit-group-name-input(type="text" value="" style="width: 150px;")
+  .submit-row
+    input.btn-submit#submit-edit-group-name(type="button" data-group="" value=i18n.__('Save'))

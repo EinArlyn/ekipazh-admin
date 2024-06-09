@@ -1,0 +1,107 @@
+if !doorGroups.length
+  tr
+    td.td-empty(colspan="5")
+      =i18n.__("Empty")
+each doorGroup in doorGroups
+  tr.tr-group-item(data-id=doorGroup.id)
+    td(colspan="5")
+      span.group-description
+        =doorGroup.name
+      input.edit-btn.group-edit(type="button" data-id=doorGroup.id)
+      input.show-info.group-show(type="button" data-id=doorGroup.id)
+  tr.edit-dependencies(data-id=doorGroup.id)
+    td(colspan="5" style="width: 920px;")
+      table.door-lamination-table(data-id="0" cellspacing="0" cellpadding="0")
+        tbody
+          tr.tr-lamination-type
+            td(colspan="6")
+              =i18n.__('Lamination')
+              | :
+              | 
+              select.select-default.select-lamination.option-lamination-in(disabled)
+                option(value="1")
+                  =i18n.__('White') 
+              | 
+              | - 
+              select.select-default.select-lamination.select-lamination-last.option-lamination-in(disabled)
+                option(value="1")
+                  =i18n.__('White') 
+              
+              =i18n.__('Sync code')
+                | : 
+              input.default-option.td-select(type="text" data-group=doorGroup.id data-field="code_sync_white" class="input-default option-code-sync input-code-sync" disabled value=doorGroup.code_sync_white)
+          tr.tr-header
+            td.td-header.header-select
+              =i18n.__('Frame')
+              | :
+            td.td-header.header-select
+              =i18n.__('Doorsill')
+              | :
+            td.td-header.header-select
+              =i18n.__('Leaf')
+              | :
+            td.td-header.header-select
+              =i18n.__('Impost')
+              | :
+            td.td-header.header-select
+              =i18n.__('Face plate')
+              | :
+          tr.tr-content
+            td.td-content
+              select.select-default.default-option.td-select(data-group=doorGroup.id data-field="rama_list_id" style="width: 150px;")
+                option(value="0" selected=("0" === doorGroup.rama_list_id ? 'selected' : undefined)) Отсутствует
+                each frameList in frameLists[0]
+                  option(value=frameList.id selected=(frameList.id === doorGroup.rama_list_id ? 'selected' : undefined))=frameList.name
+            td.td-content
+              select.select-default.default-option.td-select(data-group=doorGroup.id data-field="door_still_list_id" style="width: 150px;")
+                option(value="0" selected=("0" === doorGroup.rama_still_list_id ? 'selected' : undefined)) Отсутствует
+                each doorSillList in doorSillLists[0]
+                  option(value=doorSillLists.id selected=(doorSillLists.id === doorGroup.rama_still_list_id ? 'selected' : undefined))=doorSillLists.name
+            td.td-content
+              select.select-default.default-option.td-select(data-group=doorGroup.id data-field="stvorka_list_id" style="width: 150px;")
+                option(value="0" selected=("0" === doorGroup.stvorka_list_id ? 'selected' : undefined)) Отсутствует
+                each leaf in leafs[0]
+                  option(value=leaf.id selected=(leaf.id === doorGroup.stvorka_list_id ? 'selected' : undefined))=leaf.name
+            td.td-content
+              select.select-default.default-option.td-select(data-group=doorGroup.id data-field="impost_list_id" style="width: 150px;")
+                option(value="0" selected=("0" === doorGroup.impost_list_id ? 'selected' : undefined)) Отсутствует
+                each impostList in impostLists[0]
+                  option(value=impostList.id selected=(impostList.id === doorGroup.impost_list_id ? 'selected' : undefined))=impostList.name
+            td.td-content
+              select.select-default.default-option.td-select(data-group=doorGroup.id data-field="shtulp_list_id" style="width: 150px;")
+                option(value="0" selected=("0" === doorGroup.shtulp_list_id ? 'selected' : undefined)) Отсутствует
+                each shtulpList in shtulpLists[0]
+                  option(value=shtulpList.id selected=(shtulpList.id === doorGroup.shtulp_list_id ? 'selected' : undefined))=shtulpList.name
+          tr.tr-header
+            td.td-header.header-select
+              =i18n.__('Frame bottom')
+              | :
+          tr.tr-content
+            td.td-content
+              select.select-default.default-option.td-select(data-group=doorGroup.id data-field="rama_sill_list_id" style="width: 150px;")
+                option(value="0" selected=("0" == doorGroup.rama_sill_list_id ? 'selected' : undefined)) Отсутствует
+                each frameBottomList in frameBottomLists[0]
+                  option(value=frameBottomList.id selected=(frameBottomList.id === doorGroup.rama_sill_list_id ? 'selected' : undefined))=frameBottomList.name
+          //- tr.default-lamination(data-id=doorGroup.id)
+            td(colspan="5" style="width: 920px;")
+              table.edit-dependencies-table(cellspacing="0" cellpadding="0")
+                tr.tr-lamination-type
+                  td(colspan="6")
+                    =i18n.__('Lamination')
+                    | :
+                    | 
+                    select.select-default.select-lamination.option-lamination-in
+                      option(value="1")
+                        =i18n.__('White') 
+                    | 
+                    | - 
+                    select.select-default.select-lamination.select-lamination-last.option-lamination-in
+                      option(value="1")
+                        =i18n.__('White') 
+                    
+                    =i18n.__('Sync code')
+                      | : 
+                    input.default-option.td-select(type="text" data-profile=doorGroup.id data-field="code_sync_white" class="input-default option-code-sync input-code-sync" value=doorGroup.code_sync_white)
+      tr.add-door-group(data-id=doorGroup.id)
+        td.add-dependency-btn(colspan="5" data-id=doorGroup.id)
+          =i18n.__('Add +')

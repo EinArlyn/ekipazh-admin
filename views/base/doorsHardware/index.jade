@@ -1,0 +1,65 @@
+extends ../layout
+
+block content
+  .main-nav
+    .nav-link
+      a(class="external-link", href="/")= i18n.__('Dashboard') 
+      | 
+      | -> 
+      span#nav-text
+        =i18n.__('Door hardware')
+      img.loader-ico(src="/assets/images/loader_ico.GIF")
+  .main-content
+    .row
+      input.folder-btn.folder-show(type="button" data-id="1" value=i18n.__('Single leaf'))
+    .row.folder-content
+      table.groups-table(cellpadding="0" data-id="1" cellspacing="0" border="0")
+        tbody
+        tfoot
+          tr
+            td.add-new-group
+              =i18n.__('Add +')
+            td(colspan="3")
+    .row
+      input.folder-btn.folder-show(type="button" data-id="2" value=i18n.__('Shtulp'))
+    .row.folder-content
+      table.groups-table(cellpadding="0" cellspacing="0" border="0" data-id="2")
+        tbody
+        tfoot
+          tr
+            td.add-new-group
+              =i18n.__('Add +')
+            td(colspan="3")
+    .row.hardware-group-preferences
+      hr.smooth
+      include ./includes/group-preferences.jade
+      .row.optional-buttons
+        .col-md-12.pull-right
+          input.add-btn-light#add-set(type="button" value=i18n.__('Add set'))
+          | 
+          input.add-btn-light#add-element(type="button" value=i18n.__('Add element'))
+    .row.group-items
+      include ./includes/group-items.jade
+    .row.content-footer
+      .content-footer-operation
+        select(class="select-operation", id="selectOption")
+          option(value="1" disabled selected="selected")=i18n.__('Operation')
+          option(value="удалить")=i18n.__('Remove')
+        .content-footer-operation-radio
+          .radio-fix
+            input(type="radio", name="option", id="radioSelected", checked)  
+            label(for="radioSelected")=i18n.__('With selected') 
+          input(type="radio", name="option", id="radioUnSelected")
+          label(for="radioUnSelected")=i18n.__('With unselected')
+      #content-footer-ok
+        a(href="#", id="okItem", )
+          span#okItemText
+            =i18n.__('Ok')
+      .content-footer-pagination
+        .paginator
+    include ./includes/popup-add-group.jade
+    include ./includes/popup-edit-group.jade
+    include ./includes/popup-add-set.jade
+    include ./includes/popup-add-element.jade
+    include ./includes/popup-edit-item.jade
+      

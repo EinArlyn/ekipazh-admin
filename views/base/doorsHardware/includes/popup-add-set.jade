@@ -1,0 +1,72 @@
+.pop-up.popup-add-new-set
+  form#form-new-set(method="post" action="/base/doors/hardware/item/add" enctype="multipart/form-data")
+    input(type="hidden" name="hardware_group_id" value="")
+    input(type="hidden" name="item_type" value="list")
+    .pop-up-close-wrap
+      a.pop-up-close(href="#")
+    span.pop-up-header
+      =i18n.__('Add new set')
+    .row
+      .col-md-2.text-right
+        =i18n.__('Filter')
+        | :
+      .col-md-10
+        input.input-default.width-100.item-query-search-input(type="text")
+    .row
+      .col-md-2.text-right
+        =i18n.__('Group')
+      .col-md-10
+        select.select-default.width-100(name="group_id")
+    .row
+      .col-md-2.text-right
+        =i18n.__('Name')
+      .col-md-10
+        select.select-default.width-100(name="item_id")
+    .row
+      .col-md-3
+        =i18n.__('Direction')
+        | : 
+      .col-md-3
+        =i18n.__('Inner window color')
+        | : 
+      .col-md-3.length-preference
+        =i18n.__('Length')
+        | : 
+      .col-md-3
+        =i18n.__('Amount')
+        | :
+    .row
+      .col-md-3
+        select.select-default.width-100(name="direction_id")
+          option(value="1")=i18n.__('Ignore')
+          option(value="2")=i18n.__('Right-hand')
+          option(value="3")=i18n.__('Left-hand')
+      .col-md-3
+        select.select-default.width-100(name="color_id")
+      .col-md-3.length-preference
+        input.input-default.width-100(type="text" name="length" value="0")
+      .col-md-3
+        input.input-default.width-100(type="text" name="amount" value="0")
+    .row.margin-5
+      .col-md-6.text-center
+        =i18n.__('Width (mm)')
+        | :
+      .col-md-6.text-center
+        =i18n.__('Height (mm)')
+        | :
+    .row
+      .col-md-6.text-center
+        | min 
+        input.input-default.width-30(type="text" name="width_min" value="0") 
+        | 
+        | max 
+        input.input-default.width-30(type="text" name="width_max" value="0")
+      .col-md-6.text-center
+        | min 
+        input.input-default.width-30(type="text" name="height_min" value="0") 
+        | 
+        | max 
+        input.input-default.width-30(type="text" name="height_max" value="0")
+    .row.margin-10
+      .col-md-12.text-center
+        input.add-btn(type="submit" value=i18n.__('Add'))

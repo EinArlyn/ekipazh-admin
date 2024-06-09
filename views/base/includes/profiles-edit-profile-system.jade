@@ -1,0 +1,101 @@
+.pop-up.edit-profile-system-pop-up
+  form#edit-profile-system-form(method="POST" action="/base/profiles/editProfileSystem" enctype="multipart/form-data")
+    input.hidden#edit-profile-system-id-input(type="text" name="profile_system_id" value="")
+    .pop-up-close-wrap
+      a.pop-up-close(value=".edit-profile-system-pop-up" href="#")
+    span.pop-up-header
+      =i18n.__('Edit profile system')
+    .pop-up-specs
+      span#profile-active
+        input(id="checkbox-profile-active", type="checkbox", name="active" value="1")
+        label(for="checkbox-profile-active")
+          =i18n.__("Active")
+      span#profile-sync-code
+        =i18n.__("Sync code")
+        | : 
+        input.input-default#sync-code(type="text" name="sync_code" value="" style="width: 80px")
+    hr
+    .pop-up-text
+      span.text-beside-input
+        =i18n.__('Group')
+        | :
+      br
+      span.text-beside-input
+        =i18n.__('Title')
+        | /
+        =i18n.__('Position')
+        | :
+      br
+      span.text-beside-input
+        =i18n.__('Amount of cameras')
+        | /
+        =i18n.__('Coeff. of thermal insulation')
+        | :
+      br
+      span.text-beside-input
+        =i18n.__('Country')
+        | :
+      br
+      span.text-beside-input
+        =i18n.__('Link')
+        | :
+      br
+      span.text-beside-input
+        =i18n.__('Description')
+        | :
+    .pop-up-input
+      select.select-default.input-margin(id="profile-system-group-input" name="folder_id" style="width: 227px;")
+        //input.input-default.input-margin-popup#group-name-popup(type="text" name="name" value="" style="width: 166px;")
+      input.input-default.input-margin(id="profile-system-name-input" name="name" type="text" value="" style="width: 190px;")
+      input.input-default.input-margin(id="profile-system-position-input" name="position" type="text" value="" style="width: 22px;")
+      input.input-default.input-margin(id="profile-system-cameras-input" name="cameras" type="text" value="" style="width: 106px;")
+      input.input-default.input-margin(id="profile-system-heat-coeff-input" name="heat_coeff_value" type="text" value="" style="width: 106px;")
+      input.input-default.input-margin(id="profile-system-country-input" name="country" type="text" value="" style="width: 220px;")
+      input.input-default.input-margin(id="profile-system-link-input" name="link" type="text" value="" style="width: 220px;")
+      textarea.input-default.input-margin#profile-system-description-input(name="description" style="width: 220px; height: 50px; resize: none;")
+    .pop-up-coeffs
+      .row
+        .col-md-5
+          =i18n.__('Default profile')
+          | : 
+          input(id="checkbox-profile-default", type="checkbox", name="profile_by_default" value="1")
+          label(for="checkbox-profile-default")
+            span#hide
+              =null
+        .col-md-7
+          =i18n.__('Usable as a Push message')
+          | : 
+          input(id="checkbox-profile-push", type="checkbox", name="is_push" value="1")
+          label(for="checkbox-profile-push")
+            span#hide
+              =null
+      .row
+        .col-md-6
+          span.coeffs-text-margin
+            =i18n.__('Heat insulation')
+            | : 
+            select.select-default.input-margin(id="profile-system-heat-input" name="heat_coeff" style="width: 35px;")
+              option(value="1") 1
+              option(value="2") 2
+              option(value="3") 3
+              option(value="4") 4
+              option(value="5") 5
+          | 
+        .col-md-6
+          span.coeffs-text-margin
+            =i18n.__('Noise insulation')
+            | : 
+            select.select-default.input-margin(id="profile-system-noise-input" name="noise_coeff" style="width: 35px;")
+              option(value="1") 1
+              option(value="2") 2
+              option(value="3") 3
+              option(value="4") 4
+              option(value="5") 5
+    .pop-up-description
+      input#select-profile-edit-system-image(type="file" name="profile_img" class="hidden")
+      a#edit-profile-system-img(href="#" type="button" style="margin-left: 60px;")
+      img#profile-edit-system-image(style="height: 64px; width: 124px; margin-left: 20px;" src="")
+    .pop-up-submit
+      a.pop-up-submit-btn(id="profile-system-edit-pop-up-btn", href="#", type="button")
+        span.pop-up-submit-btn-text
+          =i18n.__('Save')

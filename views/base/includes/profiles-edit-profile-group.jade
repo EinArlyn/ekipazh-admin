@@ -1,0 +1,33 @@
+.pop-up.edit-profile-group-pop-up
+  form#edit-profile-group-form(method="POST" action="/base/profiles/saveProfileGroup" enctype="multipart/form-data")
+    input.hidden#edit-profile-group-id-hidden(type="text" name="group_id" value="")
+    .pop-up-close-wrap
+      a.pop-up-close(value=".edit-profile-group-pop-up" href="#")
+    span.pop-up-header
+      =i18n.__('Editing group')
+    .profile-edit-group-block-align
+      span.profile-edit-group-text-align
+        =i18n.__('Group name')
+        | /
+        =i18n.__('Position')
+        | :
+      input.input-default.profile-edit-group-input-align(id="profile-group-position-edit-input" type="text" name="position" style="width: 22px;")
+      input.input-default.profile-edit-group-input-align(id="profile-group-name-edit-input" type="text" name="name" style="width: 200px;")
+    .profile-edit-group-block-align
+      span.profile-edit-group-text-align
+        =i18n.__('Link')
+        | :
+      input.input-default.profile-edit-group-input-align(id="profile-group-link-edit-input" type="text" name="link" style="width: 230px;")
+    .profile-edit-group-description-block-align
+      span.profile-edit-group-text-align
+        =i18n.__('Description')
+        | :
+      textarea.input-default.profile-edit-group-input-align(id="profile-group-description-edit-input" type="text" name="description" style="min-width: 230px; min-height: 100px;max-width: 230px; max-height: 100px;") 
+    .profile-edit-group-image-block-align
+      input(id="select-profile-edit-group-image" type="file" name="profile_img" class="hidden")
+      a(href="#" type="button" id="edit-profile-group-img" style="margin-left: 30px;")
+      img(id="profile-edit-group-image" style="height: 64px; width: 124px; margin-left: 20px;" src="")
+    .pop-up-submit
+      a.pop-up-submit-btn(id="profile-group-name-edit-pop-up-btn", href="#", type="button" value="")
+        span.pop-up-submit-btn-text
+          =i18n.__('Save')

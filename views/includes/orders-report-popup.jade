@@ -1,0 +1,72 @@
+.report-pop-up(style="display: none;")
+  .pop-up-close-wrap
+    a(class="pop-up-close", href="#")
+  span#pop-up-header(style="width: 70px;")
+    =i18n.__('Report')
+  .order-report-content
+    .order-report-navigation
+      ul.report-navigation-list
+        li.report-action-btn.checked-action
+          .report-action-txt
+            =i18n.__('Profiles')
+        li.report-action-btn
+          .report-action-txt
+            =i18n.__('Reinforcement')
+        li.report-action-btn
+          .report-action-txt
+            =i18n.__('Window glasses')
+        li.report-action-btn
+          .report-action-txt
+            =i18n.__('Hardware')
+        li.report-action-btn
+          .report-action-txt
+            =i18n.__('Piece')
+        li.report-action-btn
+          .report-action-txt
+            =i18n.__('Seals')
+        li.report-action-btn
+          .report-action-txt
+            =i18n.__('Add. profiles')
+        li.report-action-btn
+          .report-action-txt
+            =i18n.__('Surface')
+        li.report-action-btn
+          .report-action-txt
+            =i18n.__('Liquid')
+        li.report-action-btn
+          .report-action-txt
+            =i18n.__('Weight')
+        li.report-action-btn
+          .report-action-txt
+            =i18n.__('All')
+    .order-report-info
+      table.report-table(cellpadding="0" cellspacing="0" border="0")
+        thead
+          tr.table-header
+            td.table-td-title
+              .table-text
+                =i18n.__('Title')
+            td.table-td-sku
+              .table-text
+                =i18n.__('SKU')
+            td.table-td-amount
+              .table-text
+                =i18n.__('Amount')
+            td.table-td-perimeter
+              .table-text
+                =i18n.__('Perimeter2')
+        tbody
+          tr.table-content
+            td
+              .table-text
+                | Армирование
+            td
+              .table-text
+                | 0923
+            td
+              .table-text
+                | 2
+            td
+              .table-text
+                | 560
+    

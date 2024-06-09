@@ -1,0 +1,172 @@
+doctype html
+html
+  head
+    title
+    link(rel="stylesheet", href='/assets/stylesheets/main.css')
+    link(rel="stylesheet", href="/assets/stylesheets/pdf.css")
+    script(src="/assets/javascripts/vendor/jquery-1.11.2.min.js")
+    script(src="/assets/javascripts/vendor/d3.min.js")
+  body
+    #wrapper
+      .bound
+        .row
+          .col-md-7
+            img(src="/assets/images/logo_Steko2020_horizont.png" style="width:inherit;")
+          .col-md-5
+            b
+              br
+              | №
+              | 
+              =order.order_number 
+        .row
+          .col-md-7
+            p
+              =i18n.__('Customer_pdf')
+              | : 
+              =order.customer_name
+              br
+              =i18n.__('City_pdf')
+              | : 
+              =order.customer_location
+              | 
+              br
+              =i18n.__('Address')
+              | : 
+              =order.customer_address
+              | 
+              | д. 
+              =order.customer_house
+              | 
+              | кв. 
+              =order.customer_flat
+              | 
+              | этаж 
+              =order.customer_floor
+              br
+              =i18n.__('Mob. phone')
+              | : 
+              =order.customer_phone
+              br
+              if (order.comment)
+                =i18n.__('Order comment')
+                | :
+                =order.comment
+            p 
+              =i18n.__('Salon_pdf')
+              | : 
+              =user.name
+              | ; 
+              br
+              =i18n.__('Phone_u')
+              | : 
+              =user.city_phone || '-------'
+              | ; 
+              br
+              =i18n.__('City')
+              | :  
+              =user.city.name
+              br
+              =i18n.__('Address')
+              | : 
+              =user.address || '-------'
+              | 
+              | (
+              =('0' + order.created.getDate()).slice(-2)
+              | .
+              =('0' + (order.created.getMonth() + 1)).slice(-2)
+              | .
+              =order.created.getFullYear()
+              | )
+          .col-md-5
+            p
+              table(cellspacing="0" cellpadding="2" border="0" style="font-size:11px; border-collapse: collapse; text-align: right; width: 100%")
+                tr
+                  td(style="width:650pt;text-align: left;")
+                    =i18n.__('The total number of constructions')
+                  td(align="right" style="width:80pt; color:#283891; padding-right:20px;")
+                    =count
+                tr
+                  td(style="text-align: left;")
+                    =i18n.__('The total area of constructions')
+                  td(align="right" style="color:#283891; padding-right:20px;")
+                    =square.toFixed(2)
+                tr
+                  td(style="text-align: left;")
+                    =i18n.__('The total perimeter of constructions')
+                  td(align="right" style="color:#283891; padding-right:20px;")
+                    =perimeter.toFixed(2)
+              br
+              br
+              table(cellspacing="0" cellpadding="2" border="0" style="font-size:11px; border-collapse: collapse; text-align: right; width: 100%")
+                tr
+                  th
+                  th(align="rigth" style="color:#283891; padding-right:10px; ")
+                    =i18n.__('Discount')
+                    | %
+                  th(align="rigth" style="color:#283891; padding-right:10px; ")
+                    =i18n.__('Total to pay')
+                  th
+                tr
+                  td(style="text-align: left;")
+                    =i18n.__('Constructions')
+                  td(align="rigth" style="color:#283891; padding-right:10px; ")
+                    =parseFloat(maxConstructDisc).toFixed(2)
+                  td(align="rigth" style="color:#283891; padding-right:10px; ")
+                    =parseFloat(basePriceDisc).toFixed(2)
+                  td
+                tr
+                  td(style="text-align: left;")
+                    =i18n.__('Add. elements')
+                  td(align="rigth" style="color:#283891; padding-right:10px; ")
+                    =parseFloat(maxAddElemDisc).toFixed(2)
+                  td(align="rigth" style="color:#283891; padding-right:10px; ")
+                    =parseFloat(additionalPriceDisc).toFixed(2)
+                  td
+                tr
+                  td(style="text-align: left;")
+                    =i18n.__('Delivery')
+                  td(align="rigth" style="color:#283891; padding-right:10px; ")
+                  td(align="rigth" style="color:#283891; padding-right:10px; ")
+                    =parseFloat(delivery).toFixed(2)
+                  td
+                tr
+                  td(style="text-align: left;")
+                    =i18n.__('Mounting')
+                  td(align="rigth" style="color:#283891; padding-right:10px; ")
+                  td(align="rigth" style="color:#283891; padding-right:10px; ")
+                    =parseFloat(mounting).toFixed(2)
+                  td
+                tr
+                  td(style="text-align: left;")
+                    b
+                      =i18n.__('TOTAL')
+                      | :
+                  td(align="rigth" style="color:#283891; padding-right:10px; ")
+                  td(align="rigth" style="color:#283891; padding-right:10px; ")
+                    b=parseFloat(total).toFixed(2)
+                    | 
+                    =currency
+                  td
+              div(id="mainSVG", value=order)
+      hr
+      div(id="products")
+        !{products}
+      .row.warning-label
+        .col-md-12
+          | Завод не несе вiдповiдальнiсть за недолiки, що виникли в результаті замовлення конструкцій і комплектуючих, які не відповідають вимогам ДСТУ, ДБН та технічним обмеженням виробника.
+      .row.warning-label
+        .col-md-12
+          | Замовник несе відповідальність за правильність розмірів, конфігурації і комплектації замовлення. Сплачений рахунок є підтвердженням.
+      br
+      .row
+        .col-md-6
+          | Замовник
+          | 
+          span.signature
+            | 
+        .col-md-6
+          | Виконавець
+          | 
+          span.signature
+            | 
+    script(src="/assets/javascripts/PDF/pdf.js")

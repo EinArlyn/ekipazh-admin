@@ -1,0 +1,64 @@
+extends ../layout
+
+block content
+  .main-nav
+    .nav-link
+      a(class="external-link", href="/")= i18n.__('Dashboard') 
+      | 
+      | -> 
+      span#nav-text
+        =i18n.__('Options')
+      img.loader-ico(src="/assets/images/loader_ico.GIF")
+  .main-select-option
+    select(id="lamination-select", name="", class="select-default selected-option", style="width: 180px;")
+      option(value="1")=i18n.__('Lamination')
+      option(value="2")=i18n.__('Discounts')
+      option(value="3")=i18n.__('Coefficients')
+      option(value="8")=i18n.__('Suppliers')
+      option(value="9")=i18n.__('Currency')
+      option(value="10")=i18n.__('General options')
+      option(value="11")=i18n.__('Application options')
+      option(disabled)=i18n.__('Groups')
+      option(value="4")=i18n.__('Glazed window')
+      option(value="5" selected)=i18n.__('Window sills')
+      option(value="6")=i18n.__('Spillways')
+      option(value="7")=i18n.__('Visors')
+      option(value="12")=i18n.__('Connectors')
+      option(value="13")=i18n.__('Mosquitos')
+      option(value="14")=i18n.__('Doorhandles')
+  form(method='post', action='/base/option/save', id="main-form")
+    .window-sills-option.checked-option
+      .main-header
+        span.header
+          =i18n.__('Window sills groups')
+      .main-content
+        table.sill-folders-table(cellspasing="0", cellpadding="0", border="0")
+          if (sillsFolders.length)
+            each sillsFolder in sillsFolders
+              tr.folder-tr
+                td.folder-name
+                  span.folder-text
+                    =sillsFolder.name
+                td.folder-img
+                  .glass-img-wraper
+                    img(src=(sillsFolder.img ? sillsFolder.img : '/local_storage/default.png'), alt="")
+                td.folder-description
+                  =i18n.__('Description')
+                  | :
+                  .description-wraper
+                    =sillsFolder.description
+                  .edit-wrap
+                    .sill-folder-delete.btn-delete-folder(data-folder=sillsFolder.id)
+                    .sill-folder-edit.btn-edit-folder(data-folder=sillsFolder.id)
+          else
+            tr.folder-tr
+              td.sill-folder-not-exist(calspan="4")
+                span.folder-add-text
+                  =i18n.__('Empty')
+          tr.folder-tr
+            td.folder-name.sill-folder-add
+              span.folder-add-text
+                =i18n.__("Add +")
+  include includes/options-add-new-sill-folder-popup.jade
+  include includes/options-edit-sill-folder-popup.jade
+  include includes/alert-delete-sill-folder.jade

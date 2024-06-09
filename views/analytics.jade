@@ -1,0 +1,86 @@
+extends layout
+
+block content
+  .main-content
+    .main-nav
+      .nav-link
+        a(class="external-link", href="/")= i18n.__('Dashboard')
+        //- |
+        | ->
+        span#nav-text
+          =i18n.__('Analytics')
+    .main-content-body
+      .date-pickers.date-picker-from
+        div(id="calendar-from")
+      .date-pickers.date-picker-to
+        div(id="calendar-to")
+      .choice-analytics
+        p.analytics-text Продукт (сортировка по областям)
+        .calendar
+          span.date-select
+            =i18n.__('from')
+            |&nbsp;
+            input(id="date-from-1", type="text", name="date_from", value=("0" + new Date().getDate()).slice(-2) + '.' + ("0" + (new Date().getMonth())).slice(-2) + '.' + new Date().getFullYear(), class="input-calendar", disabled, style="width: 65px;")
+            span.calendar-btn-wrap.select-month-from#calendar-from-1
+              a(class="calendar-btn", href="#")
+            |&nbsp;
+            =i18n.__('to')
+            |&nbsp;
+            input(id="date-to-1", type="text", name="date_to", value=("0" + new Date().getDate()).slice(-2) + '.' + ("0" + (new Date().getMonth() + 1)).slice(-2) + '.' + new Date().getFullYear(), class="input-calendar", disabled, style="width: 65px;")
+            span.calendar-btn-wrap.select-month-to#calendar-to-1
+              a(class="calendar-btn", href="#")
+        .excel-btn
+          input.btn-excel#btn-1(type="button" value=i18n.__('Save in Excel') data-type="getProductByRegions")
+      .choice-analytics
+        p.analytics-text Продукт (сортировка по продавцам)
+        .calendar
+          span.date-select
+            =i18n.__('from')
+            |&nbsp;
+            input(id="date-from-2", type="text", name="date_from", value=("0" + new Date().getDate()).slice(-2) + '.' + ("0" + (new Date().getMonth())).slice(-2) + '.' + new Date().getFullYear(), class="input-calendar", disabled, style="width: 65px;")
+            span.calendar-btn-wrap.select-month-from#calendar-from-2
+              a(class="calendar-btn", href="#")
+            |&nbsp;
+            =i18n.__('to')
+            |&nbsp;
+            input(id="date-to-2", type="text", name="date_to", value=("0" + new Date().getDate()).slice(-2) + '.' + ("0" + (new Date().getMonth() + 1)).slice(-2) + '.' + new Date().getFullYear(), class="input-calendar", disabled, style="width: 65px;")
+            span.calendar-btn-wrap.select-month-to#calendar-to-2
+              a(class="calendar-btn", href="#")
+        .excel-btn
+          input.btn-excel#btn-2(type="button" value=i18n.__('Save in Excel') data-type="getProductBySellers")
+      .choice-analytics
+        p.analytics-text Эффективность работы (сортировка по областям)
+        .calendar
+          span.date-select
+            =i18n.__('from')
+            |&nbsp;
+            input(id="date-from-3", type="text", name="date_from", value=("0" + new Date().getDate()).slice(-2) + '.' + ("0" + (new Date().getMonth())).slice(-2) + '.' + new Date().getFullYear(), class="input-calendar", disabled, style="width: 65px;")
+            span.calendar-btn-wrap.select-month-from#calendar-from-3
+              a(class="calendar-btn", href="#")
+            |&nbsp;
+            =i18n.__('to')
+            |&nbsp;
+            input(id="date-to-3", type="text", name="date_to", value=("0" + new Date().getDate()).slice(-2) + '.' + ("0" + (new Date().getMonth() + 1)).slice(-2) + '.' + new Date().getFullYear(), class="input-calendar", disabled, style="width: 65px;")
+            span.calendar-btn-wrap.select-month-to#calendar-to-3
+              a(class="calendar-btn", href="#")
+        .excel-btn
+          input.btn-excel#btn-3(type="button" value=i18n.__('Save in Excel') data-type="getAnaliticsEffectiveByRegions")
+      .choice-analytics
+        p.analytics-text Эффективность работы (сортировка по продавцам)
+        .calendar
+          span.date-select
+            =i18n.__('from')
+            |&nbsp;
+            input(id="date-from-4", type="text", name="date_from", value=("0" + new Date().getDate()).slice(-2) + '.' + ("0" + (new Date().getMonth())).slice(-2) + '.' + new Date().getFullYear(), class="input-calendar", disabled, style="width: 65px;")
+            span.calendar-btn-wrap.select-month-from#calendar-from-4
+              a(class="calendar-btn", href="#")
+            |&nbsp;
+            =i18n.__('to')
+            |&nbsp;
+            input(id="date-to-4", type="text", name="date_to", value=("0" + new Date().getDate()).slice(-2) + '.' + ("0" + (new Date().getMonth() + 1)).slice(-2) + '.' + new Date().getFullYear(), class="input-calendar", disabled, style="width: 65px;")
+            span.calendar-btn-wrap.select-month-to#calendar-to-4
+              a(class="calendar-btn", href="#")
+        .excel-btn
+          input.btn-excel#btn-4(type="button" value=i18n.__('Save in Excel') data-type="getAnaliticsEffectiveBySeller")
+  img#loader-img(src="/assets/images/loader_ico.GIF" style="clear: both; display: none; margin: 0 auto;")
+  form#downloadFile(action="/file/Analitics.xlsx")

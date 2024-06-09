@@ -1,0 +1,38 @@
+extends ../layout
+
+block content
+  .main-nav
+    .nav-link
+      a(class="external-link", href="/")= i18n.__('Dashboard') 
+      | 
+      | -> 
+      span#nav-text
+        =i18n.__('Doors')
+      img.loader-ico(src="/assets/images/loader_ico.GIF")
+  .main-content
+    .row
+      input.add-btn.pull-right#add-new-group(type="button" value=i18n.__('Add group +'))
+    each doorFolder in doorFolders
+      if doorFolder.type !== 0
+        .row
+          input.folder-btn.folder-open(type="button" data-id=doorFolder.id value=doorFolder.name)
+          input.edit-btn.folder-edit(type="button" data-id=doorFolder.id)
+          //- input.remove-btn.folder-remove(type="button" data-id=doorFolder.id)
+        .row
+          .door-folder-content(id="content-" + doorFolder.id data=doorFolder.id)
+            table.table-door-groups(cellpadding="0" cellspacing="0" border="0" data-id=doorFolder.id)
+              tbody
+    .row
+      input.folder-btn#add-new-folder(type="button" value=i18n.__('Add +'))
+    .row
+      span.default-folder-area
+        | Корневой каталог
+      hr.smooth
+    table.table-door-groups(cellpadding="0" cellspacing="0" border="0" data-id=defaultFolderId)
+      tbody
+        include ./includes/groups.jade
+
+  include ./includes/popup-add-new-group.jade
+  include ./includes/popup-edit-group.jade
+  include ./includes/popup-add-new-folder.jade
+  include ./includes/popup-edit-folder.jade

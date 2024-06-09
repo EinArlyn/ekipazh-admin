@@ -1,0 +1,33 @@
+var router = require('express').Router();
+var mynetworkCtrl = require('../controllers/mynetwork');
+
+router.get('/', mynetworkCtrl.index);
+router.get('/users/:id', mynetworkCtrl.getDeepUsers);
+router.get('/add_user', mynetworkCtrl.addUser);
+router.get('/add_user/get-regions/:countryId', mynetworkCtrl.getRegions);
+router.get('/add_user/get-cities/:regionId', mynetworkCtrl.getCities);
+router.post('/add_user/add-new-user', mynetworkCtrl.addNewUser);
+router.get('/get-user/:id', mynetworkCtrl.getUser);
+router.post('/user/save/:userId', mynetworkCtrl.userSave);
+router.get('/get-user-discounts/:userId', mynetworkCtrl.getUserDiscounts);
+router.post('/save-discounts/:userId', mynetworkCtrl.saveUserDiscounts);
+router.get('/get-user-deliveries/:userId', mynetworkCtrl.getUserDeliveries);
+router.post('/activate-deliveries/:userId', mynetworkCtrl.activateDeliveries);
+router.post('/edit-delivery/:userId', mynetworkCtrl.editDelivery);
+router.post('/set-user-rights/:userId', mynetworkCtrl.setUserRights);
+router.get('/get-user-mountings/:userId', mynetworkCtrl.getUserMountings);
+router.post('/activate-mountings/:userId', mynetworkCtrl.activateMountings);
+router.post('/edit-mounting/:userId', mynetworkCtrl.editMounting);
+router.post('/set-user-additional-params/:userId', mynetworkCtrl.setUserAddParams);
+router.post('/delete-user/:userId', mynetworkCtrl.deleteUser);
+router.get('/get-user-history/:userId', mynetworkCtrl.getUserHistory);
+router.post('/add-new-mounting/:userId', mynetworkCtrl.addNewMounting);
+router.post('/edit-mounting-by-day/:userId', mynetworkCtrl.editMountingByDay);
+router.post('/add-new-delivery/:userId', mynetworkCtrl.addNewDelivery);
+router.post('/deactivate-factory-delivery/:userId', mynetworkCtrl.deactivateFactoryDelivery);
+router.post('/deactivate-factory-mounting/:userId', mynetworkCtrl.deactivateFactoryMounting);
+router.post('/password', mynetworkCtrl.submitNewPassword);
+router.post('/password/validate', mynetworkCtrl.validatePassword);
+router.get('/childs/:parentId', mynetworkCtrl.getChilds);
+
+module.exports = router;

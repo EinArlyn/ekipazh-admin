@@ -1,0 +1,15 @@
+.add-feature-pop-up(style="display: none;")
+  #pop-up-add-feature-close-wrap
+    a(id="pop-up-add-feature-close", href="#")
+  span#pop-up-add-feature-header
+    =i18n.__('Add hardware')
+  .feature-name-pop-up
+    span#feature-name-pop-up-text
+      =i18n.__('Hardware')
+      | :
+    span        
+      select.select-default(id="feature-select-from-default" style="width: 180px;")
+  .feature-add-pop-up
+    a(id="feature-add-pop-up-btn", href="#", type="button" value="")
+      span#feature-add-pop-up-btn-text
+        =i18n.__('Add')

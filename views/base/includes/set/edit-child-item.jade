@@ -1,0 +1,117 @@
+.edit-child-item-pop-up
+  form(id="edit-item-form" action="/base/set/item/edit" method="post")
+    #pop-up-edit-child-item-close-wrap
+      a(id="pop-up-edit-child-item-close", href="#")
+    span#pop-up-edit-child-item-header
+      =i18n.__('Editing child element')
+    .child-item-name
+    .child-item-rule
+      .child-item-rule-text
+        =i18n.__('Rule')
+        | :
+      .child-item-rule-content
+        .rule-1
+          input(name="edit_item_rule_value1", type="text", class="input-default input-margin input-text", style="width: 40px;", form="edit-item-form")
+          | 
+          select(name="edit_item_rule1", class="select-default input-margin", style="width: 215px;", form="edit-item-form" disabled)
+            option(value="2")=i18n.__('pcs for one parent')
+            option(value="3")=i18n.__('pcs for meter of parent')
+            option(value="12")=i18n.__('pcs for m&#178; of parent area')
+            option(value="24")=i18n.__('kg for one parent')
+            option(value="23")=i18n.__('kg for meter of parent')
+            option(value="6")=i18n.__('liters per meter of the parent')
+            option(value="7")=i18n.__('liters for one parent')
+        .rule-2
+          select(name="edit_item_rule2", class="select-default input-margin", style="width: 155px;", form="edit-item-form" disabled)
+            option(value="1")=i18n.__('Is less than parent')
+            option(value="5")=i18n.__('For 1 m&#178; of parent')
+            option(value="21")=i18n.__('Less than the width of the parent')
+            option(value="22")=i18n.__('Less than the height of the parent')
+          span.rule-margin
+            =i18n.__('for')
+          input(name="edit_item_rule_value2", type="text", class="input-default input-text", style="width: 40px;", form="edit-item-form")        
+          span.rule-margin
+            =i18n.__('m')
+        //.rule-3
+          input(name="item_rule_value", type="text", class="input-default input-margin input-text", style="width: 40px;", form="edit-item-form")
+          | 
+          select(name="item_rule", class="select-default input-margin", style="width: 200px;", form="edit-item-form")
+            option(value="24") кг на одного родителя
+        //.rule-4
+          select(name="item_rule", class="select-default input-margin", style="width: 175px;", form="edit-item-form")
+            option(value="21") Меньше ширины родителя
+            option(value="22") Меньше высоты родителя
+          span.rule-margin
+            | на 
+          input(name="item_rule_value", type="text", class="input-default input-text", style="width: 25px;", form="edit-item-form")        
+          span.rule-margin
+            | м
+        //.rule-5
+          select(name="item_rule", class="select-default input-margin", style="width: 175px;", form="edit-item-form")
+            option(value="5") На 1 м&#178; родителя 
+          span.rule-margin
+            input(name="item_rule_value", type="text", class="input-default input-text", style="width: 40px;", form="edit-item-form") 
+          | м
+          sup 2
+        //.rule-6
+          input(name="item_rule_value", type="text", class="input-default input-margin input-text", style="width: 40px;", form="edit-item-form")
+          | 
+          select(name="item_rule", class="select-default input-margin", style="width: 215px;", form="edit-item-form")
+            option(value="2") шт. на одного родителя
+            option(value="12") шт. на м&#178; площади родителя
+        //.rule-7
+          input(name="item_rule_value", type="text", class="input-default input-margin input-text", style="width: 40px;", form="edit-item-form")
+          | 
+          select(name="item_rule", class="select-default input-margin", style="width: 215px;", form="edit-item-form")
+            option(value="2") шт. на одного родителя
+        //.rule-8
+          input(name="item_rule_value", type="text", class="input-default input-margin input-text", style="width: 40px;", form="edit-item-form")
+          | 
+          select(name="item_rule", class="select-default input-margin", style="width: 215px;", form="edit-item-form")
+            option(value="2") шт. на одного родителя
+          | 
+    .child-item-profile-color
+      .child-item-profile-color-text
+        =i18n.__('Lamination type')
+        | :
+      .child-item-profile-color-content
+        select(id="edit-item-color-profile", name="edit_item_color_profile", class="select-default", style="width: 266px;", form="edit-item-form")
+    .child-item-hardware-color
+      .child-item-hardware-color-text
+        =i18n.__('Hardware color')
+        | :
+      .child-item-hardware-color-content
+        select(id="edit-item-color-hardware", name="edit_item_color_hardware", class="select-default", style="width: 266px;", form="edit-item-form")
+    .child-item-rounding
+      .child-item-hardware-color-text
+        =i18n.__('Rounding')
+        | :
+      .child-item-hardware-color-content
+        select(id="edit-item-rounding-type", name="edit_item_rounding_type", class="select-default", style="width: 215px;", form="edit-item-form")
+          option(value="0")=i18n.__('Not exist')
+          option(value="1")=i18n.__('Divisible higher')
+          option(value="2")=i18n.__('Divisible lower')
+          option(value="3")=i18n.__('Divisible rule')
+        | 
+        input(id="edit-item-rounding-value", name="item_rounding_value", type="text", class="input-default input-text", style="width: 40px;", placeholder="0" form="add-new-item-to-set")
+    .child-item-direction
+      .child-item-direction-text
+        =i18n.__('Direction of opening')
+        | :
+      .child-item-direction-content 
+        span.edit-direction-radios
+          input(id="edit-popup-direction-right", type="radio", name="direction-edit", value="2", form="edit-item-form")
+          label(for="edit-popup-direction-right")
+            =i18n.__('right-hand')
+        span.edit-direction-radios
+          input(id="edit-popup-direction-left", type="radio", name="direction-edit", value="3", form="edit-item-form")
+          label(for="edit-popup-direction-left")
+            =i18n.__('left-hand')
+        span.edit-direction-radios
+          input(id="edit-popup-direction-none", type="radio", name="direction-edit", value="1", form="edit-item-form")
+          label(for="edit-popup-direction-none")
+            =i18n.__('ignore')
+    .child-item-save
+      a(href="#" data="" data-rule="" class="edit-child-item-save")
+        span.edit-child-item-save-text
+          =i18n.__('Save')

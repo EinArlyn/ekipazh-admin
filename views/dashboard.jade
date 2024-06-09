@@ -1,0 +1,90 @@
+extends layout
+
+block content
+  .main-nav
+    .profile
+      .profile-avatar
+        img(src=userAvatar, alt="avatar")
+      .profile-data
+        .user-info
+          =userName
+        span#cityName
+          =userCity.name
+    .profile-btn.disabled
+      a(href="#" id="profile-btn")
+        span#profile-btn-text
+          =i18n.__('My profile')
+  .main-content
+    .content-wrap
+      .btn#calcs(class=(accesses.indexOf(1) >= 0 ? '' : 'disabled') data-link=calculatorLink + '/#/?autologin=' + userToken)
+        img(src="/assets/images/dashboard_icons/window_calculation.png")
+        .btn-text
+          =i18n.__('Window calculation')
+      .btn(class=(accesses.indexOf(2) >= 0 ? '' : 'disabled'))
+        img(src="/assets/images/dashboard_icons/payment.png")
+        .btn-text
+          =i18n.__('Payment by installments')
+      .btn#mynetwork(class=(accesses.indexOf(3) >= 0 ? '' : 'disabled') data-id=userToken)
+        img(src="/assets/images/dashboard_icons/users.png")
+        .btn-text
+          =i18n.__('My network')
+      .btn(class=(accesses.indexOf(4) >= 0 ? '' : 'disabled'))
+        img(src="/assets/images/dashboard_icons/mail.png")
+        .btn-text
+          =i18n.__('Mail')
+      .btn#orders-history(class=(accesses.indexOf(5) >= 0 ? '' : 'disabled'))
+        img(class="external-link", src="/assets/images/dashboard_icons/history.png")
+        .btn-text
+          =i18n.__('Orders history')
+      .btn#documents(class=(accesses.indexOf(6) >= 0 ? '' : 'disabled'))
+        img(src="/assets/images/dashboard_icons/documents.png")
+        .btn-text
+          =i18n.__('Documents')
+      .btn(class=(accesses.indexOf(7) >= 0 ? '' : 'disabled'))
+        img(src="/assets/images/dashboard_icons/measurement.png")
+        .btn-text
+          =i18n.__('Applications for metering')
+      .btn#stats(class=(accesses.indexOf(8) >= 0 ? '' : 'disabled') data-link=statisticLink)
+        img(src="/assets/images/dashboard_icons/order.png")
+        .btn-text
+          =i18n.__('Profile order')
+      .btn#pro(class=(accesses.indexOf(9) >= 0 ? '' : 'disabled'))
+        img(src="/assets/images/dashboard_icons/production.png")
+        .btn-text
+          =i18n.__('Production')
+      .btn#analytics(class=(accesses.indexOf(11) >= 0 ? '' : 'disabled'))
+        img(src="/assets/images/dashboard_icons/analytics.png")
+        .btn-text
+          =i18n.__('Analytics')
+      .btn.base-access#base(class=(accesses.indexOf(10) >= 0 ? '' : 'disabled'))
+        img(src="/assets/images/dashboard_icons/base.png")
+        .btn-text
+          =i18n.__('Base of elements')
+      .base-field
+        ul
+          li
+            a.base-btn(class="external-link" href='/base/elements')=i18n.__('Elements')
+          li
+            a.base-btn(class="external-link" href='/base/sets')=i18n.__('Sets')
+          li
+            a.base-btn(class="external-link" href='/base/hardware')=i18n.__('Hardware')
+          li
+            a.base-btn(class="external-link" href='/base/profiles')=i18n.__('Profiles')
+          li
+            a.base-btn(class="external-link" href='/base/doors')=i18n.__('Doors')
+          li
+            a.base-btn(class="external-link" href='/base/doors/hardware')=i18n.__('Door hardware')
+          li
+            a.base-btn(class="external-link" href='/base/glazedWindow')=i18n.__('Glazed window')
+          li
+            a.base-btn(class="external-link" href='/base/mosquito')=i18n.__('Mosquito nets')
+          li
+            a.base-btn(class="external-link" href='/base/options/laminations')=i18n.__('Options')
+  form#stats-submit(method="GET" action='/analytics/')
+    input(type="hidden" name="userdata" value=urlKey)
+  form#analitycs-submit(method="POST" action=analitycsUrl target="_blank")
+    input(type="hidden" name="userdata" value=urlKey)
+  form#pro-submit(method="GET" action=proUrl target="_blank")
+    input(type="hidden" name="userdata" value=urlKey)
+  form#documents-submit(method="GET" action=documentsUrl target="_blank")
+    input(type="hidden" name="userdata" value=urlKey)

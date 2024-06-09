@@ -1,0 +1,14 @@
+.pop-up.add-profile-from-default-pop-up
+  .pop-up-close-wrap
+    a.pop-up-close(value=".add-profile-from-default-pop-up" href="#")
+  span.pop-up-header
+    =i18n.__('Add profile system')
+  .pop-up-text-add-new
+    =i18n.__('Profile')
+    | :
+  .pop-up-input
+    select.select-default.input-margin(id="profile-name-default-select" type="text" style="width: 230px;")
+  .pop-up-submit
+    a.pop-up-submit-btn(id="profile-add-from-default-pop-up-btn", href="#", type="button" value="")
+      span.pop-up-submit-btn-text
+        =i18n.__('Add')

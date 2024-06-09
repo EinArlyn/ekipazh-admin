@@ -1,0 +1,60 @@
+extends layout
+
+block content
+  .main-nav 
+    .nav-link
+      a(href="/")= i18n.__('Dashboard') 
+      | 
+      | -> 
+      span#nav-text
+        =i18n.__('Sets')
+      img.loader-ico(src="/assets/images/loader_ico.GIF")
+  .main-options
+    select(id="select-type", class="option-select select-default")
+      each listType in listTypes
+        option(value=listType.type, selected=(type === listType.type ? "selected" : undefined))=listType.name
+  .main-content
+    .content-header
+      .wrap-content-header
+        #choose
+          =i18n.__('Select')
+        #group
+          =i18n.__('Group')
+        #name
+          =i18n.__('Title')
+        #base-element
+          =i18n.__('Base element')
+    .content
+      ul(class="list-wrapper")
+        each list in lists[0]      
+          li(data=list.id, class="list-edit")
+            .list-choose
+              input(class="items-checkbox" id="checkbox" + list.id, type="checkbox", name="checkedLists", value=list.id)
+              label(for="checkbox" + list.id)
+                span#hide
+                  =null
+              input(type="checkbox")              
+            .list-group
+              =list.list_group            
+            .list-name
+              =list.name          
+            .base-element
+              =list.element_name    
+  .content-footer
+    .content-footer-operation
+      select(class="select-operation select-default", id="selectOption")
+        option(value="1" disabled selected="selected")=i18n.__('Operation')
+        option(value="удалить")=i18n.__('Remove')
+      .content-footer-operation-radio
+        .radio-fix
+          input(type="radio", name="option", id="radioSelected", checked)  
+          label(for="radioSelected")=i18n.__('With selected')
+        input(type="radio", name="option", id="radioUnSelected")
+        label(for="radioUnSelected")=i18n.__('With unselected')
+    #content-footer-ok
+      a(href="#", id="okItem", )
+        span#okItemText
+          =i18n.__('Ok')
+    .content-footer-pagination
+      include ../includes/paginator.jade   
+      include ./includes/alert-delete-sets.jade

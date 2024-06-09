@@ -1,0 +1,356 @@
+extends layout
+
+block content
+  .main-nav 
+    .nav-link
+      a(href="/")= i18n.__('Dashboard') 
+      | 
+      | -> 
+      a(href="/base/sets")= i18n.__('Sets')
+      | 
+      | -> 
+      span#nav-text
+        =i18n.__('Edit set')
+      img.loader-ico(src="/assets/images/loader_ico.GIF")
+  .main-content
+    span#parent-element
+      =i18n.__('Parent')
+      | : 
+      a(href="/base/element/" + parent_element.id)
+        =parent_element.name
+        | 
+        | (
+        =parent_element.sku
+        | )
+    form(method='post', action='/base/set/save/' + list.id, id="main-form" enctype="multipart/form-data")
+      input.hidden#referrer(type="text" name="last_location" value="")
+      .content-wrap
+        .header
+          .header-id
+            | id: 
+            =list.id
+          .header-content
+            =i18n.__('Set name')
+            | :
+          .header-form
+            input(name="list_name", type="text", value=list.name, class="input-default", style="width: 330px;")
+          .header-footer
+            .content
+              #group-content
+                =i18n.__('Set group')
+                | :
+              #type-content
+                =i18n.__('Set type')
+                | :
+            .select
+              select(name="list_group", id="group-name", class="select-default", style="width: 225px;")
+                option(value=list.lists_group.id)=list.lists_group.name
+                  each lists_group in lists_groups
+                    if (list.lists_group.id !== lists_group.id)
+                      option(value=lists_group.id)=lists_group.name
+              select(name="list_type", id="type-name", class="select-default", style="width: 210px; margin-left: 25px;")
+                option(value=list.lists_type.id)=list.lists_type.name
+                  each list_type in lists_types
+                    if (list.lists_type.id !== list_type.id)
+                      option(value=list_type.id)=list_type.name
+          .doorstep
+            input(id="doorstep-radio-under", type="radio", name="doorstep_type", value="1" checked=(list.doorstep_type === 1 ? 'checked' : undefined))
+            label(for="doorstep-radio-under")
+              =i18n.__('Doorstep under frame')
+            input(id="doorstep-radio-between", type="radio", name="doorstep_type", value="2" checked=(list.doorstep_type === 2 ? 'checked' : undefined))
+            label(for="doorstep-radio-between")
+              =i18n.__('Doorstep between frame')
+          //.locks
+            .header-label
+              span.pull-left.lock-header
+                =i18n.__('Property of lists')
+                | :
+              input.add-btn.add-lock-set.pull-right(type="button" value="Привязать к ручке")
+            .container-optional-wide.available-lock-lists
+              select(id="lock-set-select", class="select-default", style="width: 90%;")
+                each availableLockList in availableLockLists
+                  option(value=availableLockList.id)=availableLockList.name
+                if (!availableLockLists.length)
+                  option(value="0")=i18n.__('Not exist')
+              input.ok-btn.submit-lock-set(type="button" disabled=(availableLockLists.length ? undefined : "disabled") data-list=list.id value=i18n.__('Ok'))
+            .container-glass-wide
+              ul.lock-list-container
+                if (!lockLists.length)
+                  li.pull-center.empty-lock-list
+                    =i18n.__('Empty')
+                else
+                  each lockList in lockLists
+                    li.lock-list-item(data-id=lockList.id)
+                      span.pull-left
+                        =lockList.list.name
+                      input.remove-btn.remove-lock-set.pull-right(type="button" data-id=lockList.id data-list-id=list.id data-accessory-id=lockList.accessory_id value="")
+          .door-options
+            input(id="in-door-checkbox", type="checkbox", name="in_door", value="1" checked=(list.in_door ? 'checked' : undefined))
+            label(for="in-door-checkbox")
+              =i18n.__('In door')
+          .header-additional-folders
+            .additional-sills.hidden.additional-folders
+              span.additional-text-align
+                =i18n.__('Window sills group')
+                | :
+              br
+              span.additional-select-align
+                select.select-default#sills-group(style="width: 225px; margin-top: 5px; margin-bottom: 5px;")
+                  option(value="0" selected)=i18n.__('Not exist')
+                  each windowSillsFolder in windowSillsFolders
+                    option(value=windowSillsFolder.id selected=(list.addition_folder_id === windowSillsFolder.id ? 'selected' : undefined))=windowSillsFolder.name
+            .additional-spillways.hidden.additional-folders
+              span.additional-text-align
+                =i18n.__('Spillways group')
+                | :
+              br
+              span.additional-select-align
+                select.select-default#spillways-group(style="width: 225px; margin-top: 5px; margin-bottom: 5px;")
+                  option(value="0" selected)=i18n.__('Not exist')
+                  each spillwaysFolder in spillwaysFolders
+                    option(value=spillwaysFolder.id selected=(list.addition_folder_id === spillwaysFolder.id ? 'selected' : undefined))=spillwaysFolder.name
+            .additional-visors.hidden.additional-folders
+              span.additional-text-align
+                =i18n.__('Visors group')
+                | :
+              br
+              span.additional-select-align
+                select.select-default#visors-group(style="width: 225px; margin-top: 5px; margin-bottom: 5px;")
+                  option(value="0" selected)=i18n.__('Not exist')
+                  each visorsFolder in visorsFolders
+                    option(value=visorsFolder.id selected=(list.addition_folder_id === visorsFolder.id ? 'selected' : undefined))=visorsFolder.name
+            .additional-connectors.hidden.additional-folders
+              span.additional-text-align
+                =i18n.__('Connectors group')
+                | :
+              br
+              span.additional-select-align
+                select.select-default#connectors-group(style="width: 225px; margin-top: 5px; margin-bottom: 5px;")
+                  option(value="0" selected)=i18n.__('Not exist')
+                  each connectorsFolder in connectorsFolders
+                    option(value=connectorsFolder.id selected=(list.addition_folder_id === connectorsFolder.id ? 'selected' : undefined))=connectorsFolder.name
+            //- .additional-mosquitos.hidden.additional-folders
+            //-   span.additional-text-align
+            //-     =i18n.__('Mosquitos group')
+            //-     | :
+            //-   br
+            //-   span.additional-select-align
+            //-     select.select-default#mosquitos-group(style="width: 225px; margin-top: 5px; margin-bottom: 5px;")
+            //-       option(value="0" selected)=i18n.__('Not exist')
+            //-       each mosquitosFolder in mosquitosFolders
+            //-         option(value=mosquitosFolder.id selected=(list.addition_folder_id === mosquitosFolder.id ? 'selected' : undefined))=mosquitosFolder.name
+            .additional-doorhandles.hidden.additional-folders
+              span.additional-text-align
+                =i18n.__('Doorhandles group')
+                | :
+              br
+              span.additional-select-align
+                select.select-default#doorhandles-group(style="width: 225px; margin-top: 5px; margin-bottom: 5px;")
+                  option(value="0" selected)=i18n.__('Not exist')
+                  each doorhandlesFolder in doorhandlesFolders
+                    option(value=doorhandlesFolder.id selected=(list.addition_folder_id === doorhandlesFolder.id ? 'selected' : undefined))=doorhandlesFolder.name
+        hr.opener
+        .opener.frame-content-open
+          a(href="#", class="open-button-frame")
+            span.open-button-frame-text
+              =i18n.__('open')
+        .main-frame
+          .header-frame-content
+            span#frame-name
+              =list.lists_type.name
+              | :
+          #frame-image
+            | 
+          .frame-content
+            br
+            b a 
+            =i18n.__('(mm)')
+            | :
+            input(name="a", type="text", value=list.a, class="input-default input-text", style="width: 40px;")
+            br
+            b b 
+            =i18n.__('(mm)')
+            | :
+            input(name="b", type="text", value=list.b, class="input-default input-text", style="width: 40px;")
+            span#doorsil
+              br
+              b c 
+              =i18n.__('(mm)')
+              | :
+              input(name="c", type="text", value=list.c, class="input-default input-text", style="width: 40px;")
+              br
+              b d 
+              =i18n.__('(mm)')
+              | :
+              input(name="d", type="text", value=list.d, class="input-default input-text", style="width: 40px;")
+          .frame-content-close
+            a(href="#", class="close-button-frame")
+              span.close-button-frame-text
+                =i18n.__('close')
+        .glass-width
+          .glass-width-content
+            if (list.beed_profile_systems.length)
+              each beed_profile in list.beed_profile_systems
+                if (beed_profile.profile_system)
+                  .beed-profile
+                    =beed_profile.profile_system.name
+                    | :
+                    | 
+                    input(class="min-input beed_width", data-beed=beed_profile.profile_system.id type="text", value=beed_profile.glass_width)
+                else
+                  .beed-not_exist
+                    =i18n.__('Not belongs to the profile systems')
+            else
+              .beed-not_exist
+                =i18n.__('Not belongs to the profile systems')
+          .beed-lamination
+            span#beed-lamination-text
+              =i18n.__('Inner lamination')
+              | : 
+            span
+              select(class="select-default", type="text", name="lamination_in", style="width: 150px;")
+                option(value='1' selected=(list.beed_lamination_id === 1 ? 'selected' : undefined))=i18n.__('White')
+                each lamination in factoryLaminations
+                  option(value=lamination.id selected=(list.beed_lamination_id === lamination.id ? 'selected': undefined))=lamination.name
+        include ./includes/set/glass-options.jade
+        .markup
+          .markup-content
+            span#amendment_pruning
+              =i18n.__('Correction for pruning')
+              | : 
+              input(class="min-input", type="text", name="amendment_pruning", value=(list.amendment_pruning == null ? '0.00' : list.amendment_pruning))
+            span#waste
+              =i18n.__('Waste')
+              | : 
+              input(class="min-input", type="text", name="waste", value=(list.waste ? list.waste : '0.0'))
+        .main-furniture
+          if (hardwareHandles)
+            -var constatValue = hardwareHandles.constant_value
+            -var type = (hardwareHandles.location === 'constant' ? 1 : 0)
+          else 
+            -var constatValue = 0.00
+            -var type = 0
+          .main-furniture-content
+            .header-main-furniture
+              | 
+              =i18n.__('Location')
+              | :
+            span#furniture-var
+              input(id="radio-f1", type="radio", name="hardware_location", value="variative", checked=(type === 0 ? 'checked' : undefined))
+              label(for="radio-f1")
+                =i18n.__('Variative')
+            span#furniture-const
+              input(id="radio-f2", type="radio", name="hardware_location", value="constant", checked=(type === 1 ? 'checked' : undefined))
+              label(for="radio-f2")
+                =i18n.__('Constant position to handle')
+              | 
+              input(class="input-options min-input", id="hardware-constant-value" type="text", name="furniture_const", value=parseFloat(constatValue).toFixed(2), size="3")
+        .header-position
+          =i18n.__('Position')
+          | : 
+          input.input-default(type="text" name="position" value=list.position style="width: 30px;")
+        .set-description
+          .row.set-is-push
+            .col-md-6
+              input#is-push(type="checkbox" name="is_push" value="1" checked=(list.is_push ? "checked" : undefined))
+              label(for="is-push")
+                =i18n.__('Usable as a Push message')
+          .description-content
+            .description-content-block
+              span.description-text-align
+                =i18n.__('Link')
+                | :
+              | 
+              input.input-default.input-description(type="text" name="link" value=list.link)
+            .description-content-block-textarea
+              span.description-text-align
+                =i18n.__('Description')
+                | : 
+              | 
+              textarea.input-default(name="description" form="main-form")=list.description
+            .description-content-block-image
+              input(id="select-set-image" type="file" name="set_img" class="hidden")
+              a(href="#" type="button" id="set-img" style="margin-left: 100px;")
+              img(id="set-image" style="height: 64px; width: 124px; margin-left: 20px;" src=(list.img ? list.img : "/local_storage/default.png"))
+        .items-list
+          .list
+            each element in elementsChilds
+              p(data=element.list_content.id)
+                a(href="/base/element/" + element.id)
+                  =element.id
+                  | 
+                  =element.name
+                | 
+                if (element.list_content.rules_type_id === 3 || element.list_content.rules_type_id === 2 || element.list_content.rules_type_id === 15 || element.list_content.rules_type_id === 4 || element.list_content.rules_type_id === 6 || element.list_content.rules_type_id === 7 || element.list_content.rules_type_id === 8 || element.list_content.rules_type_id === 10 || element.list_content.rules_type_id === 12 || element.list_content.rules_type_id === 13 || element.list_content.rules_type_id === 14 || element.list_content.rules_type_id === 23 || element.list_content.rules_type_id === 24 || element.list_content.rules_type_id === 6 || element.list_content.rules_type_id === 7)
+                  =parseFloat(element.list_content.value)
+                  | 
+                  =element.list_content.rules_type.name.replace('%d ', '')
+                  | 
+                else if (element.list_content.rules_type_id === 1)
+                  =element.list_content.rules_type.name.replace('%d м', ' ')
+                  | 
+                  =parseFloat(element.list_content.value)
+                  | 
+                  =i18n.__('m')
+                else if (element.list_content.rules_type_id === 5)
+                  =element.list_content.rules_type.name.replace('%d кв. м', ' ')
+                  | 
+                  =parseFloat(element.list_content.value)
+                  | 
+                  =i18n.__('sq. m')
+                else if (element.list_content.rules_type_id === 21 || element.list_content.rules_type_id === 22)
+                  =element.list_content.rules_type.name.replace('%d м', ' ')
+                  | 
+                  =parseFloat(element.list_content.value)
+                  | 
+                  =i18n.__('m')
+                img(src="/assets/images/edit_btn.png" data=element.list_content.id data-item-name=element.name class="edit-btn")
+                img(class="remove-btn remove-item" value=list.id data=element.id data-list=element.list_content.id src="/assets/images/remove_btn.png" alt="Удалить элемент" title="Удалить элемент")
+            each set in listsChilds
+              p(data=set.list_content.id)
+                a(href="/base/set/" + set.id)
+                  =set.id
+                  | 
+                  =set.name
+                | 
+                if (set.list_content.rules_type_id === 3 || set.list_content.rules_type_id === 2 || set.list_content.rules_type_id === 15 || set.list_content.rules_type_id === 4 || set.list_content.rules_type_id === 6 || set.list_content.rules_type_id === 7 || set.list_content.rules_type_id === 8 || set.list_content.rules_type_id === 10 || set.list_content.rules_type_id === 12 || set.list_content.rules_type_id === 13 || set.list_content.rules_type_id === 14 || set.list_content.rules_type_id === 23 || set.list_content.rules_type_id === 24)
+                  =parseFloat(set.list_content.value)
+                  | 
+                  =set.list_content.rules_type.name.replace('%d ', '')
+                  | 
+                else if (set.list_content.rules_type_id === 1)
+                  =set.list_content.rules_type.name.replace('%d м', ' ')
+                  | 
+                  =parseFloat(set.list_content.value)
+                  | 
+                  =i18n.__('m')
+                else if (set.list_content.rules_type_id === 5)
+                  =set.list_content.rules_type.name.replace('%d кв. м', ' ')
+                  | 
+                  =parseFloat(set.list_content.value)
+                  | 
+                  =i18n.__('sq. m')
+                else if (set.list_content.rules_type_id === 21 || set.list_content.rules_type_id === 22)
+                  =set.list_content.rules_type.name.replace('%d м', ' ')
+                  | 
+                  =parseFloat(set.list_content.value)
+                  | 
+                  =i18n.__('m')
+                img(src="/assets/images/edit_btn.png" data=set.list_content.id data-item-name=set.name class="edit-btn")
+                img(class="remove-btn remove-item" value=list.id data=set.id data-list=set.list_content.id src="/assets/images/remove_btn.png" alt="Удалить набор" title="Удалить набор")
+          .functionality
+              a(href="#", id="addElement")
+                span#addElementText
+                  =i18n.__('Add element')
+              | 
+              a(href="#", id="addSet")
+                span#addSetText
+                  =i18n.__('Add set')
+        include ./includes/set/add-item.jade
+        include ./includes/set/edit-child-item.jade
+        include ./includes/alert-remove-popup.jade
+        .footer
+          .footer-end
+            a(href="#", id="saveSet" data-set=list.id)
+              span#saveSetText
+                =i18n.__('Save')

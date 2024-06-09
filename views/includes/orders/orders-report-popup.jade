@@ -1,0 +1,72 @@
+.report-pop-up(style="display: none;")
+  .pop-up-close-wrap
+    a(class="pop-up-close", href="#")
+  span#pop-up-header(style="width: 70px;")
+    =i18n.__('Report')
+  .order-report-content
+    .order-report-navigation
+      ul.report-navigation-list
+        li.report-action-btn(data-type="1")
+          .report-action-txt
+            =i18n.__('Profiles')
+        li.report-action-btn(data-type="3")
+          .report-action-txt
+            =i18n.__('Reinforcement')
+        li.report-action-btn(data-type="8")
+          .report-action-txt
+            =i18n.__('Window glasses')
+        li.report-action-btn(data-type="2")
+          .report-action-txt
+            =i18n.__('Hardware')
+        li.report-action-btn(data-type="6")
+          .report-action-txt
+            =i18n.__('Piece')
+        li.report-action-btn(data-type="5")
+          .report-action-txt
+            =i18n.__('Seals')
+        li.report-action-btn(data-type="19")
+          .report-action-txt
+            =i18n.__('Add. profiles')
+        li.report-action-btn(data-type="9")
+          .report-action-txt
+            =i18n.__('Surface')
+        li.report-action-btn(data-type="10")
+          .report-action-txt
+            =i18n.__('Liquid')
+        li.report-action-btn(data-type="21")
+          .report-action-txt
+            =i18n.__('Weight')
+        li.report-action-btn(data-type="1, 3, 8, 2, 6, 5, 19, 9, 10, 21")
+          .report-action-txt
+            =i18n.__('All')
+    .order-report-info
+      table#report-table(cellpadding="0" cellspacing="0" border="0")
+        thead
+          tr.table-header
+            td.table-td-title
+              .table-text
+                =i18n.__('Title')
+            td.table-td-sku
+              .table-text
+                =i18n.__('SKU')
+            td.table-td-amount
+              .table-text.table-text-center
+                =i18n.__('Amount')
+            td.table-td-perimeter
+              .table-text.table-text-center
+                =i18n.__('Size')
+        tbody
+          //tr.table-content
+            td
+              .table-text
+                | Армирование
+            td
+              .table-text
+                | 0923
+            td
+              .table-text
+                | 2
+            td
+              .table-text
+                | 560
+    

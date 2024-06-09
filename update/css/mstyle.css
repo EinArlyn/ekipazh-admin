@@ -1,0 +1,76 @@
+/*---fonts---*/
+@import url('https://fonts.googleapis.com/css?family=Rubik');
+@import url('https://fonts.googleapis.com/css?family=Comfortaa');
+/* font-family: "OpenSansRegular"; */
+@font-face {
+    font-family: "OpenSans";
+    src: url("/css/fonts/OpenSansRegular/OpenSansRegular.eot");
+    src: url("/css/fonts/OpenSansRegular/OpenSansRegular.eot?#iefix")format("embedded-opentype"),
+    url("/css/fonts/OpenSansRegular/OpenSansRegular.woff") format("woff"),
+    url("/css/fonts/OpenSansRegular/OpenSansRegular.ttf") format("truetype");
+    font-style: normal;
+    font-weight: normal;
+}
+/* font-family: "OpenSansLight"; */
+@font-face {
+    font-family: "OpenSansLight";
+    src: url("/css/fonts/OpenSansLight/OpenSansLight.eot");
+    src: url("/css/fonts/OpenSansLight/OpenSansLight.eot?#iefix")format("embedded-opentype"),
+    url("/css/fonts/OpenSansLight/OpenSansLight.woff") format("woff"),
+    url("/css/fonts/OpenSansLight/OpenSansLight.ttf") format("truetype");
+    font-style: normal;
+    font-weight: normal;
+}
+/* font-family: "OpenSansBold"; */
+@font-face {
+    font-family: "OpenSansBold";
+    src: url("/css/fonts/OpenSansBold/OpenSansBold.eot");
+    src: url("/css/fonts/OpenSansBold/OpenSansBold.eot?#iefix")format("embedded-opentype"),
+    url("/css/fonts/OpenSansBold/OpenSansBold.woff") format("woff"),
+    url("/css/fonts/OpenSansBold/OpenSansBold.ttf") format("truetype");
+    font-style: normal;
+    font-weight: normal;
+}
+/*--/fonts---*/
+
+html,body 
+{
+    width: 375px;
+    margin: 0;
+    padding: 0;
+}
+
+.bunner 
+{
+	border: 1px solid #CCCCCC; 
+	border-radius: 4px 4px 4px 4px; 
+	box-shadow: 3px 3px 3px #CCCCCC; 
+	margin-right: 0.5em; 
+	overflow: hidden; 
+	padding: 0.5em 0.5em 0.5em 0.5em;
+}
+
+.b_bunner 
+{
+	border:none; 
+	border-radius: 5px; 
+	box-shadow: none; 
+	margin: auto; 
+	overflow: hidden; 
+	padding: 0.5em 0.5em 0.5em 0.5em;
+	cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.callback-input{
+	font-family: Rubik, Regular;
+	padding: 3px 17px;	
+	outline: 0px none; 
+	border-bottom: 1px solid #414141;
+	background-color: #fff;
+	color: #414141;
+	vertical-align: middle;
+	text-decoration: none;
+	font-size: 15px;
+}

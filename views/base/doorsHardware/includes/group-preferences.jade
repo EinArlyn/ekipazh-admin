@@ -1,0 +1,35 @@
+.row.door-groups-wrap
+  table#door-groups(cellpadding="0" cellspacing="0" border="0")
+    thead
+      tr
+        td(colspan="2")
+          =i18n.__("Belonging to door groups")
+          | :
+        td
+          input#select-all-door-group(type="checkbox" value="")
+          label(for="select-all-door-group")
+            =i18n.__("Select all")
+    tbody
+      tr
+        td(colspan="3")
+          .door-groups-items
+.row.door-handles-container
+  .row
+    span.pull-left.lock-header
+      =i18n.__('Property of lists')
+      | :
+    input.add-btn.show-lock-set.pull-right(type="button" value=i18n.__("Bind with handle"))
+  .row.lock-set-select-container
+    select.select-default#lock-set-select(style="width: 92%;")
+    input.ok-btn.submit-lock-set.pull-right(type="button" disabled="disabled" data-list value=i18n.__('Ok'))
+  .row
+    ul.lock-list-container
+      //if (!lockLists.length)
+      li.pull-center.empty-lock-list
+        =i18n.__('Empty')
+      //else
+        each lockList in lockLists
+          li.lock-list-item(data-id)
+            span.pull-left
+              | TEst
+            input.remove-btn.remove-lock-set.pull-right(type="button" data-id data-list-id data-accessory-id value="")

@@ -1,0 +1,182 @@
+.main-nav {
+  background-color: #dadada;
+  height: 55px;
+  border: 1px solid #c6c6c6;
+}
+
+main .main-content {
+  height: 90%;
+  border: 1px solid #c6c6c6;
+  border-top: none;
+  background-image: url('/assets/images/background.png');
+  padding: 10px;
+}
+  .main-content .content-wrap {
+    width: 100%;
+    border: 1px solid #efeeee;
+    font-size: 12px;
+    box-shadow: inset 0 0 8px #bababa;
+    clear: both;
+    height: 520px;
+  }
+    /*
+      * Dashboard profile nav
+    */
+    .profile {
+      margin-top: 5px;
+      height: 85%;
+      width: 220px;
+      display: inline-block;
+      border-right: 1px solid #c4c4c4;
+    }
+      .user-info {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        -o-text-overflow: ellipsis;
+      }
+
+      /* profile avatar */
+      .profile-avatar {
+        position: relative;
+        left: 10px;
+        display: inline-block;
+        width: 45px;
+        height: 45px;
+      }
+
+      .profile-avatar img {
+        width: 45px;
+        height: 45px;
+        -webkit-border-radius: 50%;
+        -moz-border-radius: 50%;
+        border-radius: 50%;
+      }
+
+      /* profile info */
+      .profile-data {
+        color: #515151;
+        font-size: 15px;
+        display: inline-block;
+        height: 45px;
+        width: 150px;
+        margin: 0 0 0 20px;
+        vertical-align: top;
+      }
+        .profile-data #cityName {
+          font-size: 12px;
+          position: relative;
+          top: 5px;
+        }
+      /* profile button */
+      .profile-btn {
+        display: inline-block;
+        position: relative;
+        top: -13px;
+        left: 5px;
+      }
+
+      a#profile-btn {
+        text-decoration: none;
+        color: #515151;
+        font-size: 12px;
+        text-align: center;
+      }
+
+      #profile-btn {
+        display: inline-block;
+        width: 105px;
+        height: 26px;
+        background-image: url('/assets/images/dashboard_icons/profile_btn.png');
+      }
+
+      #profile-btn:hover {
+        background-image: url('/assets/images/dashboard_icons/profile_btn.png');
+      }
+
+      #profile-btn-text {
+        position: relative;
+        top: 4px;
+      }
+    /*
+      * Dashboard buttons
+    */
+    .btn {
+      text-align: center;
+      display: inline-block;
+      margin: 55px 0 0 55px;
+      width: 95px;
+      height: 115px;
+      -webkit-transition: color 0.5s;
+      -moz-transition: color 0.5s;
+      -ms-transition: color 0.5s;
+      -o-transition: color 0.5s;
+      transition: color 0.5s;
+    }
+
+    .btn:hover {
+      cursor: pointer;
+      color: #ff7a4b;
+    }
+    .btn .btn-text:hover {
+      cursor: pointer;
+      color: #ff7a4b;
+    }
+
+      .btn-text {
+        text-align: center;
+        width: 95px;
+        min-height: 28px;
+        position: absolute;
+      }
+
+    .base-field {
+      margin: -140px 0 0 0;
+      width: 158px;
+      height: 285px;
+      position: relative;
+      top: 195px;
+      left: 29px;
+      background: url('/assets/images/dashboard_icons/dashboard_base_side.png') no-repeat;
+      background-size: 160px 285px;
+      display: none;
+    }
+
+      .base-field ul {
+        margin: 5px 0 0 -25px;
+        list-style-type: none;
+        line-height: 30px;
+      }
+
+      .base-field a {
+        font-size: 13px;
+        color: #515151;
+        font-weight: bold;
+      }
+
+      .base-field a:hover {
+        color: #ff7a4b;
+      }
+
+/*
+  * functionality
+*/
+  /* disabled buttons */
+  .disabled {
+    opacity: 0.3;
+  }
+  /* on base click show menu */
+  .base-menu {
+    display: inline-block;
+  }
+  #jquery-loader-background{
+    background-color: silver
+  }
+  #jquery-loader.loader{
+    border: none;
+    padding-top: 35px;
+    text-align: center;
+    background-image: url(/assets/images/loader_ico.GIF);
+    background-position: center center;
+    background-repeat: no-repeat;
+  }

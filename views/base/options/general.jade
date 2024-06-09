@@ -1,0 +1,232 @@
+extends ../layout
+
+block content
+  .main-nav
+    .nav-link
+      a(class="external-link", href="/")= i18n.__('Dashboard') 
+      | 
+      | -> 
+      span#nav-text
+        =i18n.__('Options')
+      img.loader-ico(src="/assets/images/loader_ico.GIF")
+  .main-select-option
+    select(id="lamination-select", name="", class="select-default selected-option", style="width: 180px;")
+      option(value="1")=i18n.__('Lamination')
+      option(value="1")=i18n.__('Lamination')
+      option(value="2")=i18n.__('Discounts')
+      option(value="3")=i18n.__('Coefficients')
+      option(value="8")=i18n.__('Suppliers')
+      option(value="9")=i18n.__('Currency')
+      option(value="10" selected)=i18n.__('General options')
+      option(value="11")=i18n.__('Application options')
+      option(disabled)=i18n.__('Groups')
+      option(value="4")=i18n.__('Glazed window')
+      option(value="5")=i18n.__('Window sills')
+      option(value="6")=i18n.__('Spillways')
+      option(value="7")=i18n.__('Visors')
+      option(value="12")=i18n.__('Connectors')
+      option(value="13")=i18n.__('Mosquitos')
+      option(value="14")=i18n.__('Doorhandles')
+                //-form(method='post', action='/base/option/save', id="main-form")
+    .general-option.checked-option
+      .main-content
+        .option-container
+          .left-cell
+            =i18n.__('Application access link')
+            | : 
+          .right-cell
+            input.input-default(type="text" value="http://windowscalculator.net/calculator/#/?access=" + factory.app_token style="width: 500px;" disabled)
+        hr.divider
+        .row
+          .col-md-6.right-divider
+            .label
+              =i18n.__('Email for orders')
+              | : 
+            .email-container
+              table#email-table
+                tbody
+                  each emailRow in factory.factory_emails
+                    tr
+                      td
+                        input.input-default.email-input(type="text" data-row=emailRow.id value=emailRow.email placeholder=i18n.__('Type email address'))
+                        input.ok-button.submit-factory-email(type="button" data-row=emailRow.id value=i18n.__('Ok'))
+                tfoot
+                  tr
+                    td
+                      input#add-email(type="button" value=i18n.__('Add +'))
+          .col-md-6
+            .row
+              =i18n.__('Order folders')
+              | :
+            .folders-container
+              table#folders-table
+                tbody
+                  each folder in factoryOrderFolders
+                    tr
+                      td
+                        input.input-default.folder-input(type="text" data-row=folder.id value=folder.name placeholder=i18n.__('Type folder name'))
+                        input.ok-button.submit-factory-folder(type="button" data-row=folder.id value=i18n.__('Ok'))
+                tfoot
+                  tr
+                    td
+                      input#add-folder(type="button" value=i18n.__('Add +'))
+        hr.divider
+        .row
+          .col-md-6.right-divider
+            form(method="POST", action="/base/options/general/identificators")
+              .row
+                .row
+                  =i18n.__('User identificators')
+                  | : 
+                .col-md-6
+                  .row
+                    .col-md-2.pull-center
+                      div.identificator-round.r-1
+                      span.pull-right
+                        | -
+                    .col-md-10
+                      input.identificator-input.input-default(type="text" name="identificator_1" value=factoryIdentificators.identificator_1)
+                  .row
+                    .col-md-2.pull-center
+                      div.identificator-round.r-2
+                      span.pull-right
+                        | -
+                    .col-md-10
+                      input.identificator-input.input-default(type="text" name="identificator_2" value=factoryIdentificators.identificator_2)
+                  .row
+                    .col-md-2.pull-center
+                      div.identificator-round.r-3
+                      span.pull-right
+                        | -
+                    .col-md-10
+                      input.identificator-input.input-default(type="text" name="identificator_3" value=factoryIdentificators.identificator_3)
+                  .row
+                    .col-md-2.pull-center
+                      div.identificator-round.r-4
+                      span.pull-right
+                        | -
+                    .col-md-10
+                      input.identificator-input.input-default(type="text" name="identificator_4" value=factoryIdentificators.identificator_4)
+                  .row
+                    .col-md-2.pull-center
+                      div.identificator-round.r-5
+                      span.pull-right
+                        | -
+                    .col-md-10
+                      input.identificator-input.input-default(type="text" name="identificator_5" value=factoryIdentificators.identificator_5)
+                  .row
+                    .col-md-2.pull-center
+                      div.identificator-round.r-6
+                      span.pull-right
+                        | -
+                    .col-md-10
+                      input.identificator-input.input-default(type="text" name="identificator_6" value=factoryIdentificators.identificator_6)
+                  .row
+                    .col-md-2.pull-center
+                      div.identificator-round.r-7
+                      span.pull-right
+                        | -
+                    .col-md-10
+                      input.identificator-input.input-default(type="text" name="identificator_7" value=factoryIdentificators.identificator_7)
+                .col-md-6
+                  .row
+                    .col-md-2.pull-center
+                      div.identificator-round.r-8
+                      span.pull-right
+                        | -
+                    .col-md-10
+                      input.identificator-input.input-default(type="text" name="identificator_8" value=factoryIdentificators.identificator_8)
+                  .row
+                    .col-md-2.pull-center
+                      div.identificator-round.r-9
+                      span.pull-right
+                        | -
+                    .col-md-10
+                      input.identificator-input.input-default(type="text" name="identificator_9" value=factoryIdentificators.identificator_9)
+                  .row
+                    .col-md-2.pull-center
+                      div.identificator-round.r-14
+                      span.pull-right
+                        | -
+                    .col-md-10
+                      input.identificator-input.input-default(type="text" name="identificator_14" value=factoryIdentificators.identificator_14)
+                  .row
+                    .col-md-2.pull-center
+                      div.identificator-round.r-10
+                      span.pull-right
+                        | -
+                    .col-md-10
+                      input.identificator-input.input-default(type="text" name="identificator_10" value=factoryIdentificators.identificator_10)
+                  .row
+                    .col-md-2.pull-center
+                      div.identificator-round.r-11
+                      span.pull-right
+                        | -
+                    .col-md-10
+                      input.identificator-input.input-default(type="text" name="identificator_11" value=factoryIdentificators.identificator_11)
+                  .row
+                    .col-md-2.pull-center
+                      div.identificator-round.r-12
+                      span.pull-right
+                        | -
+                    .col-md-10
+                      input.identificator-input.input-default(type="text" name="identificator_12" value=factoryIdentificators.identificator_12)
+                  .row
+                    .col-md-2.pull-center
+                      div.identificator-round.r-13
+                      span.pull-right
+                        | -
+                    .col-md-10
+                      input.identificator-input.input-default(type="text" name="identificator_13" value=factoryIdentificators.identificator_13)
+              .row.pull-center
+                input.add-btn#submit-identificators(type="submit" disabled value=i18n.__('Save'))
+          .col-md-6
+            .row
+              .label
+                =i18n.__('Coefficient type')
+                | : 
+              .option-container
+                input.option-input(type="radio", data-type="therm_coeff_id" name="coeff" value="1" id="select-r" checked=(factory.therm_coeff_id ? factory.therm_coeff_id : undefined))
+                label(for="select-r")
+                  =i18n.__('R_coeff')
+                input.option-input(type="radio", data-type="therm_coeff_id" name="coeff" value="0" id="select-u" checked=(factory.therm_coeff_id ? undefined : factory.therm_coeff_id))
+                label(for="select-u")
+                  =i18n.__('U_coeff')
+              .row
+                .col-md-7.text-right
+                  span
+                    =i18n.__('Max constructions square')
+                    | :               
+                .col-md-3
+                  input.option-input.input-min.input-default(type="text", data-type="max_construct_square" name="constuct_area" value=factory.max_construct_square)
+                  | 
+                  =i18n.__('m')
+                  | &#178;
+              .row
+                .col-md-7.text-right
+                  span
+                    =i18n.__('Max constructions size')
+                    | :
+                .col-md-3
+                  input.option-input.input-min.input-default(type="text", data-type="max_construct_size" name="constuct_size" value=factory.max_construct_size)
+                  | 
+                  =i18n.__('mm')
+              .row
+                .col-md-7.text-right
+                  span
+                    | Макс. пл-дь ламинированной конструкции
+                    | :
+                .col-md-3
+                  input.option-input.input-min.input-default(type="text", data-type="max_lamination_construct_square" name="max_lamination_construct_square" value=factory.max_lamination_construct_square)
+                  | 
+                  =i18n.__('m')
+                  | &#178;
+              .row
+                .col-md-7.text-right
+                  span
+                    | Макс. разм. ламинированной конструкции
+                    | :
+                .col-md-3
+                  input.option-input.input-min.input-default(type="text", data-type="max_lamination_construct_size" name="max_lamination_construct_size" value=factory.max_lamination_construct_size)
+                  | 
+                  =i18n.__('mm')

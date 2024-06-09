@@ -1,0 +1,209 @@
+.main-content {
+  width: 100%;
+  /*border-left: 1px solid #cecece;
+  border-right: 1px solid #cecece;*/
+}
+  .main-nav {
+    background-color: #dadada;
+    height: 55px;
+    border: 1px solid #c6c6c6;
+  }
+
+  .nav-link {
+      margin: 15px;
+    }
+    .nav-link a{
+      color: #434343;
+    }
+
+    .nav-link #nav-text {
+      color: #4f9e2e;
+    }
+
+  .main-content-header {
+    border: 1px solid #c6c6c6;
+    border-top: none;
+    height: 55px;
+  }
+
+    /** Calendar */
+    .calendar {
+      height: 55px;
+      float: left;
+      padding-top: 3px;
+    }
+    /** Excel btn */
+    .excel-btn {
+      height: 55px;
+      float: right;
+      position: relative;
+      top: 15px;
+      right: 15px;
+    }
+
+/** Buttons */
+input.btn-excel {
+  width: 148px;
+  height: 25px;
+  background: url("/assets/images/save_inactive.png") no-repeat center;
+  background-size: 148px 25px;
+  text-shadow: 0px 1px 0px #45822b;
+  color: #fff;
+  font-family: Tahoma, Verdana, Segoe, sans-serif;
+  font-weight: bold;
+  font-size: 11px;
+  cursor: pointer;
+  outline: none;
+  border: 0;
+  border-radius: 2px;
+  box-shadow: inset 0px -1px 1px #626262;
+  -moz-box-shadow: inset 0px -1px 1px #626262;
+  -o-box-shadow: inset 0px 1px -1px #626262;
+  -webkit-box-shadow: inset 0px -1px 1px #626262;
+  box-shadow: inset 0px -1px 1px #626262;
+}
+
+input.btn-excel:hover {
+  background: url("/assets/images/save_active.png");
+}
+/** Date pickers */
+.date-picker-from {
+  position: absolute;
+  display: none;
+  top: 150px;
+  left: 24%;
+  width: 250px;
+  z-index: 5;
+}
+
+.date-picker-to {
+  position: absolute;
+  display: none;
+  top: 150px;
+  left: 24%;
+  width: 250px;
+  z-index: 5;
+}
+
+.date-select {
+  margin: 15px;
+  color: #878787;
+}
+#date-from, #date-to {
+  margin-right: 0px;
+  height: 20px;
+  border: 1px solid #b2b2b2;
+  border-right: none;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+/* Ok date*/
+a#ok-date {
+  text-decoration: none;
+  color: #fff;
+  font-size: 12px;
+  font-weight: bold;
+  text-align: center;
+  margin-left: 10px;
+}
+
+#ok-date {
+  float: right;
+  display: inline-block;
+  width: 32px;
+  height: 25px;
+  background-image: url('/assets/images/ok_active.png');
+  background-size: 32px 25px;
+}
+
+#ok-date:hover {
+  background-image: url('/assets/images/ok_inactive.png');
+}
+
+.ok-date-text {
+  position: relative;
+  top: 4px;
+}
+
+/* Calendar btn */
+.calendar-btn-wrap {
+  background-color: #e2e2e2;
+  display: inline-block;
+  text-align: center;
+  vertical-align: middle;
+  height: 22px;
+  width: 24px;
+  border: 1px solid #b2b2b2;
+  border-left: none;
+  border-radius: 5px;
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+.calendar-btn-wrap:hover {
+  cursor: pointer;
+}
+
+  .calendar-btn {
+    display: inline-block;
+    vertical-align: middle;
+    width: 13px;
+    height: 15px;
+    background-image: url('/assets/images/orders/btn_calendar.png');
+  }
+
+.ok-button input{
+  width: 38px;
+  height: 25px;
+  background: url("/assets/images/ok_inactive.png")no-repeat center;
+  text-shadow: 0px 1px 0px #45822b;
+  color:#fff;
+  font-family: Tahoma, Verdana, Segoe, sans-serif;
+  font-weight:bold;
+  font-size: 11px;
+  cursor: pointer;
+  outline: none;
+  border:0;
+  border-radius: 2px;
+  box-shadow: inset 0px -1px 1px #626262;
+  -moz-box-shadow:inset 0px -1px 1px #626262;
+  -o-box-shadow:inset 0px 1px -1px #626262;
+  -webkit-box-shadow:inset 0px -1px 1px #626262;
+  box-shadow:inset 0px -1px 1px #626262;
+}
+.ok-button input:hover{
+    background: url("/assets/images/ok_active.png")no-repeat center;
+}
+
+.ok-button{
+  cursor: pointer;
+  outline: none;
+  border-left: 1px solid #b4b4b4;
+  border-bottom: 1px solid #b4b4b4;
+  border-right: 1px solid #b4b4b4;
+
+  width: 38px;
+  height: 25px;
+  margin-left: 8px;
+  margin-top: 16px;
+  display: inline-block;
+  -moz-border-radius: 3px;
+  -o-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  border-radius: 3px;
+  margin-top: 13px;
+}
+.choice-analytics {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.choice-analytics .calendar{
+  height: auto;
+}
+.analytics-text {
+  display: inline-block;
+  margin-left: 15px;
+  width: 435px;
+}

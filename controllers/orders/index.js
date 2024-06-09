@@ -1,0 +1,13 @@
+exports.index = require('./orders.js');
+exports.getOrder = require('./getOrder.js');
+exports.getOrderPDF = require('./getOrderPDF.js');
+exports.getOrderPDFua = require('./getOrderPDFua.js');
+exports.getOrderPDFokoshko = require('./getOrderPDFokoshko.js');
+exports.getInvoicePDFokoshko = require('./getInvoicePDFokoshko.js');
+exports.getOrderReport = require('./getOrderReport.js');
+exports.deleteOrder = require('./deleteOrder.js');
+exports.changeOrderState = require('./changeOrderState.js');
+exports.deleteOrder = require('./deleteOrder.js');
+exports.getScheme = require('./getScheme.js');
+exports.getAmountOfOrders = require('./getAmountOfOrders.js');
+exports.changeFactoryNumber = require('./changeFactoryNumber.js');

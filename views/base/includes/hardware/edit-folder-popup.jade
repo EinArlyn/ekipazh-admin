@@ -1,0 +1,39 @@
+.edit-hardware-pop-up(style="display: none;")
+  form(id="edit-hardware-folder-form" method="POST" action="/base/hardware/editHardwareFolder" enctype="multipart/form-data")
+    input#hidden-edit-hardware-folder.hidden(type="text" name="folder_id" value="")
+    #pop-up-edit-hardware-close-wrap
+      a(id="pop-up-edit-hardware-close", href="#")
+    span#pop-up-edit-hardware-header
+      =i18n.__('Edit group')
+    .hardware-edit-group-block-align
+      span.hardware-edit-group-text-align
+        =i18n.__('Group name')
+        | :
+      span
+        input(class="input-default hardware-edit-group-input-align", id="hardware-edit-name-pop-up-input", name="name" type="text")
+    //.hardware-edit-group-block-align
+      span.hardware-edit-group-text-align
+        =i18n.__('Short name')
+        | :
+      span
+        input(class="input-default hardware-edit-group-input-align", id="hardware-edit-shortname-pop-up-input" type="text")
+    .hardware-edit-group-block-align
+      span.hardware-edit-group-text-align
+        =i18n.__('Link')
+        | :
+      span
+        input(class="input-default hardware-edit-group-input-align", id="hardware-edit-link-pop-up-input", name="link" type="text")
+    .hardware-edit-group-description-block-align
+      span.hardware-edit-group-text-align
+        =i18n.__('Description')
+        | :
+      span
+        textarea(class="input-default hardware-edit-group-input-align", id="hardware-edit-description-pop-up-input" name="description" style="min-height: 100px; min-width: 243px; max-height: 100px; max-width: 243px;")  
+    .hardware-edit-group-image-block-align
+      input(id="select-hardware-edit-group-image" type="file" name="hardware_img" class="hidden")
+      a(href="#" type="button" id="edit-hardware-group-img" style="margin-left: 30px;")
+      img(id="hardware-edit-group-image" style="height: 64px; width: 124px; margin-left: 20px;" src="/local_storage/default.png")
+    .hardware-edit-pop-up
+      a(id="hardware-edit-pop-up-btn", href="#", type="button", value)
+        span#hardware-edit-pop-up-btn-text
+          =i18n.__('Save')

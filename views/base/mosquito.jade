@@ -1,0 +1,102 @@
+extends layout
+
+block content
+  .main-nav
+    .nav-link
+      a(href="/")= i18n.__('Dashboard') 
+      | 
+      | -> 
+      span#nav-text
+        =i18n.__('Mosquito nets')
+      img.loader-ico(src="/assets/images/loader_ico.GIF")
+  .main-content
+    each profileSystem in profileSystems
+      .profile-system
+        a.gray-btn.profile-system-btn(href="#" data-id=profileSystem.id)
+          span.gray-btn-text
+            =profileSystem.name
+        .mosquito-container(data-id=profileSystem.id)
+          .functionality-btns
+            a.add-btn.add-mosquito-btn(href="#" data-id=profileSystem.id)
+              span.add-btn-text
+                =i18n.__('Add +')
+          .mosquitos-list(data-id=profileSystem.id)
+            //table.mosquito-list-table(border="0" cellspacing="0" cellpadding="2")
+              tr.mosquito-header
+                td.mosquito-name-td(colspan="5")
+                  | Внутренняя белая
+                  //a.remove-btn.remove-mosquito-btn(href="#" data-id="1")
+                  a.edit-btn.edit-mosquito-name-btn(href="#" data-id="1")
+              tr
+                th
+                  =i18n.__('Bottom')
+                th
+                  =i18n.__('Left')
+                th
+                  =i18n.__('Top')
+                th
+                  =i18n.__('Right')
+                th
+                  =i18n.__('Cloth')
+              tr
+                td
+                  select.select-default(name="bottom")
+                  input.input-default(type="text")
+                td
+                  select.select-default(name="left")
+                  input.input-default(type="text")
+                td
+                  select.select-default(name="top")
+                  input.input-default(type="text")
+                td
+                  select.select-default(name="right")
+                  input.input-default(type="text")
+                td
+                  select.select-default(name="cloth")
+                  input.input-default(type="text")
+
+    .profile-system
+      a.gray-btn.unbinded-btn(href="#" data-id="0")
+        span.gray-btn-text
+          =i18n.__('Ubinded to prof. systems')
+      .mosquito-container(data-id="0")
+        .functionality-btns
+          a.add-btn.add-mosquito-btn(href="#" data-id="0")
+            span.add-btn-text
+              =i18n.__('Add +')
+        .mosquitos-list(data-id="0")
+          //table.mosquito-list-table(border="0" cellspacing="0" cellpadding="2")
+            tr.mosquito-header
+              td.mosquito-name-td(colspan="5")
+                | Внутренняя белая
+                //a.remove-btn.remove-mosquito-btn(href="#" data-id="1")
+                a.edit-btn.edit-mosquito-name-btn(href="#" data-id="1")
+            tr
+              th
+                =i18n.__('Bottom')
+              th
+                =i18n.__('Left')
+              th
+                =i18n.__('Top')
+              th
+                =i18n.__('Right')
+              th
+                =i18n.__('Cloth')
+            tr
+              td
+                select.select-default(name="bottom")
+                input.input-default(type="text")
+              td
+                select.select-default(name="left")
+                input.input-default(type="text")
+              td
+                select.select-default(name="top")
+                input.input-default(type="text")
+              td
+                select.select-default(name="right")
+                input.input-default(type="text")
+              td
+                select.select-default(name="cloth")
+                input.input-default(type="text")
+  include ./includes/mosquito-add-new.jade
+  include ./includes/mosquito-edit-name.jade

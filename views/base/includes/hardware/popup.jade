@@ -1,0 +1,67 @@
+.pop-up(style="display: none;")
+  #pop-up-close-wrap
+    a(id="pop-up-close", href="#")
+  span#pop-up-header
+  .item-query-search
+    span#item-query-search-text
+      =i18n.__('Filter')
+      | :
+    span
+      input(class="input-default" id="item-query-search-input" type="text")
+  .item-group-pop-up
+    span#item-group-pop-up-text
+    span
+      select(class="select-default", id="item-group-pop-up-input")
+  .item-name-pop-up
+    span#item-name-pop-up-text
+    span
+      select(class="select-default", id="item-name-pop-up-input")
+  .item-direction-color-length-num-text
+    span.item-direction-pop-up
+      =i18n.__('Direction')
+      | : 
+    span.item-lamination-pop-up
+      =i18n.__('Inner window color')
+      | : 
+    span.item-length-pop-up
+      =i18n.__('Length')
+      | : 
+    span.item-num-pop-up
+      =i18n.__('Amount')
+      | :
+  .item-direction-color-length-num-input
+    span.item-direction-pop-up
+      select(class="select-default", id="select-direction-id", style="width: 120px;")
+        option(value="1")=i18n.__('Ignore')
+        option(value="2")=i18n.__('Right-hand')
+        option(value="3")=i18n.__('Left-hand')
+    span.item-lamination-pop-up
+      select(class="select-default", id="select-lamination-id", style="width: 125px;")
+    span.item-length-pop-up
+      input(class="input-default", id="length-input", type="text", value="0", style="width: 60px;")
+    span.item-num-pop-up
+      input(class="input-default", id="num-input", type="text", value="0", style="width: 60px;")
+  .item-height-width-pop-up-text
+    span.item-width-pop-up
+      =i18n.__('Width (mm)')
+      | :
+    span.item-height-pop-up
+      =i18n.__('Height (mm)')
+      | :
+  .item-height-width-pop-up-input
+    span.item-width-pop-up
+      | min 
+      input(class="input-default", id="min_width", type="text", value="0", style="width: 30px;") 
+      | 
+      | max 
+      input(class="input-default", id="max_width", type="text", value="0", style="width: 30px;")
+    span.item-height-pop-up
+      | min 
+      input(class="input-default", id="min_height", type="text", value="0", style="width: 30px;") 
+      | 
+      | max 
+      input(class="input-default", id="max_height", type="text", value="0", style="width: 30px;")
+  .item-save
+    a.disabled(id="item-save-btn", href="#", type="button")
+      span#item-save-btn-text
+        =i18n.__('Save')

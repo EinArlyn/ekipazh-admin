@@ -1,0 +1,35 @@
+.glass-options
+  .row.glass-header
+    .col-md-3
+      =i18n.__('Glass type')
+      | :
+    .col-md-3
+      =i18n.__('Glass color')
+      | :
+  .row.glass-content
+    .col-md-3
+      select.select-default#glass-type(name="glass_type" style="width: 190px;")
+        option(value="1" selected=(list.glass_type === 1 ? 'selected' : undefined))=i18n.__('1 camera')
+        option(value="2" selected=(list.glass_type === 2 ? 'selected' : undefined))=i18n.__('2 cameras')
+        option(value="3" selected=(list.glass_type === 3 ? 'selected' : undefined))=i18n.__('Glass')
+        option(value="4" selected=(list.glass_type === 4 ? 'selected' : undefined))=i18n.__('Sandwich panel')
+        option(value="5" selected=(list.glass_type === 5 ? 'selected' : undefined))=i18n.__('PVC panel')
+    .col-md-3
+      select.select-default#glass-color(name="glass_color" style="width: 190px;")
+        option(value="1" selected=(list.glass_color === 1 ? 'selected' : undefined))=i18n.__('Transparence')
+        option(value="2" selected=(list.glass_color === 2 ? 'selected' : undefined))=i18n.__('Translucency')
+        option(value="3" selected=(list.glass_color === 3 ? 'selected' : undefined))=i18n.__('White')
+        option(value="4" selected=(list.glass_color === 4 ? 'selected' : undefined))=i18n.__('Brown')
+  .row.glass-header
+    =i18n.__('Glass image')
+    | :
+  .row.glass-content
+    select#glass-picker(name="glass_image")
+      option(data-img-src="/assets/images/glass-types/SpGlass@2x.png" value="1" selected=(list.glass_image === 1 ? 'selected' : undefined))
+      option(data-img-src="/assets/images/glass-types/1.png" value="2" selected=(list.glass_image === 2 ? 'selected' : undefined))
+      option(data-img-src="/assets/images/glass-types/1s.png" value="3" selected=(list.glass_image === 3 ? 'selected' : undefined))
+      option(data-img-src="/assets/images/glass-types/2.png" value="4" selected=(list.glass_image === 4 ? 'selected' : undefined))
+      option(data-img-src="/assets/images/glass-types/2+.png" value="5" selected=(list.glass_image === 5 ? 'selected' : undefined))
+      option(data-img-src="/assets/images/glass-types/2+s.png" value="6" selected=(list.glass_image === 6 ? 'selected' : undefined))
+      option(data-img-src="/assets/images/glass-types/2s.png" value="7" selected=(list.glass_image === 7 ? 'selected' : undefined))
+      option(data-img-src="/assets/images/glass-types/Sp1Shtadur.png" value="8" selected=(list.glass_image === 8 ? 'selected' : undefined))

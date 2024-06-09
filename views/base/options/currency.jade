@@ -1,0 +1,63 @@
+extends ../layout
+
+block content
+  .main-nav
+    .nav-link
+      a(class="external-link", href="/")= i18n.__('Dashboard') 
+      | 
+      | -> 
+      span#nav-text
+        =i18n.__('Options')
+      img.loader-ico(src="/assets/images/loader_ico.GIF")
+  .main-select-option
+    select(id="lamination-select", name="", class="select-default selected-option", style="width: 180px;")
+      option(value="1")=i18n.__('Lamination')
+      option(value="2")=i18n.__('Discounts')
+      option(value="3")=i18n.__('Coefficients')
+      option(value="8")=i18n.__('Suppliers')
+      option(value="9" selected)=i18n.__('Currency')
+      option(value="10")=i18n.__('General options')
+      option(value="11")=i18n.__('Application options')
+      option(disabled)=i18n.__('Groups')
+      option(value="4")=i18n.__('Glazed window')
+      option(value="5")=i18n.__('Window sills')
+      option(value="6")=i18n.__('Spillways')
+      option(value="7")=i18n.__('Visors')
+      option(value="12")=i18n.__('Connectors')
+      option(value="13")=i18n.__('Mosquitos')
+      option(value="14")=i18n.__('Doorhandles')
+  .currencies-option.checked-option
+    .main-content
+      .content-wrap
+        table.currencies-table(cellspacing="0", cellpadding="0", border="0")
+          tr
+            td.table-currency-id.tr-header
+              =i18n.__('Is base')
+            td.table-currency-name.tr-header
+              =i18n.__('Name')
+            td.table-currency-value.tr-header
+              =i18n.__('Value')
+          if (currencies.length)
+            each currency in currencies
+              tr.currency-table-tr(data-currency=currency.id)
+                td.table-currency-id
+                  input.currency-radio(id="radio" + currency.id, type="radio", name="base", value=currency.id, checked=(currency.is_base===1 ? "checked" : undefined))
+                  label(for="radio" + currency.id)
+                    span#hide
+                      =currency.id
+                td.table-name-td
+                  .editable-name(id=currency.id)
+                    =currency.name
+                td.table-value-td
+                  .editable-value(id=currency.id)
+                    =currency.value
+                  .btn-remove(class=(currency.is_base === 1 ? 'hidden' : '') data-currency=currency.id)
+          else
+            tr.currency-table-empty-tr
+                td(colspan="2")
+                  =i18n.__('Empty')
+          tr.add-suplier-tr
+            td#add-currency.add-suplier-td(colspan="3")
+              =i18n.__('Add +')
+  include includes/options-add-new-currency.jade
+  include includes/alert-delete-currency.jade

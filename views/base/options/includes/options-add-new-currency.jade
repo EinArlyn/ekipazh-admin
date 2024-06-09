@@ -1,0 +1,18 @@
+.pop-up.add-new-currency-pop-up
+  form#add-new-currency-form(method="POST" action="/base/options/currency/add-new-currency")
+    .pop-up-close-wrap
+      a(class="pop-up-close", href="#")
+    span.pop-up-header
+      =i18n.__('Add new currency')
+    .content-block
+      span.field-margin-popup
+        =i18n.__('Name')
+        | :
+      input.input-default.input-margin-popup#new-currency-name(type="text" name="name" value="" style="width: 176px;")
+    .content-block
+      span.field-margin-popup
+        =i18n.__('Value')
+        | :
+      input.input-default.input-margin-popup#new-currency-value(type="text" name="value" value="" style="width: 176px;")
+    .submit-row
+      input.btn-submit#submit-add-new-currency(type="button" value=i18n.__('Add'))

@@ -1,0 +1,114 @@
+.edit-feature-pop-up(style="display: none;")
+  form(id="edit-feature-form", method="POST", action="/base/hardware/edit-group", enctype="multipart/form-data")
+    input(class="hidden", id="feature-id-pop-up-input", name="feature_id", value="", type="text")
+    #pop-up-edit-feature-close-wrap
+      a(id="pop-up-edit-feature-close", href="#")
+    span#pop-up-edit-feature-header
+      =i18n.__('Edit hardware')
+    .pop-up-specs
+      span#hardware-sync-code
+        =i18n.__('Sync code')
+        | : 
+        input.input-default#sync-code(type="text" name="sync_code" value="" style="width: 80px")
+      .feature-by-default-pop-up
+        input(id="checkbox-hardware-default", type="checkbox", name="hardware_by_default" value="1")
+        label(for="checkbox-hardware-default")
+          =i18n.__('Hardware by default')
+    hr
+    .row
+      .col-md-8
+        =i18n.__('Usable as a Push message')
+        | : 
+        input(id="checkbox-hardware-push", type="checkbox", name="is_push" value="1")
+        label(for="checkbox-hardware-push")
+          span#hide
+            =null
+      .col-md-4
+        .feature-active-pop-up
+          input(id="checkbox-hardware-active", type="checkbox", name="hardware_active" value="1")
+          label(for="checkbox-hardware-active")
+            =i18n.__('Active')
+    .feature-group-pop-up
+      span#feature-group-pop-up-text
+        =i18n.__('Group')
+        | :
+      span
+        select(class="select-default", id="feature-group-pop-up-input", name="feature_group")
+    .feature-name-pop-up
+      span#feature-name-pop-up-text
+        =i18n.__('Name')
+        | :
+      span
+        input(class="input-default", id="feature-name-pop-up-input", name="feature_name", type="text")
+    .feature-producer-pop-up
+      span#feature-producer-pop-up-text
+        =i18n.__('Producer')
+        | :
+      span
+        input(class="input-default", id="feature-producer-pop-up-input", name="feature_producer" type="text")
+    .feature-country-pop-up
+      span#feature-country-pop-up-text
+        =i18n.__('Country')
+        | :
+      span
+        input(class="input-default", id="feature-country-pop-up-input", name="feature_country", type="text")
+    .feature-block-pop-up
+      span.feature-label-pop-up-text
+        =i18n.__('Link')
+        | :
+      span
+        input.feature-pop-up-input(class="input-default", id="feature-link-pop-up-input", name="feature_link" type="text")
+    .feature-block-pop-up
+      span.feature-label-pop-up-text
+        =i18n.__('Description')
+        | :
+      span
+        textarea.feature-pop-up-description.input-default.feature-pop-up-input(id="feature-description-pop-up", name="feature_description" type="text")
+    .feature-coeffs-pop-up
+      span#feature-coeff-heat-pop-up-text
+        =i18n.__('Anticorrosion')
+        | :
+      span
+        select.select-min(class="select-default", id="feature-coeff-heat-pop-up-input", name="feature_heat_coeff" type="text")
+          option(value="1") 1
+          option(value="2") 2
+          option(value="3") 3
+          option(value="4") 4
+          option(value="5") 5
+      span#feature-coeff-noise-pop-up-text
+        =i18n.__('Burglar')
+        | :
+      span
+        select.select-min(class="select-default", id="feature-coeff-noise-pop-up-input", name="feature_noise_coeff", type="text")
+          option(value="1") 1
+          option(value="2") 2
+          option(value="3") 3
+          option(value="4") 4
+          option(value="5") 5
+    //.feature-diapasons-pop-up
+      .diapasons-label
+        =i18n.__('Width (mm)')
+        | :
+        span.diapasons-margin-label
+          =i18n.__('Height (mm)')
+          | :
+      .diapasons-inputs
+        | min 
+        input#feature-min-width-pop-up-input(class="input-default", type="text", name="min_width", value="", size="5")
+        | 
+        | max 
+        input#feature-max-width-pop-up-input(class="input-default", type="text", name="max_width", value="", size="5")
+        span.diapasons-margin-inputs
+          | min 
+          input#feature-min-height-pop-up-input(class="input-default", type="text", name="min_height", value="", size="5")
+          | 
+          | max 
+          input#feature-max-height-pop-up-input(class="input-default", type="text", name="max_height", value="", size="5")
+    .feature-image-edit
+      input(id="select-feature-image" type="file" name="feature_img" class="hidden")
+      a(href="#" type="button" id="add-feature-image")
+      img(id="feature-image" style="height: 64px")
+    .feature-edit-pop-up
+      a(id="feature-edit-pop-up-btn", href="#", type="button", value)
+        span#feature-edit-pop-up-btn-text
+          =i18n.__('Save')

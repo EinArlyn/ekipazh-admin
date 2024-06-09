@@ -1,0 +1,38 @@
+extends ../../layout
+
+block content
+  .content-wrapper
+    .main-content
+      | Сервисы:
+      ul.services-list
+        li.services-header
+          | Пользователь
+          ul
+            li
+              a.btn-service#service-add-user(href="#")
+                | Добавить пользователя
+            li.service-content.add-user
+              include includes/add-user.jade
+            li
+              a.btn-service#service-remove-user(href="#")
+                | Удалить пользователя
+            li.service-content.remove-user
+              | 
+        li.services-header
+          | База элементов
+          ul
+            li
+              a.btn-service#service-import-base(href="#")
+                | Импорт базы элементов
+            li.service-content.import-base
+              | 
+            li
+              a.btn-service#service-export-base(href="#")
+                | Експорт базы элементов
+            li.service-content.export-base
+              | 
+            li
+              a.btn-service#service-remove-base(href="#")
+                | Удаление базы элементов
+            li.service-content.remove-base
+              | 

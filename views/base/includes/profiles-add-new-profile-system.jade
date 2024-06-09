@@ -1,0 +1,44 @@
+.pop-up.add-new-profile-system-pop-up
+  .pop-up-close-wrap
+    a.pop-up-close(value=".add-new-profile-system-pop-up" href="#")
+  span.pop-up-header
+    | Добавить профильную систему
+  .pop-up-text
+    span.text-beside-input
+      | Группа:
+    br
+    span.text-beside-input
+      | Название:
+    br
+    span.text-beside-input
+      | Кол-во камер:
+    br
+    span.text-beside-input
+      | Страна:
+  .pop-up-input
+    select.select-default.input-margin(id="new-profile-system-group-input" style="width: 277px;")
+    input.input-default.input-margin(id="new-profile-system-name-input" type="text" value="" style="width: 270px;")
+    input.input-default.input-margin(id="new-profile-system-cameras-input" type="text" value="" style="width: 270px;")
+    input.input-default.input-margin(id="new-profile-system-country-input" type="text" value="" style="width: 270px;")
+  .pop-up-coeffs
+    span.coeffs-text-margin
+      | Коэфф. теплоизоляции: 
+      select.select-default.input-margin(id="new-profile-system-heat-input" style="width: 35px;")
+        option(value="1") 1
+        option(value="2") 2
+        option(value="3") 3
+        option(value="4") 4
+        option(value="5") 5
+    | 
+    span.coeffs-text-margin
+      | Коэфф. шумоизоляции: 
+      select.select-default.input-margin(id="new-profile-system-noise-input" style="width: 35px;")
+        option(value="1") 1
+        option(value="2") 2
+        option(value="3") 3
+        option(value="4") 4
+        option(value="5") 5
+  .pop-up-submit
+    a.pop-up-submit-btn(id="new-profile-system-add-pop-up-btn", href="#", type="button")
+      span.pop-up-submit-btn-text
+        | Добавить

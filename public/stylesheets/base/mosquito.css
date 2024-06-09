@@ -1,0 +1,297 @@
+/** nav */
+.main-nav {
+  background-color: #dadada;
+  height: 55px;
+  border: 1px solid #c6c6c6;
+}
+
+  .nav-link {
+    margin: 15px;
+  }
+  .nav-link a{
+    color: #434343;
+  }
+
+  .nav-link #nav-text {
+    color: #4f9e2e;
+  }
+
+main {
+  height: 90%;
+}
+
+  .main-content {
+    padding: 10px 0 20px 0;
+    border: 1px solid #c6c6c6;
+    border-top: none;
+  }
+
+  .profile-system {
+    margin: 5px 0 0 0;
+  }
+
+  .mosquito-container {
+    display: none;
+  }
+
+    .mosquito-container > table:last-child {
+      margin-bottom: 20px;
+    }
+      .functionality-btns {
+        height: 28px;
+      }
+
+      .remove-mosquito-btn {
+        position: absolute;
+        right: 45px;
+        top: -1px;
+      }
+
+      .edit-mosquito-name-btn {
+        position: absolute;
+        right: 10px;
+        top: 1px;
+      }
+
+      .mosquitos-list {
+        position: relative;
+      }
+
+        .empty-mosquito-list {
+          width: 900px;
+          font-size: 13px;
+          text-align: center;
+          color: #565656;
+        }
+
+/** Mosquito table */
+.mosquito-list-table {
+  width: 100%;
+  font-size: 12px;
+  margin-top: 10px;
+  border-bottom: 1px solid #c9c9c9;
+}
+
+  table.mosquito-list-table th {
+    color: #414141;
+    width: 200px;
+  }
+
+  .mosquito-name-td {
+    height: 30px;
+    background-color: #d4d4d4;
+    font-weight: bold;
+    color: #616161;
+    border-top: 1px solid #c6c6c6;
+    padding: 0 10px;
+    position: relative;
+  }
+
+/** Buttons */
+.gray-btn {
+  display: inline-block;
+  width: 151px;
+  height: 26px;
+  background-image: url('/assets/images/hardwares/gray_inactive.png');
+  background-size: 151px 26px;
+}
+
+  .gray-btn:hover {
+    background-image: url('/assets/images/hardwares/gray_active.png');
+  }
+
+
+  a.gray-btn,
+  a.edit-btn,
+  a.add-btn,
+  a.remove-btn {
+    text-decoration: none;
+    text-align: center;
+    font-weight: bold;
+    font-size: 13px;
+    color: #e2e2e2;
+  }
+
+  .gray-btn-text,
+  .add-btn-text {
+    font-size: 12px;
+    position: relative;
+    top: 4px;
+    color: #FAF6F0;
+  }
+
+.edit-btn {
+  display: inline-block;
+  width: 24px;
+  height: 26px;
+  background-image: url('/assets/images/hardwares/edit_inactive.png');
+  background-size: 24px 26px;
+}
+
+  .edit-btn:hover {
+    background-image: url('/assets/images/hardwares/edit_active.png');
+  }
+
+.remove-btn {
+  display: inline-block;
+  position: absolute;
+  margin-left: 40px;
+  margin-top: 5px;
+  width: 20px;
+  height: 20px;
+  background-image: url('/assets/images/remove_btn.png');
+  background-size: 20px 20px;
+}
+  .remove-btn:hover {
+    cursor: pointer;
+  }
+
+.add-btn {
+  margin: 0 10px 0 0 ;
+  float: right;
+  width: 100px;
+  height: 25px;
+  background-image: url('/assets/images/save_active.png');
+  background-size: 100px 25px;
+}
+
+.add-btn:hover {
+  background-image: url('/assets/images/save_inactive.png');
+}
+
+.remove-btn {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  background-image: url('/assets/images/remove_btn.png');
+  background-size: 20px 20px;
+  cursor: pointer;
+}
+
+/** Inputs */
+.select-default {  
+  height: 22px;
+  width: 74%;
+  appearance: none;
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  background: url(/assets/images/arrows.png) no-repeat center #fff;
+  background-position : calc(100% - 5px) 8px;
+  border-radius: 2px;
+  -moz-box-sizing: border-box;
+  -o-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  box-sizing: border-box;
+  display: inline-block;
+  border: 1px solid #b7b7b7;
+  background-color: #fff;
+  padding:0px 5px;
+}
+
+.group-select {
+  width: 169px !important;
+}
+
+.input-waste {
+  height: 18px;
+  width: 20%;  
+}
+
+/** pop-ups */
+.pop-up {
+  display: none;
+}
+
+.pop-up-header {
+  display: block;
+  text-align: center;
+  margin: 10px auto;
+  font-size: 14px;
+  font-weight: bold;
+  color: #5d5d5d;
+}
+
+.pop-up-close-wrap {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background-color: #afafaf;
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  cursor: pointer;
+}
+
+a.pop-up-close {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  width: 14px;
+  height: 14px;
+  background-image: url('/assets/images/orders/x.png');
+}
+
+.pop-up-container {
+  display: block;
+  padding: 5px;
+  height: 25px;
+}
+
+.pop-up-footer {
+  height: 40px;
+  width: 150px;
+  margin: 5px auto;
+}
+
+.pop-up-add-btn {  
+  display: inline-block;
+  height: 35px;
+  width: 148px;
+  background-image: url('/assets/images/save_inactive.png');
+}
+
+.pop-up-add-btn:hover {  
+  cursor: pointer;
+  background-image: url('/assets/images/save_active.png');
+}
+
+a.pop-up-add-btn {
+  text-decoration: none;
+  color: #fff;
+  font-size: 14px;
+  text-align: center;
+}
+
+.pop-up-add-btn-text {
+  position: relative;
+  top: 7px;
+}
+
+#add-misquito-pop-up,
+#edit-misquito-pop-up {  
+  width: 260px;
+  height: 120px;
+  border: 1px solid #e5e5e5;
+  border-radius: 5px;
+  background-color: #e4e4e4;
+  padding: 0 30px;
+  font-size: 12px;
+}
+
+  span.pop-up-label {
+    text-align: right;
+    float: left;
+    width: 15%;
+  }
+
+  span.pop-up-input {
+    text-align: left;
+    float: right;
+    width: 82%;
+  }
+
+  #input-mosquito-name,
+  #input-edit-mosquito-name {
+    width: 180px;
+  }

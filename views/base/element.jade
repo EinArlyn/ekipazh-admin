@@ -1,0 +1,437 @@
+extends layout
+
+block content
+  .main-nav 
+    .nav-link
+      a(class="external-link", href="/")= i18n.__('Dashboard') 
+      | 
+      | -> 
+      a(class="external-link", href="/base/elements")= i18n.__('Elements')
+      | 
+      | -> 
+      span#nav-text
+        =i18n.__('Edit element') 
+      img.loader-ico(src="/assets/images/loader_ico.GIF")
+  .main-content
+    .add-new-set
+      .element-lists
+        a(id="element-lists-btn" href="#" data=(element.lists.length ? 'true' : 'false') data-len=element.lists.length)
+          if (element.lists.length)
+            =i18n.__('Parent in')
+            | 
+            =element.lists.length
+            =(element.lists.length === 1 ? i18n.__(' set') : i18n.__(' sets'))
+          else
+            =i18n.__('Not in set')
+      a(href="#", id="add-new-set")
+        span.add-new-set-text
+          =i18n.__('Create set')
+      .add-new-set-form
+        .add-new-set-content
+          span.text-style
+            =i18n.__('Set name')
+            | :
+          br
+          span.text-style
+            =i18n.__('Set group')
+            | :
+        .add-new-set-input
+          input(name="set_name", type="text", value="+ " + element.name, class="input-default input-margin input-text", style="width: 390px;", form="set-name")
+          br
+          select(name="set_group", class="select-default input-margin select-large", form="set-name")
+            each list in lists
+              option(value=list.id)=list.name
+          a(href="#", id="add-new-set-submit")
+            span
+              =i18n.__('Create')
+    .new-set
+      .set-link
+    .element-lists-content
+      ul 
+        each list in element.lists
+          li.list-element(data=list.id)
+            a(href="/base/set/" + list.id)
+                =list.name
+    .content-wrap
+      form(method='post', action='/base/element/save/' + element.id, id="main-form", enctype="multipart/form-data")
+        input.hidden#referrer(type="text" name="last_location" value="")
+        .header
+          .header-id
+            | id: 
+            span#element-id
+              =element.id
+            span#element-sync-code
+              =i18n.__('Sync code')
+              | : 
+              input.input-default(type="text" name="sync_code" value=element.code_sync)
+          .header-content
+            =i18n.__('Sku')
+            | :
+            br
+            br
+            =i18n.__('Title')
+            | :
+          .header-form
+            input(name='sku', value=element.sku, type='text', class="header-input")
+            br
+            input(name='name', value=element.name, type='text', class="header-input")
+          .header-footer
+            .content
+              #group-content
+                =i18n.__('Group')
+                | :
+              //#type-content
+                =i18n.__('Element type')
+                | :
+              #currency-content
+                =i18n.__('Currency')
+                | :
+              #prize-content
+                =i18n.__('Price')
+                | :
+            .select
+              select(id="group-name", class='select-default', name='groups_name')
+                option(value=element.elements_group.id)=element.elements_group.name
+                  each group in elements_groups
+                    if (element.elements_group.id !== group.id)
+                      option(value=group.id)=group.name
+              //select(id='type-name', class='select-default', name='lists_groups_name')
+                if (element.lists.length)
+                  option(value=element.lists[0].lists_group.id)=element.lists[0].lists_group.name
+                  each list in lists
+                    if (element.lists[0].lists_group.id !== list.id)
+                      option(value=list.id)=list.name
+                else
+                  option(value=null)
+                    =i18n.__('Not exist')
+                  //each list in lists
+                    option(value=list.id)=list.name                
+              select(id='currency-name', class='select-default select-min', name='currency_name')
+                option(value=element.currency.id)=element.currency.name
+                  each currency in currencies
+                    if (element.currency.id !== currency.id)
+                      option(value=currency.id)=currency.name
+              input(id='prize-value', class="input-options", name='price', value=element.price, type='text', size="3")
+        div(class="main-body")
+          .header-main-body
+            =i18n.__('Glazed window')
+            | :
+          .profile-systems
+            .profile-systems-content
+              =i18n.__('Belonging to the profile systems')
+              | :
+              span#all-profiles
+                  input(type="checkbox", id="select-all-profiles")
+                  label(for="select-all-profiles")
+                    =i18n.__('Select all')
+            .profile-systems-box
+              each profile_system in profile_systems
+                .profile_item                  
+                  input(id="profile-checkbox" + profile_system.id, type='checkbox', name='foo', value=profile_system.id, checked=(filteredProfiles.indexOf(profile_system.id) !== -1 ? 'checked': undefined))
+                  label(for="profile-checkbox" + profile_system.id)
+                    =profile_system.name
+          div(class="main-glass")
+            .glass-type-text
+              span#glass-type
+                =i18n.__('Glazed window type')
+                | :
+              span#glass-width
+                =i18n.__('Width (mm)')
+                | :
+              span#glass-height
+                =i18n.__('Height (mm)')
+                | :
+            .glass-type-form
+              select(id="glass-type-form", class="select-default", name="glass_folder_name")
+                each glass_folder in glass_folders
+                  option(value=glass_folder.id selected=(glass_folder.id === element.glass_folder.id ? 'selected' : undefined))=glass_folder.name
+              .glass-width
+                | min 
+                input(class="input-options min-input", type="text", name="min_width", value=element.min_width, size="3")
+                | 
+                | max 
+                input(class="input-options min-input", type="text", name="max_width", value=element.max_width, size="3")
+              .glass-height
+                | min 
+                input(class="input-options min-input", type="text", name="min_height", value=element.min_height, size="3")
+                | 
+                | max 
+                input(class="input-options min-input", type="text", name="max_height", value=element.max_height, size="3")
+            .glass-properties
+              span#glass-prop-sq-text
+                b max 
+                =i18n.__('square (m')
+                sup 2
+                | ) 
+              span#glass-prop-sq-form
+                - console.log('SDASDSAD', element.max_sq)
+                input(class="input-options min-input", type="text", name="max_sq", value=parseFloat(element.max_sq).toFixed(2), size="3") 
+              span#glass-prop-k-text
+                if (usedCoeff)
+                  b K 
+                  =i18n.__('heat resistance')
+                  | 
+                  =i18n.__('R_coeff')
+                else
+                  b K 
+                  =i18n.__('thermal conductivity')
+                  | 
+                  =i18n.__('U_coeff')
+              span#glass-prop-k-form
+                input(class="input-options min-input", type="text", name="transcalency", value=element.transcalency, size="3")
+              br
+              span#glass-prop-width-text
+                =i18n.__('Glazed window width (mm)')
+              span#glass-prop-width-form
+                input(class="input-options min-input", type="text", name="glass_width", value=element.glass_width, size="3")
+              span#glass-prop-noise-text
+                =i18n.__('Noise isolation (dB)')
+              span#glass-prop-noise-form
+                input(class="input-options min-input", type="text", name="noise_coeff", value=element.noise_coeff, size="3")
+              br
+              //span#glass-prop-width-text
+                =i18n.__('Heat insulation')
+                | 
+                | (
+                =i18n.__('coeff.')
+                |)
+              //span#glass-prop-width-form
+                select(class="select-default select-min", type="text", name="heat_coeff")
+                  option(value="1" selected=(element.heat_coeff === 1 ? 'selected' : undefined)) 1
+                  option(value="2" selected=(element.heat_coeff === 2 ? 'selected' : undefined)) 2
+                  option(value="3" selected=(element.heat_coeff === 3 ? 'selected' : undefined)) 3
+                  option(value="4" selected=(element.heat_coeff === 4 ? 'selected' : undefined)) 4
+                  option(value="5" selected=(element.heat_coeff === 5 ? 'selected' : undefined)) 5
+              //span#glass-prop-noise-text
+                =i18n.__('Noise insulation')
+                | 
+                | (
+                =i18n.__('coeff.')
+                |)
+              //span#glass-prop-noise-form
+                select(class="select-default select-min", type="text", name="noise_coeff")
+                  option(value="1" selected=(element.noise_coeff === 1 ? 'selected' : undefined)) 1
+                  option(value="2" selected=(element.noise_coeff === 2 ? 'selected' : undefined)) 2
+                  option(value="3" selected=(element.noise_coeff === 3 ? 'selected' : undefined)) 3
+                  option(value="4" selected=(element.noise_coeff === 4 ? 'selected' : undefined)) 4
+                  option(value="5" selected=(element.noise_coeff === 5 ? 'selected' : undefined)) 5
+          div(class="main-prices")
+            .glass-price
+              .header-glass-price
+                =i18n.__('Prices')
+                | :
+              .table-glass-price
+                table(cellspacing="1", cellpadding="1", border="0")
+                  tr.table-glass-header
+                    td.primary
+                      select(class="select-default select-glass" id="primary-select")
+                        option(value="0" selected)
+                          =i18n.__('above')
+                        option(value="1")
+                          =i18n.__('up to')
+                      | 
+                      input(class="input-default text-center" id="primary-range" style="width: 40px;" value="0.001")
+                      | 
+                      | м&#178
+                    td.secondary-0.hidden
+                      select(class="select-default select-glass" id="secondary-0-select")
+                        option(value="0" selected)
+                          =i18n.__('above')
+                        option(value="1")
+                          =i18n.__('from...up to')
+                      | 
+                      input(class="input-default text-center" id="secondary-0-range" style="width: 40px;" value="")
+                      | 
+                      | м&#178
+                    td.secondary-1.hidden
+                      select(class="select-default select-glass" id="secondary-1-select")
+                        option(value="0")
+                          =i18n.__('above')
+                        option(value="1" selected)
+                          =i18n.__('from')
+                      | 
+                      input(class="input-default text-center" id="secondary-1-range" style="width: 40px;" value="")
+                      | 
+                      =i18n.__('up to')
+                      | 
+                      input(class="input-default text-center" id="secondary-2-range" style="width: 40px;" value="")
+                      | 
+                      | м&#178
+                    td.tertiary-0.hidden
+                      select(class="select-default select-glass" id="tertiary-0-select")
+                        option(value="0" selected)
+                          =i18n.__('above')
+                        option(value="1")
+                          =i18n.__('from...up to')
+                      | 
+                      input(class="input-default text-center" id="tertiary-0-range" style="width: 40px;" value="")
+                      | 
+                      | м&#178
+                    td.tertiary-1.hidden
+                      select(class="select-default select-glass" id="tertiary-1-select")
+                        option(value="0")
+                          =i18n.__('above')
+                        option(value="1" selected)
+                          =i18n.__('from')
+                      | 
+                      input(class="input-default text-center" id="tertiary-1-range" style="width: 40px;" value="")
+                      | 
+                      =i18n.__('up to')
+                      |  
+                      input(class="input-default text-center" id="tertiary-2-range" style="width: 40px;" value="")
+                      | 
+                      | м&#178
+                    td.fourth-0.hidden
+                      select(class="select-default select-glass" id="fourth-0-select")
+                        option(value="0" selected)
+                          =i18n.__('above')
+                        option(value="1")
+                          =i18n.__('from...up to')
+                      | 
+                      input(class="input-default text-center" id="fourth-0-range" style="width: 40px;" value="")
+                      | 
+                      | м&#178
+                    td.fourth-1.hidden
+                      select(class="select-default select-glass" id="fourth-1-select")
+                        option(value="0")
+                          =i18n.__('above')
+                        option(value="1" selected)
+                          =i18n.__('from')
+                      | 
+                      input(class="input-default text-center" id="fourth-1-range" style="width: 40px;" value="")
+                      | 
+                      =i18n.__('up to')
+                      |  
+                      input(class="input-default text-center" id="fourth-2-range" style="width: 40px;" value="")
+                      | 
+                      | м&#178
+                    td.fifth.hidden
+                      select(class="select-default select-glass" id="fifth-select")
+                        option(value="0")
+                          =i18n.__('above')
+                      | 
+                      input(class="input-default text-center" id="fifth-range" style="width: 40px;" value="" disabled)
+                      | 
+                      | м&#178
+                  tr.table-glass-values
+                    td.primary
+                      input(class="input-default text-center" id="primary-value" value="0.00" style="width: 125px;")
+                    td.secondary.hidden
+                      input(class="input-default text-center" id="secondary-value" value="0.00" style="width: 125px;")
+                    td.tertiary.hidden
+                      input(class="input-default text-center" id="tertiary-value" value="0.00" style="width: 125px;")
+                    td.fourth.hidden
+                      input(class="input-default text-center" id="fourth-value" value="0.00" style="width: 125px;")
+                    td.fifth.hidden
+                      input(class="input-default text-center" id="fifth-value" value="0.00" style="width: 125px;")
+          //div(class="main-profile")
+            .header-main-profile
+              =i18n.__('Lamination color')
+              | : 
+            .profile-prices
+              span#profile-price-wc-text
+                =i18n.__('Inner lamination')
+                | : 
+              span
+                select(class="select-default", type="text", name="lamination_in", style="width: 150px;")
+                  each lamination in defaultLaminations
+                    option(value=lamination.id selected=(element.lamination_in_id === lamination.id ? 'selected': undefined))=lamination.name
+              br
+              span#profile-price-vlam-text
+                =i18n.__('Outer lamination')
+                | : 
+              span#profile-price-vlam-form
+                select(class="select-default", type="text", name="lamination_out", style="width: 150px;")
+                  each lamination in defaultLaminations
+                    option(value=lamination.id selected=(element.lamination_out_id === lamination.id ? 'selected': undefined))=lamination.name
+          //div(class="main-furniture")
+            .header-main-furniture
+              =i18n.__('Handle position')
+            .main-furniture-content
+              span#furniture-var
+                input(id="radio-f1", type="radio", name="hardware_location", value="variative", checked)
+                label(for="radio-f1")
+                  =i18n.__('Variative')
+              span#furniture-const
+                input(id="radio-f2", type="radio", name="hardware_location", value="constant")
+                label(for="radio-f2")
+                  =i18n.__('Constant position to handle')
+                | 
+                input(class="input-options min-input", id="hardware-constant-value" type="text", name="furniture_const", value="0.00", size="3")
+        .factory-markup
+          span#factory-provider-text
+            =i18n.__('Supplier')
+            | :
+          span#factory-markup-text
+            =i18n.__('Markup type')
+            | :
+          br
+          span#factory-provider-form
+            select(class='select-default', name='supplier_name' style="width: 150px;")
+              option(value='0' selected=(element.supplier.id == 0 ? 'selected' : undefined))
+                | -------
+              each supplier in suppliers
+                option(value=supplier.id selected=(element.supplier.id === supplier.id ? 'selected' : undefined))=supplier.name
+          span#factory-markup-box
+            label
+              input(id="radio1", type="radio", name="margin", value="1", checked=(element.margin_id===1 ? "checked" : undefined) || (element.margin_id===0 ? "checked" : undefined))
+              label(for="radio1")
+                =i18n.__('Markup on project')
+            label     
+              input(id="radio2", type="radio", name="margin", value="2", checked=(element.margin_id===2 ? "checked" : undefined))
+              label(for="radio2")
+                =i18n.__('Markup on add. element')
+        //.markup
+          .markup-content
+            span#amendment_pruning
+              | Поправка на обрезку: 
+              input(class="input-options min-input", type="text", name="amendment_pruning", value=element.amendment_pruning, size="3")
+            span#element_waste
+              | Отход: 
+              input(class="input-options min-input", type="text", name="waste", value=element.waste, size="3")
+        .footer
+          .footer-check
+            span#check-1
+              input(id="checkbox1", type="checkbox", name="additional_element", checked=(element.is_additional===1 ? "checked" : undefined))
+              label(for="checkbox1")
+                =i18n.__('Additional element')
+            span#check-2
+              input(id="checkbox2", type="checkbox", name="virtual_element", checked=(element.is_virtual===1 ? "checked" : undefined))
+              label(for="checkbox2")
+                =i18n.__('Virtual element')
+            br
+            span#check-3
+              input(id="checkbox3", type="checkbox", name="optimization_element", checked=(element.is_optimized===1 ? "checked" : undefined))
+              label(for="checkbox3")
+                =i18n.__('Participates in optimization')
+            br
+            span#footer-weight
+              =i18n.__('Weight (kg)')
+              | : 
+              input(class="input-options min-input", type='text', name='weight', value=element.weight_accounting_unit, size="3")
+        //.element-image-content
+          .element-image-block
+            span.text-style=(element.elements_description && element.elements_description.image_url ? 'Изменить изображение' : 'Добавить изображение')
+            br
+            input(id="select-element-image", type="file", name="element_img", class="hidden")
+            a(href="#", type="button", id="add-element-image")
+              | 
+            img(id="element-image", src=(element.elements_description ? element.elements_description.image_url : null), style="height: 64px")
+            span#element-image-name
+          .element-comment-block
+            span.text-style
+              =i18n.__('Comment')
+            br
+            textarea(name="element_comment", rows="4", cols="38", class="textarea-default")
+              =(element.elements_description ? element.elements_description.comment : null)
+          .element-link-block
+            span.text-style
+              =i18n.__('Link')
+            br
+            input(type="text", name="element_link", value=(element.elements_description ? element.elements_description.link : null), class="input-default", style="width: 492px;")
+        .footer-end
+          a(class="external-link", href="#", id="saveElement")
+            span#saveElementText
+              =i18n.__('Save')
+  .element-image-popup(style="display: none;")
+    img(id="element-image-popup", src=null)

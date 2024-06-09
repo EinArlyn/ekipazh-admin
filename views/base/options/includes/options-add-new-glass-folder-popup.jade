@@ -1,0 +1,30 @@
+.pop-up.add-new-glass-folder-pop-up
+  form#add-new-glass-folder-form(method="POST" action="/base/options/glazed-window/add-new-folder" enctype="multipart/form-data")
+    .pop-up-close-wrap
+      a(class="pop-up-close", href="#")
+    span.pop-up-header
+      =i18n.__('Add new group')
+    .content-block
+      span.field-margin-popup
+        =i18n.__('Group name')
+        | /
+        =i18n.__('Position')
+        | :
+      input.input-default.input-margin-popup#new-group-position-popup(type="text" value="" name="position" style="width: 30px;")
+      input.input-default.input-margin-popup#new-group-name(type="text" value="" name="name" style="width: 166px;")
+    .content-block
+      span.field-margin-popup
+        =i18n.__('Link')
+        | :
+      input.input-default.input-margin-popup#new-group-link(type="text" value="" name="link" style="width: 205px;")
+    .content-block-description
+      span.field-margin-popup
+        =i18n.__('Description')
+        | :
+      textarea.input-default.input-margin-popup#new-group-description(type="text" value="" name="description" style="width: 205px; height: 100px; resize: none;")
+    .content-block-image
+      input.hidden(id="select-glass-group-image" type="file" name="folder_img")
+      a(href="#" type="button" id="glass-group-img" style="margin-left: 10px;")
+      img(id="glass-group-image" style="height: 64px; width: 124px; margin-left: 20px;" src="/local_storage/default.png")
+    .submit-row
+      input.btn-submit#submit-add-new-group(type="button" value=i18n.__('Add'))

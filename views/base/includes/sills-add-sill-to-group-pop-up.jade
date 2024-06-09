@@ -1,0 +1,12 @@
+.pop-up.add-sill-to-group-pop-up
+  .pop-up-close-wrap
+    a(class="pop-up-close", href="#")
+  span.pop-up-header
+    =i18n.__('Add sill to group')
+  .content
+    span.field-margin
+      =i18n.__('Window sill name')
+      | :
+    select.select-default#add-sill-select(type="text" value="" style="width: 290px;")
+  .submit-row
+    input.btn-submit#submit-add-sill-to-group(type="button" value=i18n.__('Add') data-group="")

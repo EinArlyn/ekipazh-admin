@@ -1,0 +1,152 @@
+extends layout
+
+block content
+  .main-nav
+    .nav-link
+      a(class="external-link", href="/")= i18n.__('Dashboard')
+      |&nbsp;
+      | ->
+      span#nav-text
+        =i18n.__('Orders history')
+      img.loader-ico(src="/assets/images/loader_ico.GIF" style="display: inline-block;")
+      a(id="new-orders-counter" href="#")
+        span#new-orders-count
+          | 0
+  .main-options(data-total=totalCount)
+    form(id="submit-date", action="/orders/0", method="GET")
+      select(id="select-order", class="option-select select-default", name="state")
+        option(value="0", selected=(orderBy === '0' ? 'selected': undefined))=i18n.__('All')
+        option(value="sended", selected=(orderBy === 'sended' ? 'selected': undefined))=i18n.__('Sended')
+        option(value="state_to", selected=(orderBy === 'state_to' ? 'selected': undefined))=i18n.__('Technical department')
+        option(value="state_buch", selected=(orderBy === 'state_buch' ? 'selected': undefined))=i18n.__('Accounting')
+      span.date-select
+        =i18n.__('from')
+        |&nbsp;
+        input(id="date-from", type="text", name="date_from", value=fromC.date + '.' + fromC.month + '.' + fromC.year, class="input-default", style="width: 65px;")
+        .calendar-btn-wrap#select-month-from
+          a(class="calendar-btn", href="#")
+        |&nbsp;
+        =i18n.__('to')
+        |&nbsp;
+        input(id="date-to", type="text", name="date_to", value=toC.date + '.' + toC.month + '.' + toC.year, class="input-default", style="width: 65px;")
+        .calendar-btn-wrap#select-month-to
+          a(class="calendar-btn", href="#")
+        a(class="external-link", href="#", id="ok-date")
+          span.ok-date-text
+            =i18n.__('Ok')
+  .main-content
+    .main-content-header
+      span#order-number
+        =i18n.__('Order number')
+        | /
+        =i18n.__('Factory number')
+      span#created
+        =i18n.__('Created')
+        | /
+        =i18n.__('Prod. batch')
+      span#seller
+        =i18n.__('Seller')
+      span#customer
+        =i18n.__('Customer')
+      span#cost
+        =i18n.__('Purchase price')
+        | /
+        =i18n.__('Margin')
+      span#count
+        =i18n.__('Amount')
+        | /
+        =i18n.__('Area_orders')
+    .main-content-body
+      ul
+        if (orders.length)
+          each order in orders
+            li(data=order.order.id)
+              .delete-order
+              .order-number
+                .text-wrapper
+                  =order.order.order_number
+                .text-wrapper.factory-number(data-order=order.order.id)
+                  =order.order.order_hz
+              .order-created
+                .text-wrapper
+                  =("0" + order.order.created.getDate()).slice(-2)
+                  | .
+                  =("0" + (order.order.created.getMonth() + 1)).slice(-2)
+                  | .
+                  =order.order.created.getFullYear()
+                  |&nbsp;
+                  span.order-time
+                    =("0" + order.order.created.getHours()).slice(-2)
+                      | :
+                    =("0" + order.order.created.getMinutes()).slice(-2)
+                .text-wrapper
+                  =order.order.batch
+              .order-seller
+                .text-wrapper
+                  =order.user.name
+                .text-wrapper
+                  =order.user.city.name
+              .order-customer
+                .text-wrapper
+                  =order.order.customer_name
+                .text-wrapper
+                  =order.order.customer_city
+              .order-costs
+                =parseFloat(order.purchase_price).toFixed(2)
+                br
+                if (parseFloat(order.margin_price) > 0)
+                  span.text-filter
+                    =parseFloat(order.margin_price).toFixed(2)
+                else
+                  span.text-filter-danger
+                    =parseFloat(order.margin_price).toFixed(2)
+              .order-count
+                if (order.order.order_products.length)
+                  - var totalAmount = 0;
+                  each product in order.order.order_products
+                    -totalAmount += +parseInt(product.product_qty, 10)
+                  b=totalAmount
+                else
+                  b=0
+                if (order.order.order_products.length)
+                  - var totalSquare = 0.00;
+                  each product in order.order.order_products
+                    -totalSquare += +parseFloat(product.template_square).toFixed(2)
+                  br
+                  =totalSquare.toFixed(2)
+                  |&nbsp;
+                  =i18n.__('m')
+                  sup
+                    | 2
+                else
+                  br
+                  | 0
+              .order-checkboxes
+                input(class="sended-checkbox", value=order.order.id, type="checkbox", id="sended" + order.order.id, checked=(order.order.sended > new Date(0)  ? "checked" : undefined), disabled=(order.order.sended > new Date(0) ? "disabled" : order.order.user_id !== currentUser.id ? "disabled" : undefined))
+                label(for="sended" + order.order.id)=i18n.__('Sen.')
+                br
+                input(class="to-checkbox", value=order.order.id, type="checkbox", id="to" + order.order.id, checked=(order.order.state_to > new Date(0) ? "checked" : undefined), disabled=(currentUser.isTo ? undefined : "disabled"))
+                label(for="to" + order.id)=i18n.__('TD')
+                br
+                input(class="buh-checkbox", value=order.order.id, type="checkbox", id="buh" + order.order.id, checked=(order.order.state_buch > new Date(0) ? "checked" : undefined), disabled=(currentUser.isBuch ? undefined : "disabled"))
+                label(for="buh" + order.order.id)=i18n.__('Acc.')
+              .order-functionality
+                a(href="#", value=order.order.id, class="order-edit")
+                br
+                a(href="#" + order.order.id, onclick="window.open('/orders/get-order-pdf/" + order.order.id + "?userId=" + currentUser.id + "', '_blank');", value=order.order.id, class="order-print")
+        else
+          li.order-empty
+            span#history-empty
+              | История заказов отсутствует.
+  .content-footer
+    .content-footer-pagination
+      include ./includes/paginator.jade
+  .date-picker-from
+    div(id="calendar-from")
+  .date-picker-to
+    div(id="calendar-to")
+  include ./includes/orders/popup.jade
+  include ./includes/orders/orders-report-popup.jade
+  include ./includes/orders/buh-popup.jade
+  include ./includes/alert-delete-popup.jade
+  include ./includes/orders/alert-send-order.jade

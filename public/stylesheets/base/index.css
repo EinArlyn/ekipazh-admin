@@ -1,0 +1,23 @@
+/** base header-nav */
+.main-nav {
+  background-color: #dadada;
+  height: 55px;
+  border: 1px solid #c6c6c6;
+}
+
+  .nav-link {
+    margin: 15px;
+  }
+  .nav-link a{
+    color: #434343;
+  }
+
+  .nav-link #nav-text {
+    color: #4f9e2e;
+  }
+
+.main-content {
+  padding-top: 10px;
+  border-left: 1px solid #c6c6c6;
+  border-right: 1px solid #c6c6c6;
+}

@@ -1,0 +1,828 @@
+$(function () {
+  var localizerOption = { resGetPath: '/assets/javascripts/vendor/localizer/__ns__-__lng__.json'};
+  i18n.init(localizerOption);
+
+  $('#lamination-select').change(function () {
+    var selectedOption = $('#lamination-select option:selected').val();
+    if (selectedOption == 1) {
+      $('.checked-option').addClass('disabled');
+      window.location.href = '/base/options/laminations';
+    } else if (selectedOption == 2) {
+      $('.checked-option').addClass('disabled');
+      window.location.href = '/base/options/discounts';
+    } else if (selectedOption == 3) {
+      $('.checked-option').addClass('disabled');
+      window.location.href = '/base/options/coefficients';
+    } else if (selectedOption == 4) {
+      $('.checked-option').addClass('disabled');
+      window.location.href = '/base/options/glazed-window';
+    } else if (selectedOption == 5) {
+      $('.checked-option').addClass('disabled');
+      window.location.href = '/base/options/window-sills';
+    } else if (selectedOption == 6) {
+      $('.checked-option').addClass('disabled');
+      window.location.href = '/base/options/spillways';
+    } else if (selectedOption == 7) {
+      $('.checked-option').addClass('disabled');
+      window.location.href = '/base/options/visors';
+    } else if (selectedOption == 8) {
+      $('.checked-option').addClass('disabled');
+      window.location.href = '/base/options/suppliers';
+    } else if (selectedOption == 9) {
+      $('.checked-option').addClass('disabled');
+      window.location.href = '/base/options/currency';
+    } else if (selectedOption == 10) {
+      $('.checked-option').addClass('disabled');
+      window.location.href = '/base/options/general';
+    } else if (selectedOption == 11) {
+      $('.checked-option').addClass('disabled');
+      window.location.href = '/base/options/application';
+    } else if (selectedOption == 12) {
+      $('.checked-option').addClass('disabled');
+      window.location.href = '/base/options/connectors';
+    } else if (selectedOption == 13) {
+      $('.checked-option').addClass('disabled');
+      window.location.href = '/base/options/mosquitos';
+    } else if (selectedOption == 14) {
+      $('.checked-option').addClass('disabled');
+      window.location.href = '/base/options/doorhandles';
+    }
+  });
+
+  /* Coefficients */
+  /*
+    Editable coefficients
+  */
+  $('.editable-coef').editable('/base/options/coef/save', {
+    id: 'name',
+    name: 'value',
+    indicator: 'Сохранение..',
+    tooltip: 'Нажмите для редактирования',
+    submit: 'Ок',
+    cssclass : 'edit-input',
+    height: '12px',
+    width: '50px',
+    callback: function() {
+      showLoader();
+    }
+  });
+
+  $('.editable-percent').editable('/base/options/percent/save', {
+    id: 'position',
+    name: 'value',
+    indicator: 'Сохранение..',
+    tooltip: 'Нажмите для редактирования',
+    submit: 'Ок',
+    cssclass : 'edit-input',
+    height: '12px',
+    width: '50px',
+    callback: function() {
+      showLoader();
+    }
+  });
+
+  /**
+   * Save coeffs
+   */
+  $('.coeffs-save').click(function (e) {
+    e.preventDefault();
+    var margin = $('#coeffs_margin').val();
+    var coeff = $('#coeff_value').val();
+    var isFormula = $('#radio-formula').prop('checked');
+
+    if (isFormula) {
+      coeff = 0;
+    }
+    $.post('/base/options/coef/save_base', {
+      margin: margin,
+      coeff: coeff
+    }, function (data) {
+      window.location.reload();
+    });
+  });
+
+  /* Laminations */
+  /*
+    Editable laminations
+  */
+  $('.editable-lamination').editable(function (value) {
+    return value;
+  }, {
+    id: 'name',
+    name: 'value',
+    indicator: 'Сохранение..',
+    tooltip: 'Нажмите для редактирования',
+    submit: 'Ок',
+    cssclass : 'edit-input',
+    height: '12px',
+    width: '120px'
+  });
+
+  /*
+    Save laminations
+  */
+  $('#content-footer-save-lamination').click(function (event) {
+    event.preventDefault();
+    $('.lamination-color-items input[type="checkbox"].laminations-cb').each(function (value) {
+      if ($(this).prop('checked')) {
+        var laminationId = $(this).attr('value');
+        var boxId = $(this).attr('id');
+        var laminationName = $('label[for=' + boxId + ']').text();
+
+        $.post('/base/options/lamination/save', {
+          laminationId: laminationId,
+          laminationName: laminationName
+        }, function (data) {
+          window.location.reload();
+        });
+      } else {
+        var laminationId = $(this).attr('value');
+
+        $.post('/base/options/lamination/delete', {
+          laminationId: laminationId
+        }, function (data) {
+          window.location.reload();
+        });
+      }
+    });
+  });
+
+  /** Change discounts */
+  $('.editable-discount').editable(function(value) {
+    //
+    var name = $(this).attr('id');
+    if (name === 'standart_time') {
+      var minTime = $('#min_time').text();
+      if (parseInt(value, 10) > parseInt(minTime, 10)) {
+        $.post('/base/options/discount/save', {
+          name: name,
+          value: value
+        }, function(data) {
+          window.location.reload();
+          return data;
+        });
+        return value;
+      } else {
+        $.toast({
+          text : i18n.t('The minimum term can not exceed the standart'),
+          showHideTransition: 'fade',
+          allowToastClose: true,
+          hideAfter: 3000,
+          stack: 5,
+          position: {top: '60px', right: '30px'},
+          bgColor: '#FF6633',
+          textColor: '#fff'
+        });
+        $.post('/base/options/discount/save', {
+          name: name,
+          value: +minTime + 1
+        }, function(data) {
+          window.location.reload();
+          return data;
+        });
+        return +minTime + 1;
+      }
+    } else if (name === 'min_time') {
+      var standartTime = $('#standart_time').text();
+      if (parseInt(value, 10) < parseInt(standartTime, 10)) {
+        $.post('/base/options/discount/save', {
+          name: name,
+          value: value
+        }, function(data) {
+          window.location.reload();
+          return data;
+        });
+        return value;
+      } else {
+        $.toast({
+          text : i18n.t('The minimum term can not exceed the standart'),
+          showHideTransition: 'fade',
+          allowToastClose: true,
+          hideAfter: 3000,
+          stack: 5,
+          position: {top: '60px', right: '30px'},
+          bgColor: '#FF6633',
+          textColor: '#fff'
+        });
+        $.post('/base/options/discount/save', {
+          name: name,
+          value: +standartTime - 1
+        }, function(data) {
+          return data;
+        });
+        return +standartTime - 1;
+      }
+    } else {
+      $.post('/base/options/discount/save', {
+        name: name,
+        value: value
+      }, function(data) {
+        window.location.reload();
+        return data;
+      });
+      return value;
+    }
+  }, {
+    id: 'name',
+    name: 'value',
+    indicator: 'Сохранение..',
+    tooltip: 'Нажмите для редактирования',
+    submit: 'Ок',
+    cssclass : 'edit-input',
+    height: '12px',
+    width: '30px',
+    submitdata: function(value) {
+      console.log(value);
+      console.log(this);
+      $(this).attr('id');
+      return {foo: 'bar'};
+    },
+    callback: function() {
+      showLoader();
+    }
+  });
+
+  // /** Activate profile system */
+  // $('.active-btn-profile').click(function() {
+  //   var profileSystemId = $(this).attr('value');
+  //   var isChecked = $(this).prop('checked');
+
+  //   if (isChecked) {
+  //     $.post('/base/options/profileSystem/activate', {
+  //       profileSystemId: profileSystemId,
+  //       isActivated: 1
+  //     }, function(data) {
+  //       if (data.status) {
+  //         $.toast({
+  //           text : 'Профиль активирован.',
+  //           showHideTransition: 'fade',
+  //           allowToastClose: true,
+  //           hideAfter: 3000,
+  //           stack: 5,
+  //           position: {top: '60px', right: '30px'},
+  //         });
+  //       }
+  //     });
+  //   } else {
+  //     $.post('/base/options/profileSystem/activate', {
+  //       profileSystemId: profileSystemId,
+  //       isActivated: 0
+  //     }, function(data) {
+  //       if (data.status) {
+  //         $.toast({
+  //           text : 'Профиль деактивирован.',
+  //           showHideTransition: 'fade',
+  //           allowToastClose: true,
+  //           hideAfter: 3000,
+  //           stack: 5,
+  //           position: {top: '60px', right: '30px'},
+  //         });
+  //       }
+  //     });
+  //   }
+  // });
+
+  // /** Activate hardware */
+  // $('.active-btn-hardware').click(function() {
+  //   var hardwareId = $(this).attr('value');
+  //   var isChecked = $(this).prop('checked');
+
+  //   if (isChecked) {
+  //     $.post('/base/options/hardware/activate', {
+  //       hardwareId: hardwareId,
+  //       isActivated: 1
+  //     }, function(data) {
+  //       if (data.status) {
+  //         $.toast({
+  //           text : 'Фурнитура активирована.',
+  //           showHideTransition: 'fade',
+  //           allowToastClose: true,
+  //           hideAfter: 3000,
+  //           stack: 5,
+  //           position: {top: '60px', right: '30px'},
+  //         });
+  //       }
+  //     });
+  //   } else {
+  //     $.post('/base/options/hardware/activate', {
+  //       hardwareId: hardwareId,
+  //       isActivated: 0
+  //     }, function(data) {
+  //       if (data.status) {
+  //         $.toast({
+  //           text : 'Фурнитура деактивирована.',
+  //           showHideTransition: 'fade',
+  //           allowToastClose: true,
+  //           hideAfter: 3000,
+  //           stack: 5,
+  //           position: {top: '60px', right: '30px'},
+  //         });
+  //       }
+  //     });
+  //   }
+  // });
+
+  // /** On change select */
+  // $('.td-select').change(function() {
+  //   var profileSystemId = $(this).attr('data-profile');
+  //   var field = $(this).attr('data-field');
+  //   var value = $(this).find('option:selected').val();
+
+  //   $.post('/base/options/profileSystem/changeList', {
+  //     profileSystemId: profileSystemId,
+  //     field: field,
+  //     value: value
+  //   }, function(data) {
+  //     if (data.status) {
+
+  //     }
+  //   });
+  // });
+
+  function showLoader() {
+    $('.loader-ico').show();
+    setTimeout(function() {
+      $('.loader-ico').hide();
+    }, 1400);
+  }
+
+  /** Glazed window */
+    /** Add new folder */
+  $('.glass-folder-add').click(function() {
+    $('.add-new-glass-folder-pop-up').popup('show');
+    setTimeout(function() {
+      $('#new-group-name').focus();
+    }, 200);
+  });
+
+    /** Change add glass group image */
+    $('#glass-group-img').click(function() {
+      $('#select-glass-group-image').trigger('click');
+    });
+
+    /** On image change */
+    $('#select-glass-group-image').change(function (evt) {
+      var files = evt.target.files;
+      for (var i = 0, f; f = files[i]; i++) {
+        // Only process image files.
+        if (!f.type.match('image.*')) {
+          continue;
+        }
+        var reader = new FileReader();
+        // Closure to capture the file information.
+        reader.onload = (function(theFile) {
+          return function(e) {
+            $('#glass-group-image').attr('src', e.target.result);
+          };
+        })(f);
+        reader.readAsDataURL(f);
+      }
+    });
+
+    /** Submit adding new folder */
+    $('#submit-add-new-group').click(function(e) {
+      e.preventDefault();
+
+      //var name = $('.add-new-glass-folder-pop-up #new-group-name').val();
+      //var position = $('.add-new-glass-folder-pop-up #new-group-position-popup').val();
+      //var link = $('.add-new-glass-folder-pop-up #new-group-link').val();
+      //var description = $('.add-new-glass-folder-pop-up #new-group-description').val();
+      //var img = $('.add-new-glass-folder-pop-up #glass-group-image').attr('src');
+      $('#add-new-glass-folder-form').submit();
+    });
+
+    $('#add-new-glass-folder-form').on('submit', function (e) {
+      e.preventDefault();
+
+      var formData = new FormData(this);
+
+      $.ajax({
+        type:'POST',
+        url: $(this).attr('action'),
+        data: formData,
+        cache: false,
+        contentType: false,
+        processData: false,
+        success: function(data) {
+          if (data.status) {
+            setTimeout(function() {
+              $('.pop-up').popup('hide');
+              window.location.reload();
+            }, 300);
+          }
+        },
+        error: function(data){
+          console.log("error");
+          console.log(data);
+        }
+      });
+    });
+
+  /** Edit glass folder */
+  $('.glass-folder-edit').click(function(e) {
+    var folderId = $(this).attr('data-folder');
+    $('.edit-glass-folder-pop-up #edit-glass-fodler-input-id').val(folderId);
+
+    $.get('/base/options/glazed-window/get-folder/' + folderId, function(data) {
+      if (data.status) {
+        var img = (data.folder.img ? data.folder.img : '/local_storage/default.png');
+
+        $('.edit-glass-folder-pop-up #group-name-popup').val(data.folder.name);
+        $('.edit-glass-folder-pop-up #group-link-popup').val(data.folder.link);
+        $('.edit-glass-folder-pop-up #group-position-popup').val(data.folder.position);
+        $('.edit-glass-folder-pop-up #group-description-popup').val(data.folder.description);
+        $('.edit-glass-folder-pop-up #edit-glass-group-image').attr('src', img);
+        $('.edit-glass-folder-pop-up').popup('show');
+      }
+    });
+  });
+
+    /** Change edit glass group image */
+    $('#edit-glass-group-img').click(function() {
+      $('#edit-select-glass-group-image').trigger('click');
+    });
+
+    /** On image change */
+    $('#edit-select-glass-group-image').change(function (evt) {
+      var files = evt.target.files;
+      for (var i = 0, f; f = files[i]; i++) {
+        // Only process image files.
+        if (!f.type.match('image.*')) {
+          continue;
+        }
+        var reader = new FileReader();
+        // Closure to capture the file information.
+        reader.onload = (function(theFile) {
+          return function(e) {
+            $('#edit-glass-group-image').attr('src', e.target.result);
+          };
+        })(f);
+        reader.readAsDataURL(f);
+      }
+    });
+
+    /** Submit editing group */
+    $('#submit-edit-group').click(function(e) {
+      e.preventDefault();
+
+      $('#edit-glass-fodler-form').submit();
+      //var folderId = $(this).attr('data-folder');
+      //var name = $('.edit-glass-folder-pop-up #group-name-popup').val();
+      //var link = $('.edit-glass-folder-pop-up #group-link-popup').val();
+      //var position = $('.edit-glass-folder-pop-up #group-position-popup').val();
+      //var description = $('.edit-glass-folder-pop-up #group-description-popup').val();
+      //var img = $('.edit-glass-folder-pop-up #edit-glass-group-image').attr('src');
+
+      // $.post('/base/options/glazed-window/save-folder/' + folderId, {
+      //   name: name,
+      //   link: link,
+      //   position: position,
+      //   description: description,
+      //   img: img
+      // }, function(data) {
+      //   if (data.status) {
+      //     $('.pop-up').popup('hide');
+      //     window.location.reload();
+      //   }
+      // });
+    });
+    $('#edit-glass-fodler-form').on('submit', function (e) {
+      e.preventDefault();
+
+      var formData = new FormData(this);
+
+      $.ajax({
+        type:'POST',
+        url: $(this).attr('action'),
+        data: formData,
+        cache: false,
+        contentType: false,
+        processData: false,
+        success: function(data) {
+          if (data.status) {
+            setTimeout(function() {
+              $('.pop-up').popup('hide');
+              window.location.reload();
+            }, 300);
+          }
+        },
+        error: function(data){
+          console.log("error");
+          console.log(data);
+        }
+      });
+    });
+
+  /** Remove glass folder */
+  $('.glass-folder-delete').click(function(e) {
+    e.preventDefault();
+
+    var folderId = $(this).attr('data-folder');
+    $('#delete-glass-folder-submit').attr('data-folder', folderId);
+    $('.delete-alert').popup('show');
+  });
+
+    /** Submit removing folder */
+    $('#delete-glass-folder-submit').click(function(e) {
+      e.preventDefault();
+      showLoader();
+      var folderId = $(this).attr('data-folder');
+      $.post('/base/options/glazed-window/remove-folder', {
+        folderId: folderId
+      }, function(data) {
+        if (data.status) {
+          $('.delete-glass-folder-alert').popup('hide');
+          window.location.reload();
+        }
+      });
+    });
+    /** Deny removing folder */
+    $('#delete-glass-folder-deny').click(function(e) {
+      e.preventDefault();
+
+      $('.delete-glass-folder-alert').popup('hide');
+    });
+
+  $('.pop-up-close-wrap').click(function(e) {
+    e.preventDefault();
+
+    $('.pop-up').popup('hide');
+    $('.pop-up-default').popup('hide');
+  });
+
+  /** Init popups */
+  $('.add-new-glass-folder-pop-up').popup({
+    type: 'overlay',
+    autoopen: false,
+    scrolllock: true,
+    transition: 'all 0.3s'
+  });
+  $('.edit-glass-folder-pop-up').popup({
+    type: 'overlay',
+    autoopen: false,
+    scrolllock: true,
+    transition: 'all 0.3s'
+  });
+  $('.delete-glass-folder-alert').popup({
+    type: 'overlay',
+    autoopen: false,
+    scrolllock: true,
+    transition: 'all 0.3s'
+  });
+
+  /** Window sills */
+  $('.sill-folder-add').click(function(e) {
+    e.preventDefault();
+
+    $('.add-new-sill-folder-pop-up').popup('show');
+    $('input[name="max_size"]').val('0');
+    setTimeout(function() {
+      $('#new-group-name').focus();
+    }, 200);
+  });
+
+    /** Select image */
+    $('#sill-group-img').click(function() {
+      $('#select-sill-group-image').trigger('click');
+    });
+
+    /** On image change */
+    $('#select-sill-group-image').change(function (evt) {
+      var files = evt.target.files;
+      for (var i = 0, f; f = files[i]; i++) {
+        // Only process image files.
+        if (!f.type.match('image.*')) {
+          continue;
+        }
+        var reader = new FileReader();
+        // Closure to capture the file information.
+        reader.onload = (function(theFile) {
+          return function(e) {
+            $('#sill-group-image').attr('src', e.target.result);
+          };
+        })(f);
+        reader.readAsDataURL(f);
+      }
+    });
+    /** Submit adding new sill group */
+    $('#submit-add-new-sill-group').click(function(e) {
+      e.preventDefault();
+
+      $('#add-new-sill-folder-form').submit();
+      // var name = $('#new-group-name').val();
+      // var position = $('#new-group-position-popup').val();
+      // var link = $('#new-group-link').val();
+      // var description = $('#new-group-description').val();
+      // var img = $('#sill-group-image').attr('src');
+
+      // $.post('/base/options/window-sills/add-new-folder', {
+      //   name: name,
+      //   position: position,
+      //   link: link,
+      //   description: description,
+      //   img: img
+      // }, function(data) {
+      //   if (data.status) {
+      //     window.location.reload();
+      //   }
+      // });
+    });
+
+    $('#add-new-sill-folder-form').on('submit', function (e) {
+      e.preventDefault();
+
+      var formData = new FormData(this);
+
+      $.ajax({
+        type:'POST',
+        url: $(this).attr('action'),
+        data: formData,
+        cache: false,
+        contentType: false,
+        processData: false,
+        success: function(data) {
+          if (data.status) {
+            setTimeout(function() {
+              $('.pop-up').popup('hide');
+              window.location.reload();
+            }, 300);
+          }
+        },
+        error: function(data){
+          console.log("error");
+          console.log(data);
+        }
+      });
+    });
+
+  /** Delete sill folder */
+  $('.sill-folder-delete').click(function(e) {
+    e.preventDefault();
+
+    var folderId = $(this).attr('data-folder');
+    $('#delete-sill-folder-submit').attr('data-folder', folderId);
+    $('.delete-sill-folder-alert').popup('show');
+  });
+
+    /** Submit delete folder */
+    $('#delete-sill-folder-submit').click(function(e) {
+      e.preventDefault();
+
+      var folderId = $(this).attr('data-folder');
+      $.post('/base/options/window-sills/remove-folder', {
+        folderId: folderId
+      }, function(data) {
+        if (data.status) {
+          window.location.reload();
+        }
+      });
+    });
+    /** Cancel delete folder */
+    $('#delete-sill-folder-deny').click(function(e) {
+      e.preventDefault();
+      $('.delete-sill-folder-alert').popup('hide');
+    });
+
+  /** Edit sill folder */
+  $('.sill-folder-edit').click(function(e) {
+    e.preventDefault();
+
+    var folderId = $(this).attr('data-folder');
+    $('#edit-sill-folder-id').val(folderId);
+
+    $.get('/base/options/window-sills/get-folder/' + folderId, function(data) {
+      if (data.status) {
+        var img = (data.folder.img ? data.folder.img : '/local_storage/default.png');
+
+        $('#group-position-popup').val(data.folder.position);
+        $('#group-name-popup').val(data.folder.name);
+        $('#group-link-popup').val(data.folder.link);
+        $('#group-description-popup').val(data.folder.description);
+        $('input[name="max_size"]').val(data.folder.max_size);
+        $('#edit-sill-group-image').attr('src', img);
+        $('#submit-edit-sill-group').attr('data-folder', folderId);
+        $('.edit-sill-folder-pop-up').popup('show');
+      }
+    });
+  });
+
+    /** Change edit glass group image */
+    $('#edit-sill-group-img').click(function() {
+      $('#edit-select-sill-group-image').trigger('click');
+    });
+
+    /** On image change */
+    $('#edit-select-sill-group-image').change(function (evt) {
+      var files = evt.target.files;
+      for (var i = 0, f; f = files[i]; i++) {
+        // Only process image files.
+        if (!f.type.match('image.*')) {
+          continue;
+        }
+        var reader = new FileReader();
+        // Closure to capture the file information.
+        reader.onload = (function(theFile) {
+          return function(e) {
+            $('#edit-sill-group-image').attr('src', e.target.result);
+          };
+        })(f);
+        reader.readAsDataURL(f);
+      }
+    });
+
+    /** Submit editing group */
+    $('#submit-edit-sill-group').click(function(e) {
+      e.preventDefault();
+
+      $('#edit-sill-folder-form').submit();
+      // var folderId = $(this).attr('data-folder');
+      // var name = $('.edit-sill-folder-pop-up #group-name-popup').val();
+      // var link = $('.edit-sill-folder-pop-up #group-link-popup').val();
+      // var position = $('.edit-sill-folder-pop-up #group-position-popup').val();
+      // var description = $('.edit-sill-folder-pop-up #group-description-popup').val();
+      // var img = $('.edit-sill-folder-pop-up #edit-sill-group-image').attr('src');
+
+      // $.post('/base/options/window-sills/save-folder/' + folderId, {
+      //   name: name,
+      //   link: link,
+      //   position: position,
+      //   description: description,
+      //   img: img
+      // }, function(data) {
+      //   if (data.status) {
+      //     $('.pop-up').popup('hide');
+      //     window.location.reload();
+      //   }
+      // });
+    });
+    $('#edit-sill-folder-form').on('submit', function(e) {
+      e.preventDefault();
+
+      var formData = new FormData(this);
+
+      $.ajax({
+        type:'POST',
+        url: $(this).attr('action'),
+        data: formData,
+        cache: false,
+        contentType: false,
+        processData: false,
+        success: function(data) {
+          if (data.status) {
+            setTimeout(function() {
+              $('.pop-up').popup('hide');
+              window.location.reload();
+            }, 300);
+          }
+        },
+        error: function(data){
+          console.log("error");
+          console.log(data);
+        }
+      });
+    });
+
+  /** Init popups */
+  $('.add-new-sill-folder-pop-up').popup({
+    type: 'overlay',
+    autoopen: false,
+    scrolllock: true,
+    transition: 'all 0.3s'
+  });
+  $('.delete-sill-folder-alert').popup({
+    type: 'overlay',
+    autoopen: false,
+    scrolllock: true,
+    transition: 'all 0.3s'
+  });
+  $('.edit-sill-folder-pop-up').popup({
+    type: 'overlay',
+    autoopen: false,
+    scrolllock: true,
+    transition: 'all 0.3s'
+  });
+
+  function showToaster (message, isError) {
+    if (isError) {
+      $.toast({
+        text : message,
+        showHideTransition: 'fade',
+        allowToastClose: true,
+        hideAfter: 3000,
+        stack: 5,
+        position: {top: '60px', right: '30px'},
+        bgColor: '#FF6633',
+        textColor: '#fff'
+      });
+    } else {
+      $.toast({
+        text : message,
+        showHideTransition: 'fade',
+        allowToastClose: true,
+        hideAfter: 3000,
+        stack: 5,
+        position: {top: '60px', right: '30px'}
+      });
+    }
+  }
+});

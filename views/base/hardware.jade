@@ -1,0 +1,168 @@
+extends layout
+
+block content
+  .main-nav
+    .nav-link
+      a(href="/")= i18n.__('Dashboard') 
+      | 
+      | -> 
+      span#nav-text
+        =i18n.__('Hardware')
+      img.loader-ico(src="/assets/images/loader_ico.GIF")
+  .main-content
+    include ./includes/hardware/folders.jade
+    .add-button
+      a(href="#", id="add-hardware-group")
+        span#add-hardware-group-text
+          =i18n.__('Add +') 
+    .profile-system-body(id="profile-system-body", featureId="")
+      .profile-systems
+        .profile-systems-content
+          =i18n.__('Belonging to the profile systems')
+          | : 
+          span#all-profiles(style="display:none")
+              input(type="checkbox", id="select-all-profiles")
+              label(for="select-all-profiles")
+                =i18n.__('Select all')
+        .profile-systems-box
+          each profile_system in profile_systems
+            .profile_item
+              input(id="profile-checkbox" + profile_system.id, type='checkbox', name='foo', value=profile_system.id, checked=undefined)
+              label(for="profile-checkbox" + profile_system.id)
+                =profile_system.name
+    .features-others
+      each hardwareGroup in defaultFolder.window_hardware_groups
+        .hardware-features-other(data=hardwareGroup.id data-folder=hardwareGroup.folder_id)
+          .feature-name
+            #feature-logo-wrap
+              span.feature-img-other
+                img(src="" + hardwareGroup.img)
+            #feature-name-wrap
+              span.feature-name-format
+                b=hardwareGroup.name
+          .feature-brend
+            span.feature-text-format
+              =i18n.__('trademark')
+              br
+              b=hardwareGroup.producer
+          .feature-country
+            span.feature-text-format
+              =i18n.__('country')
+              br
+              b=hardwareGroup.country
+          .feature-properties
+            .feature-coeffs-text
+              span.text-format
+                =i18n.__('Anticorrosion')
+                | :
+              br
+              span.text-format
+                =i18n.__('Burglar')
+                | :
+            .feature-coeffs-strength 
+              span.feature-coeffs-format
+                .stength1(class="s1" + hardwareGroup.id)
+                  -var i = 0
+                  while (i < hardwareGroup.heat_coeff)
+                    .coeff-stength
+                    -i++
+              br
+              span.feature-coeffs-format
+                .stength2(class="s2" + hardwareGroup.id)
+                  -var j = 0
+                  while (j < hardwareGroup.noise_coeff)
+                    .coeff-stength
+                    -j++
+              .hardware-features-others-edit(value=hardwareGroup.id)
+      //.hardware-features-add
+        table(cellpadding="0", cellspacing="0")
+          tr      
+            td.add-future(value="0")
+              span.add-feature-text
+                | Добавить +
+            td.feature-brend
+            td.feature-country
+            td.feature-properties
+      .add-buttons
+        select(class="select-default select-hardware-type")
+          option(value="2")=i18n.__('Rotary')
+          option(value="6")=i18n.__('Rotary-hinged')
+          option(value="17")=i18n.__('Rotary-hinged (face plate)')
+          option(value="7")=i18n.__('Fanlight')
+          option(value="4")=i18n.__('Face plate')
+        span.edit-btn#edit-hardware-type
+        a(href="#", id="add-set")
+          span.add-item-text
+            =i18n.__('Add set') 
+        | 
+        a(href="#", id="add-element")
+          span.add-item-text
+            =i18n.__('Add element')
+      //.hardware-type-options
+        =i18n.__('Acceptable hardware diapason')
+        | 
+        | (
+        =i18n.__('Height').toLowerCase()
+        | 
+        | x
+        | 
+        =i18n.__('Width').toLowerCase()
+        | ): 
+        | max
+        | 
+        input.input-default.input-min#hardware-type-max-height(type="text" value="test")
+        | x
+        input.input-default.input-min#hardware-type-max-width(type="text" value="test")
+        | 
+        | min
+        | 
+        input.input-default.input-min#hardware-type-min-height(type="text" value="test")
+        | x
+        input.input-default.input-min#hardware-type-min-width(type="text" value="test")
+    .hardware-items
+      table(cellspacing="0", cellpadding="0" id="hardware-items-list")
+        tr.hardware-items-header          
+          th.item-input-choose
+            =i18n.__('Select')
+          th.item-name
+            =i18n.__('Title')
+          th.item-count
+            =i18n.__('Amount')
+          th.item-width
+            =i18n.__('Width')
+          th.item-height
+            =i18n.__('Height')
+          th.item-direction
+            =i18n.__('Direction')
+          th.item-color
+            =i18n.__('Color')
+          th.item-length
+            =i18n.__('Length')
+        tr.hardware-items-list
+          td(colspan="8" align="center" height="100").empty
+            =i18n.__('Choose hardware group')
+  .content-footer
+      .content-footer-operation
+        select(class="select-operation", id="selectOption")
+          option(value="1" disabled selected="selected")=i18n.__('Operation')
+          option(value="удалить")=i18n.__('Remove')
+        .content-footer-operation-radio
+          .radio-fix
+            input(type="radio", name="option", id="radioSelected", checked)  
+            label(for="radioSelected")=i18n.__('With selected') 
+          input(type="radio", name="option", id="radioUnSelected")
+          label(for="radioUnSelected")=i18n.__('With unselected')
+      #content-footer-ok
+        a(href="#", id="okItem", )
+          span#okItemText
+            =i18n.__('Ok')
+      .content-footer-pagination
+        include ./includes/hardware/paginator.jade
+  include ./includes/hardware/popup.jade
+  include ./includes/hardware/add-feature-popup.jade
+  include ./includes/hardware/edit-feature-popup.jade
+  include ./includes/hardware/add-folder-popup.jade
+  include ./includes/hardware/edit-hardware-item-popup.jade
+  include ./includes/hardware/edit-folder-popup.jade
+  include ./includes/hardware/alert-delete-hardware-group.jade
+  include ./includes/hardware/edit-type-popup.jade

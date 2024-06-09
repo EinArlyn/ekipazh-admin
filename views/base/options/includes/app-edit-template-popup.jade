@@ -1,0 +1,53 @@
+.pop-up.edit-tempalte-pop-up
+  form#edit-tempalte-form(method="POST" action="/base/options/application/edit-template" enctype="multipart/form-data")
+    input#template-id-input(type="hidden" name="template_id" value="")
+    .pop-up-close-wrap
+      a(class="pop-up-close", href="#")
+    span.pop-up-header
+      =i18n.__('Edit template')
+    .content-block
+      span.content-text
+        =i18n.__('Description')
+        |  1:
+      input.input-default#edit-desc-1(type="text" name="desc_1" style="width: 140px;")
+    .content-block      
+      span.content-text
+        =i18n.__('Description')
+        |  2:
+      input.input-default#edit-desc-2(type="text" name="desc_2" style="width: 140px;")
+    .content-block
+      span.content-text
+        =i18n.__('Template')
+        | :
+      select.select-default#edit-template-select(name="template" style="width: 148px;")
+        option(value="1") 1
+        option(value="2") 2
+        option(value="3") 3
+        option(value="4") 4
+        option(value="5") 5
+        option(value="6") 6
+        option(value="7") 7
+        option(value="8") 8
+        option(value="9") 9
+        option(value="10") 10
+        option(value="11") 11
+    .content-block
+      span.content-text
+        =i18n.__('Template type')
+        | :
+      select.select-default#edit-type-select(name="type" style="width: 148px;")
+        option(value="1")=i18n.__('Window')
+        option(value="2")=i18n.__('Exit to balcony')
+        option(value="3")=i18n.__('Balcony')
+        option(value="4")=i18n.__('Door')
+    .content-block
+      span.content-text
+        =i18n.__('Position')
+        | :
+      input.input-default#edit-position(name="position" type="text" style="width: 30px;")
+    .content-block-image
+      input.hidden(id="select-template-edit-image" type="file" name="template_img")
+      a(href="#" type="button" id="template-edit-img" style="margin-left: 10px;")
+      img(id="template-edit-img-box" style="height: 64px; width: 124px; margin-left: 20px;" src="/local_storage/default.png")
+    .submit-row
+      input.btn-submit#submit-edit-template(type="button" value=i18n.__('Save'))

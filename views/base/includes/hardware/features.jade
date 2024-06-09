@@ -1,0 +1,36 @@
+.hardware-group-list
+  each hardware_group in window_hardware_groups
+    .hardware_group
+      a(href="#", value=hardware_group.id, class="hardware-group-button")
+        span.hardware-group-button-text
+          =hardware_group.name
+      a(href="#", value=hardware_group.id, class="hardware-group-edit-button")
+        span.hardware-group-button-text
+          //=hardware_group.name
+      a(href="#", value=hardware_group.id, class="hardware-group-remove-button")
+        span.hardware-group-button-text
+          //=hardware_group.name
+    .hardware-edit(id="edit" + hardware_group.id data=hardware_group.id)
+      .hardware-features
+        //.hardware-features-exist
+          .feature-name
+          .feature-brend
+          .feature-country
+          .feature-properties
+            .hardware-features-edit
+      .hardware-features-add
+        table(cellpadding="0", cellspacing="0")
+          tr      
+            td.add-future(value=hardware_group.id)
+              span.add-feature-text
+                | Добавить +
+            td.feature-brend
+            td.feature-country
+            td.feature-properties
+      //.hardware-type-select
+        select(class="select-default select-hardware-type", data=hardware_group.id)
+          option(value="2") Поворотная
+          option(value="6") Поворотно-откидная
+          option(value="17") Поворотно-откидная (штульп)
+          option(value="7") Фрамуга
+          option(value="4") Штульповая

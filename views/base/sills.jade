@@ -1,0 +1,34 @@
+extends layout
+
+block content
+  .main-nav 
+    .nav-link
+      a(href="/")=i18n.__('Dashboard') 
+      | 
+      | -> 
+      span#nav-text
+        =i18n.__('Window sills')
+      img.loader-ico(src="/assets/images/loader_ico.GIF")
+  .main-content
+    each group in sillsGroups
+      .sill-group
+        input.btn-group.btn-margin.open-group(type="button" value=group.name data-group=group.id)
+        | 
+        input.btn-edit.edit-group-name(type="button" value="1" data-group=group.id)
+        .sills-group-content(data-group=group.id)
+          table.sills-table(cellpadding="0", cellspacing="0" data-group=group.id)
+            tr.add-sill-tr(data-group=group.id)
+              td.add-sill-td
+                =i18n.__('Add +')
+    input.btn-group.btn-margin#add-new-group(type="button" value=i18n.__('Add +'))
+    table.sills-table(cellpadding="0", cellspacing="0" data-group="0")
+      each sill in sills
+        tr.sill-tr
+          td.sill-td
+            =sill.name
+            input.btn-edit.edit-sill(type="button" value="2" data-sill=sill.id)
+
+  include includes/sills-add-new-group-pop-up
+  include includes/sills-edit-group-name
+  include includes/sills-add-sill-to-group-pop-up
+  include includes/sills-edit-sill-pop-up

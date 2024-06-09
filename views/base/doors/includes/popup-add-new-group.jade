@@ -1,0 +1,27 @@
+.pop-up.popup-add-new-group
+  form#form-new-group(method="post" action="/base/doors/group/add" enctype="multipart/form-data")
+    .pop-up-close-wrap
+      a.pop-up-close(href="#")
+    span.pop-up-header
+      =i18n.__('Add door group')
+    .row
+      .col-md-2.text-right
+        =i18n.__('Folder')
+        | :
+      .col-md-10
+        select.select-default.width-90(name="folder_id")
+          option(value=defaultFolderId)=i18n.__("Not exist")
+            each doorFolder in doorFolders
+              if doorFolder.type !== 0
+                option(value=doorFolder.id)=doorFolder.name
+    .row
+      .col-md-2.text-right
+        =i18n.__('Name')
+        | :
+      .col-md-10
+        input.input-default.width-90(type="text" name="name" value="" required)
+    .row
+      .col-md-4
+      .col-md-4
+        input.pop-up-submit-btn.block-center(type="submit" value=i18n.__('Add'))
+      .col-md-4

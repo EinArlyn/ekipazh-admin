@@ -1,0 +1,202 @@
+extends ../layout
+
+block content
+  .main-nav
+    .nav-link
+      a(class="external-link", href="/")= i18n.__('Dashboard') 
+      | 
+      | -> 
+      span#nav-text
+        =i18n.__('Options')
+      img.loader-ico(src="/assets/images/loader_ico.GIF")
+  .main-select-option
+    select(id="lamination-select", name="", class="select-default selected-option", style="width: 180px;")
+      option(value="1")=i18n.__('Lamination')
+      option(value="2")=i18n.__('Discounts')
+      option(value="3" selected)=i18n.__('Coefficients')
+      option(value="8")=i18n.__('Suppliers')
+      option(value="9")=i18n.__('Currency')
+      option(value="10")=i18n.__('General options')
+      option(value="11")=i18n.__('Application options')
+      option(disabled)=i18n.__('Groups')
+      option(value="4")=i18n.__('Glazed window')
+      option(value="5")=i18n.__('Window sills')
+      option(value="6")=i18n.__('Spillways')
+      option(value="7")=i18n.__('Visors')
+      option(value="12")=i18n.__('Connectors')
+      option(value="13")=i18n.__('Mosquitos')
+      option(value="14")=i18n.__('Doorhandles')
+  form(method='post', action='/base/option/save', id="main-form")
+    .coefficients-option.checked-option
+      .main-content
+        .main-content-header
+          .main-content-header-wrap
+            .month-plan
+              =i18n.__('The planned production plan for the month (m')
+              sup 2
+              | ) 
+              b.editable-coef(id="plan_production")
+                =coeffs.plan_production
+            .estimated-cost
+              =i18n.__('The estimated production cost (cost of materials) in the past month (hrn)')
+              b.editable-coef(id="estimated_cost")
+                =coeffs.estimated_cost
+        .content-wrap
+          .content-wrap-header
+            span#expense-content-header
+              =i18n.__('Resource costs')
+            span#default-price-content-header
+              =i18n.__('Hrn')
+            span#meter-price-content-header
+              =i18n.__('Hrn/m')
+              | &#178
+            =i18n.__('% of the cost')
+          .content-wrap-body
+            ul.rushOrder
+              li
+                span.expense-content-body
+                  =i18n.__('Salary of assembly shop')
+                span.default-price-content-body
+                  .editable-coef(id="salary_assembly_hrn")
+                    =coeffs.salary_assembly_hrn
+                span.meter-price-content-body
+                  .editable-coef(id="salary_assembly_hrn_m")
+                    =coeffs.salary_assembly_hrn_m
+                .editable-coef(id="salary_assembly_percent")
+                  =coeffs.salary_assembly_percent
+              li
+                span.expense-content-body
+                  =i18n.__('Salary of glass shop')
+                span.default-price-content-body
+                  .editable-coef(id="salary_glass_hrn")
+                    =coeffs.salary_glass_hrn
+                span.meter-price-content-body
+                  .editable-coef(id="salary_glass_hrn_m")
+                    =coeffs.salary_glass_hrn_m
+                .editable-coef(id="salary_glass_percent")
+                  =coeffs.salary_glass_percent
+              li
+                span.expense-content-body
+                  =i18n.__('Rental prod. (with сommunal expenses)')
+                span.default-price-content-body
+                  .editable-coef(id="rent_production_hrn")
+                    =coeffs.rent_production_hrn
+                span.meter-price-content-body
+                  .editable-coef(id="rent_production_hrn_m")
+                    =coeffs.rent_production_hrn_m
+                .editable-coef(id="rent_production_percent")
+                  =coeffs.rent_production_percent
+              li
+                span.expense-content-body
+                  =i18n.__('Salary ITR')
+                span.default-price-content-body
+                  .editable-coef(id="salary_itr_hrn")
+                    =coeffs.salary_itr_hrn
+                span.meter-price-content-body
+                  .editable-coef(id="salary_itr_hrn_m")
+                    =coeffs.salary_itr_hrn_m
+                .editable-coef(id="salary_itr_percent")
+                  =coeffs.salary_itr_percent
+              li
+                span.expense-content-body
+                  =i18n.__('Office rental (with сommunal expenses)')
+                span.default-price-content-body
+                  .editable-coef(id="rent_offices_hrn")
+                    =coeffs.rent_offices_hrn
+                span.meter-price-content-body
+                  .editable-coef(id="rent_offices_hrn_m")
+                    =coeffs.rent_offices_hrn_m
+                .editable-coef(id="rent_offices_percent")
+                  =coeffs.rent_offices_percent
+              li
+                span.expense-content-body
+                  =i18n.__('Salary of managers')
+                span.default-price-content-body
+                  .editable-coef(id="salary_manager_hrn")
+                    =coeffs.salary_manager_hrn
+                span.meter-price-content-body
+                  .editable-coef(id="salary_manager_hrn_m")
+                    =coeffs.salary_manager_hrn_m
+                .editable-coef(id="salary_manager_percent")
+                  =coeffs.salary_manager_percent
+              li
+                span.expense-content-body
+                  =i18n.__('Transportation expenses (delivery of windows)')
+                span.default-price-content-body
+                  .editable-coef(id="transport_cost_hrn")
+                    =coeffs.transport_cost_hrn
+                span.meter-price-content-body
+                  .editable-coef(id="transport_cost_hrn_m")
+                    =coeffs.transport_cost_hrn_m
+                .editable-coef(id="transport_cost_percent")
+                  =coeffs.transport_cost_percent
+              li
+                span.expense-content-body
+                  =i18n.__('Others')
+                span.default-price-content-body
+                  .editable-coef(id="others_hrn")
+                    =coeffs.others_hrn
+                span.meter-price-content-body
+                  .editable-coef(id="others_hrn_m")
+                    =coeffs.others_hrn_m
+                .editable-coef(id="others_percent")
+                  =coeffs.others_percent
+              li
+                span.expense-content-body
+                  =i18n.__('Profitability')
+                span.default-price-content-body
+                  .editable-coef(id="rentability_hrn")
+                    =coeffs.rentability_hrn
+                span.meter-price-content-body
+                  .editable-coef(id="rentability_hrn_m")
+                    =coeffs.rentability_hrn_m
+                .editable-coef(id="rentability_percent")
+                  =coeffs.rentability_percent
+          .additional-cost-wrap
+            ul
+              li.content-wrap-header
+              li
+                span.expense-content-body
+                  =i18n.__('Additional cost for 1m2')
+                span.default-price-content-body
+                  .editable-coef(id="area_price")
+                    =coeffs.area_price
+                span.meter-price-content-body
+                  .editable-coef(id="area_currencies")
+                    =coeffs.area_currencies
+              li
+                span.expense-content-body
+                  =i18n.__('Additional cost for perimeter')
+                span.default-price-content-body
+                  .editable-coef(id="perimeter_price")
+                    =coeffs.perimeter_price
+                span.meter-price-content-body
+                  .editable-coef(id="perimeter_currencies")
+                    =coeffs.perimeter_currencies
+              li
+                span.expense-content-body
+                  =i18n.__('Additional cost per item')
+                span.default-price-content-body
+                  .editable-coef(id="piece_price")
+                    =coeffs.piece_price
+                span.meter-price-content-body
+                  .editable-coef(id="piece_currencies")
+                    =coeffs.piece_currencies
+        .content-wrap-footer
+          =i18n.__('The margin on add. elements')
+          | : 
+          input(id="coeffs_margin", type="text", name="discount_additional_elements", value=coeffs.margin, class="input-default input-inline", style="width: 35px;")
+      .content-footer
+        .calculations
+          input(id="radio-coef", type="radio", name="furniture", value="1", checked=(coeffs.coeff > 0 ? 'checked': undefined))
+          label(for="radio-coef")
+            =i18n.__('Calculation with the coefficient')
+          input(id="coeff_value", type="text", name="calc_coeficient", value=coeffs.coeff, class="input-default input-inline", style="width: 35px;")
+          br
+          input(id="radio-formula", type="radio", name="furniture", value="1", checked=(coeffs.coeff == 0 ? 'checked': undefined))
+          label(for="radio-formula")
+            =i18n.__('Calculation with the formula')
+        #content-footer-save.coeffs-save
+          a(class="external-link", href="#", id="saveBtn", )
+            span#saveBtnText
+              =i18n.__('Save')

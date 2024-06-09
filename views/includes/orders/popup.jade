@@ -1,0 +1,219 @@
+.pop-up(style="display: none;")
+  #pop-up-delete-order-wrap(data="")
+    a(id="pop-up-delete-order", href="#")
+      .text-center
+        =i18n.__('Remove')
+  #pop-up-report-order-wrap(data="")
+    a(id="pop-up-report-order", href="#")
+      .text-center
+        =i18n.__('Report')
+  #pop-up-export-order-wrap
+    a(id="pop-up-export-order", href=EXPORT_LINK)
+      .text-center
+        =i18n.__('Export')
+  #pop-up-acount-price-order-wrap
+    a(id="pop-up-acount-price-order", href="#" download)
+      .text-center
+        =i18n.__('Account price')
+  #pop-up-specification-order-wrap
+    a(id="pop-up-specification-order", href="#" download)
+      .text-center
+        =i18n.__('Specification')
+  .pop-up-close-wrap
+    a(class="pop-up-close", href="#")
+  span#pop-up-header(style="width: 285px;")
+    =i18n.__('Detailed information')
+  .pop-up-wrap
+    .order-info
+      .attributes-names
+        span.text-margin
+          =i18n.__('Order number')
+          | :
+        br
+        span.text-margin
+          =i18n.__('Factory number')
+          | :
+        br
+        span.text-margin
+          =i18n.__('Hardware')
+          | :
+        br
+        span.text-margin
+          =i18n.__('Prof. system')
+          | :
+        br
+        span.text-margin
+          =i18n.__('Color')
+          | :
+        br
+        span.text-margin
+          =i18n.__('Created')
+          | :
+        br
+        span.text-margin
+          =i18n.__('Prod. batch')
+          | :
+        br
+        span.text-margin
+          =i18n.__('Sended')
+          | :
+        br
+        span.text-margin
+          =i18n.__('Paid')
+          | :
+        br
+        span.text-margin
+          =i18n.__('Tech. department')
+          | :
+      .attributes-values
+        span.text-margin.text-overflow#pop-up-number
+        br
+        span.text-margin.text-overflow
+          input.input-min#pop-up-factory-number(type="text" style="width: 60px;")
+          | 
+          input#pop-up-factory-number-submit(type="button" data-order="" style="width: 30px;" value=i18n.__('Ok'))
+        br
+        span.text-margin.text-overflow.overflow-hover#pop-up-furniture
+        br
+        span.text-margin.text-overflow.overflow-hover#pop-up-profile-list
+        br
+        span.text-margin.text-overflow.overflow-hover#pop-up-color
+        br
+        span.text-margin.text-overflow#pop-up-created
+        br
+        span.text-margin.text-overflow#pop-up-batch
+        br
+        span.text-margin.text-overflow#pop-up-sended
+        br
+        span.text-margin.text-overflow#pop-up-buch
+        br
+        span.text-margin.text-overflow#pop-up-to
+    .border
+    .seller
+      #seller-header
+        =i18n.__('Seller')
+      .attributes-names
+        span.text-margin
+          =i18n.__('Full name')
+          | :
+        br
+        span.text-margin
+          =i18n.__('City')
+          | :
+        br
+        span.text-margin
+          =i18n.__('Address')
+          | :
+        br
+        span.text-margin
+          =i18n.__('Mob. phone')
+          | :
+        br
+        span.text-margin
+          =i18n.__('City phone')
+          | :
+        br
+        span.text-margin
+          | e-mail: 
+      .attributes-values
+        span.text-margin.text-overflow#pop-up-seller-name
+        br
+        span.text-margin.text-overflow#pop-up-seller-city
+        br
+        span.text-margin.text-overflow#pop-up-seller-adress
+        br
+        span.text-margin.text-overflow#pop-up-seller-phone
+        br
+        span.text-margin.text-overflow#pop-up-seller-phone-city
+        br
+        span.text-margin.text-overflow#pop-up-seller-email
+    .border
+    .customer
+      #customer-header
+        =i18n.__('Customer')
+      .attributes-names
+        span.text-margin
+          =i18n.__('Full name')
+          | :
+        br
+        span.text-margin
+          =i18n.__('City')
+          | :
+        br
+        span.text-margin
+          =i18n.__('Address')
+          | :
+        br
+        span.text-margin
+          =i18n.__('Mob. phone')
+          | :
+        br
+        span.text-margin
+          =i18n.__('City phone')
+          | :
+        br
+        span.text-margin
+          | e-mail: 
+      .attributes-values
+        span.text-margin.text-overflow#pop-up-customer-name
+        br
+        span.text-margin.text-overflow#pop-up-customer-city
+        br
+        span.text-margin.text-overflow#pop-up-customer-adress
+        br
+        span.text-margin.text-overflow#pop-up-customer-phone
+        br
+        span.text-margin.text-overflow#pop-up-customer-phone-city
+        br
+        span.text-margin.text-overflow#pop-up-customer-email
+    .border
+    .order-prices
+      .attributes-names
+        span.text-margin
+          =i18n.__('Purchase price')
+          | :
+        br.pop-up-bill
+        span.text-margin.pop-up-bill
+          =i18n.__('Bill')
+          | :
+        br
+        span.text-margin
+          =i18n.__('Margin')
+          | :
+        br
+        span.text-margin
+          =i18n.__('Surcharges')
+          | :
+        br
+        span.text-margin
+          =i18n.__('Base price')
+          | :
+        br
+        span.text-margin
+          =i18n.__('Cost of sales')
+          | :
+        br
+        span.text-margin
+          =i18n.__('Perimeter')
+          | :
+        br
+        span.text-margin
+          =i18n.__('Area')
+          | 
+          | (м&#178;):
+      .attributes-values
+        span.text-margin.text-overflow#pop-up-purchase-price
+        br.pop-up-bill
+        span.text-margin.text-overflow.pop-up-bill#pop-up-bill
+        br
+        span.text-margin.text-overflow#pop-up-margin
+        br
+        span.text-margin.text-overflow#pop-up-payment
+        br
+        span.text-margin.text-overflow#pop-up-base-price
+        br
+        span.text-margin.text-overflow#pop-up-sale-price
+        br
+        span.text-margin.text-overflow#pop-up-perimeter
+        br
+        span.text-margin.text-overflow#pop-up-square

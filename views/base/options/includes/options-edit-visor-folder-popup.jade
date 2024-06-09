@@ -1,0 +1,36 @@
+.pop-up.edit-visor-folder-pop-up
+  form#edit-visor-folder-form(method="POST" action="/base/options/visors/save-folder" enctype="multipart/form-data")
+    input.hidden#edit-visor-folder-id(type="text" name="folder_id" value="")
+    .pop-up-close-wrap
+      a(class="pop-up-close", href="#")
+    span.pop-up-header
+      =i18n.__('Edit group')
+    .content-block
+      span.field-margin-popup
+        =i18n.__('Group name')
+        | /
+        =i18n.__('Position')
+        | :
+      input.input-default.input-margin-popup#group-position-popup(type="text" name="position" value="" style="width: 30px;")
+      input.input-default.input-margin-popup#group-name-popup(type="text" name="name" value="" style="width: 166px;")
+    .content-block
+      span.field-margin-popup
+        =i18n.__('Link')
+        | :
+      input.input-default.input-margin-popup#group-link-popup(type="text" name="link" value="" style="width: 205px;")
+    .content-block-description
+      span.field-margin-popup
+        =i18n.__('Description')
+        | :
+      textarea.input-default.input-margin-popup#group-description-popup(type="text" name="description" value="" style="width: 205px; height: 100px; resize: none;")
+    .row
+      .col-md-5.text-right(style="width: 130px!important;")
+        | Макс. размер (мм):
+      .col-md-7(style="width: 205px!important;")
+        input.input-default(type="text" name="max_size" value="0" style="width: 205px!important;")
+    .content-block-image
+      input.hidden(id="edit-select-visor-group-image" type="file" name="folder_img")
+      a.group-img(href="#" type="button" id="edit-visor-group-img" style="margin-left: 10px;")
+      img.group-image(id="edit-visor-group-image" style="height: 64px; width: 124px; margin-left: 20px;" src="")
+    .submit-row
+      input.btn-submit#submit-edit-visor-group(type="button" data-folder="" value=i18n.__('Save'))

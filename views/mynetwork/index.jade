@@ -1,0 +1,656 @@
+extends ../layout
+
+block content
+  link(rel="stylesheet" href="/assets/stylesheets/vendor/popover/jquery.webui-popover.min.css")
+  .wrapper-network
+    .main-nav
+      .nav-link
+        a(class="external-link", href="/")= i18n.__('Dashboard')
+        | 
+        | ->
+        span#nav-text
+          =i18n.__('My network')
+        img.loader-ico(src="/assets/images/loader_ico.GIF" style="display: inline-block;")
+    .wrapper-calendar_network
+      .date-pickers.date-picker-from
+        div(id="calendar-from")
+      .date-pickers.date-picker-to
+        div(id="calendar-to")
+      .calendar-network
+        span.date-select
+          =i18n.__('from')
+          | 
+          input(id="date-from", type="text", name="date_from", value=("0" + new Date(from).getDate()).slice(-2) + '.' + ("0" + (new Date(from).getMonth() + 1)).slice(-2) + '.' + new Date(from).getFullYear(), class="input-calendar", disabled, style="width: 65px;")
+          span.calendar-btn-wrap#select-month-from
+            a(class="calendar-btn", href="#")
+          | 
+          =i18n.__('to')
+          | 
+          input(id="date-to", type="text", name="date_to", value=("0" + new Date(to).getDate()).slice(-2) + '.' + ("0" + (new Date(to).getMonth() + 1)).slice(-2) + '.' + new Date(to).getFullYear(), class="input-calendar", disabled, style="width: 65px;")
+          span.calendar-btn-wrap#select-month-to
+            a(class="calendar-btn", href="#")
+          span.ok-button#ok-date-filter
+            input(type="button" value="Ok")
+    .wrapper-action
+      .action-links
+        a(href="#" id="show-all-picker").network-action_1.network-action.disabled
+          =i18n.__('Open')
+        a(href="#" id="hide-all-picker").network-action_2.network-action.disabled
+          =i18n.__('Roll up')
+        .wrapper-action_3
+          .network-action_3
+          a(href="/mynetwork/add_user").network-action
+            =i18n.__('Add new user')
+      .action-filters
+        a(href="#" id="on-filters")
+          =i18n.__('Switch on')
+        | /
+        a(href="#" id="off-filters")
+          =i18n.__('Switch off')
+        | 
+        =i18n.__('filters')
+    .wrapper-table
+      table#filter-table(border="0" cellpadding="0" cellspacing="0" data-user=user.id)
+        tr
+          td.lights-col-2(colspan="2")
+            .lights-total-counter.lighter-group-1
+              - var _1 = lightersArray[1] || 0
+              - var _2 = lightersArray[2] || 0
+              - var group1Count = _1 + _2
+              =group1Count
+          td.lights-col-4(colspan="8")
+            .lights-total-counter.lighter-group-2
+              - var _3 = lightersArray[3] || 0
+              - var _4 = lightersArray[4] || 0
+              - var _5 = lightersArray[5] || 0
+              - var _6 = lightersArray[6] || 0
+              - var _7 = lightersArray[7] || 0
+              - var _8 = lightersArray[8] || 0
+              - var _9 = lightersArray[9] || 0
+              - var _14 = lightersArray[14] || 0
+              - var group2Count = _3 + _4 + _5 + _6 + _7 + _8 + _9 + _14
+              =group2Count
+          td.lights-col-4(colspan="4")
+            .lights-total-counter.lighter-group-3
+              - var _10 = lightersArray[10] || 0
+              - var _11 = lightersArray[11] || 0
+              - var _12 = lightersArray[12] || 0
+              - var _13 = lightersArray[13] || 0
+              - var group3Count = _10 + _11 + _12 + _13
+              =group3Count
+        tr.lighters-filter-tr
+          td.lighter-group-1
+            .lighter-r.r-1(data-content=factoryIdentificators.identificator_1 data-trigger="hover")
+              input.light-filter-btn#light_filter_white(type="checkbox" name="identificator_1" value="1" checked=(lights.indexOf(1) >= 0 ? "checked" : undefined))
+              label(for="light_filter_white")
+                .white_b
+            span.lighter-counter#counter-r-1
+              =lightersArray[1] || 0
+          td.lighter-group-1
+            .lighter-r.r-2(data-content=factoryIdentificators.identificator_2 data-trigger="hover")
+              input.light-filter-btn#light_filter_red(type="checkbox" name="identificator_2" value="2" checked=(lights.indexOf(2) >= 0 ? "checked" : undefined))
+              label(for="light_filter_red")
+                .red_b
+            span.lighter-counter#counter-r-2
+              =lightersArray[2] || 0
+          td.lighter-group-2
+            .lighter-r.r-3(data-content=factoryIdentificators.identificator_3 data-trigger="hover")
+              input.light-filter-btn#light_filter_dark_brown(type="checkbox" name="identificator_3" value="3" checked=(lights.indexOf(3) >= 0 ? "checked" : undefined))
+              label(for="light_filter_dark_brown")
+                .red_b
+            span.lighter-counter#counter-r-3
+              =lightersArray[3] || 0
+          td.lighter-group-2
+            .lighter-r.r-4(data-content=factoryIdentificators.identificator_4 data-trigger="hover")
+              input.light-filter-btn#light_filter_orange(type="checkbox" name="identificator_4" value="4" checked=(lights.indexOf(4) >= 0 ? "checked" : undefined))
+              label(for="light_filter_orange")
+                .yellow_b
+            span.lighter-counter#counter-r-4
+              =lightersArray[4] || 0
+          td.lighter-group-2
+            .lighter-r.r-5(data-content=factoryIdentificators.identificator_5 data-trigger="hover")
+              input.light-filter-btn#light_filter_yellow(type="checkbox" name="identificator_5" value="5" checked=(lights.indexOf(5) >= 0 ? "checked" : undefined))
+              label(for="light_filter_yellow")
+                .yellow_b
+            span.lighter-counter#counter-r-5
+              =lightersArray[5] || 0
+          td.lighter-group-2
+            .lighter-r.r-6(data-content=factoryIdentificators.identificator_6 data-trigger="hover")
+              input.light-filter-btn#light_filter_black(type="checkbox" name="identificator_6" value="6" checked=(lights.indexOf(6) >= 0 ? "checked" : undefined))
+              label(for="light_filter_black")
+                .yellow_b
+            span.lighter-counter#counter-r-6
+              =lightersArray[6] || 0
+          td.lighter-group-2
+            .lighter-r.r-7(data-content=factoryIdentificators.identificator_7 data-trigger="hover")
+              input.light-filter-btn#light_filter_brown(type="checkbox" name="identificator_7" value="7" checked=(lights.indexOf(7) >= 0 ? "checked" : undefined))
+              label(for="light_filter_brown")
+                .red_b
+            span.lighter-counter#counter-r-7
+              =lightersArray[7] || 0
+          td.lighter-group-2
+            .lighter-r.r-8(data-content=factoryIdentificators.identificator_8 data-trigger="hover")
+              input.light-filter-btn#light_filter_cyan(type="checkbox" name="identificator_8" value="8" checked=(lights.indexOf(8) >= 0 ? "checked" : undefined))
+              label(for="light_filter_cyan")
+                .yellow_b
+            span.lighter-counter#counter-r-8
+              =lightersArray[8] || 0
+          td.lighter-group-2
+            .lighter-r.r-9(data-content=factoryIdentificators.identificator_9 data-trigger="hover")
+              input.light-filter-btn#light_filter_blue(type="checkbox" name="identificator_9" value="9" checked=(lights.indexOf(9) >= 0 ? "checked" : undefined))
+              label(for="light_filter_blue")
+                .yellow_b
+            span.lighter-counter#counter-r-9
+              =lightersArray[9] || 0
+          td.lighter-group-2
+            .lighter-r.lighter-s.r-14(data-content=factoryIdentificators.identificator_14 data-trigger="hover")
+              input.light-filter-btn#light_filter_white_s(type="checkbox" name="identificator_14" value="14" checked=(lights.indexOf(14) >= 0 ? "checked" : undefined))
+              label(for="light_filter_white_s")
+                .yellow_b
+            span.lighter-counter#counter-r-14
+              =lightersArray[14] || 0
+          td.lighter-group-3
+            .lighter-r.r-10(data-content=factoryIdentificators.identificator_10 data-trigger="hover")
+              input.light-filter-btn#light_filter_green(type="checkbox" name="identificator_10" value="10" checked=(lights.indexOf(10) >= 0 ? "checked" : undefined))
+              label(for="light_filter_green")
+                .yellow_b
+            span.lighter-counter#counter-r-10
+              =lightersArray[10] || 0
+          td.lighter-group-3
+            .lighter-r.r-11(data-content=factoryIdentificators.identificator_11 data-trigger="hover")
+              input.light-filter-btn#light_filter_salad(type="checkbox" name="identificator_11" value="11" checked=(lights.indexOf(11) >= 0 ? "checked" : undefined))
+              label(for="light_filter_salad")
+                .yellow_b
+            span.lighter-counter#counter-r-11
+              =lightersArray[11] || 0
+          td.lighter-group-3
+            .lighter-r.r-12(data-content=factoryIdentificators.identificator_12 data-trigger="hover")
+              input.light-filter-btn#light_filter_dark_blue(type="checkbox" name="identificator_12" value="12" checked=(lights.indexOf(12) >= 0 ? "checked" : undefined))
+              label(for="light_filter_dark_blue")
+                .yellow_b
+            span.lighter-counter#counter-r-12
+              =lightersArray[12] || 0
+          td.lighter-group-3
+            .lighter-r.r-13(data-content=factoryIdentificators.identificator_13 data-trigger="hover")
+              input.light-filter-btn#light_filter_purple(type="checkbox" name="identificator_13" value="13" checked=(lights.indexOf(13) >= 0 ? "checked" : undefined))
+              label(for="light_filter_purple")
+                .yellow_b
+            span.lighter-counter#counter-r-13
+              =lightersArray[13] || 0
+      table#users-table(border="0" cellpadding="0" cellspacing="0" data-user=user.id data-user-type=user.user_type)
+        thead
+          tr.title-user_t
+            th.title-user.title-user_name
+              =i18n.__('User')
+            th.title-user.title-light_filter
+            th.title-user.title-user_entry
+              =i18n.__('Date of the last entry')
+            //- th.title-user
+              =i18n.__('Entries')
+            //- th.title-user
+              =i18n.__('Calculations')
+            //- th.title-user
+              =i18n.__('Orders')
+          tr.users-preload
+            td(colspan="3")
+              .pending-preloader
+        tbody.prefetched-data
+    .content-footer
+  script#test(type="text/template")
+    td(colspan="3" data-user="").user-tabs
+        ul.tabsLink
+          li.tab-1.tab_m
+            input(type="radio" name="tabs" id="tab1" checked)
+            label(for="tab1")
+              =i18n.__('Info')
+            #tab-content1.tab-content
+              .edit-block
+                form#edit-user-form(method="POST" action="/" enctype="multipart/form-data")
+                  .save-user.top-save
+                    input.option-save.user-base-info.form-save(type="button" value=i18n.__('Save') data-user="")
+                  .change-av
+                    input.hidden#avatar-input(type="file" name="avatar" value="Изменить аватар")
+                    .avatar-container
+                      img#option-user-avatar(src="", alt="")
+                    a.user-name.change_n#change-avatar(href="#")
+                      =i18n.__('Change avatar')
+                  .edit-form
+                    .wrapper-input
+                      .radio-buttons
+                        .lighter-r.r-10.default_lighter
+                          input.user-base-info.editable-identificator(type="radio" name="identificator" id="color_in_10" value="10")
+                          label(for="color_in_10")
+                            .green_b
+                        .lighter-r.r-11.default_lighter
+                          input.user-base-info.editable-identificator(type="radio" name="identificator" id="color_in_11" value="11")
+                          label(for="color_in_11")
+                            .yellow_b
+                        .lighter-r.r-12.default_lighter
+                          input.user-base-info.editable-identificator(type="radio" name="identificator" id="color_in_12" value="12")
+                          label(for="color_in_12")
+                            .red_b
+                        .lighter-r.r-13.default_lighter
+                          input.user-base-info.editable-identificator(type="radio" name="identificator" id="color_in_13" value="13")
+                          label(for="color_in_13")
+                        .lighter-r.r-1.pro_lighter
+                          input.user-base-info(type="radio" name="identificator" id="color_in_1" value="1")
+                          label(for="color_in_1")
+                        .lighter-r.r-2.pro_lighter
+                          input.user-base-info(type="radio" name="identificator" id="color_in_2" value="2")
+                          label(for="color_in_2")
+                        .lighter-r.r-3.pro_lighter
+                          input.user-base-info(type="radio" name="identificator" id="color_in_3" value="3")
+                          label(for="color_in_3")
+                        .lighter-r.r-4.pro_lighter
+                          input.user-base-info(type="radio" name="identificator" id="color_in_4" value="4")
+                          label(for="color_in_4")
+                        .lighter-r.r-5.pro_lighter
+                          input.user-base-info(type="radio" name="identificator" id="color_in_5" value="5")
+                          label(for="color_in_5")
+                        .lighter-r.r-6.pro_lighter
+                          input.user-base-info(type="radio" name="identificator" id="color_in_6" value="6")
+                          label(for="color_in_6")
+                        .lighter-r.r-7.pro_lighter
+                          input.user-base-info(type="radio" name="identificator" id="color_in_7" value="7")
+                          label(for="color_in_7")
+                        .lighter-r.r-8.pro_lighter
+                          input.user-base-info(type="radio" name="identificator" id="color_in_8" value="8")
+                          label(for="color_in_8")
+                        .lighter-r.r-9.pro_lighter
+                          input.user-base-info(type="radio" name="identificator" id="color_in_9" value="9")
+                          label(for="color_in_9")
+                        .lighter-r.r-14.pro_lighter
+                          input.user-base-info(type="radio" name="identificator" id="color_in_14" value="14")
+                          label(for="color_in_14")
+                            .red_b
+                    .wrapper-input
+                      p.user-name_form
+                        =i18n.__('User ID')
+                      input#option-user-id.user-base-info.user_form.user_form_id(type="text" name="short_id" placeholder="11")
+                    .wrapper-input
+                      p.user-name_form
+                        =i18n.__('Name')
+                      input#option-user-name.user-base-info.user_form(type="text" name="name" placeholder="Ф.И.О.")
+                    .wrapper-input
+                      p.user-name_form
+                        =i18n.__('Contact name')
+                      input#option-user-contact-name.user-base-info.user_form(type="text" name="contact_name")
+                    .wrapper-input
+                      p.user-name_form
+                        =i18n.__('Login_u_k')
+                        img.optional_pic(src="/assets/images/11.png", alt="")
+                      input#option-user-mob-phone.user-base-info.user_form(type="text" name="phone" disabled)
+                    .wrapper-input
+                      p.user-name_form
+                        =i18n.__('Password')
+                        img.optional_pic(src="/assets/images/11.png", alt="")
+                      input#option-user-password.user-base-info.user_form.btn-reset(type="button" data-id="" value=i18n.__('Reset password'))
+                    .wrapper-input
+                      p.user-name_form
+                        =i18n.__('E-mail')
+                      input#option-user-email.user-base-info.user_form(type="text" name="email")
+                    .wrapper-input
+                      p.user-name_form
+                        =i18n.__('Sync code')
+                      input#option-user-code-sync.user_form(type="text" name="code_sync" disabled)
+                    .wrapper-input
+                      p.user-name_form
+                        =i18n.__('Export folder')
+                      select#option-user-export-folder.user-base-info.user_form.select-default(name="export_folder")
+                        option(value="0")=i18n.__("Not exist")
+                    .wrapper-input
+                      p.user-name_form
+                        =i18n.__('Phone_u')
+                      input#option-user-city-phone.user-base-info.user_form(type="text" name="city_phone")
+                    .wrapper-input
+                      p.user-name_form
+                        =i18n.__('Fax')
+                      input#option-user-fax.user-base-info.user_form(type="text" name="fax")
+                    .wrapper-input
+                      p.user-name_form
+                        =i18n.__('Country')
+                      select#option-user-country.user-base-info.select-default.user_form
+                    .wrapper-input
+                      p.user-name_form
+                        =i18n.__('Region')
+                      select#option-user-region.user-base-info.user_form.select-default
+                    .wrapper-input
+                      p.user-name_form
+                        =i18n.__('City')
+                        img.optional_pic(src="/assets/images/11.png", alt="")
+                      select#option-user-city.user-base-info.select-default.user_form(name="city_id")
+                    .wrapper-input
+                      p.user-name_form
+                        =i18n.__('Address')
+                      input#option-user-address.user-base-info.user_form(type="text" name="address")
+                    .wrapper-input
+                      p.user-name_form
+                        =i18n.__('Director')
+                      input#option-user-director.user-base-info.user_form(type="text" name="director")
+                    .wrapper-input
+                      p.user-name_form
+                        =i18n.__('Jur./phys. person')
+                      input#option-user-legal-name.user-base-info.user_form(type="text" name="legal_name")
+                    .wrapper-input
+                      p.user-name_form
+                        =i18n.__('INN')
+                      input#option-user-inn.user-base-info.user_form(type="text" name="inn")
+                    .wrapper-input
+                      p.user-name_form
+                        =i18n.__('OKPO')
+                      input#option-user-okpo.user-base-info.user_form(type="text" name="okpo")
+                    .wrapper-input
+                      p.user-name_form
+                        =i18n.__('MFO')
+                      input#option-user-mfo.user-base-info.user_form(type="text" name="mfo")
+                    .wrapper-input
+                      p.user-name_form
+                        =i18n.__('Bank name')
+                      input#option-user-bank.user-base-info.user_form(type="text" name="bank_name")
+                    .wrapper-input.wrapper-input_bottom
+                      p.user-name_form
+                        =i18n.__('Account number')
+                      input#option-user-bank-acc.user-base-info.user_form(type="text" name="bank_acc_no")
+                    .save-user
+                      input#option-move-user-hidder.user-base-info.form-save(hidden type="text" name="parentId")
+                      input.option-save.user-base-info.form-save(type="button" value=i18n.__('Save') data-user="")
+                    .del-user
+                      img.save_user_img(src="/assets/images/10.png", alt="")
+                      a.delete_user#delete-user(href="#")
+                        =i18n.__('Delete user')
+                    .move-user
+                      p.user-name_form
+                        =i18n.__('Reassign to')
+                      select.select-default.user_form#option-move-user
+                  //#close-options
+                    img(src="/assets/images/close.png", alt="")
+                    p Закрыть
+          li.tab-2.tab_m
+            input(type="radio" name="tabs" id="tab2" )
+            label(for="tab2")=i18n.__('Permissions')
+            #tab-content2.tab-content
+              .rights-block
+                .personal-cabinet
+                  .header-content
+                    =i18n.__('Private cabinet')
+                  ul.lc-list
+                    li
+                      input.lc-rights(id="glass-calc-cb" data-type="1" type="checkbox" disabled)
+                      label(for="glass-calc-cb")
+                        =i18n.__('Window calculation')
+                    li
+                      input.lc-rights(id="instalment-cb" data-type="2" type="checkbox" disabled)
+                      label(for="instalment-cb")
+                        =i18n.__('Payment by installments')
+                    li
+                      input.lc-rights(id="my-network-cb" data-type="3" type="checkbox" disabled)
+                      label(for="my-network-cb")
+                        =i18n.__('My network')
+                    li
+                      input.lc-rights(id="mail-cb" data-type="4" type="checkbox" disabled)
+                      label(for="mail-cb")
+                        =i18n.__('Mail')
+                    li
+                      input.lc-rights(id="orders-history-cb" data-type="5" type="checkbox" disabled)
+                      label(for="orders-history-cb")
+                        =i18n.__('Orders history')
+                    li
+                      input.lc-rights(id="documents-cb" data-type="6" type="checkbox" disabled)
+                      label(for="documents-cb")
+                        =i18n.__('Documents')
+                    li
+                      input.lc-rights(id="metering-cb" data-type="7" type="checkbox" disabled)
+                      label(for="metering-cb")
+                        =i18n.__('Applications for metering')
+                    li
+                      input.lc-rights(id="profile-order-cb" data-type="8" type="checkbox" disabled)
+                      label(for="profile-order-cb")
+                        =i18n.__('Profile order')
+                    li
+                      input.lc-rights(id="production-cb" data-type="9" type="checkbox" disabled)
+                      label(for="production-cb")
+                        =i18n.__('Production')
+                    li
+                      input.lc-rights(id="base-cb" data-type="10" type="checkbox" disabled)
+                      label(for="base-cb")
+                        =i18n.__('Base of elements')
+                    li
+                      input.lc-rights(id="analitycs-cb" data-type="11" type="checkbox" disabled)
+                      label(for="analitycs-cb")
+                        =i18n.__('Analytics')
+                .addition-parameters
+                  .header-content
+                    =i18n.__('Add. parameters')
+                  ul.add-el-list
+                    li
+                      input.edit-add-params(id="payer-cb" data-type="is_payer" type="checkbox" disabled)
+                      label(for="payer-cb")
+                        =i18n.__('Payer')
+                    li
+                      input.edit-add-params(id="employee-cb" data-type="is_employee" type="checkbox" disabled)
+                      label(for="employee-cb")
+                        =i18n.__('Dealer')
+                    li
+                      input.edit-add-params(id="buch-cb" data-type="is_buch" type="checkbox" disabled)
+                      label(for="buch-cb")
+                        =i18n.__('Accounting')
+                    li
+                      input.edit-add-params(id="to-cb" data-type="is_to" type="checkbox" disabled)
+                      label(for="to-cb")
+                        =i18n.__('Tech. department')
+                    li
+                      input.edit-add-params(id="all-calcs-cb" data-type="is_all_calcs" type="checkbox" disabled)
+                      label(for="all-calcs-cb")
+                        =i18n.__('All calculations')
+          li.tab-3.tab_m
+            input(type="radio" name="tabs" id="tab3" )
+            label(for="tab3")=i18n.__('Discounts on orders')
+            #tab-content3.tab-content
+              .discount-block
+                table#discount-block-table(cellspacing="0" cellpadding="0" border="0")
+                  tr.header-1-discount-tr
+                    td(colspan="4")
+                      =i18n.__('Recomended discounts on the terms of orders')
+                  tr.header-2-discount-tr
+                    td(rowspan="2")
+                      //- =i18n.__('Term of manufacturing')
+                    td(colspan="3").header-1-discount-td
+                      =i18n.__('Recomended discount %')
+                  tr.header-2-discount-tr
+                    td.header-2-discount-td
+                      =i18n.__('on constructs')
+                    td.header-2-discount-td
+                      =i18n.__('on add. elements')
+                  //- tr.content-discount-tr
+                    //- td
+                    //-  =i18n.__('Max. discount')
+                    //-  | :
+                    //- td
+                    //-  input.discount-edit-input#option-discount-max-const(type="text")
+                    //- td
+                    //-  input.discount-edit-input#option-discount-max-add-elem(type="text")
+                  tr.content-discount-tr
+                    td
+                      =i18n.__('Discount by default (base term 10 days)')
+                      | :
+                    td
+                      input.discount-edit-input#option-discount-default-const(type="text")
+                    td
+                      input.discount-edit-input#option-discount-default-add-elem(type="text")
+                  //- tr.content-discount-tr
+                    td
+                      =i18n.__('Set aside the order of 1 week of baseline')
+                      | :
+                    td
+                      input.discount-edit-input#option-discount-week1-const(type="text")
+                    td
+                      input.discount-edit-input#option-discount-week1-add-elem(type="text")
+                  //- tr.content-discount-tr
+                    td
+                      =i18n.__('Set aside the order of 2 weeks from the base')
+                      | :
+                    td
+                      input.discount-edit-input#option-discount-week2-const(type="text")
+                    td
+                      input.discount-edit-input#option-discount-week2-add-elem(type="text")
+                  //- tr.content-discount-tr
+                    td
+                      =i18n.__('Set aside the order of 3 weeks from the base')
+                      | :
+                    td
+                      input.discount-edit-input#option-discount-week3-const(type="text")
+                    td
+                      input.discount-edit-input#option-discount-week3-add-elem(type="text")
+                  //- tr.content-discount-tr
+                    td
+                      =i18n.__('Set aside the order of 4 weeks from the base')
+                      | :
+                    td
+                      input.discount-edit-input#option-discount-week4-const(type="text")
+                    td
+                      input.discount-edit-input#option-discount-week4-add-elem(type="text")
+                  //- tr.content-discount-tr
+                    td
+                      =i18n.__('Set aside the order of 5 weeks from the base')
+                      | :
+                    td
+                      input.discount-edit-input#option-discount-week5-const(type="text")
+                    td
+                      input.discount-edit-input#option-discount-week5-add-elem(type="text")
+                  //- tr.content-discount-tr
+                    td
+                      =i18n.__('Set aside the order of 6 weeks from the base')
+                      | :
+                    td
+                      input.discount-edit-input#option-discount-week6-const(type="text")
+                    td
+                      input.discount-edit-input#option-discount-week6-add-elem(type="text")
+                  //- tr.content-discount-tr
+                    td
+                      =i18n.__('Set aside the order of 7 weeks from the base')
+                      | :
+                    td
+                      input.discount-edit-input#option-discount-week7-const(type="text")
+                    td
+                      input.discount-edit-input#option-discount-week7-add-elem(type="text")
+                  //- tr.content-discount-tr
+                    td
+                      =i18n.__('Set aside the order of 8 weeks from the base')
+                      | :
+                    td
+                      input.discount-edit-input#option-discount-week8-const(type="text")
+                    td
+                      input.discount-edit-input#option-discount-week8-add-elem(type="text")
+                .save-discount
+                  input.form-save.discount-edit-input#save-discount(type="button" value=i18n.__('Save') data-user="")
+          li.tab-4.tab_m
+            input(type="radio" name="tabs" id="tab4" )
+            label(for="tab4")
+              =i18n.__('Mounting')
+            #tab-content4.tab-content
+              .mounting-block
+                table#mounting-margin-table(cellspacing="0" cellpadding="0" border="0")
+                  tr.header-1-mounting-tr
+                    td(colspan="7")
+                      =i18n.__('Markup for installation')
+                    td
+                  tr.header-2-mounting-tr
+                    td
+                      =i18n.__('Mon')
+                    td
+                      =i18n.__('Tue')
+                    td
+                      =i18n.__('Wed')
+                    td
+                      =i18n.__('Thu')
+                    td
+                      =i18n.__('Fri')
+                    td
+                      =i18n.__('Sat')
+                    td
+                      =i18n.__('Sun')
+                    td
+                      | 
+                  tr.content-mounting-tr
+                    td.content-mounting-td
+                      input.input-default.mounting-day-edit#mounting-mon(type="text" data-field="mount_mon")
+                    td.content-mounting-td
+                      input.input-default.mounting-day-edit#mounting-tue(type="text" data-field="mount_tue")
+                    td.content-mounting-td
+                      input.input-default.mounting-day-edit#mounting-wed(type="text" data-field="mount_wed")
+                    td.content-mounting-td
+                      input.input-default.mounting-day-edit#mounting-thu(type="text" data-field="mount_thu")
+                    td.content-mounting-td
+                      input.input-default.mounting-day-edit#mounting-fri(type="text" data-field="mount_fri")
+                    td.content-mounting-td
+                      input.input-default.mounting-day-edit#mounting-sat(type="text" data-field="mount_sat")
+                    td.content-mounting-td
+                      input.input-default.mounting-day-edit#mounting-sun(type="text" data-field="mount_sun")
+                    td
+                      | 
+                table#mounting-type-table(cellpadding="0" cellspacing="0" border="0")
+                  thead
+                    tr.header-1-mounting-tr
+                      td(colspan="4")
+                        =i18n.__('Types of installation')
+                    tr.header-2-mounting-tr
+                      td
+                        | 
+                      td
+                        =i18n.__('Title')
+                      td
+                        =i18n.__('Type of calculation')
+                      td
+                        =i18n.__('Price')
+                  tbody
+                  tfoot
+                    tr.add-mounting
+                      td(colspan="4")
+                        =i18n.__('Add +')
+          li.tab-5.tab_m
+            input(type="radio" name="tabs" id="tab5" )
+            label(for="tab5")
+              =i18n.__('Delivery')
+            #tab-content5.tab-content
+              .delivery-block
+                table#delivery-type-table(cellpadding="0" cellspacing="0" border="0")
+                  thead
+                    tr.header-1-delivery-tr
+                      td(colspan="4")
+                        =i18n.__('Types of deliveries')
+                    tr.header-2-delivery-tr
+                      td
+                        | 
+                      td
+                        =i18n.__('Title')
+                      td
+                        =i18n.__('Type of calculation')
+                      td
+                        =i18n.__('Price')
+                  tbody
+                  tfoot
+                    tr.add-delivery
+                      td(colspan="4")
+                        =i18n.__('Add +')
+          li.tab-6.tab_m
+            input(type="radio" name="tabs" id="tab6" )
+            label(for="tab6")
+              =i18n.__('History')
+            #tab-content6.tab-content_changes
+              .changes_block
+                table
+                  thead
+                    tr.user-information_title
+                      th.user-information.user-information_width1
+                        =i18n.__('Who')
+                      th.user-information.user-information_width2
+                        =i18n.__('When')
+                      th.user-information.user-information_width3
+                        =i18n.__('Changes')
+                  tbody#history-body
+          li.tab-close.tab_m#close-options
+            img(src="/assets/images/close.png", alt="")
+            span.tab-close-text
+              =i18n.__('Close')
+
+  include ./includes/reset-password.jade

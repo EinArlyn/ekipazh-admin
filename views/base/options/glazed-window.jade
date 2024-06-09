@@ -1,0 +1,61 @@
+extends ../layout
+
+block content
+  .main-nav
+    .nav-link
+      a(class="external-link", href="/")= i18n.__('Dashboard') 
+      | 
+      | -> 
+      span#nav-text
+        =i18n.__('Options')
+      img.loader-ico(src="/assets/images/loader_ico.GIF")
+  .main-select-option
+    select(id="lamination-select", name="", class="select-default selected-option", style="width: 180px;")
+      option(value="1")=i18n.__('Lamination')
+      option(value="2")=i18n.__('Discounts')
+      option(value="3")=i18n.__('Coefficients')
+      option(value="8")=i18n.__('Suppliers')
+      option(value="9")=i18n.__('Currency')
+      option(value="10")=i18n.__('General options')
+      option(value="11")=i18n.__('Application options')
+      option(disabled)=i18n.__('Groups')
+      option(value="4" selected)=i18n.__('Glazed window')
+      option(value="5")=i18n.__('Window sills')
+      option(value="6")=i18n.__('Spillways')
+      option(value="7")=i18n.__('Visors')
+      option(value="12")=i18n.__('Connectors')
+      option(value="13")=i18n.__('Mosquitos')
+      option(value="14")=i18n.__('Doorhandles')
+  form(method='post', action='/base/option/save', id="main-form")
+    .glazed-window-option.checked-option
+      .main-header
+        span.header
+          =i18n.__('Glass window groups')
+      .main-content
+        table.glass-folders-table(cellspasing="0", cellpadding="0", border="0")
+          each glassFolder in glassFolders
+            tr.folder-tr
+              td.folder-name
+                span.folder-text
+                  =glassFolder.name
+              td.folder-img
+                .glass-img-wraper
+                  img(src=(glassFolder.img ? glassFolder.img : '/local_storage/default.png'), alt="")
+              td.folder-description
+                =i18n.__('Description')
+                | :
+                .description-wraper
+                  =glassFolder.description
+                .edit-wrap
+                  if (glassFolder.is_base !== 1)
+                    .glass-folder-delete.btn-delete-folder(data-folder=glassFolder.id)
+                  .glass-folder-edit.btn-edit-folder(data-folder=glassFolder.id)
+              //td
+                =glassFolder.link
+          tr.folder-tr
+            td.folder-name.glass-folder-add
+              span.folder-add-text
+                =i18n.__("Add +")
+  include includes/options-add-new-glass-folder-popup.jade
+  include includes/options-edit-glass-folder-popup.jade
+  include includes/alert-delete-glass-folder.jade

@@ -1,0 +1,31 @@
+.pop-up.edit-glass-folder-pop-up
+  form#edit-glass-fodler-form(method="POST" action="/base/options/glazed-window/save-folder" enctype="multipart/form-data")
+    input.hidden#edit-glass-fodler-input-id(type="text" name="folder_id" value="")
+    .pop-up-close-wrap
+      a(class="pop-up-close", href="#")
+    span.pop-up-header
+      =i18n.__('Edit group')
+    .content-block
+      span.field-margin-popup
+        =i18n.__('Group name')
+        | /
+        =i18n.__('Position')
+        | :
+      input.input-default.input-margin-popup#group-position-popup(type="text" name="position" value="" style="width: 30px;")
+      input.input-default.input-margin-popup#group-name-popup(type="text" name="name" value="" style="width: 166px;")
+    .content-block
+      span.field-margin-popup
+        =i18n.__('Link')
+        | :
+      input.input-default.input-margin-popup#group-link-popup(type="text" name="link" value="" style="width: 205px;")
+    .content-block-description
+      span.field-margin-popup
+        =i18n.__('Description')
+        | :
+      textarea.input-default.input-margin-popup#group-description-popup(type="text" name="description" value="" style="width: 205px; height: 100px; resize: none;")
+    .content-block-image
+      input.hidden(id="edit-select-glass-group-image" type="file" name="folder_img")
+      a(href="#" type="button" id="edit-glass-group-img" style="margin-left: 10px;")
+      img(id="edit-glass-group-image" style="height: 64px; width: 124px; margin-left: 20px;" src="")
+    .submit-row
+      input.btn-submit#submit-edit-group(type="button" data-folder="" value=i18n.__('Save'))

@@ -1,0 +1,262 @@
+extends layout
+
+block content
+  .main-nav
+    .nav-link
+      a(class="external-link", href="/")= i18n.__('Dashboard') 
+      | 
+      | -> 
+      span#nav-text
+        =i18n.__('Profiles')
+      img.loader-ico(src="/assets/images/loader_ico.GIF")
+  .main-content
+    .profile-group-list
+      each profileSystemFolder in profileSystemFolders
+        if (profileSystemFolder.name !== 'Default')
+          .profile_group
+            a.profile-group-button(href="#" value=profileSystemFolder.id)
+              span.profile-group-button-text
+                =profileSystemFolder.name
+            a.profile-group-edit-button(href="#" value=profileSystemFolder.id)
+              span.profile-group-button-text
+                | 
+            a.profile-group-remove(href="#" value=profileSystemFolder.id)
+              | 
+          .profile-group-content(id="open" + profileSystemFolder.id data=profileSystemFolder.id)
+            .profile-systems
+            table.profile-systems-table(cellpadding="0", cellspacing="0" data=profileSystemFolder.id)
+              each profileSystem in profileSystemFolder.profile_systems
+                tr.profile-system-exist
+                  td.profile-name
+                    .td-margin.title-text
+                      =profileSystem.name
+                  td.profile-brend
+                    .td-margin
+                      =i18n.__('Amount of cameras')
+                      | :
+                      .title-text
+                        =profileSystem.cameras
+                  td.profile-country
+                    .td-margin
+                      =i18n.__('Country')
+                      | :
+                      .title-text
+                        =profileSystem.country
+                  td.profile-properties
+                    .profile-coeffs-text
+                      span.text-format
+                        =i18n.__('Heat insulation')
+                        | :
+                      br
+                      span.text-format
+                        =i18n.__('Noise insulation')
+                        | :
+                    .profile-coeffs-strength 
+                      span.profile-coeffs-format
+                        .stength1(class="s1" + profileSystem.id)
+                          -var i = 0
+                          while (i < profileSystem.heat_coeff)
+                            .coeff-stength
+                            -i++
+                      br
+                      span.profile-coeffs-format
+                        .stength2(class="s2" + profileSystem.id)
+                          -var j = 0
+                          while (j < profileSystem.noise_coeff)
+                            .coeff-stength
+                            -j++
+                    .profile-system-edit(value=profileSystem.id)
+                    .profile-system-add-info(data-id=profileSystem.id)
+                tr.edit-profile-lists.default-lamination(data-id=profileSystem.id)
+                  td(colspan="4" style="width: 920px;")
+                    table.edit-profile-lists-table(cellspacing="0" cellpadding="0")
+                      tr.tr-lamination-type
+                        td(colspan="6")
+                          =i18n.__('Lamination')
+                          | :
+                          | 
+                          select.select-default.select-lamination.select-lamination-first.option-lamination-in
+                            option(value="1")
+                              =i18n.__('White') 
+                          | 
+                          | - 
+                          select.select-default.select-lamination.select-lamination-last.option-lamination-in
+                            option(value="1")
+                              =i18n.__('White') 
+                          
+                          =i18n.__('Sync code')
+                            | : 
+                          input.default-option.td-select(type="text" data-profile=profileSystem.id data-field="code_sync_white" class="input-default option-code-sync input-code-sync" value=profileSystem.code_sync_white)
+                      tr.tr-header
+                        td.td-header.header-select
+                          =i18n.__('Frame')
+                          | :
+                        td.td-header.header-select
+                          =i18n.__('Frame with sill profile')
+                          | :
+                        td.td-header.header-select
+                          =i18n.__('Leaf')
+                          | :
+                        td.td-header.header-select
+                          =i18n.__('Impost')
+                          | :
+                        td.td-header.header-select
+                          =i18n.__('Face plate')
+                          | :
+                      tr
+                        td.td-content
+                          select.select-default.default-option.td-select(data-profile=profileSystem.id data-field="rama_list_id" style="width: 150px;")
+                            option(value="0" selected=("0" === profileSystem.rama_list_id ? 'selected' : undefined)) Отсутствует
+                            each frameList in frameLists[0]
+                              option(value=frameList.id selected=(frameList.id === profileSystem.rama_list_id ? 'selected' : undefined))=frameList.name
+                        td.td-content
+                          select.select-default.default-option.td-select(data-profile=profileSystem.id data-field="rama_still_list_id" style="width: 150px;")
+                            option(value="0" selected=("0" === profileSystem.rama_still_list_id ? 'selected' : undefined)) Отсутствует
+                            each frameWithSillList in frameWithSillLists[0]
+                              option(value=frameWithSillList.id selected=(frameWithSillList.id === profileSystem.rama_still_list_id ? 'selected' : undefined))=frameWithSillList.name
+                        td.td-content
+                          select.select-default.default-option.td-select(data-profile=profileSystem.id data-field="stvorka_list_id" style="width: 150px;")
+                            option(value="0" selected=("0" === profileSystem.stvorka_list_id ? 'selected' : undefined)) Отсутствует
+                            each leaf in leafs[0]
+                              option(value=leaf.id selected=(leaf.id === profileSystem.stvorka_list_id ? 'selected' : undefined))=leaf.name
+                        td.td-content
+                          select.select-default.default-option.td-select(data-profile=profileSystem.id data-field="impost_list_id" style="width: 150px;")
+                            option(value="0" selected=("0" === profileSystem.impost_list_id ? 'selected' : undefined)) Отсутствует
+                            each impostList in impostLists[0]
+                              option(value=impostList.id selected=(impostList.id === profileSystem.impost_list_id ? 'selected' : undefined))=impostList.name
+                        td.td-content
+                          select.select-default.default-option.td-select(data-profile=profileSystem.id data-field="shtulp_list_id" style="width: 150px;")
+                            option(value="0" selected=("0" === profileSystem.shtulp_list_id ? 'selected' : undefined)) Отсутствует
+                            each shtulpList in shtulpLists[0]
+                              option(value=shtulpList.id selected=(shtulpList.id === profileSystem.shtulp_list_id ? 'selected' : undefined))=shtulpList.name
+                tr.add-profile-lamination(data-id=profileSystem.id)
+                  td.btn-add-profile-lamination(colspan="3")
+                    =i18n.__('Add +')
+              tr.profile-systems-add
+                td.add-profile.add-profile-to-group(value=profileSystemFolder.id)
+                  span.add-profile-text
+                    =i18n.__('Add +')
+      .add-button
+        a(href="#", id="add-profile-group")
+          span#add-profile-group-text
+            =i18n.__('Add +') 
+      table.profile-systems-table(cellpadding="0", cellspacing="0")
+        each profileSystemFolder in profileSystemFolders
+          if (profileSystemFolder.name == 'Default')
+            each profileSystem in profileSystemFolder.profile_systems
+              tr.profile-system-exist
+                td.profile-name
+                  .td-margin.title-text
+                    =profileSystem.name
+                td.profile-brend
+                  .td-margin
+                    =i18n.__('Amount of cameras')
+                    | :
+                    .title-text
+                      =profileSystem.cameras
+                td.profile-country
+                  .td-margin
+                    =i18n.__('Country')
+                    | :
+                    .title-text
+                      =profileSystem.country
+                td.profile-properties
+                  .profile-coeffs-text
+                    span.text-format
+                      =i18n.__('Heat insulation')
+                      | :
+                    br
+                    span.text-format
+                      =i18n.__('Noise insulation')
+                      | :
+                  .profile-coeffs-strength 
+                    span.profile-coeffs-format
+                      .stength1(class="s1" + profileSystem.id)
+                        -var i = 0
+                        while (i < profileSystem.heat_coeff)
+                          .coeff-stength
+                          -i++
+                    br
+                    span.profile-coeffs-format
+                      .stength2(class="s2" + profileSystem.id)
+                        -var j = 0
+                        while (j < profileSystem.noise_coeff)
+                          .coeff-stength
+                          -j++
+                  .profile-system-edit(value=profileSystem.id)
+                  .profile-system-add-info(data-id=profileSystem.id)
+              tr.edit-profile-lists.default-lamination(data-id=profileSystem.id)
+                td(colspan="5" style="width: 920px;")
+                  table.edit-profile-lists-table(cellspacing="0" cellpadding="0")
+                    tr.tr-lamination-type
+                      td(colspan="6")
+                        =i18n.__('Lamination')
+                        | :
+                        | 
+                        select.select-default.select-lamination.option-lamination-in
+                          option(value="1")
+                            =i18n.__('White') 
+                        | 
+                        | - 
+                        select.select-default.select-lamination.select-lamination-last.option-lamination-in
+                          option(value="1")
+                            =i18n.__('White') 
+                        
+                        =i18n.__('Sync code')
+                          | : 
+                        input.default-option.td-select(type="text" data-profile=profileSystem.id data-field="code_sync_white" class="input-default option-code-sync input-code-sync" value=profileSystem.code_sync_white)
+                    tr.tr-header
+                      td.td-header.header-select
+                        =i18n.__('Frame')
+                        | :
+                      td.td-header.header-select
+                        =i18n.__('Frame with sill profile')
+                        | :
+                      td.td-header.header-select
+                        =i18n.__('Leaf')
+                        | :
+                      td.td-header.header-select
+                        =i18n.__('Impost')
+                        | :
+                      td.td-header.header-select
+                        =i18n.__('Face plate')
+                        | :
+                    tr
+                      td.td-content
+                        select.select-default.default-option.td-select(data-profile=profileSystem.id data-field="rama_list_id" style="width: 150px;")
+                          option(value="0" selected=("0" === profileSystem.rama_list_id ? 'selected' : undefined)) Отсутствует
+                          each frameList in frameLists[0]
+                            option(value=frameList.id selected=(frameList.id === profileSystem.rama_list_id ? 'selected' : undefined))=frameList.name
+                      td.td-content
+                        select.select-default.default-option.td-select(data-profile=profileSystem.id data-field="rama_still_list_id" style="width: 150px;")
+                          option(value="0" selected=("0" === profileSystem.rama_still_list_id ? 'selected' : undefined)) Отсутствует
+                          each frameWithSillList in frameWithSillLists[0]
+                            option(value=frameWithSillList.id selected=(frameWithSillList.id === profileSystem.rama_still_list_id ? 'selected' : undefined))=frameWithSillList.name
+                      td.td-content
+                        select.select-default.default-option.td-select(data-profile=profileSystem.id data-field="stvorka_list_id" style="width: 150px;")
+                          option(value="0" selected=("0" === profileSystem.stvorka_list_id ? 'selected' : undefined)) Отсутствует
+                          each leaf in leafs[0]
+                            option(value=leaf.id selected=(leaf.id === profileSystem.stvorka_list_id ? 'selected' : undefined))=leaf.name
+                      td.td-content
+                        select.select-default.default-option.td-select(data-profile=profileSystem.id data-field="impost_list_id" style="width: 150px;")
+                          option(value="0" selected=("0" === profileSystem.impost_list_id ? 'selected' : undefined)) Отсутствует
+                          each impostList in impostLists[0]
+                            option(value=impostList.id selected=(impostList.id === profileSystem.impost_list_id ? 'selected' : undefined))=impostList.name
+                      td.td-content
+                        select.select-default.default-option.td-select(data-profile=profileSystem.id data-field="shtulp_list_id" style="width: 150px;")
+                          option(value="0" selected=("0" === profileSystem.shtulp_list_id ? 'selected' : undefined)) Отсутствует
+                          each shtulpList in shtulpLists[0]
+                            option(value=shtulpList.id selected=(shtulpList.id === profileSystem.shtulp_list_id ? 'selected' : undefined))=shtulpList.name
+              tr.add-profile-lamination(data-id=profileSystem.id)
+                td.btn-add-profile-lamination(colspan="3")
+                  =i18n.__('Add +')
+        //tr.profile-systems-add
+          td.add-profile.add-new-profile-system(value="hardware_group.id")
+            span.add-profile-text
+              | Добавить +
+      .footer-profile
+  include includes/profiles-add-group
+  include includes/profiles-edit-profile-system
+  include includes/profiles-add-from-default
+  include includes/profiles-edit-profile-group
+  include includes/alert-delete-profile-group

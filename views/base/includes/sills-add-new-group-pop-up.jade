@@ -1,0 +1,12 @@
+.pop-up.add-new-group-pop-up
+  .pop-up-close-wrap
+    a(class="pop-up-close", href="#")
+  span.pop-up-header
+    =i18n.__('Add new group')
+  .content
+    span.field-margin
+      =i18n.__('Group name')
+      | :
+    input.input-default#new-group-name(type="text" value="" style="width: 150px;")
+  .submit-row
+    input.btn-submit#submit-add-new-group(type="button" value=i18n.__('Add'))

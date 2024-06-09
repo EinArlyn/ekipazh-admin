@@ -1,0 +1,111 @@
+body {
+  margin: 0;
+  padding: 0;
+}
+
+  #content {
+    position: relative;
+    width: 100%;
+  }
+    #side-panel {
+      float: left;
+      width: 18%;
+      min-height: 100%;
+      position: fixed;
+      text-align: left;
+      background-color: #d0d0d0;
+      box-shadow: 1px 0 5px #7b7b7b;
+      font-family: "Courier New", Courier, monospace;
+    }
+
+      ul {
+        list-style: none;
+        padding: 0 10px;
+        margin: 5px;
+      }
+
+      #side-panel a {
+        color: black;
+        font-weight: bold;
+        font-family: Georgia, serif;
+      }
+
+      #side-panel a:hover {
+        color: #3399cc;
+      }
+
+    #api-content {
+      float: right;
+      text-align: left;
+      width: 78%;
+      padding: 10px;
+      font-family: "Courier New", Courier, monospace;
+    }
+
+      .api-table {
+        width: 90%;
+        margin-bottom: 40px;
+      }
+
+        .api-table tr>td {
+          border-bottom: 1px solid #cecece;
+        }
+
+        .primary {
+          vertical-align: top;
+          width: 12%;
+          text-align: right;
+          border-bottom: 1px solid #cecece;
+          border-left: 1px solid #cecece;
+          border-right: 1px solid #cecece;
+        }
+
+        .secondary {
+          background-color: #f0f0f0;
+          font-family: monospace;
+          padding-left: 10px;
+          border-bottom: 1px solid #cecece;
+          border-right: 1px solid #cecece;
+        }
+
+        .api-table h2 {
+          display: inline-block;
+        }
+
+        .emit-btn {
+          float: right;
+          position: relative;
+          top: 25px;
+          background-color: #666666;
+          border: 1px solid #cecece;
+          color: #ffffff;
+        }
+
+          .emit-btn:hover {
+            cursor: pointer;
+            background-color: #3399cc;
+          }
+
+        code {
+          display: block;
+          margin: 10px;
+          font-size: 16px;
+        }
+
+/** Default properties */
+.text-center {
+  text-align: center;
+}
+
+.text-margin {
+  margin: 5px;
+}
+
+.disabled {
+  opacity: 0.2;
+}
+
+  .disabled-text {
+    color: red;
+    font-size: 12px;
+  }

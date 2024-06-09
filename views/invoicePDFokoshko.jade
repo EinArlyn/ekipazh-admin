@@ -1,0 +1,89 @@
+doctype html
+html
+  head
+    title
+    link(rel="stylesheet", href='main.css')
+    link(rel="stylesheet", href="pdf.css")
+    script(src="jquery-1.11.2.min.js")
+    script(src="d3.min.js")
+  body
+    #wrapper
+      #view-selector
+        a#view-order(href="https://okoshko.ua/orders/?orderId="+order.id+"&userId="+user.id)
+          | Специфікація
+
+        | &nbsp;&nbsp;&nbsp;
+
+        a#view-invoice(href="https://okoshko.ua/orders/?orderId="+order.id+"&userId="+user.id+"&view=invoice" class="selected")
+          | Рахунок
+        div(style="float: right; width: 25px; margin-left: 20px; cursor: pointer;" onClick="window.print();")
+          <svg viewBox="0 0 24 24" preserveAspectRatio="xMidYMid meet" focusable="false" style="pointer-events: none; display: block; width: 100%; height: 100%;"><g>
+          <path d="M19 8H5c-1.66 0-3 1.34-3 3v6h4v4h12v-4h4v-6c0-1.66-1.34-3-3-3zm-3 11H8v-5h8v5zm3-7c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm-1-9H6v4h12V3z">
+          </path>
+          </g></svg>
+      .bound0
+        .row
+          p
+            table(cellspacing="0" cellpadding="2" border="0" style="font-size:15px; border-collapse: collapse; text-align: right; width: 100%")
+              tr
+                td(colspan=6 style="text-align: left;")
+                  ПП Павленко Л.А. 49000, м. Дніпро, Пр.Б.Хмельницького,3 тел. 0979450442
+              tr
+                td(colspan=6 style="text-align: left;")
+                  ІПН : 1904824384 
+              tr
+                td(colspan=6 style="text-align: left;")
+                  Банк : п/р  UA843052990000026002050271590, ПАТ КБ "ПРИВАТБАНК", МФО 305299 
+              tr
+                th(colspan=6 style="text-align: center;font-size:115%;padding:15px;")
+                  | Рахунок №  
+                  =order.order_number
+                  | &nbsp;&nbsp;від&nbsp;&nbsp;
+                  =('0' + order.created.getDate()).slice(-2)
+                  | .
+                  =('0' + (order.created.getMonth() + 1)).slice(-2)
+                  | .
+                  =order.created.getFullYear()
+              tr
+                td(colspan=6 style="text-align: left;")
+                  Платник :
+                  =order.customer_name
+              tr
+                td(colspan=6 style="text-align: left;")
+                  &nbsp; 
+              tr
+                th(style="text-align: center; width: 70px; border: 1px solid;")
+                  № 
+                th(style="text-align: center; width: 60%; border: 1px solid;")
+                  Найменування 
+                th(style="text-align: center; border: 1px solid;")
+                  Площа 
+                th(style="text-align: center; border: 1px solid;")
+                  Кількість 
+                th(style="text-align: center; border: 1px solid;")
+                  Сума 
+              tr
+                td(style="text-align: center; width: 70px; border: 1px solid;")
+                  &nbsp;1&nbsp; 
+                td(style="text-align: left; width: 60%; border: 1px solid;")
+                  Металопластикові конструкції 
+                td(style="text-align: right; border: 1px solid;")
+                  =square.toFixed(2)
+                td(style="text-align: right; border: 1px solid;")
+                  =count
+                td(style="text-align: right; border: 1px solid;")
+                  =parseFloat(total).toFixed(2)  
+              tr
+                th(colspan=4 style="text-align: right; width: 70px; border: 1px solid;")
+                  Всього : 
+                th(style="text-align: right; border: 1px solid;")
+                  =parseFloat(total).toFixed(2) 
+        div(class="sum_letters" id="sum_letters_1" value=parseFloat(total).toFixed(2)) 
+        div(style='width:100%;margin-top:25px;font-size:80%;')
+          Платник несе відповідальність за правильність розмірів, конфігурації та 
+          комплектації замовлення, ознайомлений з вимогами ДСТУ, ДБН,
+          а також з відхиленнями, у разі їх наявності.
+          <br>Сплачений рахунок є підтвердженням та згодою з вищезазначеним.
+        div(style='width:100%;margin-top:25px')
+          Увага! Рахунок дійсний до сплати протягом 3-х днів!<br>(перший день - дата рахунку)
+    script(src="pdf.js")

@@ -1,0 +1,28 @@
+extends layout
+
+block content
+  .main-nav
+    .nav-link
+      a(href="/")= i18n.__('Dashboard') 
+      | 
+      | -> 
+      span#nav-text
+        =i18n.__('Glazed window')
+      img.loader-ico(src="/assets/images/loader_ico.GIF")
+  .main-content
+    .main-content-header
+      =i18n.__('Profile systems')
+    .main-content-profile-systems
+      table(class="profile-systems-table", data=profileSystems.length, cellspacing="0", cellpadding="0", border="0")
+        tr.profile-systems-table-header
+          -var len = profileSystems.length
+          each profileSystem in profileSystems
+            th(id=profileSystem.id)=profileSystem.name
+          if len < 8
+            while (len < 8)
+              th
+              -len++
+        tr.profile-systems-table-add-new
+          td.profile-systems-table-add-new-button(colspan=len)
+            =i18n.__('Add similarity +')
+    .main-content-footer

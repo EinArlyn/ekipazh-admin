@@ -1,0 +1,46 @@
+-var from = currentPage
+-var to = totalPages
+-var firstCount = Math.min(3, totalPages)
+
+if ((totalPages > 3) && (currentPage == 2)) 
+    -firstCount = 4;
+
+if currentPage > 0
+    a(class="external-link", href= thisPageLink + (currentPage - 1) +'?type=' + type + "&order=" + orderBy + '&queryName=' + queryName) <
+    |  
+
+if ((from >= 3) && (totalPages != 4))
+  a(class="external-link", href= thisPageLink + "0" +'?type=' + type + "&order=" + orderBy) 1 
+  | ... 
+  if totalPages - 3 > currentPage
+    -n = currentPage - 1
+    while n < currentPage + 2
+        a(class="external-link", class=(currentPage == n) ? "currentPage" : undefined href= thisPageLink + n +'?type=' + type + "&order=" + orderBy + '&queryName=' + queryName)=++n
+        | 
+    | ... 
+    a(class="external-link", class=(currentPage == totalPages - 1) ? "currentPage" : undefined href= thisPageLink + (totalPages - 1) +'?type=' + type + "&order=" + orderBy + '&queryName=' + queryName)=totalPages 
+    |  
+
+  else
+     -n = totalPages - 3
+     if (currentPage == totalPages - 3)
+        -n = totalPages - 4
+      while n < totalPages
+          a(class="external-link", class=(currentPage == n) ? "currentPage" : undefined  href= thisPageLink + n +'?type=' + type + "&order=" + orderBy + '&queryName=' + queryName)=++n
+          |  
+else 
+  -n = 0
+  if totalPages == 4
+    -firstCount = 4
+  while n < firstCount
+      a(class="external-link", class=(currentPage == n) ? "currentPage" : undefined  href= thisPageLink + n +'?type=' + type + "&order=" + orderBy + '&queryName=' + queryName)=++n
+      | 
+  if currentPage < totalPages - 4
+    | ... 
+  if totalPages > firstCount
+    a(class="external-link", class=(currentPage == totalPages - 1) ? "currentPage" : undefined  href= thisPageLink + (totalPages - 1) +'?type=' + type + "&order=" + orderBy + '&queryName=' + queryName)=totalPages 
+    | 
+    
+
+if currentPage < totalPages - 1
+    a(class="external-link", href= thisPageLink + (currentPage + 1) +'?type=' + type + "&order=" + orderBy + '&queryName=' + queryName) >  

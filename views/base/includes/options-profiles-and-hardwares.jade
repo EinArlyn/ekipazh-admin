@@ -1,0 +1,87 @@
+.profiles-and-hardwares-option
+  .main-content
+    .content-wrap
+      .profile-systems
+        .text-header
+          =i18n.__('Profile systems')
+        table.profiles-table(cellspacing="0" cellpadding="0")
+          tr.table-header
+            td.td-header.profile-active
+              =i18n.__('Active')
+            td.td-header.profile-name
+              =i18n.__('Title')
+            td.td-header.profile-short
+              =i18n.__('Short name')
+            td.td-header.profile-frame
+              =i18n.__('Frame')
+            td.td-header.profile-frame-sill
+              =i18n.__('Frame with sill profile')
+            td.td-header.profile-leaf
+              =i18n.__('Leaf')
+            td.td-header.profile-impost
+              =i18n.__('Impost')
+            td.td-header.profile-faceplate
+              =i18n.__('Face plate')
+          each profileSystem in profileSystems
+            tr
+              td.td-content
+                input.active-btn-profile(id="checkbox00" + profileSystem.id, type="checkbox", value=profileSystem.id checked=(profileSystem.is_editable == 1 ? 'checked': undefined))
+                label(for="checkbox00" + profileSystem.id)
+                  span#hide
+                    =null
+              td.td-content
+                =profileSystem.name
+              td.td-content
+                =profileSystem.short_name
+              td.td-content
+                select.td-select(data-profile=profileSystem.id data-field="rama_list_id")
+                  option(value="0" selected=("0" === profileSystem.rama_list_id ? 'selected' : undefined)) Отсутствует
+                  each frameList in frameLists[0]
+                    option(value=frameList.id selected=(frameList.id === profileSystem.rama_list_id ? 'selected' : undefined))=frameList.name
+              td.td-content
+                select.td-select(data-profile=profileSystem.id data-field="rama_still_list_id")
+                  option(value="0" selected=("0" === profileSystem.rama_still_list_id ? 'selected' : undefined)) Отсутствует
+                  each frameWithSillList in frameWithSillLists[0]
+                    option(value=frameWithSillList.id selected=(frameWithSillList.id === profileSystem.rama_still_list_id ? 'selected' : undefined))=frameWithSillList.name
+              td.td-content
+                select.td-select(data-profile=profileSystem.id data-field="stvorka_list_id")
+                  option(value="0" selected=("0" === profileSystem.stvorka_list_id ? 'selected' : undefined)) Отсутствует
+                  each leaf in leafs[0]
+                    option(value=leaf.id selected=(leaf.id === profileSystem.stvorka_list_id ? 'selected' : undefined))=leaf.name
+              td.td-content
+                select.td-select(data-profile=profileSystem.id data-field="impost_list_id")
+                  option(value="0" selected=("0" === profileSystem.impost_list_id ? 'selected' : undefined)) Отсутствует
+                  each impostList in impostLists[0]
+                    option(value=impostList.id selected=(impostList.id === profileSystem.impost_list_id ? 'selected' : undefined))=impostList.name
+              td.td-content
+                select.td-select(data-profile=profileSystem.id data-field="shtulp_list_id")
+                  option(value="0" selected=("0" === profileSystem.shtulp_list_id ? 'selected' : undefined)) Отсутствует
+                  each shtulpList in shtulpLists[0]
+                    option(value=shtulpList.id selected=(shtulpList.id === profileSystem.shtulp_list_id ? 'selected' : undefined))=shtulpList.name
+      .hardwares
+        .text-header
+         =i18n.__('Hardware')
+        table.hardwares-table(cellspacing="0" cellpadding="0")
+          tr.table-header
+            td.td-header.hardware-active
+              =i18n.__('Active')
+            td.td-header.hardware-name
+              =i18n.__('Title')
+            td.td-header.hardware-short
+              =i18n.__('Short name')
+          each hardware in hardwares
+            tr
+              td.td-content
+                input.active-btn-hardware(id="checkbox11" + hardware.id, type="checkbox", value=hardware.id checked=(hardware.is_active == 1 ? 'checked': undefined))
+                label(for="checkbox11" + hardware.id)
+                  span#hide
+                    =null
+              td.td-content
+                =hardware.name
+              td.td-content
+                =hardware.name
+  .content-footer
+    //#content-footer-save-lamination
+      a(class="external-link", href="#", id="saveBtn", )
+        span#saveBtnText
+          =i18n.__('Save')

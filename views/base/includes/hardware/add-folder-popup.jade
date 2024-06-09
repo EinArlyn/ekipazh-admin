@@ -1,0 +1,38 @@
+.add-hardware-pop-up(style="display: none;")
+  form(id="add-hardware-folder-form" method="POST" action="/base/hardware/add-hardware-folder" enctype="multipart/form-data")
+    #pop-up-add-hardware-close-wrap
+      a(id="pop-up-add-hardware-close", href="#")
+    span#pop-up-add-hardware-header
+      =i18n.__('Add hardware group')
+    .hardware-edit-group-block-align
+      span.hardware-edit-group-text-align
+        =i18n.__('Group name')
+        | :
+      span
+        input(class="input-default hardware-edit-group-input-align", id="hardware-name-pop-up-input", name="name" type="text")
+    //.hardware-edit-group-block-align
+      span.hardware-edit-group-text-align
+        =i18n.__('Short name')
+        | :
+      span
+        input(class="input-default hardware-edit-group-input-align", id="hardware-shortname-pop-up-input", type="text")
+    .hardware-edit-group-block-align
+      span.hardware-edit-group-text-align
+        =i18n.__('Link')
+        | :
+      span
+        input(class="input-default hardware-edit-group-input-align", id="hardware-link-pop-up-input", name="link" type="text")
+    .hardware-edit-group-description-block-align
+      span.hardware-edit-group-text-align
+        =i18n.__('Description')
+        | :
+      span
+        textarea(class="input-default hardware-edit-group-input-align", id="hardware-description-pop-up-input" name="description" style="min-height: 100px; min-width: 243px; max-height: 100px; max-width: 243px;")  
+    .hardware-edit-group-image-block-align
+      input(id="select-hardware-group-image" type="file" name="hardware_img" class="hidden")
+      a(href="#" type="button" id="hardware-group-img" style="margin-left: 30px;")
+      img(id="hardware-group-image" style="height: 64px; width: 124px; margin-left: 20px;" src="/local_storage/default.png")
+    .hardware-add-pop-up
+      a(id="hardware-add-pop-up-btn", href="#", type="button", value)
+        span#hardware-add-pop-up-btn-text
+          =i18n.__('Add')

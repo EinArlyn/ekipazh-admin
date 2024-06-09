@@ -1,0 +1,94 @@
+extends ../layout
+
+block content
+  .main-nav
+    .nav-link
+      a(class="external-link", href="/")= i18n.__('Dashboard') 
+      | 
+      | -> 
+      span#nav-text
+        =i18n.__('Options')
+      img.loader-ico(src="/assets/images/loader_ico.GIF")
+  .main-select-option
+    select(id="lamination-select", name="", class="select-default selected-option", style="width: 180px;")
+      option(value="1")=i18n.__('Lamination')
+      option(value="2")=i18n.__('Discounts')
+      option(value="3")=i18n.__('Coefficients')
+      option(value="8")=i18n.__('Suppliers')
+      option(value="9")=i18n.__('Currency')
+      option(value="10")=i18n.__('General options')
+      option(value="11" selected)=i18n.__('Application options')
+      option(disabled)=i18n.__('Groups')
+      option(value="4")=i18n.__('Glazed window')
+      option(value="5")=i18n.__('Window sills')
+      option(value="6")=i18n.__('Spillways')
+      option(value="7")=i18n.__('Visors')
+      option(value="12")=i18n.__('Connectors')
+      option(value="13")=i18n.__('Mosquitos')
+      option(value="14")=i18n.__('Doorhandles')
+  form(method='post', action='/base/option/save', id="main-form")
+    .app-option.checked-option
+      .main-content
+        .container
+          =i18n.__('Application link')
+          | : 
+          input.input-default#app-link-input(type="text" name="app_link" placeholder="http(s)://" value=appLink)
+          input.ok-button#app-link-sumbit(type="button" value=i18n.__('Ok') disabled)
+        .table-container
+          table#template-table(cellpadding="0" cellspacing="0" border="0")
+            thead
+              tr.template-tr-head
+                td(colspan="2")
+                  =i18n.__('Application templates')
+            tbody
+              each backgroundTemplate in backgroundTemplates
+                tr.template-tr
+                  td.template-image-td
+                    img(src=backgroundTemplate.img height="266" width="400")
+                  td.template-info-td
+                    .template-preference
+                      span.primary-text
+                        =i18n.__('Description')
+                        |  1:
+                        | 
+                      span#construction-size-1
+                        =backgroundTemplate.desc_1
+                    .template-preference
+                      span.primary-text
+                        =i18n.__('Description')
+                        |  2:
+                        | 
+                      span#construction-size-2
+                        =backgroundTemplate.desc_2
+                    .template-preference
+                      span.primary-text
+                        =i18n.__('Template number')
+                        | :
+                        | 
+                      span#template-number
+                        =backgroundTemplate.template_id
+                    .template-preference
+                      span.primary-text
+                        =i18n.__('Template type')
+                        | :
+                        | 
+                      span#template-type
+                        -console.log(backgroundTemplate.template_group.name)
+                        =i18n.__(backgroundTemplate.template_group.name)
+                    .template-preference
+                      span.primary-text
+                        =i18n.__('Position')
+                        | :
+                        | 
+                      span#template-position
+                        =backgroundTemplate.position
+                    input.edit-template-btn(data-template=backgroundTemplate.id type="button" value=i18n.__('Edit'))
+                    a.remove-template-btn(href="#" data-template=backgroundTemplate.id type="button" value=i18n.__('Remove'))
+            tfoot
+              tr.template-add-tr
+                td.template-add-td(colspan="2")
+                  =i18n.__('Add +')
+  include ./includes/app-add-new-template-popup
+  include ./includes/app-edit-template-popup
+  include ./includes/alert-delete-template
+        

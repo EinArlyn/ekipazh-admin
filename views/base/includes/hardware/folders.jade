@@ -1,0 +1,73 @@
+.hardware-group-list
+  each hardwareFolder in hardwareFolders
+    .hardware_group
+      a(href="#", value=hardwareFolder.id, class="hardware-group-button")
+        span.hardware-group-button-text
+          =hardwareFolder.name
+      a(href="#", value=hardwareFolder.id, class="hardware-group-edit-button")
+        span.hardware-group-button-text
+          //=hardware_group.name
+      a(href="#", value=hardwareFolder.id, class="hardware-group-remove-button")
+        span.hardware-group-button-text
+          //=hardware_group.name
+    .hardware-edit(id="edit" + hardwareFolder.id data=hardwareFolder.id)
+      .hardware-features
+        each hardwareGroup in hardwareFolder.window_hardware_groups
+          .hardware-features-exist(data=hardwareGroup.id)
+            .feature-name
+              #feature-logo-wrap
+                span.feature-img-other
+                  img(src="" + hardwareGroup.img)
+              #feature-name-wrap
+                span.feature-name-format
+                  b=hardwareGroup.name
+            .feature-brend
+              span.feature-text-format
+                =i18n.__('trademark')
+                br
+                b=hardwareGroup.producer
+            .feature-country
+              span.feature-text-format
+                =i18n.__('country')
+                br
+                b=hardwareGroup.country
+            .feature-properties
+              .feature-coeffs-text
+                span.text-format
+                  =i18n.__('Anticorrosion')
+                  | :
+                br
+                span.text-format
+                  =i18n.__('Burglar')
+                  | :
+              .feature-coeffs-strength 
+                span.feature-coeffs-format
+                  .stength1(class="s1" + hardwareGroup.id)
+                    -var i = 0
+                    while (i < hardwareGroup.heat_coeff)
+                      .coeff-stength
+                      -i++
+                br
+                span.feature-coeffs-format
+                  .stength2(class="s2" + hardwareGroup.id)
+                    -var j = 0
+                    while (j < hardwareGroup.noise_coeff)
+                      .coeff-stength
+                      -j++
+                .hardware-features-others-edit(value=hardwareGroup.id)
+      .hardware-features-add
+        table(cellpadding="0", cellspacing="0")
+          tr      
+            td.add-future(value=hardwareFolder.id)
+              span.add-feature-text
+                | Добавить +
+            td.feature-brend
+            td.feature-country
+            td.feature-properties
+      //.hardware-type-select
+        select(class="select-default select-hardware-type", data=hardware_group.id)
+          option(value="2") Поворотная
+          option(value="6") Поворотно-откидная
+          option(value="17") Поворотно-откидная (штульп)
+          option(value="7") Фрамуга
+          option(value="4") Штульповая

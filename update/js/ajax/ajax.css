@@ -1,0 +1,116 @@
+.dpDiv {
+	}
+
+.dpTable {
+	font-family: Tahoma, Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	text-align: center;
+	color: #505050;
+	background: #ECF5F8 url('back.jpg') repeat-x;
+	border: 1px solid #AAAAAA;
+	}
+.dpTR {
+	}
+.dpTitleTR {
+	}
+.dpDayTR {
+	}
+.dpTodayButtonTR {
+	}
+.dpTD {
+	border: 1px solid #D5E3E7;
+	}
+.dpDayHighlightTD {
+	background-color: #CCCCCC;
+	border: 1px solid #AAAAAA;
+	}
+.dpTDHover {
+	background-color: #aca998;
+	border: 1px solid #888888;
+	cursor: pointer;
+	color: red;
+	}
+.dpTitleTD {
+	}
+.dpButtonTD {
+	}
+.dpTodayButtonTD {
+	}
+.dpDayTD {
+	background-color: #CCCCCC;
+	border: 1px solid #AAAAAA;
+	color: white;
+	}
+.dpTitleText {
+	font-size: 12px;
+	color: gray;
+	font-weight: bold;
+	}
+.dpDayHighlight {
+	color: #4060ff;
+	font-weight: bold;
+	}
+.dpButton {
+	font-family: Verdana, Tahoma, Arial, Helvetica, sans-serif;
+	font-size: 6pt;
+	background: #8FCADB;
+	padding: 2px;
+	width: 15pt;
+	border: 1px solid #64A6B9;
+	color: white;
+	font-weight: bold;
+	margin-bottom: 1px;
+	}
+.dpTodayButton {
+	font-family: Arial, Verdana, Tahoma, Helvetica, sans-serif;
+	font-size: 10px;
+	color: white;
+	background: #8FCADB;
+	font-weight: bold;
+	border: 1px solid #64A6B9;
+	padding: 1px 3px 1px 3px;
+	margin-right: 3px;
+	}
+.unchecked {
+	margin-bottom:-4px;
+	width: 17px;
+	height: 17px;
+	display: inline-block;
+	cursor: pointer;
+	background: url(/images/stories/main/checkbox.png);
+	overflow: hidden;
+	margin-right:-2px;
+	}
+.checked {
+	margin-bottom:-4px;
+	width: 17px;
+	height: 17px;
+	display: inline-block;
+	cursor: pointer;
+	background: url(/images/stories/main/checkbox.png);
+	overflow: hidden;
+	background-position: 0 -18px;
+	margin-right:-3px
+	}			
+.unchecked-disabled {
+	margin-bottom:-4px;
+	width: 17px;
+	height: 17px;
+	display: inline-block;
+	cursor: pointer;
+	background: url(/images/stories/main/checkbox-disabled.png);
+	overflow: hidden;
+	margin-right:-2px;
+	}
+.checked-disabled {
+	margin-bottom:-4px;
+	width: 17px;
+	height: 17px;
+	display: inline-block;
+	cursor: pointer;
+	background: url(/images/stories/main/checkbox-disabled.png);
+	overflow: hidden;
+	background-position: 0 -18px;
+	margin-right:-3px
+	}
+	

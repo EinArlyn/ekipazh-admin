@@ -1,0 +1,39 @@
+.content-wrapper {
+  border: 1px solid #cecece;
+  border-top: none;
+  padding: 10px;
+  font-size: 16px;
+  font-family: "Courier New", Courier, monospace;
+  /*font-weight: bold;*/
+}
+
+  .main-content {
+    background-image: url('/assets/images/background-glass.png');
+    box-shadow: inset 0 0 6px #bababa;
+    padding: 10px;
+  }
+
+    .services-list {
+      list-style: none;
+      padding-left: 10px;
+      margin: 10px;
+    }
+      .services-header {
+        margin: 10px;
+      }
+
+        a.btn-service {
+          color: #333333;
+        }
+
+          a.btn-service:hover {
+            color: #ff7a4b;
+          }
+
+        .service-content {
+          display: none;
+        }
+
+        ul>li.service-content {
+          list-style: none;
+        }

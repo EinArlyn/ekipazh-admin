@@ -1,0 +1,13 @@
+.pop-up.add-new-supplier-pop-up
+  form#add-new-supplier-form(method="POST" action="/base/options/suppliers/add-new-supplier")
+    .pop-up-close-wrap
+      a(class="pop-up-close", href="#")
+    span.pop-up-header
+      =i18n.__('Add new supplier')
+    .content-block
+      span.field-margin-popup
+        =i18n.__('Name')
+        | :
+      input.input-default.input-margin-popup#new-supplier-name(type="text" name="name" value="" style="width: 196px;")
+    .submit-row
+      input.btn-submit#submit-add-new-supplier(type="button" value=i18n.__('Add'))

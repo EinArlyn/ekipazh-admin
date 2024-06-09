@@ -1,0 +1,25 @@
+.pop-up#add-misquito-pop-up
+  form#add-mosquito-form(method="POST" action="/base/mosquito" enctype="multipart/form-data")
+    input(type="hidden" name="profile_id")
+    .pop-up-close-wrap
+      a.pop-up-close(href="#")
+    span.pop-up-header
+      =i18n.__('Add mosquito')
+    .row
+      .col-md-4.text-right
+        =i18n.__('Name')
+        | :
+      .col-md-8
+        input.input-default.width-100(name="name" required)
+    .row
+      .col-md-4.text-right
+        =i18n.__('Group')
+        | :
+      .col-md-8
+        select.select-default.group-select(name="group_id" required)
+          option(value="0" selected)=i18n.__('Not exist')
+    .row
+      .col-md-4
+      .col-md-4
+        input.pop-up-submit-btn.block-center.add-btn(type="submit" value=i18n.__('Add'))
+      .col-md-4

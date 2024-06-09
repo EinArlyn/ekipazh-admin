@@ -1,0 +1,22 @@
+doctype html
+html
+  link(rel="stylesheet", href="/assets/stylesheets/baseLayout.css")
+  include ../includes/head.jade
+  body
+    .wrapper
+      nav
+        .nav-panel
+          //.nav-logo
+            img(src="/assets/images/logo_window.png")
+          span#logo-brand
+            | Ekipazh Calculator admin panel
+          .nav-search
+            input(type="text", name="content", placeholder=" Поиск...", class="search-input")
+
+      .loader-wrapper
+        #logo-loader
+      main.load-content(style="display: none")
+        block content
+      footer.load-content(style="display: none")
+        #footer-text 2024
+      include ../includes/footer.jade

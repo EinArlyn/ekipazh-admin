@@ -1,0 +1,138 @@
+.add-item-block
+  .header-add-item
+    =i18n.__('Add element')
+    | :
+  .body-add-item-block 
+    .set-group-text
+      span.text-style
+        =i18n.__('Filter')
+        | :
+      span.text-style.item-group-block#group-item
+        =i18n.__('Element group')
+        | :
+      br
+      span.text-style#item-name
+        =i18n.__('Element')
+        | :
+      br
+      span.text-style
+        =i18n.__('Rule')
+        | :
+    .set-group-input
+      .query-search
+        input(class="input-default input-margin input-text" id="query-search-input" type="text" value="" style="width: 358px")
+      select(id="add-item-select-group", name="item_group", class="select-default input-margin item-group-block", style="width: 365px;", form="add-new-item-to-set")
+      select(id="add-item-select-name", name="item_name", class="select-default input-margin", style="width: 365px;", form="add-new-item-to-set")
+    .add-item-rules
+      .linear-peace
+        input(name="item_rule_value", type="text", class="input-default input-margin input-text", style="width: 40px;", form="add-new-item-to-set")
+        | 
+        select(name="item_rule", class="select-default input-margin", style="width: 315px;", form="add-new-item-to-set")
+          option(value="2")=i18n.__('pcs for one parent')
+          option(value="3")=i18n.__('pcs for meter of parent')
+      .linear-linear
+        select(name="item_rule", class="select-default input-margin", style="width: 255px;", form="add-new-item-to-set")
+          option(value="1")=i18n.__('Is less than parent')
+        span.rule-margin
+          =i18n.__('for')
+        input(name="item_rule_value", type="text", class="input-default input-text", style="width: 40px;", form="add-new-item-to-set")        
+        span.rule-margin
+          =i18n.__('m')
+      .linear-weight
+        input(name="item_rule_value", type="text", class="input-default input-margin input-text", style="width: 40px;", form="add-new-item-to-set")
+        | 
+        select(name="item_rule", class="select-default input-margin", style="width: 315px;", form="add-new-item-to-set")
+          option(value="24")=i18n.__('kg for one parent')
+          option(value="23")=i18n.__('kg for meter of parent')
+      .linear-liquid 
+        input(name="item_rule_value", type="text", class="input-default input-margin input-text", style="width: 40px;", form="add-new-item-to-set")
+        | 
+        select(name="item_rule", class="select-default input-margin", style="width: 315px;", form="add-new-item-to-set")
+          option(value="6")=i18n.__('liters per meter of the parent')
+          option(value="7")=i18n.__('liters for one parent')
+      .surface-linear
+        select(name="item_rule", class="select-default input-margin", style="width: 255px;", form="add-new-item-to-set")
+          option(value="21")=i18n.__('Less than the width of the parent')
+          option(value="22")=i18n.__('Less than the height of the parent')
+        span.rule-margin
+          =i18n.__('for')
+        input(name="item_rule_value", type="text", class="input-default input-text", style="width: 40px;", form="add-new-item-to-set")        
+        span.rule-margin
+          =i18n.__('m')
+      .surface-surface
+        select(name="item_rule", class="select-default input-margin", style="width: 275px;", form="add-new-item-to-set")
+          option(value="5")=i18n.__('For 1 m&#178; of parent')
+        span.rule-margin
+          input(name="item_rule_value", type="text", class="input-default input-text", style="width: 40px;", form="add-new-item-to-set") 
+        =i18n.__('m')
+        sup 2
+      .surface-peace
+        input(name="item_rule_value", type="text", class="input-default input-margin input-text", style="width: 40px;", form="add-new-item-to-set")
+        | 
+        select(name="item_rule", class="select-default input-margin", style="width: 315px;", form="add-new-item-to-set")
+          option(value="2")=i18n.__('pcs for one parent')
+          option(value="12")=i18n.__('pcs for m&#178; of parent area')
+      .peace-peace
+        input(name="item_rule_value", type="text", class="input-default input-margin input-text", style="width: 40px;", form="add-new-item-to-set")
+        | 
+        select(name="item_rule", class="select-default input-margin", style="width: 315px;", form="add-new-item-to-set")
+          option(value="2")=i18n.__('pcs for one parent')
+      .peace-weight
+        input(name="item_rule_value", type="text", class="input-default input-margin input-text", style="width: 40px;", form="add-new-item-to-set")
+        | 
+        select(name="item_rule", class="select-default input-margin", style="width: 315px;", form="add-new-item-to-set")
+          option(value="24")=i18n.__('kg for one parent')
+          option(value="23")=i18n.__('kg for meter of parent')
+      .peace-liquid
+        input(name="item_rule_value", type="text", class="input-default input-margin input-text", style="width: 40px;", form="add-new-item-to-set")
+        | 
+        select(name="item_rule", class="select-default input-margin", style="width: 315px;", form="add-new-item-to-set")
+          option(value="6")=i18n.__('liters per meter of the parent')
+          option(value="7")=i18n.__('liters for one parent')
+      .not-exist
+        select(name="item_rule", class="select-default input-margin", style="width: 365px;", form="add-new-item-to-set")
+          option(value="0")=i18n.__('Not exist')
+    .row
+      .set-group-text
+        span.text-style
+          =i18n.__('Rounding')
+          | :
+      .set-group-input
+        select(name="item_rounding_type", class="select-default input-margin", style="width: 310px;", form="add-new-item-to-set")
+          option(value="0")=i18n.__('Not exist')
+          option(value="1")=i18n.__('Divisible higher')
+          option(value="2")=i18n.__('Divisible lower')
+          option(value="3")=i18n.__('Divisible rule')
+        | 
+        input(name="item_rounding_value", type="text", class="input-default input-text", style="width: 40px;", placeholder="0" form="add-new-item-to-set")
+    .color-select-text
+      span#color-profile
+        =i18n.__('Lamination type')
+        | : 
+      =i18n.__('Hardware color')
+      | : 
+    .color-select-input
+      select(id="add-item-color-profile", name="item_color_profile", class="select-default", style="width: 220px;", form="add-new-item-to-set")
+      select(id="add-item-color-furniture", name="item_color_furniture", class="select-default", style="width: 225px;", form="add-new-item-to-set")
+    .open-direction
+      span#open-direction-text
+        =i18n.__('Direction of opening')
+        | : 
+      span.direction-radios
+        input(id="direction-right", type="radio", name="direction", value="2", form="add-new-item-to-set")
+        label(for="direction-right")
+          =i18n.__('right-hand')
+      span.direction-radios
+        input(id="direction-left", type="radio", name="direction", value="3", form="add-new-item-to-set")
+        label(for="direction-left")
+          =i18n.__('left-hand')
+      span.direction-radios
+        input(id="direction-none", type="radio", name="direction", value="1", checked, form="add-new-item-to-set")
+        label(for="direction-none")
+          =i18n.__('ignore')  
+  a(href="#", class="close-button-item")
+    span.close-button-item-text
+      =i18n.__('close')
+  a(href="#", value=list.id, class="add-item-btn")
+    span.add-item-btn-text
+      =i18n.__('Add')

@@ -1,0 +1,31 @@
+.edit-hardware-type-pop-up(style="display: none;")
+  form(id="edit-hardware-type-form", method="POST", action="/base/hardware/edit-type", enctype="multipart/form-data")
+    input(class="hidden", id="hardware-type-id-pop-up-input", name="hardware_type_id", value="", type="text")
+    input(class="hidden", id="hardware-group-id-pop-up-input", name="hardware_group_id", value="", type="text")
+    .pop-up-close-wrap
+      a.pop-up-close(href="#")
+    span.pop-up-header
+      =i18n.__('Edit hardware types')
+    .hardware-type-diapasons-pop-up
+      .diapasons-label
+        =i18n.__('Width (mm)')
+        | :
+        span.diapasons-margin-label
+          =i18n.__('Height (mm)')
+          | :
+      .diapasons-inputs
+        | min 
+        input(class="input-default", type="text", name="min_width", value="", size="5")
+        | 
+        | max 
+        input(class="input-default", type="text", name="max_width", value="", size="5")
+        span.diapasons-margin-inputs
+          | min 
+          input(class="input-default", type="text", name="min_height", value="", size="5")
+          | 
+          | max 
+          input(class="input-default", type="text", name="max_height", value="", size="5")
+    .feature-edit-pop-up
+      a.save-btn-text.save-btn#save-hardware-type-btn(href="#", type="button", value)
+        span.save-btn-text
+          =i18n.__('Save')
