@@ -9,8 +9,9 @@ module.exports = function(app) {
   app.use('/', require('./dashboard'));
   app.use('/ru', require('./dashboard'));
   app.use('/ua', require('./dashboard_ua'));
+  app.use('/it', require('./dashboard_it'));
   app.use('/es', require('./dashboard'));
-  app.use('/en', require('./dashboard'));
+  app.use('/en', require('./dashboard_en'));
   app.use('/api', require('./api'));
   app.use('/base/elements', isAuthenticated, require('./base/elements'));
   app.use('/base/element', isAuthenticated, require('./base/element'));

@@ -133,7 +133,7 @@ block content
               .order-functionality
                 a(href="#", value=order.order.id, class="order-edit")
                 br
-                a(href="#" + order.order.id, onclick="window.open('/orders/get-order-pdf/" + order.order.id + "?userId=" + currentUser.id + "', '_blank');", value=order.order.id, class="order-print")
+                a(href="#" + order.order.id, onclick="window.open('/orders/get-order-pdf/" + order.order.id + "?userId=" + currentUser.id + "&lang=" + i18n.getLocale() + "', '_blank');", value=order.order.id, class="order-print")
         else
           li.order-empty
             span#history-empty

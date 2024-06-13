@@ -12,20 +12,24 @@ html
             | Ekipazh Calculator admin panel
           .nav-logout
             span#lang-selector
-              a#lang-rus(href="/ru" class=(lang === 'ru' ? 'selected': ''))
+              a#lang-rus(href="/?lang=ru" class=(lang === 'ru' ? 'selected': ''))
                 | Ru
               | &nbsp;&nbsp;
 
-              a#lang-ua(href="/ua" class=(lang === 'ua' ? 'selected': ''))
+              a#lang-ua(href="/?lang=ua" class=(lang === 'ua' ? 'selected': ''))
                 | Ua
               | &nbsp;&nbsp;
 
-              a#lang-es(href="/es" class=(lang === 'es' ? 'selected': ''))
-                | Esp
+              a#lang-ua(href="/?lang=en" class=(lang === 'en' ? 'selected': ''))
+                | En
+              | &nbsp;&nbsp;
+
+              a#lang-es(href="/?lang=it" class=(lang === 'it' ? 'selected': ''))
+                | It
               | &nbsp;&nbsp;&nbsp;
             span#nav-logout-button
               img(src='/assets/images/logout.png', alt="Выход")
-              a(class="external-link", href="/logout" id="logout") &nbsp;Выйти 
+              a(class="external-link", href="/logout" id="logout") &nbsp;Exit 
           .nav-search
             input(type="text", name="content", placeholder=" Поиск...", class="search-input")
       .loader-wrapper
