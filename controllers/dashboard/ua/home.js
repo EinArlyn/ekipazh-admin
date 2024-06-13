@@ -2,10 +2,9 @@ var i18n = require('i18n');
 var crypto = require('crypto');
 var env = process.env.NODE_ENV || 'development';
 
-var auth = require('../../lib/services/authentication');
-var models = require('../../lib/models');
-var config = require('../../config.json');
-
+var auth = require('../../../lib/services/authentication');
+var models = require('../../../lib/models');
+var config = require('../../../config.json');
 var algorithm = 'aes-256-ctr';
 var salt = 'd6F3Efeq';
 

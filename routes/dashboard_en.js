@@ -1,5 +1,5 @@
 var router = require('express').Router();
-var dashboard = require('../controllers/dashboard');
+var dashboard = require('../controllers/dashboard/en');
 
 router.get('/', dashboard.index);
 router.post('/', dashboard.signin);

@@ -2,10 +2,9 @@ var i18n = require('i18n');
 var crypto = require('crypto');
 var env = process.env.NODE_ENV || 'development';
 
-var auth = require('../../lib/services/authentication');
-var models = require('../../lib/models');
-var config = require('../../config.json');
-
+var auth = require('../../../lib/services/authentication');
+var models = require('../../../lib/models');
+var config = require('../../../config.json');
 var algorithm = 'aes-256-ctr';
 var salt = 'd6F3Efeq';
 
@@ -14,10 +13,8 @@ var iv = '1234567890123456';
 
 
 module.exports = function(req, res) {
-  if (req.query.lang !== undefined) {
-    i18n.setLocale(req.query.lang);
-  }
-
+  var lang = 'it';
+  i18n.setLocale(lang);
 
   if (auth.checkAuth(req, res)) {
     /** Get accessible routes */
@@ -42,10 +39,9 @@ module.exports = function(req, res) {
           proUrl: config[env].proUrl,
           analitycsUrl: config[env].analitycsUrl,
           calculatorLink: config[env].calculatorLink,
-          documentsUrl: config[env].documentsUrl,
           statisticLink: config[env].statisticLink,
           accesses: accesses,
-          lang: i18n.getLocale(),
+          lang: lang,
           cssSrcs: ['/assets/stylesheets/dashboard.css'],
           scriptSrcs: ['/assets/javascripts/dashboard.js']
         });

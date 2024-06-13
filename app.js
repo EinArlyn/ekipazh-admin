@@ -43,13 +43,50 @@ app.use(function (req, res, next) {
   next();
 });
 
-require('./routes')(app);
-
 i18n.configure({
   locales:['ru', 'en', 'de', 'ua', 'es', 'it'],
   directory: __dirname + '/lib/locales',
   defaultLocale: 'ru'
 });
+
+app.use(i18n.init);
+
+const supportedLocales = ["ru", "en", "de", "uk", "es", "it"];
+const localeMapping = {
+  uk: "ua", // добавим маппинг для преобразования языка
+};
+
+function determineLanguage(req) {
+  const acceptLanguage = req.headers["accept-language"];
+
+  if (acceptLanguage) {
+    const languages = acceptLanguage
+      .split(",")
+      .map((lang) => lang.split(";")[0].trim());
+
+    const language = languages.find((lang) => supportedLocales.includes(lang));
+
+    if (language) {
+      return localeMapping[language] || language;
+    }
+  }
+
+  return null;
+}
+
+app.use(function (req, res, next) {
+  if (req.url === "/login") {
+    const language = determineLanguage(req);
+    if (language) {
+      i18n.setLocale(language);
+    }
+  }
+
+  next();
+});
+
+
+require('./routes')(app);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
