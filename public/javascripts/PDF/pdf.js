@@ -297,9 +297,9 @@ $(function() {
 
 
   function createDimension(dir, dim, dimGroup, lineCreator) {
-    var dimLineHeight = -150,
-        dimEdger = 50,
-        dimMarginBottom = -20,
+    var dimLineHeight = -150,     // оцтуп блока размера 
+        dimEdger = 50,            // оцтуп размерной линии 
+        dimMarginBottom = -20,    // глубина линий границ 
         sizeBoxWidth = 160,
         sizeBoxHeight = 70,
 

@@ -53,7 +53,7 @@ function _getTemplateStruct (system, cb) {
     function (_callback) {
       models.lists.find({
         where: { id: system.rama_list_id },
-        attributes: ['a', 'b', 'c', 'd']
+        attributes: ['a', 'b', 'c', 'd', 'e']
       }).then(function (frame) {
         _callback(null, frame);
       }).catch(function (err) {
@@ -65,7 +65,7 @@ function _getTemplateStruct (system, cb) {
     function (_callback) {
       models.lists.find({
         where: { id: system.rama_still_list_id },
-        attributes: ['a', 'b', 'c', 'd']
+        attributes: ['a', 'b', 'c', 'd', 'e']
       }).then(function (frameStill) {
         _callback(null, frameStill);
       }).catch(function (err) {
