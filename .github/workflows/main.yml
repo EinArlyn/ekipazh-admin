@@ -17,23 +17,7 @@ jobs:
           password: ${{ secrets.FTP_PASSWORD }}
           local-dir: ./
           server-dir: /web/current/ # путь к директории на сервере
-          exclude: |
-            .git/
-            .git/**
-            .vscode/
-            .vscode/**
-            .github/
-            .github/**
-            *.log
-            *.md
-            node_modules/
-            node_modules/**
-            local_storage/
-            local_storage/**
-            config.json
-            config.dev.json
-            package.json
-            package-lock.json
+          exclude: .ftpignore # Используем файл .ftpignore для исключения файлов и директорий
       - name: Connecting to SSH and execute commands
         uses: appleboy/ssh-action@master
         with:

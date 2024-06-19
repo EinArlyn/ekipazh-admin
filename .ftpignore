@@ -1,0 +1,11 @@
+.git/
+.vscode/
+.github/
+*.log
+*.md
+node_modules/
+local_storage/
+config.json
+config.dev.json
+package.json
+package-lock.json
