@@ -9,14 +9,12 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Upload to FTP
-        uses: SamKirkland/FTP-Deploy-Action@4.0.0
-        continue-on-error: false
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
           server: ${{ secrets.FTP_SERVER }}
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
-          local-dir: ./
-          server-dir: /web/current/ # путь к директории на сервере
+          server-dir: /web/current # путь к директории на сервере
           exclude: .ftpignore # Используем файл .ftpignore для исключения файлов и директорий
       - name: Connecting to SSH and execute commands
         uses: appleboy/ssh-action@master
