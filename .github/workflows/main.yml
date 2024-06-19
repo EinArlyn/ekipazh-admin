@@ -10,6 +10,7 @@ jobs:
       - uses: actions/checkout@v2
       - name: Upload to FTP
         uses: SamKirkland/FTP-Deploy-Action@4.0.0
+        continue-on-error: false
         with:
           server: ${{ secrets.FTP_SERVER }}
           username: ${{ secrets.FTP_USERNAME }}
@@ -19,12 +20,13 @@ jobs:
           exclude: |
             .git*
             .vscode
+            .github
+            *.log
+            *.md
             node_modules
             local_storage
             config.json
             config.dev.json
-            *.log
-            *.md
             package.json
             package-lock.json
       - name: Connecting to SSH and execute commands
