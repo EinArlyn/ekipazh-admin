@@ -1,0 +1,38 @@
+name: Deploy to FTP server
+on:
+  push:
+    branches:
+      - main
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Upload to FTP
+        uses: SamKirkland/FTP-Deploy-Action@4.0.0
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          local-dir: ./
+          server-dir: /web/ # путь к директории на сервере
+          exclude: |
+            .git*
+            .vscode
+            node_modules
+            local_storage
+            config.json
+            config.dev.json
+            *.log
+            *.md
+            package.json
+            package-lock.json
+      - name: Connecting to SSH and execute commands
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USERNAME }}
+          password: ${{ secrets.SSH_PASSWORD }}
+          script: |
+            echo "Connected to server"
+            pm2 restart 39  # Перезапуск процесса с id 39
