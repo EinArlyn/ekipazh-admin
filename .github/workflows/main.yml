@@ -19,12 +19,17 @@ jobs:
           server-dir: /web/current/ # путь к директории на сервере
           exclude: |
             .git/
+            .git/**
             .vscode/
+            .vscode/**
             .github/
+            .github/**
             *.log
             *.md
             node_modules/
+            node_modules/**
             local_storage/
+            local_storage/**
             config.json
             config.dev.json
             package.json
