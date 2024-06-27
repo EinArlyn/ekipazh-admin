@@ -27,7 +27,8 @@ $(function() {
           a: (data.frame ? data.frame.a : 0),
           b: (data.frame ? data.frame.b : 0),
           c: (data.frame ? data.frame.c : 0),
-          d: (data.frame ? data.frame.d : 0)
+          d: (data.frame ? data.frame.d : 0),
+          e: (data.frame ? data.frame.e : 0)
         },
         impostDepth: {
           a: (data.impost ? data.impost.a : 0),
@@ -45,7 +46,8 @@ $(function() {
           a: (data.frameStill ? data.frameStill.a : 0),
           b: (data.frameStill ? data.frameStill.b : 0),
           c: (data.frameStill ? data.frameStill.c : 0),
-          d: (data.frameStill ? data.frameStill.d : 0)
+          d: (data.frameStill ? data.frameStill.d : 0),
+          e: (data.frameStill ? data.frameStill.e : 0)
         },
         shtulpDepth: {
           a: (data.shtulp ? data.shtulp.a : 0),
@@ -248,9 +250,11 @@ $(function() {
         //            console.log('SVG=========dim==', template.dimension);
         for (var dx = 0; dx < dimXQty; dx++) {
           createDimension(0, template.dimension.dimX[dx], dimGroup, lineCreator);
+          // createDimension(0, template.dimension.dimX[dx], dimGroup, lineCreator);
         }
         for (var dy = 0; dy < dimYQty; dy++) {
           createDimension(1, template.dimension.dimY[dy], dimGroup, lineCreator);
+          // createDimension(1, template.dimension.dimY[dy], dimGroup, lineCreator);
         }
         for (var dq = 0; dq < dimQQty; dq++) {
           createRadiusDimension(template.dimension.dimQ[dq], dimGroup, lineCreator);
