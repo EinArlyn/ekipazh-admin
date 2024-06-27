@@ -101,7 +101,26 @@ module.exports = function (req, res) {
               },
               attributes: ['name']
             }).then(function (currency) {
-              console.log('should render with result:', result);
+              models.currencies.findAll({
+                where: {
+                  factory_id: factory, 
+                  id: user.currencies_id
+                }
+              }).then(userInfo=>{
+                if(userInfo[0].id === 102) {
+                  currency.name = '₴';
+                  order.sale_price = order.sale_price;
+                }
+                if(userInfo[0].id === 685) {
+                  currency.name = '$';
+                  order.sale_price = order.sale_price/userInfo[0].value;
+                }
+                if(userInfo[0].id === 684) {
+                  currency.name = '€';
+                  order.sale_price = order.sale_price/userInfo[0].value;
+                }              
+              
+              // console.log('should render with result:', result);
               res.render('orderPDF', {
                 i18n: i18n,
                 user: user,
@@ -122,7 +141,7 @@ module.exports = function (req, res) {
                 total: order.sale_price,
                 lang: lang
               });
-            }).catch(function (err) {
+            });}).catch(function (err) {
               console.log(err);
               res.send('Internal server error');
             });
