@@ -185,6 +185,7 @@ module.exports = function (req, res) {
       b: parseFloat(list.b),
       c: parseFloat(list.c),
       d: parseFloat(list.d),
+      e: parseFloat(list.e),
       parent_element_id: parseInt(newParentId),
       position: parseInt(list.position),
       add_color_id: parseInt(list.add_color_id),

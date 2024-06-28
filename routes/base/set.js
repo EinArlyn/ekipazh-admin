@@ -190,6 +190,7 @@ function saveSet(req, res) {
         b                   : parseFloat(fields.b),
         c                   : parseFloat(fields.c),
         d                   : parseFloat(fields.d),
+        e                   : parseFloat(fields.e),
         position            : parseInt(fields.position),
         amendment_pruning   : parseFloat(fields.amendment_pruning),
         waste               : parseFloat(fields.waste),

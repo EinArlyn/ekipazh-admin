@@ -155,6 +155,13 @@ html
                   td
                 tr
                   td(style="text-align: left;")
+                    =i18n.__('Additional services')
+                  td(align="rigth" style="color:#283891; padding-right:10px; ")
+                  td(align="rigth" style="color:#283891; padding-right:10px; ")
+                    =parseFloat(addServicePrice).toFixed(2)
+                  td
+                tr
+                  td(style="text-align: left;")
                     b
                       =i18n.__('TOTAL')
                       | :

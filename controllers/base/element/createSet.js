@@ -19,6 +19,7 @@ module.exports = function (req, res) {
     b                 : 0.00,
     c                 : 0.00,
     d                 : 0.00,
+    e                 : 0.00,
     parent_element_id : parseInt(elementId, 10),
     position          : 0,
     add_color_id      : 1,
