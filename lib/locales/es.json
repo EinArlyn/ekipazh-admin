@@ -524,5 +524,7 @@
 	"Invalid login or password,Invalid login or password": "Invalid login or password,Invalid login or password",
 	"Invalid login or password,Invalid login or password,Invalid login or password,Invalid login or password,Invalid login or password,Invalid login or password,Invalid login or password,Invalid login or password,Invalid login or password,Invalid login or password,Invalid login or password,Invalid login or password,Invalid login or password,Invalid login or password,Invalid login or password,Invalid login or password,Invalid login or password": "Invalid login or password,Invalid login or password,Invalid login or password,Invalid login or password,Invalid login or password,Invalid login or password,Invalid login or password,Invalid login or password,Invalid login or password,Invalid login or password,Invalid login or password,Invalid login or password,Invalid login or password,Invalid login or password,Invalid login or password,Invalid login or password,Invalid login or password",
     "Plant responsibility": "La planta no se hace responsable de los defectos que surjan del pedido de productos y componentes que no cumplan con los códigos de construcción y las limitaciones técnicas del fabricante.",
-    "Responsabilidad del cliente": "El cliente es responsable del tamaño correcto, la configuración y la integridad del pedido. El pago de la cuenta es la confirmación."
+    "Responsabilidad del cliente": "El cliente es responsable del tamaño correcto, la configuración y la integridad del pedido. El pago de la cuenta es la confirmación.",
+	"Additional services": "Servicios adicionales",
+	"Handle": "Manija"
 }

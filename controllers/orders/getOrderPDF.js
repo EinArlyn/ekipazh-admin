@@ -138,6 +138,7 @@ module.exports = function (req, res) {
                 currency: currency.name,
                 delivery: order.delivery,
                 mounting: order.mounting,
+                addServicePrice: order.order.sale_price,
                 total: order.sale_price,
                 lang: lang
               });

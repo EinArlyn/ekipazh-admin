@@ -524,5 +524,7 @@
 	"Invalid login or password,Invalid login or password": "Недійсний логін або пароль, Недійсний логін або пароль",
 	"Invalid login or password,Invalid login or password,Invalid login or password,Invalid login or password,Invalid login or password,Invalid login or password,Invalid login or password,Invalid login or password,Invalid login or password,Invalid login or password,Invalid login or password,Invalid login or password,Invalid login or password,Invalid login or password,Invalid login or password,Invalid login or password,Invalid login or password": "Недійсний логін або пароль, Недійсний логін або пароль, Недійсний логін або пароль, Недійсний логін або пароль, Недійсний логін або пароль, Недійсний логін або пароль, Недійсний логін або пароль, Недійсний логін або пароль, Недійсний логін або пароль, Неправильний логін або пароль, Недійсний логін або пароль, Недійсний логін або пароль, Неправильний логін або пароль, Недійсний логін або пароль, Недійсний логін або пароль, Недійсний логін або пароль, Недійсний логін або пароль",
 	"Plant responsibility": "Завод не несе вiдповiдальнiсть за недолiки, що виникли в результаті замовлення конструкцій і комплектуючих, які не відповідають вимогам ДСТУ, ДБН та технічним обмеженням виробника.",
-	"Responsabilidad del cliente": "Замовник несе відповідальність за правильність розмірів, конфігурації і комплектації замовлення. Сплачений рахунок є підтвердженням."
+	"Responsabilidad del cliente": "Замовник несе відповідальність за правильність розмірів, конфігурації і комплектації замовлення. Сплачений рахунок є підтвердженням.",
+	"Additional services": "Додаткові послуги",
+	"Handle": "Ручка"
 }

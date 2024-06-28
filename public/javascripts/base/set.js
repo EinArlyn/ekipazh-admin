@@ -191,6 +191,12 @@ $(function () {
       $('.locks').hide();
     }
 
+    if (type.val() == 5 || type.val() == 34) {
+      $("#renov").css("display", "inline");
+    } else {
+      $("#renov").css("display", "none");
+    }
+
     if (type.val() == 2 && group == 2 || type.val() == 3 && group == 4 || type.val() == 5 && group == 2 || type.val() == 6 && group == 3 || type.val() == 7 && group == 3 || type.val() == 9 && group == 11) {
       $("#frame-image").css({ "background-image": "url(/assets/images/frame/" + type.val() + ".gif)", "background-size": "cover" });
       $(".main-frame").addClass("checkedType");
