@@ -57,7 +57,7 @@ $(function() {
         }
       };
 
-      createSVGTemplate(obj, depths, WIDTH, HEIGHT, id);
+      createSVGTemplate(obj, depths, WIDTH, HEIGHT, id, {heightConstr: +data.product.template_height, widthConstr: +data.product.template_width});
     });
   }
 
@@ -72,7 +72,7 @@ $(function() {
   }
 
 
-  function buildSVG(template, widthSVG, heightSVG, elem, depths) {
+  function buildSVG(template, widthSVG, heightSVG, elem, depths, sizeConstr) {
     const buildId = Date.now().toString(36);
     var elem = $('#' + elem);
     //if(template && !$.isEmptyObject(template)) {
@@ -260,11 +260,15 @@ $(function() {
         //            console.log('SVG=========dim==', template.dimension);
         for (var dx = 0; dx < dimXQty; dx++) {
           createDimension(0, template.dimension.dimX[dx], dimGroup, lineCreator);
-          // createDimension(0, template.dimension.dimX[dx], dimGroup, lineCreator, depths);
+          if(template.dimension.dimX[dx].blockId == 'block_1' && depths.frameDepth.e > 0){
+            createDimension(0, template.dimension.dimX[dx], dimGroup, lineCreator, depths,sizeConstr);
+          }
         }
         for (var dy = 0; dy < dimYQty; dy++) {
           createDimension(1, template.dimension.dimY[dy], dimGroup, lineCreator);
-          // createDimension(1, template.dimension.dimY[dy], dimGroup, lineCreator, depths);
+          if(template.dimension.dimY[dy].blockId == 'block_1' && depths.frameDepth.e > 0){
+            createDimension(1, template.dimension.dimY[dy], dimGroup, lineCreator, depths,sizeConstr);
+          }
         }
         for (var dq = 0; dq < dimQQty; dq++) {
           createRadiusDimension(template.dimension.dimQ[dq], dimGroup, lineCreator);
@@ -310,16 +314,16 @@ $(function() {
   }
 
 
-  function createDimension(dir, dim, dimGroup, lineCreator, depths) {
-    // let renov = 0;
-    // if (depths){
-    //   renov = depths.frameDepth.e;
-    //   // console.log(depths.frameStillDepth.e);
-    //   // console.log(depths.frameDepth.e);
-    // }
-    var dimLineHeight = -150,     // отступ блока размера 
+  function createDimension(dir, dim, dimGroup, lineCreator, depths, sizeConstr) {
+    let renov = 0,
+    sizeConstruction = 0;
+    if (depths){
+      renov = depths.frameDepth.e;
+      sizeConstruction = dir ? sizeConstr.widthConstr : sizeConstr.heightConstr;  
+    }
+    var dimLineHeight = renov ? (dir?60:40) :-150,     // отступ блока размера 
         dimEdger = 50,            // отступ размерной линии 
-        dimMarginBottom = -20,    // глубина линий границ 
+        dimMarginBottom = renov ? 200+sizeConstruction+(dir?50:0):-20,    // глубина линий границ 
         sizeBoxWidth = 160,
         sizeBoxHeight = 70,
 
@@ -328,30 +332,30 @@ $(function() {
         lineCenter = [],
         dimBlock, sizeBox,
         pointL1 = {
-          x: (dir) ? dimMarginBottom : dim.from,
-          y: (dir) ? dim.from : dimMarginBottom
+          x: (dir) ? dimMarginBottom : dim.from+renov,
+          y: (dir) ? dim.from+renov : dimMarginBottom
         },
         pointL2 = {
-          x: (dir) ? dimLineHeight : dim.from,
-          y: (dir) ? dim.from : dimLineHeight
+          x: (dir) ? dimLineHeight : dim.from+renov,
+          y: (dir) ? dim.from+renov : dimLineHeight
         },
         pointR1 = {
-          x: (dir) ? dimMarginBottom : dim.to,
-          y: (dir) ? dim.to : dimMarginBottom
+          x: (dir) ? dimMarginBottom : dim.to-renov,
+          y: (dir) ? dim.to-renov : dimMarginBottom
         },
         pointR2 = {
-          x: (dir) ? dimLineHeight : dim.to,
-          y: (dir) ? dim.to : dimLineHeight
+          x: (dir) ? dimLineHeight : dim.to-renov,
+          y: (dir) ? dim.to-renov : dimLineHeight
         },
         pointC1 = {
-          x: (dir) ? dimLineHeight + dimEdger : dim.from,
-          y: (dir) ? dim.from : dimLineHeight + dimEdger
+          x: (dir) ? dimLineHeight + dimEdger : dim.from+renov,
+          y: (dir) ? dim.from+renov : dimLineHeight + dimEdger
         },
         pointC2 = {
-          x: (dir) ? dimLineHeight + dimEdger : dim.to,
-          y: (dir) ? dim.to : dimLineHeight + dimEdger
+          x: (dir) ? dimLineHeight + dimEdger : dim.to-renov,
+          y: (dir) ? dim.to-renov : dimLineHeight + dimEdger
         };
-        // console.log('>>>>>', dim, dir, depths)
+
     lineSideL.push(pointL1, pointL2);
     lineSideR.push(pointR1, pointR2);
     lineCenter.push(pointC1, pointC2);
@@ -398,7 +402,7 @@ $(function() {
 
 
     sizeBox.append('text')
-     .text(dim.text)
+     .text(dim.text-(renov*2))
      .attr({
        'class': function() { return (scope.typeConstruction === 'edit') ? 'size-txt-edit' : 'size-txt'; },
        'x': function() { return (dir) ? (dimLineHeight - sizeBoxWidth*0.8) : (dim.from + dim.to - sizeBoxWidth)/2; },
@@ -407,7 +411,7 @@ $(function() {
        'dy': 40,
        'type': 'line',
        'block_id': dim.blockId,
-       'size_val': dim.text,
+       'size_val': dim.text-(renov*2),
        'min_val': dim.minLimit,
        'max_val': dim.maxLimit,
        'dim_id': dim.dimId,
@@ -480,7 +484,7 @@ $(function() {
 
   }
 
-      function createSVGTemplate(sourceObj, depths, width, height, elem) {
+      function createSVGTemplate(sourceObj, depths, width, height, elem, sizeConstr) {
         var thisObj = {};
 
         thisObj.details = JSON.parse(JSON.stringify(sourceObj.details));
@@ -616,7 +620,7 @@ $(function() {
         thisObj.dimension = initDimensions(thisObj.details);
 
         console.log('TEMPLATE END++++', thisObj);
-        buildSVG(thisObj, width, height, elem, {frameDepth: depths.frameDepth, frameStillDepth: depths.frameStillDepth});
+        buildSVG(thisObj, width, height, elem, {frameDepth: depths.frameDepth, frameStillDepth: depths.frameStillDepth},sizeConstr);
       }
 
 
