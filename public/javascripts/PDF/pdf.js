@@ -252,8 +252,8 @@ $(function() {
         setMarker(defs, 'dimArrow', '4.2, -1, 8, 9', 5, 2, 'auto', 100, 60, 'M 0,0 L 4,2 L0,4 z', 'size-line');
 
         //------- marker handle
-        setMarker(defs, `handleR_${buildId}`, '0 -1 9 32', currHeightHandle*(-1), 23, 90, 29, 49, pathHandle, 'handle-mark');
-        setMarker(defs, `handleL_${buildId}`, '0 -1 9 32', currHeightHandle, 23, 270, 29, 49, pathHandle, 'handle-mark');
+        setMarker(defs, `handleR_${buildId}`, '0 -1 9 32', 4+currHeightHandle*(-1), 23, 90, 29, 49, pathHandle, 'handle-mark');
+        setMarker(defs, `handleL_${buildId}`, '0 -1 9 32', 5+currHeightHandle, 23, 270, 29, 49, pathHandle, 'handle-mark');
         setMarker(defs, 'handleU', '0 -1 9 32', -10, 10, 270, 29, 49, pathHandle, 'handle-mark');
         setMarker(defs, 'handleD', '0 -1 9 32', 20, 10, 270, 29, 49, pathHandle, 'handle-mark');
 
