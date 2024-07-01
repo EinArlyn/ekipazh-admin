@@ -311,7 +311,13 @@ $(function() {
 
 
   function createDimension(dir, dim, dimGroup, lineCreator, depths) {
-    var dimLineHeight = -10,     // отступ блока размера 
+    // let renov = 0;
+    // if (depths){
+    //   renov = depths.frameDepth.e;
+    //   // console.log(depths.frameStillDepth.e);
+    //   // console.log(depths.frameDepth.e);
+    // }
+    var dimLineHeight = -150,     // отступ блока размера 
         dimEdger = 50,            // отступ размерной линии 
         dimMarginBottom = -20,    // глубина линий границ 
         sizeBoxWidth = 160,
