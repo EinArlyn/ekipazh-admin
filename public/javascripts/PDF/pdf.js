@@ -72,7 +72,8 @@ $(function() {
   }
 
 
-  function buildSVG(template, widthSVG, heightSVG, elem) {
+  function buildSVG(template, widthSVG, heightSVG, elem, depths) {
+    const buildId = Date.now().toString(36);
     var elem = $('#' + elem);
     //if(template && !$.isEmptyObject(template)) {
       var container = document.createElement('div'),
@@ -174,19 +175,19 @@ $(function() {
                   var dirQty = template.details[i].sashOpenDir.length;
                   if(dirQty === 1) {
                     if(d.points[1].fi < 45 || d.points[1].fi > 315) {
-                      return 'url(#handleR)';
+                      return `url(#handleR_${buildId})`;
                     } else if (d.points[1].fi > 45 && d.points[1].fi < 135) {
                       return 'url(#handleU)';
                     } else if(d.points[1].fi > 135 && d.points[1].fi < 225) {
-                      return 'url(#handleL)';
+                      return `url(#handleL_${buildId})`;
                     } else if (d.points[1].fi > 225 && d.points[1].fi < 315) {
                       return 'url(#handleD)';
                     }
                   } else if(dirQty === 2) {
                     if(d.points[1].fi < 45 || d.points[1].fi > 315) {
-                      return 'url(#handleR)';
+                      return `url(#handleR_${buildId})`;
                     } else if(d.points[1].fi > 135 && d.points[1].fi < 225) {
-                      return 'url(#handleL)';
+                      return `url(#handleL_${buildId})`;
                     }
                   }
                 }
@@ -229,8 +230,17 @@ $(function() {
             dimXQty = template.dimension.dimX.length,
             dimYQty = template.dimension.dimY.length,
             dimQQty = template.dimension.dimQ.length,
+            heightSash,
+            currHeightHandle = 5,
             pathHandle = "M4.5,0C2.015,0,0,2.015,0,4.5v6c0,1.56,0.795,2.933,2,3.74V7.5C2,6.119,3.119,5,4.5,5S7,6.119,7,7.5v6.74c1.205-0.807,2-2.18,2-3.74v-6C9,2.015,6.985,0,4.5,0z"+
 "M7,26.5C7,27.881,5.881,29,4.5,29l0,0C3.119,29,2,27.881,2,26.5v-19C2,6.119,3.119,5,4.5,5l0,0C5.881,5,7,6.119,7,7.5V26.5z";
+
+        template.details.forEach(block => {
+          if (block.blockType == "sash" && block.heightHandle && block.heightHandle > 0) {
+              heightSash = (block.center.y*2*1.4)/10;
+              currHeightHandle = Math.floor((heightSash-5) - (heightSash-5)/(block.center.y/block.heightHandle));
+          }
+        })
 
         //----- horizontal marker arrow
         setMarker(defs, 'dimHorL', '-5, -5, 1, 8', -5, -2, 0, 50, 50, 'M 0,0 L -4,-2 L0,-4 z', 'size-line');
@@ -242,19 +252,19 @@ $(function() {
         setMarker(defs, 'dimArrow', '4.2, -1, 8, 9', 5, 2, 'auto', 100, 60, 'M 0,0 L 4,2 L0,4 z', 'size-line');
 
         //------- marker handle
-        setMarker(defs, 'handleR', '0 -1 9 32', 4, 23, 90, 29, 49, pathHandle, 'handle-mark');
-        setMarker(defs, 'handleL', '0 -1 9 32', 5, 23, 270, 29, 49, pathHandle, 'handle-mark');
+        setMarker(defs, `handleR_${buildId}`, '0 -1 9 32', currHeightHandle*(-1), 23, 90, 29, 49, pathHandle, 'handle-mark');
+        setMarker(defs, `handleL_${buildId}`, '0 -1 9 32', currHeightHandle, 23, 270, 29, 49, pathHandle, 'handle-mark');
         setMarker(defs, 'handleU', '0 -1 9 32', -10, 10, 270, 29, 49, pathHandle, 'handle-mark');
         setMarker(defs, 'handleD', '0 -1 9 32', 20, 10, 270, 29, 49, pathHandle, 'handle-mark');
 
         //            console.log('SVG=========dim==', template.dimension);
         for (var dx = 0; dx < dimXQty; dx++) {
           createDimension(0, template.dimension.dimX[dx], dimGroup, lineCreator);
-          // createDimension(0, template.dimension.dimX[dx], dimGroup, lineCreator);
+          // createDimension(0, template.dimension.dimX[dx], dimGroup, lineCreator, depths);
         }
         for (var dy = 0; dy < dimYQty; dy++) {
           createDimension(1, template.dimension.dimY[dy], dimGroup, lineCreator);
-          // createDimension(1, template.dimension.dimY[dy], dimGroup, lineCreator);
+          // createDimension(1, template.dimension.dimY[dy], dimGroup, lineCreator, depths);
         }
         for (var dq = 0; dq < dimQQty; dq++) {
           createRadiusDimension(template.dimension.dimQ[dq], dimGroup, lineCreator);
@@ -300,9 +310,9 @@ $(function() {
   }
 
 
-  function createDimension(dir, dim, dimGroup, lineCreator) {
-    var dimLineHeight = -150,     // оцтуп блока размера 
-        dimEdger = 50,            // оцтуп размерной линии 
+  function createDimension(dir, dim, dimGroup, lineCreator, depths) {
+    var dimLineHeight = -10,     // отступ блока размера 
+        dimEdger = 50,            // отступ размерной линии 
         dimMarginBottom = -20,    // глубина линий границ 
         sizeBoxWidth = 160,
         sizeBoxHeight = 70,
@@ -335,6 +345,7 @@ $(function() {
           x: (dir) ? dimLineHeight + dimEdger : dim.to,
           y: (dir) ? dim.to : dimLineHeight + dimEdger
         };
+        // console.log('>>>>>', dim, dir, depths)
     lineSideL.push(pointL1, pointL2);
     lineSideR.push(pointR1, pointR2);
     lineCenter.push(pointC1, pointC2);
@@ -599,7 +610,7 @@ $(function() {
         thisObj.dimension = initDimensions(thisObj.details);
 
         console.log('TEMPLATE END++++', thisObj);
-        buildSVG(thisObj, width, height, elem);
+        buildSVG(thisObj, width, height, elem, {frameDepth: depths.frameDepth, frameStillDepth: depths.frameStillDepth});
       }
 
 
