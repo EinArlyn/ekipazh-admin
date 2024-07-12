@@ -149,6 +149,16 @@ block content
                   option(value="0" selected)=i18n.__('Not exist')
                   each doorhandlesFolder in doorhandlesFolders
                     option(value=doorhandlesFolder.id selected=(list.addition_folder_id === doorhandlesFolder.id ? 'selected' : undefined))=doorhandlesFolder.name
+            .additional-doorhandles.hidden.additional-folders
+              span.additional-text-align
+                =i18n.__('Color')
+                | :
+              br
+              span.additional-select-align
+                select.select-default#doorhandles-group-color(style="width: 225px; margin-top: 5px; margin-bottom: 5px;")
+                  option(value="0" selected)=i18n.__('Not exist')
+                  each handlesColor in handlesColors
+                    option(value=handlesColor.id selected=(list.add_color_id === handlesColor.id ? 'selected' : undefined))=handlesColor.name
         hr.opener
         .opener.frame-content-open
           a(href="#", class="open-button-frame")

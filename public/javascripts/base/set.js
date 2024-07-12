@@ -620,6 +620,8 @@ $(function () {
     } else if (groupId == 24) {
       additionalFolderId = $('#doorhandles-group').val();
       _saveAdditionalFolder(setId, additionalFolderId);
+      additionalFolderId = $('#doorhandles-group-color').val();
+      _saveAdditionalColor(setId, additionalFolderId);
     }
 
     $('.beed_width').each(function() {
@@ -742,6 +744,11 @@ $(function () {
   function _saveAdditionalFolder(setId, folderId) {
     $.post('/base/set/save-additional-folder/' + setId, {
       folderId: folderId
+    }, function(data) {});
+  }
+  function _saveAdditionalColor(setId, colorId) {
+    $.post('/base/set/save-additional-color/' + setId, {
+      colorId
     }, function(data) {});
   }
 

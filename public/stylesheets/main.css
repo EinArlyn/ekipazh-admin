@@ -583,7 +583,7 @@ select.select-default {
   margin: 0 0 5px 0;
 }
 
-img.folder-image {
+img.folder-image, img.color-image {
   margin-top: 10px;
   height: 64px;
   width: 124px;

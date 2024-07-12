@@ -1,0 +1,21 @@
+.pop-up.popup-edit-color
+  form#edit-connector-color-form(method="POST" action="/base/options/colors/edit" enctype="multipart/form-data")
+    input(type="hidden" name="color_id" value="" required)
+    .pop-up-close-wrap
+      a(class="pop-up-close", href="#")
+    span.pop-up-header
+      =i18n.__('Edit group')
+    .row
+      .col-md-5.text-right
+        =i18n.__('Group name')
+        | :
+      .col-md-7
+        input.input-default(type="text" value="" name="name" style="width: 149px;" required)
+    .row
+      .col-md-6
+        input.hidden.color-image-file(type="file" name="color_img")
+        input.add-image-btn(type="button")
+      .col-md-6
+        img.color-image(src="/local_storage/default.png")
+    .row.block-center.text-center
+      input.btn-submit(type="submit" value=i18n.__('Save'))

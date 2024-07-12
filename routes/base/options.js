@@ -78,7 +78,7 @@ router.get('/connectors', isAuthenticated, getConnectors);
 /** Mosquitos */
 router.get('/mosquitos', isAuthenticated, getMosquitos);
 /** getDoorhandles */
-router.get('/doorhandles', isAuthenticated, getDoorhandles);
+router.get('/doorhandles', isAuthenticated, doorsHandles);
 
 /** Get aviable laminations for factory */
 function getLaminations (req, res) {
@@ -1725,29 +1725,57 @@ function getMosquitos (req, res) {
   });
 }
 
-function getDoorhandles (req, res) {
+function doorsHandles (req, res) {
   var folderTypeId = 10;
-
-  models.addition_folders.findAll({
-    where: {
-      factory_id: req.session.user.factory_id,
-      addition_type_id: folderTypeId
+  var colorTypeId = 24;
+  Promise.all([getHandlesColor(), getDoorhandles(folderTypeId, req.session.user.factory_id)]).then((results) => {
+    const [handleColorsFolders, doorhandlesFolders] = results;
+    if (handleColorsFolders === null || doorhandlesFolders === null || handleColorsFolders === undefined || doorhandlesFolders === undefined) {
+      res.send('Internal server error.');
+    } else {
+        res.render('base/options/doorhandles', {
+          i18n: i18n,
+          title: i18n.__('Connectors'),
+          doorhandlesFolders: doorhandlesFolders,
+          handleColorsFolders: handleColorsFolders,
+          folderTypeId: folderTypeId,
+          colorTypeId: colorTypeId,
+          cssSrcs: ['/assets/stylesheets/base/options/templates.css'],
+          scriptSrcs: ['/assets/javascripts/vendor/localizer/i18next-1.10.1.min.js',
+                      '/assets/javascripts/base/options/index.js',
+                      '/assets/javascripts/base/options/doorhandles.js']
+        });
     }
-  }).then(function (doorhandlesFolders) {
-    res.render('base/options/doorhandles', {
-      i18n: i18n,
-      title: i18n.__('Connectors'),
-      doorhandlesFolders: doorhandlesFolders,
-      folderTypeId: folderTypeId,
-      cssSrcs: ['/assets/stylesheets/base/options/templates.css'],
-      scriptSrcs: ['/assets/javascripts/vendor/localizer/i18next-1.10.1.min.js',
-                   '/assets/javascripts/base/options/index.js',
-                   '/assets/javascripts/base/options/doorhandles.js']
-    });
+  });  
+}
+
+function getHandlesColor () {
+  return models.addition_colors.findAll({
+    where: {
+      lists_type_id: 24
+    }
+  }).then(function (handleColorsFolders) {
+    return handleColorsFolders;
   }).catch(function (error) {
-    console.log(error);
-    res.send('Internal server error.');
+    console.error(error);
+    return null;
   });
 }
+
+function getDoorhandles (additionalTypeId, factoryId) {
+  return models.addition_folders.findAll({
+    where: {
+      factory_id: factoryId,
+      addition_type_id: additionalTypeId
+    }
+  }).then(function (doorhandlesFolders) {
+      return doorhandlesFolders;
+  }).catch(function (error) {
+    console.error(error);
+    return null;
+  });
+}
+
+
 
 module.exports = router;

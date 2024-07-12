@@ -22,6 +22,7 @@ module.exports = function(app) {
   app.use('/base/doors/hardware', isAuthenticated, require('./base/doorsHardware'));
   app.use('/base/options', require('./base/options'));
   app.use('/base/options/folders', require('./base/options/folders'));
+  app.use('/base/options/colors', require('./base/options/colors'));
   app.use('/base/glazedWindow', isAuthenticated, require('./base/glazedWindow'));
   app.use('/base/hardware', require('./base/hardware'));
   app.use('/base/mosquito', require('./base/mosquito'));

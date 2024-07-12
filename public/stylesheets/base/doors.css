@@ -170,7 +170,9 @@ td.add-dependency-btn {
 /** popups */
 .popup-add-new-group,
 .popup-add-new-folder,
+.popup-add-new-color,
 .popup-edit-folder,
+.popup-edit-color,
 .popup-edit-group {
   width: 320px;
   height: 115px;
