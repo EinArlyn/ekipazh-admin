@@ -23,6 +23,7 @@ router.get('/item/get/:id', isAuthenticated, getItem);
 router.post('/item/edit', isAuthenticated, editItem);
 router.post('/saveBeedWidths/:id', isAuthenticated, saveBeedWidths);
 router.post('/save-additional-folder/:id', isAuthenticated, saveAddtionalFolder);
+router.post('/save-additional-color/:id', isAuthenticated, saveAddtionalColor);
 router.get('/is-push/:id/:groupId', isAuthenticated, checkListAvalabilityAsPush);
 
 function getSet (req, res) {
@@ -103,6 +104,14 @@ function getSet (req, res) {
                                     factory_id: req.session.user.factory_id
                                   }
                                 }).then(function(factoryLaminations) {
+                                  models.addition_colors.findAll({
+                                    where: {
+                                      lists_type_id: 24
+                                    }
+                                  }).then(function(handlesColors) {
+                                    // console.log('LIST',list)
+                                    // console.log('>>>><<<<<<<<',doorhandlesFolders);
+                                  
                                   // models.lock_lists.findAll({
                                   //   where: {
                                   //     list_id: id
@@ -133,6 +142,7 @@ function getSet (req, res) {
                                         connectorsFolders  : connectorsFolders,
                                         // mosquitosFolders   : mosquitosFolders,
                                         doorhandlesFolders : doorhandlesFolders,
+                                        handlesColors      : handlesColors,
                                         hardwareHandles    : hardwareHandles,
                                         factoryLaminations : factoryLaminations,
                                         thisPageLink       : '/base/set/',
@@ -150,6 +160,7 @@ function getSet (req, res) {
                                 }).catch(function(error) {
                                   console.log(error);
                                   res.send('Internal sever error.');
+                                });
                                 });
                               });
                             // });
@@ -446,6 +457,22 @@ function saveAddtionalFolder(req, res) {
   }).then(function(set) {
     set.updateAttributes({
       addition_folder_id: parseInt(folderId)
+    });
+    res.end();
+  }).catch(function(err) {
+    console.log(err);
+    res.end();
+  });
+}
+function saveAddtionalColor(req, res) {
+  var setId = req.params.id;
+  var colorId = req.body.colorId;
+
+  models.lists.findOne({
+    where: { id: setId }
+  }).then(function(set) {
+    set.updateAttributes({
+      add_color_id: parseInt(colorId)
     });
     res.end();
   }).catch(function(err) {

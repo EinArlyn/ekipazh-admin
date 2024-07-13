@@ -1,14 +1,25 @@
 $(function() {
   /** add new folder */
   $('.folder-add').click(addNewFolder);
-  $('.popup-add-folder input.add-image-btn').click(addImage);
-  $('.popup-add-folder input.folder-image-file').change(validateNewImage);
+  $('.popup-add-folder input.add-image-btn').click(addImageFolder);
+  $('.popup-add-folder input.folder-image-file').change(validateNewImageFolder);
   $('form#add-new-connector-folder-form').on('submit', submitFolder);
   /** edit folder */
   $('.btn-edit-folder').click(editFolder);
-  $('.popup-edit-folder input.add-image-btn').click(editImage);
+  $('.popup-edit-folder input.add-image-btn').click(editImageFolder);
   $('.popup-edit-folder input.folder-image-file').change(validateEditedImage);
   $('form#edit-connector-folder-form').on('submit', submitFolder);
+  // edit color
+  $('.color-add').click(addNewColor);
+  $('.popup-add-color input.color-image-file').change(validateNewImageColor);
+  $('.popup-add-color input.add-image-btn').click(addImageColor);
+  $('.popup-edit-color input.add-image-btn').click(editImageColor);
+  $('.btn-edit-color').click(editColor);
+  $('form#edit-connector-color-form').on('submit', submitFolder);
+  $('form#add-new-connector-color-form').on('submit', submitFolder);
+  $('.btn-delete-color').click(removeColor);
+  $('.alert-remove-color input.pop-up-submit-btn').click(submitRemoveColor);
+
   /** remove folder */
   $('.btn-delete-folder').click(removeFolder);
   $('.alert-remove-folder input.pop-up-submit-btn').click(submitRemoveFolder);
@@ -18,20 +29,34 @@ $(function() {
   /** Init popups */
   initPopups([
     '.popup-add-folder',
+    '.popup-add-color',
     '.popup-edit-folder',
-    '.alert-remove-folder'
+    '.popup-edit-color',
+    '.alert-remove-folder',
+    '.alert-remove-color'
   ]);
 
   function addNewFolder (e) {
     $('.popup-add-folder').popup('show');
   }
-
-  function addImage (e) {
-    selectImage('.popup-add-folder');
+  function addNewColor (e) {
+    $('.popup-add-color').popup('show');
   }
 
-  function validateNewImage (e) {
+  function addImageFolder (e) {
+    selectImageFolder('.popup-add-folder');
+  }
+  
+  function addImageColor (e) {
+    selectImageColor('.popup-add-color');
+  }
+
+  function validateNewImageFolder (e) {
     parseImage(e, '.popup-add-folder');
+  }
+  
+  function validateNewImageColor (e) {
+    parseImage(e, '.popup-add-color');
   }
 
   function submitFolder (e) {
@@ -51,7 +76,6 @@ $(function() {
 
   function editFolder (e) {
     var folderId = $(this).attr('data-folder');
-
     $.get('/base/options/folders/get/' + folderId, function (data) {
       if (data.status) {
         $('.popup-edit-folder input[name="folder_id"]').val(data.folder.id);
@@ -64,9 +88,24 @@ $(function() {
       }
     });
   }
+  function editColor (e) {
+    var colorId = $(this).attr('data-color');
+    $.get('/base/options/colors/get/' + colorId, function (data) {
+      if (data.status) {
+        $('.popup-edit-color input[name="color_id"]').val(data.color.id);
+        $('.popup-edit-color input[name="name"]').val(data.color.name);
+        $('.popup-edit-color img.color-image').attr('src', data.color.img);
+        $('.popup-edit-color').popup('show');
+      }
+    })
+  }
 
-  function editImage (e) {
-    selectImage('.popup-edit-folder');
+  function editImageFolder (e) {
+    selectImageFolder('.popup-edit-folder');
+  }
+  
+  function editImageColor (e) {
+    selectImageColor('.popup-edit-color');
   }
 
   function validateEditedImage (e) {
@@ -77,6 +116,12 @@ $(function() {
     var folderId = $(this).attr('data-folder');
     window.localStorage.setItem('folderId', folderId);
     $('.alert-remove-folder').popup('show');
+  }
+
+  function removeColor (e) {
+    var colorId = $(this).attr('data-color');
+    window.localStorage.setItem('colorId', colorId);
+    $('.alert-remove-color').popup('show');
   }
 
   function submitRemoveFolder (e) {
@@ -91,12 +136,28 @@ $(function() {
       }
     })
   }
+  function submitRemoveColor (e) {
+    var colorId = window.localStorage.getItem('colorId');
+    
+    $.post('/base/options/colors/remove', {
+      colorId: colorId
+    }, function (data) {
+      if (data.status) {
+        $('.alert-remove-color').popup('hide');
+        window.location.reload();
+      }
+    })
+  }
 
   /**
    * Utils 
    */
-  function selectImage (popup) {
+  function selectImageFolder (popup) {
     $(popup + ' input.folder-image-file').trigger('click');
+  }
+  
+  function selectImageColor (popup) {
+    $(popup + ' input.color-image-file').trigger('click');
   }
 
   function parseImage (evt, popup) {
