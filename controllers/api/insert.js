@@ -139,9 +139,12 @@ function _setPrices(orderRow, user, factory, childPurchase, seller) {
       var userMountingPrice = 0.00;
       var userDeliveryPrice = 0.00;
 
-      /** mouting + delivery */
+      /** mouting */
       if (parseInt(orderRow.mounting_user_id, 10) === parseInt(user.id, 10) || parseInt(orderRow.mounting_user_id, 10) === parseInt(factory.id, 10)) {
         userMountingPrice = parseFloat(orderRow.mounting_price);
+      }
+      // delivery
+      if (parseInt(orderRow.delivery_user_id, 10) === parseInt(user.id, 10) || parseInt(orderRow.delivery_user_id, 10) === parseInt(factory.id, 10)) {
         userDeliveryPrice = parseFloat(orderRow.floor_price);
       }
 
