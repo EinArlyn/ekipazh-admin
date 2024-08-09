@@ -59,6 +59,43 @@ block content
             td.folder-name.sill-folder-add
               span.folder-add-text
                 =i18n.__("Add +")
+  form(method='post', action='/base/option/save', id="main-form")
+    .window-sills-option.checked-option
+      .main-header
+        span.header
+          =i18n.__('Color')
+      .main-content
+        table.sill-folders-table(cellspasing="0", cellpadding="0", border="0")
+          if (sillsColorsFolders.length)
+            each sillsColorFolder in sillsColorsFolders
+              tr.folder-tr
+                td.folder-name
+                  span.folder-text
+                    =sillsColorFolder.name
+                td.folder-img
+                  .glass-img-wraper
+                    img(src=(sillsColorFolder.img ? sillsColorFolder.img : '/local_storage/default.png'), alt="")
+                td.folder-description
+                  =i18n.__('Description')
+                  | :
+                  .description-wraper
+                    =sillsColorFolder.description
+                  .edit-wrap
+                    .btn-delete-color(data-color=sillsColorFolder.id)
+                    .btn-edit-color(data-color=sillsColorFolder.id)
+          else
+            tr.folder-tr
+              td.sill-folder-not-exist(calspan="4")
+                span.folder-add-text
+                  =i18n.__('Empty')
+          tr.folder-tr
+            td.folder-name.color-add
+              span.folder-add-text
+                =i18n.__("Add +")
   include includes/options-add-new-sill-folder-popup.jade
   include includes/options-edit-sill-folder-popup.jade
   include includes/alert-delete-sill-folder.jade
+  include ./includes/popups/add-color.jade
+  include ./includes/popups/edit-color.jade
+  include ./includes/popups/alert-remove-color.jade
+ 

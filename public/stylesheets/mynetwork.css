@@ -880,9 +880,9 @@ img#option-user-avatar {
   float: left;
   position: absolute;
   top: 5%;
-  left: 5%
+  left: 5%;
   bottom: 5%;
-  right: 5%
+  right: 5%;
 }
 
 .radio-buttons,
@@ -1398,7 +1398,7 @@ tr.add-delivery {
           padding-left: 5px;
         }
 
-        .mounting-title-type-td.
+        .mounting-title-type-td
         .delivery-title-type-td {
           max-width: 170px;
         }

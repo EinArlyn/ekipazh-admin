@@ -140,7 +140,8 @@ tr.folder-tr {
         -o-text-overflow: ellipsis;
       }
 
-    td.spillway-folder-add {
+    td.spillway-folder-add,
+    td.color-add {
       background-color: #d0d0d0;
       color: #767676;
       font-size: 12px;
@@ -151,7 +152,8 @@ tr.folder-tr {
       transition: background-color 0.5s;
     }
 
-    td.spillway-folder-add:hover{
+    td.spillway-folder-add:hover,
+    td.color-add:hover{
       background-color: #e1e1e1;
       cursor: pointer;
     }
@@ -166,7 +168,7 @@ tr.folder-tr {
         width: 355px;
       }
 
-        .btn-edit-folder {
+        .btn-edit-folder,.btn-edit-color {
           float: right;
           margin-top: -84px;
           margin-right: -85px;
@@ -175,12 +177,12 @@ tr.folder-tr {
           background-image: url('/assets/images/hardwares/edit_inactive.png');
         }
 
-        .btn-edit-folder:hover {
+        .btn-edit-folder:hover,.btn-edit-color:hover {
           cursor: pointer;
           background-image: url('/assets/images/hardwares/edit_active.png');
         }
 
-        .btn-delete-folder {
+        .btn-delete-folder,.btn-delete-color {
           float: right;
           margin-top: -54px;
           margin-right: -83px;
@@ -189,7 +191,7 @@ tr.folder-tr {
           background-image: url('/assets/images/remove_btn.png');
         }
 
-        .btn-delete-folder:hover {
+        .btn-delete-folder:hover,.btn-delete-color:hover {
           cursor: pointer;
         }
 
@@ -202,6 +204,16 @@ tr.folder-tr {
   /** popups */
   .pop-up {
     display: none;
+  }
+  .popup-add-color,
+  .popup-edit-color {
+    width: 350px;
+    height: 200px;
+    border: 1px solid #e5e5e5;
+    border-radius: 5px;
+    background-color: #e4e4e4;
+    padding: 0 30px;
+    font-size: 12px;
   }
 
     .content-block {

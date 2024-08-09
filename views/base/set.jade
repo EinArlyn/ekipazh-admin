@@ -159,6 +159,26 @@ block content
                   option(value="0" selected)=i18n.__('Not exist')
                   each handlesColor in handlesColors
                     option(value=handlesColor.id selected=(list.add_color_id === handlesColor.id ? 'selected' : undefined))=handlesColor.name
+            .sill-color.hidden.additional-folders
+              span.additional-text-align
+                =i18n.__('Color')
+                | :
+              br
+              span.additional-select-align
+                select.select-default#sill-group-color(style="width: 225px; margin-top: 5px; margin-bottom: 5px;")
+                  option(value="0" selected)=i18n.__('Not exist')
+                  each sillColor in windowSillsColors
+                    option(value=sillColor.id selected=(list.add_color_id === sillColor.id ? 'selected' : undefined))=sillColor.name
+            .spillway-color.hidden.additional-folders
+              span.additional-text-align
+                =i18n.__('Color')
+                | :
+              br
+              span.additional-select-align
+                select.select-default#spillway-group-color(style="width: 225px; margin-top: 5px; margin-bottom: 5px;")
+                  option(value="0" selected)=i18n.__('Not exist')
+                  each spillwayColor in spillwaysColors
+                    option(value=spillwayColor.id selected=(list.add_color_id === spillwayColor.id ? 'selected' : undefined))=spillwayColor.name
         hr.opener
         .opener.frame-content-open
           a(href="#", class="open-button-frame")
@@ -239,6 +259,10 @@ block content
               =i18n.__('Waste')
               | : 
               input(class="min-input", type="text", name="waste", value=(list.waste ? list.waste : '0.0'))
+            span#size
+              =i18n.__('Size')
+              | : 
+              input(class="min-input", type="text", name="size", value=(list.size ? list.size : '0.0'))
         .main-furniture
           if (hardwareHandles)
             -var constatValue = hardwareHandles.constant_value

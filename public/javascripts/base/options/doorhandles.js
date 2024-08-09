@@ -7,13 +7,14 @@ $(function() {
   /** edit folder */
   $('.btn-edit-folder').click(editFolder);
   $('.popup-edit-folder input.add-image-btn').click(editImageFolder);
-  $('.popup-edit-folder input.folder-image-file').change(validateEditedImage);
+  $('.popup-edit-folder input.folder-image-file').change(validateEditedImageFolder);
   $('form#edit-connector-folder-form').on('submit', submitFolder);
   // edit color
   $('.color-add').click(addNewColor);
   $('.popup-add-color input.color-image-file').change(validateNewImageColor);
   $('.popup-add-color input.add-image-btn').click(addImageColor);
   $('.popup-edit-color input.add-image-btn').click(editImageColor);
+  $('.popup-edit-color input.color-image-file').change(validateEditedImageColor);
   $('.btn-edit-color').click(editColor);
   $('form#edit-connector-color-form').on('submit', submitFolder);
   $('form#add-new-connector-color-form').on('submit', submitFolder);
@@ -108,8 +109,11 @@ $(function() {
     selectImageColor('.popup-edit-color');
   }
 
-  function validateEditedImage (e) {
+  function validateEditedImageFolder (e) {
     parseImage(e, '.popup-edit-folder');
+  }
+  function validateEditedImageColor (e) {
+    parseImage(e, '.popup-edit-color');
   }
 
   function removeFolder (e) {

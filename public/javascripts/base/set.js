@@ -153,6 +153,23 @@ $(function () {
       $("#amendment_pruning").show();
     }
 
+    if (group == 8 || group == 9) {
+      $("#size").show();
+    } else {
+      $("#size").hide();  
+    }
+    if (group == 8) {
+      $(".sill-color").show();
+    } else {
+      $(".sill-color").hide();
+    } 
+    if (group == 9) {
+      $(".spillway-color").show();
+    } else {
+      $(".spillway-color").hide();
+    }
+
+
     if (group == 8) {
       $('.additional-sills').show();
     } else if (group == 9) {
@@ -608,9 +625,13 @@ $(function () {
     if (groupId == 8) {
       additionalFolderId = $('#sills-group').val();
       _saveAdditionalFolder(setId, additionalFolderId);
+      additionalFolderId = $('#sill-group-color').val();
+      _saveAdditionalColor(setId, additionalFolderId);
     } else if (groupId == 9) {
       additionalFolderId = $('#spillways-group').val();
       _saveAdditionalFolder(setId, additionalFolderId);
+      additionalFolderId = $('#spillway-group-color').val();
+      _saveAdditionalColor(setId, additionalFolderId);
     } else if (groupId == 21) {
       additionalFolderId = $('#visors-group').val();
       _saveAdditionalFolder(setId, additionalFolderId);

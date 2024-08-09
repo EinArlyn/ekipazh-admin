@@ -450,14 +450,14 @@ module.exports = function (req, res) {
         },
         function (callback) {
           /** lists */
-          models.sequelize.query("SELECT L.id, L.name, L.list_group_id, L.list_type_id, L.a, L.b, L.c, L.d, L.e, L.parent_element_id, L.position, L.add_color_id, L.modified, L.addition_folder_id, L.amendment_pruning, L.waste, L.cameras, L.link, L.description, L.img, L.beed_lamination_id, L.in_door, L.doorstep_type, L.glass_type, L.glass_image, L.is_push, L.glass_color " +
+          models.sequelize.query("SELECT L.id, L.name, L.list_group_id, L.list_type_id, L.a, L.b, L.c, L.d, L.e, L.parent_element_id, L.position, L.add_color_id, L.modified, L.addition_folder_id, L.amendment_pruning, L.waste, L.size, L.cameras, L.link, L.description, L.img, L.beed_lamination_id, L.in_door, L.doorstep_type, L.glass_type, L.glass_image, L.is_push, L.glass_color " +
             "FROM lists L " +
             "JOIN elements E " +
             "ON L.parent_element_id = E.id " +
             "WHERE E.factory_id = " + factory_id +
             "").then(function (lists) {
               tables.lists = {};
-              tables.lists.fields = ["id", "name", "list_group_id", "list_type_id", "a", "b", "c", "d", "e", "parent_element_id", "position", "add_color_id", "modified", "addition_folder_id", "amendment_pruning", "waste", "cameras", "link", "description", "img", "beed_lamination_id", "in_door", "doorstep_type", "glass_type", "glass_image", "is_push", "glass_color"];
+              tables.lists.fields = ["id", "name", "list_group_id", "list_type_id", "a", "b", "c", "d", "e", "parent_element_id", "position", "add_color_id", "modified", "addition_folder_id", "amendment_pruning", "waste", "size", "cameras", "link", "description", "img", "beed_lamination_id", "in_door", "doorstep_type", "glass_type", "glass_image", "is_push", "glass_color"];
               sortQueries(lists[0], function (values) {
                 var listIds = [];
                 for (var i = 0, len = values.length; i < len; i++) {

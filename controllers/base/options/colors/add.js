@@ -10,7 +10,7 @@ module.exports = function (req, res) {
 
     models.addition_colors.create({
       name: fields.name,
-      lists_type_id: 24,
+      lists_type_id: fields.type_id,
       modified: new Date(),
       img: '/local_storage/default.png',
     }).then(function(newColor) {      

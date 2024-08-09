@@ -435,22 +435,45 @@ function removeGlassFolder(req, res) {
   }
 
 /** Get window sills */
-function getWindowSills(req, res) {
-  models.addition_folders.findAll({
-    where: {factory_id: req.session.user.factory_id, addition_type_id: 8}
-  }).then(function(sillsFolders) {
-    res.render('base/options/window-sills', {
-      i18n               : i18n,
-      title              : i18n.__('Options'),
-      sillsFolders       : sillsFolders,
-      thisPageLink       : '/base/options/',
-      cssSrcs            : ['/assets/stylesheets/base/options.css'],
-      scriptSrcs          : ['/assets/javascripts/vendor/localizer/i18next-1.10.1.min.js', '/assets/javascripts/base/options.js']
-    });
-  }).catch(function(err) {
-    console.log(err);
-    res.send('Internal server error.')
-  });
+// подоконники
+// function getWindowSills(req, res) {
+//   models.addition_folders.findAll({
+//     where: {factory_id: req.session.user.factory_id, addition_type_id: 8}
+//   }).then(function(sillsFolders) {
+//     res.render('base/options/window-sills', {
+//       i18n               : i18n,
+//       title              : i18n.__('Options'),
+//       sillsFolders       : sillsFolders,
+//       thisPageLink       : '/base/options/',
+//       cssSrcs            : ['/assets/stylesheets/base/options.css'],
+//       scriptSrcs          : ['/assets/javascripts/vendor/localizer/i18next-1.10.1.min.js', '/assets/javascripts/base/options.js']
+//     });
+//   }).catch(function(err) {
+//     console.log(err);
+//     res.send('Internal server error.')
+//   });
+// }
+function getWindowSills (req, res) {
+  var folderTypeId = 8;
+  var colorTypeId = 32;
+  Promise.all([getColor(colorTypeId), getAdditionFolder(folderTypeId, req.session.user.factory_id)]).then((results) => {
+    const [sillsColorsFolders, sillsFolders] = results;
+    if (sillsColorsFolders === null || sillsFolders === null || sillsColorsFolders === undefined || sillsFolders === undefined) {
+      res.send('Internal server error.');
+    } else {
+        res.render('base/options/window-sills', {
+          i18n                : i18n,
+          title               : i18n.__('Options'),
+          sillsFolders        : sillsFolders,
+          sillsColorsFolders  : sillsColorsFolders,
+          folderTypeId        : folderTypeId,
+          colorTypeId         : colorTypeId,
+          thisPageLink        : '/base/options/',
+          cssSrcs             : ['/assets/stylesheets/base/options.css'],
+          scriptSrcs          : ['/assets/javascripts/vendor/localizer/i18next-1.10.1.min.js', '/assets/javascripts/base/options.js']
+        });
+    }
+  });  
 }
 
 /**
@@ -647,22 +670,45 @@ function saveSillFolder(req, res) {
 /**
  * Get spillways folders
  */
+// отливы
+// function getSpillways(req, res) {
+//   models.addition_folders.findAll({
+//     where: {factory_id: req.session.user.factory_id, addition_type_id: 9}
+//   }).then(function(spillwaysFolders) {
+//     res.render('base/options/spillways', {
+//       i18n               : i18n,
+//       title              : i18n.__('Options'),
+//       spillwaysFolders   : spillwaysFolders,
+//       thisPageLink       : '/base/options/',
+//       cssSrcs            : ['/assets/stylesheets/base/options/spillways.css'],
+//       scriptSrcs          : ['/assets/javascripts/vendor/localizer/i18next-1.10.1.min.js', '/assets/javascripts/base/options/spillways.js']
+//     });
+//   }).catch(function(err) {
+//     console.log(err);
+//     res.send('Internal server error.')
+//   });
+// }
 function getSpillways(req, res) {
-  models.addition_folders.findAll({
-    where: {factory_id: req.session.user.factory_id, addition_type_id: 9}
-  }).then(function(spillwaysFolders) {
-    res.render('base/options/spillways', {
-      i18n               : i18n,
-      title              : i18n.__('Options'),
-      spillwaysFolders   : spillwaysFolders,
-      thisPageLink       : '/base/options/',
-      cssSrcs            : ['/assets/stylesheets/base/options/spillways.css'],
-      scriptSrcs          : ['/assets/javascripts/vendor/localizer/i18next-1.10.1.min.js', '/assets/javascripts/base/options/spillways.js']
-    });
-  }).catch(function(err) {
-    console.log(err);
-    res.send('Internal server error.')
-  });
+  var folderTypeId = 9;
+  var colorTypeId = 33;
+  Promise.all([getColor(colorTypeId), getAdditionFolder(folderTypeId, req.session.user.factory_id)]).then((results) => {
+    const [spillwaysColorsFolders, spillwaysFolders] = results;
+    if (spillwaysColorsFolders === null || spillwaysFolders === null || spillwaysColorsFolders === undefined || spillwaysFolders === undefined) {
+      res.send('Internal server error.');
+    } else {
+        res.render('base/options/spillways', {
+          i18n                    : i18n,
+          title                   : i18n.__('Options'),
+          spillwaysFolders        : spillwaysFolders,
+          spillwaysColorsFolders  : spillwaysColorsFolders,
+          folderTypeId            : folderTypeId,
+          colorTypeId             : colorTypeId,
+          thisPageLink            : '/base/options/',
+          cssSrcs                 : ['/assets/stylesheets/base/options/spillways.css'],
+          scriptSrcs              : ['/assets/javascripts/vendor/localizer/i18next-1.10.1.min.js', '/assets/javascripts/base/options/spillways.js']
+        });
+    }
+  });  
 }
 
 /**
@@ -1724,35 +1770,70 @@ function getMosquitos (req, res) {
     res.send('Internal server error.');
   });
 }
-
+// ручки
 function doorsHandles (req, res) {
   var folderTypeId = 10;
   var colorTypeId = 24;
-  Promise.all([getHandlesColor(), getDoorhandles(folderTypeId, req.session.user.factory_id)]).then((results) => {
+  Promise.all([getColor(colorTypeId), getAdditionFolder(folderTypeId, req.session.user.factory_id)]).then((results) => {
     const [handleColorsFolders, doorhandlesFolders] = results;
     if (handleColorsFolders === null || doorhandlesFolders === null || handleColorsFolders === undefined || doorhandlesFolders === undefined) {
       res.send('Internal server error.');
     } else {
         res.render('base/options/doorhandles', {
-          i18n: i18n,
-          title: i18n.__('Connectors'),
-          doorhandlesFolders: doorhandlesFolders,
-          handleColorsFolders: handleColorsFolders,
-          folderTypeId: folderTypeId,
-          colorTypeId: colorTypeId,
-          cssSrcs: ['/assets/stylesheets/base/options/templates.css'],
-          scriptSrcs: ['/assets/javascripts/vendor/localizer/i18next-1.10.1.min.js',
-                      '/assets/javascripts/base/options/index.js',
-                      '/assets/javascripts/base/options/doorhandles.js']
+          i18n                : i18n,
+          title               : i18n.__('Connectors'),
+          doorhandlesFolders  : doorhandlesFolders,
+          handleColorsFolders : handleColorsFolders,
+          folderTypeId        : folderTypeId,
+          colorTypeId         : colorTypeId,
+          cssSrcs             : ['/assets/stylesheets/base/options/templates.css'],
+          scriptSrcs          : ['/assets/javascripts/vendor/localizer/i18next-1.10.1.min.js',
+                                '/assets/javascripts/base/options/index.js',
+                                '/assets/javascripts/base/options/doorhandles.js']
         });
     }
   });  
 }
 
-function getHandlesColor () {
+// function getWindowSills(req, res) {
+//   models.addition_folders.findAll({
+//     where: {factory_id: req.session.user.factory_id, addition_type_id: 8}
+//   }).then(function(sillsFolders) {
+//     res.render('base/options/window-sills', {
+//       i18n               : i18n,
+//       title              : i18n.__('Options'),
+//       sillsFolders       : sillsFolders,
+//       thisPageLink       : '/base/options/',
+//       cssSrcs            : ['/assets/stylesheets/base/options.css'],
+//       scriptSrcs         : ['/assets/javascripts/vendor/localizer/i18next-1.10.1.min.js', '/assets/javascripts/base/options.js']
+//     });
+//   }).catch(function(err) {
+//     console.log(err);
+//     res.send('Internal server error.')
+//   });
+// }
+// function getSpillways(req, res) {
+//   models.addition_folders.findAll({
+//     where: {factory_id: req.session.user.factory_id, addition_type_id: 9}
+//   }).then(function(spillwaysFolders) {
+//     res.render('base/options/spillways', {
+//       i18n               : i18n,
+//       title              : i18n.__('Options'),
+//       spillwaysFolders   : spillwaysFolders,
+//       thisPageLink       : '/base/options/',
+//       cssSrcs            : ['/assets/stylesheets/base/options/spillways.css'],
+//       scriptSrcs         : ['/assets/javascripts/vendor/localizer/i18next-1.10.1.min.js', '/assets/javascripts/base/options/spillways.js']
+//     });
+//   }).catch(function(err) {
+//     console.log(err);
+//     res.send('Internal server error.')
+//   });
+// }
+
+function getColor (colorId) {
   return models.addition_colors.findAll({
     where: {
-      lists_type_id: 24
+      lists_type_id: colorId
     }
   }).then(function (handleColorsFolders) {
     return handleColorsFolders;
@@ -1762,7 +1843,7 @@ function getHandlesColor () {
   });
 }
 
-function getDoorhandles (additionalTypeId, factoryId) {
+function getAdditionFolder (additionalTypeId, factoryId) {
   return models.addition_folders.findAll({
     where: {
       factory_id: factoryId,
