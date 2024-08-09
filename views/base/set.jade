@@ -262,7 +262,7 @@ block content
             span#size
               =i18n.__('Size')
               | : 
-              input(class="min-input", type="text", name="size", value=(list.size ? list.size : '0.0'))
+              input(class="min-input", type="text", name="size", value=(list.size))
         .main-furniture
           if (hardwareHandles)
             -var constatValue = hardwareHandles.constant_value

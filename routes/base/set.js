@@ -110,7 +110,7 @@ function getSet (req, res) {
                                     }).then(function(windowSillsColors) {
                                       models.addition_colors.findAll({ where: {lists_type_id: 33}
                                       }).then(function(spillwaysColors) {
-
+                                        console.log('}}}}}}}}}}}}}}}}0', list);
                                         res.render('base/set', {
                                           i18n               : i18n,
                                           title              : i18n.__('Edit set'),
@@ -124,6 +124,7 @@ function getSet (req, res) {
                                           spillwaysFolders   : spillwaysFolders,
                                           visorsFolders      : visorsFolders,
                                           connectorsFolders  : connectorsFolders,
+                                          size               : list.size,
                                           // mosquitosFolders   : mosquitosFolders,
                                           doorhandlesFolders : doorhandlesFolders,
                                           handlesColors      : handlesColors,
