@@ -970,7 +970,7 @@ module.exports = function (req, res) {
                 /** lists */
                 models.sequelize
                   .query(
-                    "SELECT L.id, L.name, L.list_group_id, L.list_type_id, L.a, L.b, L.c, L.d, L.e, L.parent_element_id, L.position, L.add_color_id, L.modified, L.addition_folder_id, L.amendment_pruning, L.waste, L.cameras, L.link, L.description, L.img, L.beed_lamination_id, L.in_door, L.doorstep_type, L.glass_type, L.glass_image, L.is_push, L.glass_color " +
+                    "SELECT L.id, L.name, L.list_group_id, L.list_type_id, L.a, L.b, L.c, L.d, L.e, L.parent_element_id, L.position, L.add_color_id, L.modified, L.addition_folder_id, L.amendment_pruning, L.waste, L.cameras, L.link, L.description, L.img, L.beed_lamination_id, L.in_door, L.doorstep_type, L.glass_type, L.glass_image, L.is_push, L.glass_color, L.size " +
                       "FROM lists L " +
                       "JOIN elements E " +
                       "ON L.parent_element_id = E.id " +
@@ -1008,6 +1008,7 @@ module.exports = function (req, res) {
                       "glass_image",
                       "is_push",
                       "glass_color",
+                      "size",
                     ];
                     sortQueries(lists[0], function (values) {
                       var listIds = [];
@@ -1440,155 +1441,96 @@ module.exports = function (req, res) {
                     callback(null);
                   });
                 });
-              });
-            });
-          });
-        },
-        function (callback) {
-          /** elements */
-          models.elements.findAll({
-            where: { factory_id: factory_id },
-            attributes: ["id", "sku", "name", "element_group_id", "currency_id", "supplier_id", "margin_id", "waste", "is_optimized", "is_virtual", "is_additional", "weight_accounting_unit", "glass_folder_id", "min_width", "min_height", "max_width", "max_height", "max_sq", "transcalency", "glass_width", "factory_id", "price", "amendment_pruning", "modified", "noise_coeff", "heat_coeff", "lamination_in_id", "lamination_out_id", "reg_coeff"]
-          }).then(function (elements) {
-            tables.elements = {};
-            tables.elements.fields = ["id", "sku", "name", "element_group_id", "currency_id", "supplier_id", "margin_id", "waste", "is_optimized", "is_virtual", "is_additional", "weight_accounting_unit", "glass_folder_id", "min_width", "min_height", "max_width", "max_height", "max_sq", "transcalency", "glass_width", "factory_id", "price", "amendment_pruning", "modified", "noise_coeff", "heat_coeff", "lamination_in_id", "lamination_out_id", "reg_coeff"];
-            sortValues(elements, function (values) {
-              tables.elements.rows = values;
-              callback(null);
-            });
-          });
-        },
-        function (callback) {
-          /** elements_groups */
-          models.elements_groups.findAll()
-            .then(function (elements_groups) {
-              tables.elements_groups = {};
-              tables.elements_groups.fields = ['modified', 'position', 'base_unit', 'name', 'id'];
-              sortValues(elements_groups, function (values) {
-                tables.elements_groups.rows = values;
-                callback(null);
-              });
-            });
-        },
-        function (callback) {
-          /** elements_profile_systems */
-          models.sequelize.query("SELECT PS.id, PS.profile_system_id, PS.element_id, PS.modified " +
-            "FROM elements_profile_systems PS " +
-            "JOIN elements E " +
-            "ON PS.element_id = E.id " +
-            "WHERE E.factory_id = " + parseInt(factory_id) +
-            "").then(function (elements_profile_systems) {
-              tables.elements_profile_systems = {};
-              tables.elements_profile_systems.fields = ["id", "profile_system_id", "element_id", "modified"];
-              sortQueries(elements_profile_systems[0], function (values) {
-                tables.elements_profile_systems.rows = values;
-                callback(null);
-              });
-            });
-        },
-        function (callback) {
-          /** window_hardware_profile_systems */
-          models.sequelize.query("SELECT PS.id, PS.profile_system_id, PS.window_hardware_group_id, PS.modified " +
-            "FROM window_hardware_profile_systems PS " +
-            "JOIN window_hardware_groups E " +
-            "ON PS.window_hardware_group_id = E.id " +
-            "JOIN window_hardware_folders F " +
-            "ON E.folder_id = F.id " +
-            "WHERE F.factory_id = " + parseInt(factory_id) +
-            "").then(function (window_hardware_profile_systems) {
-              tables.window_hardware_profile_systems = {};
-              tables.window_hardware_profile_systems.fields = ["id", "profile_system_id", "window_hardware_group_id", "modified"];
-              sortQueries(window_hardware_profile_systems[0], function (values) {
-                tables.window_hardware_profile_systems.rows = values;
-                callback(null);
-              });
-            });
-        },
-        function (callback) {
-          /** factories */
-          models.factories.find({
-            where: {
-              id: factory_id
-            },
-            attributes: ["id", "name", "modified", "app_token", "link", "therm_coeff_id", "max_construct_square", "max_construct_size"]
-          })
-            .then(function (factory) {
-              tables.factories = {};
-              tables.factories.fields = ["id", "name", "modified", "app_token", "link", "therm_coeff_id", "max_construct_square", "max_construct_size"];
-              mapSingleton(tables.factories.fields, factory, function (values) {
-                tables.factories.rows = values;
-                callback(null);
-              });
-            });
-        },
-        function (callback) {
-          /** glass_folders */
-          models.glass_folders.findAll({
-            where: { factory_id: factory_id }
-          })
-            .then(function (glass_folders) {
-              tables.glass_folders = {};
-              tables.glass_folders.fields = ['is_base', 'link', 'description', 'img', 'factory_id', 'modified', 'position', 'name', 'id'];
-              sortValues(glass_folders, function (values) {
-                tables.glass_folders.rows = values;
-                callback(null);
-              });
-            });
-        },
-        function (callback) {
-          // lamination_factory_colors
-          models.lamination_factory_colors.findAll({
-            where: { factory_id: factory_id }
-          })
-            .then(function (lamination_factory_colors) {
-              tables.lamination_factory_colors = {};
-              tables.lamination_factory_colors.fields = ['factory_id', 'lamination_type_id', 'name', 'id'];
-              sortValues(lamination_factory_colors, function (values) {
-                tables.lamination_factory_colors.rows = values;
-                callback(null);
-              });
-            });
-        },
-        function (callback) {
-          /** lamination_types */
-          models.lamination_types.findAll()
-            .then(function (lamination_types) {
-              tables.lamination_types = {};
-              tables.lamination_types.fields = ['modified', 'name', 'id'];
-              sortValues(lamination_types, function (values) {
-                tables.lamination_types.rows = values;
-                callback(null);
-              });
-            });
-        },
-        function (callback) {
-          /** lists */
-          models.sequelize.query("SELECT L.id, L.name, L.list_group_id, L.list_type_id, L.a, L.b, L.c, L.d, L.e, L.parent_element_id, L.position, L.add_color_id, L.modified, L.addition_folder_id, L.amendment_pruning, L.waste, L.size, L.cameras, L.link, L.description, L.img, L.beed_lamination_id, L.in_door, L.doorstep_type, L.glass_type, L.glass_image, L.is_push, L.glass_color " +
-            "FROM lists L " +
-            "JOIN elements E " +
-            "ON L.parent_element_id = E.id " +
-            "WHERE E.factory_id = " + factory_id +
-            "").then(function (lists) {
-              tables.lists = {};
-              tables.lists.fields = ["id", "name", "list_group_id", "list_type_id", "a", "b", "c", "d", "e", "parent_element_id", "position", "add_color_id", "modified", "addition_folder_id", "amendment_pruning", "waste", "size", "cameras", "link", "description", "img", "beed_lamination_id", "in_door", "doorstep_type", "glass_type", "glass_image", "is_push", "glass_color"];
-              sortQueries(lists[0], function (values) {
-                var listIds = [];
-                for (var i = 0, len = values.length; i < len; i++) {
-                  //values[i].length = 15;
-                  listIds.push(values[i][0]);
-                }
-                setTimeout(function () {
-                  tables.lists.rows = values;
-                  models.list_contents.findAll({
-                    where: { parent_list_id: { in: listIds } },
-                    attributes: ['rounding_value', 'rounding_type', 'modified', 'lamination_type_id', 'window_hardware_color_id', 'direction_id', 'rules_type_id', 'value', 'child_type', 'child_id', 'parent_list_id', 'id']
-                  }).then(function (list_contents) {
-                    tables.list_contents = {};
-                    tables.list_contents.fields = ['rounding_value', 'rounding_type', 'modified', 'lamination_type_id', 'window_hardware_color_id', 'direction_id', 'rules_type_id', 'value', 'child_type', 'child_id', 'parent_list_id', 'id'];
-                    sortValues(list_contents, function (values) {
-                      tables.list_contents.rows = values;
-                      /** lock_lists */
-                      models.lock_lists.findAll({
+              },
+              function (callback) {
+                /** template_groups */
+                models.template_groups
+                  .findAll()
+                  .then(function (template_groups) {
+                    tables.template_groups = {};
+                    tables.template_groups.fields = ["name", "id"];
+                    sortValues(template_groups, function (values) {
+                      tables.template_groups.rows = values;
+                      callback(null);
+                    });
+                  });
+              },
+              function (callback) {
+                /** users_discounts */
+                models.users_discounts
+                  .findAll({
+                    where: { user_id: userId },
+                  })
+                  .then(function (users_discounts) {
+                    tables.users_discounts = {};
+                    tables.users_discounts.fields = [
+                      "week_8_add_elem",
+                      "week_8_construct",
+                      "week_7_add_elem",
+                      "week_7_construct",
+                      "week_6_add_elem",
+                      "week_6_construct",
+                      "week_5_add_elem",
+                      "week_5_construct",
+                      "week_4_add_elem",
+                      "week_4_construct",
+                      "week_3_add_elem",
+                      "week_3_construct",
+                      "week_2_add_elem",
+                      "week_2_construct",
+                      "week_1_add_elem",
+                      "week_1_construct",
+                      "default_add_elem",
+                      "default_construct",
+                      "max_add_elem",
+                      "max_construct",
+                      "user_id",
+                      "id",
+                    ];
+                    sortValues(users_discounts, function (values) {
+                      tables.users_discounts.rows = values;
+                      callback(null);
+                    });
+                  });
+              },
+              function (callback) {
+                /** users_markups */
+                models.sequelize
+                  .query(
+                    "SELECT max_construct, max_add_elem " +
+                      "FROM users_markups " +
+                      "WHERE users_markups.user_id = " +
+                      parseInt(userId) +
+                      ""
+                  )
+                  .then(function (users_markups) {
+                    tables.users_markups = {};
+                    tables.users_markups.fields = [
+                      "max_construct",
+                      "max_add_elem",
+                    ];
+                    sortQueries(users_markups[0], function (values) {
+                      tables.users_markups.rows = values;
+                      callback(null);
+                    });
+                  });
+              },
+              function (callback) {
+                /** users_mountings */
+                models.deactivated_mountings
+                  .findAll({
+                    where: { user_id: userId },
+                    attributes: ["mounting_id"],
+                  })
+                  .then(function (deactivatedMountings) {
+                    var deactivatedMountingsIds = deactivatedMountings.map(
+                      function (mounting) {
+                        return mounting.mounting_id;
+                      }
+                    );
+                    deactivatedMountingsIds.push(-1);
+                    models.users_mountings
+                      .findAll({
                         where: {
                           id: {
                             $notIn: deactivatedMountingsIds,
