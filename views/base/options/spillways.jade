@@ -59,6 +59,43 @@ block content
             td.folder-name.spillway-folder-add
               span.folder-add-text
                 =i18n.__("Add +")
+  form(method='post', action='/base/option/save', id="main-form")
+    .spillways-option.checked-option
+      .main-header
+        span.header
+          =i18n.__('Color')
+      .main-content
+        table.spillway-folders-table(cellspasing="0", cellpadding="0", border="0")
+          if (spillwaysColorsFolders.length)
+            each spillwaysColorFolder in spillwaysColorsFolders
+              tr.folder-tr
+                td.folder-name
+                  span.folder-text
+                    =spillwaysColorFolder.name
+                td.folder-img
+                  .glass-img-wraper
+                    img(src=(spillwaysColorFolder.img ? spillwaysColorFolder.img : '/local_storage/default.png'), alt="")
+                td.folder-description
+                  =i18n.__('Description')
+                  | :
+                  .description-wraper
+                    =spillwaysColorFolder.description
+                  .edit-wrap
+                    .btn-delete-color(data-color=spillwaysColorFolder.id)
+                    .btn-edit-color(data-color=spillwaysColorFolder.id)
+          else
+            tr.folder-tr
+              td.folder-not-exist(calspan="4")
+                span.folder-add-text
+                  =i18n.__('Empty')
+          tr.folder-tr
+            td.folder-name.color-add
+              span.folder-add-text
+                =i18n.__("Add +")
   include includes/options-add-new-spillway-folder-popup.jade
   include includes/options-edit-spillway-folder-popup.jade
   include includes/alert-delete-spillway-folder.jade
+  include ./includes/popups/add-color.jade
+  include ./includes/popups/edit-color.jade
+  include ./includes/popups/alert-remove-color.jade
+ 

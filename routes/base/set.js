@@ -104,11 +104,42 @@ function getSet (req, res) {
                                     factory_id: req.session.user.factory_id
                                   }
                                 }).then(function(factoryLaminations) {
-                                  models.addition_colors.findAll({
-                                    where: {
-                                      lists_type_id: 24
-                                    }
+                                  models.addition_colors.findAll({ where: {lists_type_id: 24}
                                   }).then(function(handlesColors) {
+                                    models.addition_colors.findAll({ where: {lists_type_id: 32}
+                                    }).then(function(windowSillsColors) {
+                                      models.addition_colors.findAll({ where: {lists_type_id: 33}
+                                      }).then(function(spillwaysColors) {
+
+                                        res.render('base/set', {
+                                          i18n               : i18n,
+                                          title              : i18n.__('Edit set'),
+                                          list               : list,
+                                          parent_element     : parent_element,
+                                          lists_groups       : lists_groups,
+                                          lists_types        : lists_types,
+                                          elementsChilds     : elementsChilds,
+                                          listsChilds        : listsChilds,
+                                          windowSillsFolders : windowSillsFolders,
+                                          spillwaysFolders   : spillwaysFolders,
+                                          visorsFolders      : visorsFolders,
+                                          connectorsFolders  : connectorsFolders,
+                                          // mosquitosFolders   : mosquitosFolders,
+                                          doorhandlesFolders : doorhandlesFolders,
+                                          handlesColors      : handlesColors,
+                                          windowSillsColors  : windowSillsColors,
+                                          spillwaysColors    : spillwaysColors,
+                                          hardwareHandles    : hardwareHandles,
+                                          factoryLaminations : factoryLaminations,
+                                          thisPageLink       : '/base/set/',
+                                          cssSrcs            : ['/assets/stylesheets/base/set.css'],
+                                          scriptSrcs         : ['/assets/javascripts/vendor/localizer/i18next-1.10.1.min.js', '/assets/javascripts/vendor/imagePicker/image-picker.min.js', '/assets/javascripts/base/set.js']
+                                        });
+                                      }).catch(function(error) {
+                                        console.log(error);
+                                        res.send('Internal sever error.');
+                                      });
+                                    });
                                     // console.log('LIST',list)
                                     // console.log('>>>><<<<<<<<',doorhandlesFolders);
                                   
@@ -127,28 +158,7 @@ function getSet (req, res) {
                                     //   'WHERE E.factory_id=' + parseInt(req.session.user.factory_id) + ' ' +
                                     //     'AND L.list_type_id IN (35, 36)' +
                                     // '').then(function (availableLockLists) {
-                                      res.render('base/set', {
-                                        i18n               : i18n,
-                                        title              : i18n.__('Edit set'),
-                                        list               : list,
-                                        parent_element     : parent_element,
-                                        lists_groups       : lists_groups,
-                                        lists_types        : lists_types,
-                                        elementsChilds     : elementsChilds,
-                                        listsChilds        : listsChilds,
-                                        windowSillsFolders : windowSillsFolders,
-                                        spillwaysFolders   : spillwaysFolders,
-                                        visorsFolders      : visorsFolders,
-                                        connectorsFolders  : connectorsFolders,
-                                        // mosquitosFolders   : mosquitosFolders,
-                                        doorhandlesFolders : doorhandlesFolders,
-                                        handlesColors      : handlesColors,
-                                        hardwareHandles    : hardwareHandles,
-                                        factoryLaminations : factoryLaminations,
-                                        thisPageLink       : '/base/set/',
-                                        cssSrcs            : ['/assets/stylesheets/base/set.css'],
-                                        scriptSrcs         : ['/assets/javascripts/vendor/localizer/i18next-1.10.1.min.js', '/assets/javascripts/vendor/imagePicker/image-picker.min.js', '/assets/javascripts/base/set.js']
-                                      });
+                                     
                                   //   }).catch(function (error) {
                                   //     console.log(error);
                                   //     res.send('Internal server error.');
@@ -157,9 +167,6 @@ function getSet (req, res) {
                                   //   console.log(error);
                                   //   res.send('Internal server error.');
                                   // });
-                                }).catch(function(error) {
-                                  console.log(error);
-                                  res.send('Internal sever error.');
                                 });
                                 });
                               });
@@ -205,6 +212,7 @@ function saveSet(req, res) {
         position            : parseInt(fields.position),
         amendment_pruning   : parseFloat(fields.amendment_pruning),
         waste               : parseFloat(fields.waste),
+        size                : parseFloat(fields.size),
         link                : fields.link,
         description         : fields.description,
         beed_lamination_id  : parseInt(fields.lamination_in, 10),
