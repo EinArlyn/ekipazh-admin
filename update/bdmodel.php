@@ -2773,6 +2773,27 @@ echo $sql_sync.'<br>';
 		$locales['lists_24']['table']						= 'lists';
 		$locales['lists_24']['locales']						= array();
 
+		$locales['addition_colors_24']						= array();
+		$locales['addition_colors_24']['left_join']			= '';
+		$locales['addition_colors_24']['where']				= 'WHERE public.addition_colors.lists_type_id=24 and public.addition_colors.factory_id='.$this->base_id;			
+		$locales['addition_colors_24']['name']				= 'Цвета ручек';
+		$locales['addition_colors_24']['table']				= 'addition_colors';
+		$locales['addition_colors_24']['locales']			= array();
+
+		$locales['addition_colors_32']						= array();
+		$locales['addition_colors_32']['left_join']			= '';
+		$locales['addition_colors_32']['where']				= 'WHERE public.addition_colors.lists_type_id=32 and public.addition_colors.factory_id='.$this->base_id;			
+		$locales['addition_colors_32']['name']				= 'Цвета подоконников';
+		$locales['addition_colors_32']['table']				= 'addition_colors';
+		$locales['addition_colors_32']['locales']			= array();
+
+		$locales['addition_colors_33']						= array();
+		$locales['addition_colors_33']['left_join']			= '';
+		$locales['addition_colors_33']['where']				= 'WHERE public.addition_colors.lists_type_id=33 and public.addition_colors.factory_id='.$this->base_id;			
+		$locales['addition_colors_33']['name']				= 'Цвета отливов';
+		$locales['addition_colors_33']['table']				= 'addition_colors';
+		$locales['addition_colors_33']['locales']			= array();
+		
 //		$locales['addition_folders_12']						= array();
 //		$locales['addition_folders_12']['left_join']		= '';
 //		$locales['addition_folders_12']['where']			= 'WHERE public.addition_folders.addition_type_id=12 and public.addition_folders.factory_id='.$this->base_id;			
