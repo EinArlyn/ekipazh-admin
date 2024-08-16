@@ -26,6 +26,8 @@ router.get('/getLaminationDependency', isAuthenticated, getLaminationDependency)
 router.post('/submitLaminationDependency', isAuthenticated, submitLaminationDependency);
 router.post('/editLaminationDependency', isAuthenticated, editLaminationDependency);
 router.get('/is-push/:id', isAuthenticated, isProfileFolderAvailableAsPush);
+
+router.post('/getProfileCountry/:id', isAuthenticated, getProfileCountry);
 //router.post('/addNewProfileSystem', addNewProfileSystem);
 //router.post('/removeProfileSystem', removeProfileSystem);
 
@@ -56,11 +58,54 @@ function isProfileFolderAvailableAsPush (req, res) {
 
 /** Main page of profile systems. Get profiles systems with groups */
 function getProfiles(req, res) {
-  models.profile_system_folders.findAll({
-    where: {factory_id: req.session.user.factory_id},
-    include: {model: models.profile_systems}
-    // order: [['position', 'DESC']]
-  }).then(function(profileSystemFolders) {
+    models.sequelize.query(`WITH country_ids AS (
+    SELECT 
+        ps.id AS profile_system_id, 
+        json_agg(cps.country_id) AS country_ids
+    FROM 
+        "profile_systems" ps
+    LEFT JOIN 
+        "compliance_profile_systems" cps 
+    ON 
+        cps.profile_system_id = ps.id
+    GROUP BY 
+        ps.id
+)
+SELECT 
+    psf.id, 
+    psf.name, 
+    json_agg(
+        json_build_object(
+            'id', ps.id,
+            'name', ps.name,
+            'cameras', ps.cameras,
+            'country', ps.country,
+            'heat_coeff', ps.heat_coeff,
+            'noise_coeff', ps.noise_coeff,
+            'rama_list_id', ps.rama_list_id,
+            'rama_still_list_id', ps.rama_still_list_id,
+            'stvorka_list_id', ps.stvorka_list_id,
+            'impost_list_id', ps.impost_list_id,
+            'shtulp_list_id', ps.shtulp_list_id,
+            'code_sync_white', ps.code_sync_white,
+            'country_ids', ci.country_ids
+        )
+    ) AS profile_systems
+FROM 
+    "profile_system_folders" psf
+LEFT OUTER JOIN 
+    "profile_systems" ps 
+ON 
+    psf.id = ps.folder_id
+LEFT OUTER JOIN 
+    country_ids ci 
+ON 
+    ps.id = ci.profile_system_id
+WHERE 
+    psf.factory_id = ${req.session.user.factory_id}
+GROUP BY 
+    psf.id, psf.name;
+`).then(function(profileSystemFolders) {
     models.sequelize.query("SELECT L.id, L.name " +
                              "FROM lists L " +
                              "JOIN elements E " +
@@ -101,17 +146,22 @@ function getProfiles(req, res) {
                                      "ON L.list_group_id = LG.id " +
                                      "WHERE E.factory_id = " + req.session.user.factory_id + " AND L.list_type_id IN (6,7)" +
             "").then(function(leafs) {
-              res.render('base/profiles', {
-                i18n                 : i18n,
-                title                : i18n.__('Profiles'),
-                profileSystemFolders : profileSystemFolders,
-                frameLists           : frameLists,
-                frameWithSillLists   : frameWithSillLists,
-                impostLists          : impostLists,
-                shtulpLists          : shtulpLists,
-                leafs                : leafs,
-                cssSrcs              : ['/assets/stylesheets/base/index.css', '/assets/stylesheets/base/profiles.css'],
-                scriptSrcs           : ['/assets/javascripts/vendor/localizer/i18next-1.10.1.min.js', '/assets/javascripts/base/profiles.js']
+              models.countries.findAll({
+                attributes: ["id", "name"]
+              }).then(function(countries) {                                     
+                  res.render('base/profiles', {
+                    i18n                 : i18n,
+                    title                : i18n.__('Profiles'),
+                    profileSystemFolders : profileSystemFolders[0],
+                    frameLists           : frameLists,
+                    frameWithSillLists   : frameWithSillLists,
+                    impostLists          : impostLists,
+                    shtulpLists          : shtulpLists,
+                    countries            : countries,
+                    leafs                : leafs,
+                    cssSrcs              : ['/assets/stylesheets/base/index.css', '/assets/stylesheets/base/profiles.css'],
+                    scriptSrcs           : ['/assets/javascripts/vendor/localizer/i18next-1.10.1.min.js', '/assets/javascripts/base/profiles.js']
+                  });
               });
             });
           });
@@ -731,6 +781,69 @@ function editLaminationDependency(req, res) {
   }).catch(function(err) {
     console.log(err);
     res.send({status: false, error: i18n.__('Internal server error')});
+  });
+}
+
+function getProfileCountry (req, res) {
+  var groupId	= parseInt(req.params.id);
+  var obj = Object.assign({},req.body);
+  for (const property in obj) {
+    if (obj[property] == 1)
+    {
+       _saveProfileSystem(groupId, property);
+    }
+    else
+    {
+       _destroyProfileSystem(groupId, property);
+    }
+  }  
+  models.sequelize.query("SELECT CPS.country_id, CPS.profile_system_id " +
+                         "FROM compliance_profile_systems CPS " +
+                         "JOIN profile_systems PS " +
+                         "ON CPS.profile_system_id = PS.id " +
+                         "JOIN profile_system_folders PSF " +
+                         "ON PS.folder_id = PSF.id " +
+                         "WHERE CPS.profile_system_id = " + parseInt(groupId) +
+                         " AND PSF.factory_id = " + parseInt(req.session.user.factory_id) +
+  "").then(function (compliance_profile_systems) {
+      var rows =  compliance_profile_systems[0];
+      var whps =  {};
+      for (var i = 0, len = rows.length; i < len; i++) {
+    whps[rows[i].country_id]=rows[i].profile_system_id;
+      };
+    console.log(whps);
+    res.send(whps);
+  });
+}
+
+function _saveProfileSystem (profileId, countryId) {
+  models.compliance_profile_systems.findOne({
+    where: {
+      profile_system_id: profileId,
+      country_id: countryId
+    }
+  }).then(function (result) {
+    if (result) return;
+    models.compliance_profile_systems.create({
+      profile_system_id: parseInt(profileId, 10),
+      country_id: parseInt(countryId, 10)
+    }).then(function (result) {
+      return;
+    });
+  });
+}
+
+function _destroyProfileSystem(profileId, countryId) {
+  models.compliance_profile_systems.findOne({
+    where: {
+      profile_system_id: profileId,
+      country_id: countryId
+    }
+  }).then(function (result) {
+    if (!result) return;
+    result.destroy().then(function () {
+      return;
+    });
   });
 }
 

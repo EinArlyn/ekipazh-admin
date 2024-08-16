@@ -25,7 +25,26 @@
       -o-transition: background-color 0.5s;
       transition: background-color 0.5s;
     }
-
+    .country-check {
+      height: 100px;
+      max-width: 910px;
+      border: 1px solid #e9e9e9;
+      border-left: none;
+      float: left;
+      background-color: #e9e9e9;
+      -webkit-transition: background-color 0.5s;
+      -moz-transition: background-color 0.5s;
+      -ms-transition: background-color 0.5s;
+      -o-transition: background-color 0.5s;
+      transition: background-color 0.5s;
+      display: flex;
+      flex-wrap: wrap;
+      padding: 5px;
+    }
+    .country-item {
+      width: 100px;
+    }
+    
     .profile-system-exist:first-child  {
       border-top: 1px solid #c9c9c9;
     }
