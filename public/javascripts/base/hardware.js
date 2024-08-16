@@ -1224,4 +1224,37 @@ $('div.profile_item input').click(function() {
       });
     }
   }
+
+  $('div.country-item input').click(function() {
+    countryId = $(this).attr('value');
+    country_status = $(this).is(":checked");
+    var CheckCountry ={};
+    if (country_status)
+    {
+       CheckCountry[countryId] = 1;
+    }
+    else
+    {
+       CheckCountry[countryId] = 0;
+    }
+   setHardwareCountry($(this).attr('data-hardware-id'), CheckCountry);
+  });
+
+  function setHardwareCountry(HardwarefolderId, CheckCountry) {
+    $.post('/base/hardware/getHardwareCountry/' + HardwarefolderId, CheckCountry
+    , function(data) {
+      if (!CheckCountry)
+      {
+        $("[name='checkHardware']").each(function() {
+            if (data[$(this).attr('value')]){
+              $(this).prop('checked', true);
+            }
+            else{
+              $(this).prop('checked', false);
+            }
+        });
+      }
+    });
+  }
+  
 });

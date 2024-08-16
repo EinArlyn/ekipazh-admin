@@ -67,6 +67,12 @@ block content
                             -j++
                     .profile-system-edit(value=profileSystem.id)
                     .profile-system-add-info(data-id=profileSystem.id)
+                tr.country-check
+                  each country in countries 
+                    td.country-item
+                      input(type="checkbox", id="country-checkbox" + country.id + profileSystem.id, name="checkProfile", data-profile-id=profileSystem.id, value=country.id, checked=profileSystem.country_ids.includes(country.id)?true:false)
+                      label(for="country-checkbox" + country.id + profileSystem.id) 
+                        =country.name
                 tr.edit-profile-lists.default-lamination(data-id=profileSystem.id)
                   td(colspan="4" style="width: 920px;")
                     table.edit-profile-lists-table(cellspacing="0" cellpadding="0")

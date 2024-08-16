@@ -55,6 +55,12 @@
                       .coeff-stength
                       -j++
                 .hardware-features-others-edit(value=hardwareGroup.id)
+          .country-check
+            each country in countries 
+              .country-item
+                input(type="checkbox", id="country-checkbox" + country.id + hardwareGroup.id, name="checkHardware", data-hardware-id=hardwareGroup.id, value=country.id, checked=hardwareGroup.country_ids.includes(country.id)?true:false)
+                label(for="country-checkbox" + country.id + hardwareGroup.id) 
+                  =country.name
       .hardware-features-add
         table(cellpadding="0", cellspacing="0")
           tr      

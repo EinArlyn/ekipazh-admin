@@ -44,6 +44,8 @@ router.post('/remove-hardware-folder', isAuthenticated, removeHardwareFolder);
 router.get('/is-push/:id', isAuthenticated, isHardwareGroupAvailableAsPush);
 router.post('/getHardwareProfile/:id', isAuthenticated, getHardwareProfile);
 
+router.post('/getHardwareCountry/:id', isAuthenticated, getHardwareCountry);
+
 /**  */
 function getHardwareProfile (req, res) {
   var groupId	= parseInt(req.params.id);
@@ -129,17 +131,38 @@ function getHardwares (req, res) {
               factory_id: req.session.user.factory_id
             }
           }).then((filterData) => {
-            res.render('base/hardware', {
-            title               : i18n.__('Hardware'),
-            i18n                : i18n,
-            hardwareFolders     : hardwareFolders,
-            defaultFolder       : defaultFolder,
-            filterData          : filterData,
-            profile_systems     : profile_systems,
-            additionalFilters   : {},
-            thisPageLink        : '/base/hardware/',
-            cssSrcs             : ['/assets/stylesheets/base/hardware.css'],
-            scriptSrcs          : ['/assets/javascripts/vendor/localizer/i18next-1.10.1.min.js', '/assets/javascripts/base/hardware.js']
+            models.countries.findAll({
+              attributes: ["id", "name"]
+            }).then(function(countries) {
+              models.compliance_window_hardware_groups.findAll({
+                
+              }).then(function(compliance_window_hardware_groups){
+
+                  hardwareFolders.forEach(folder => {
+                    folder.window_hardware_groups.forEach(hardware => {
+                      hardware.country_ids = [];
+                      compliance_window_hardware_groups.forEach(country =>{
+                        if(country.dataValues.window_hardware_group_id == hardware.id) {
+                          hardware.country_ids.push(country.dataValues.country_id)
+                        }
+                      })
+                    })
+                  })
+
+                res.render('base/hardware', {
+                title               : i18n.__('Hardware'),
+                i18n                : i18n,
+                hardwareFolders     : hardwareFolders,
+                defaultFolder       : defaultFolder,
+                countries           : countries,
+                filterData          : filterData,
+                profile_systems     : profile_systems,
+                additionalFilters   : {},
+                thisPageLink        : '/base/hardware/',
+                cssSrcs             : ['/assets/stylesheets/base/hardware.css'],
+                scriptSrcs          : ['/assets/javascripts/vendor/localizer/i18next-1.10.1.min.js', '/assets/javascripts/base/hardware.js']
+              });
+            });
           });
         });
       });
@@ -960,6 +983,69 @@ function _destroyProfileSystem(profileId, hardwareId) {
     where: {
       profile_system_id: profileId,
       window_hardware_group_id: hardwareId
+    }
+  }).then(function (result) {
+    if (!result) return;
+    result.destroy().then(function () {
+      return;
+    });
+  });
+}
+
+function getHardwareCountry (req, res) {
+  var groupId	= parseInt(req.params.id);
+  var obj = Object.assign({},req.body);
+  for (const property in obj) {
+    if (obj[property] == 1)
+    {
+       _saveHardwareSystem(groupId, property);
+    }
+    else
+    {
+       _destroyHardwareSystem(groupId, property);
+    }
+  }  
+  models.sequelize.query("SELECT CWPS.country_id, CWPS.window_hardware_group_id " +
+                         "FROM compliance_window_hardware_groups CWPS " +
+                         "JOIN window_hardware_groups WS " +
+                         "ON CWPS.window_hardware_group_id = WS.id " +
+                         "JOIN window_hardware_folders WHF " +
+                         "ON WS.folder_id = WHF.id " +
+                         "WHERE CWPS.window_hardware_group_id = " + parseInt(groupId) +
+                         " AND WHF.factory_id = " + parseInt(req.session.user.factory_id) +
+  "").then(function (compliance_window_hardware_groups) {
+      var rows =  compliance_window_hardware_groups[0];
+      var whps =  {};
+      for (var i = 0, len = rows.length; i < len; i++) {
+    whps[rows[i].country_id]=rows[i].window_hardware_group_id;
+      };
+    console.log(whps);
+    res.send(whps);
+  });
+}
+
+function _saveHardwareSystem (hardwareId, countryId) {
+  models.compliance_window_hardware_groups.findOne({
+    where: {
+      window_hardware_group_id: hardwareId,
+      country_id: countryId
+    }
+  }).then(function (result) {
+    if (result) return;
+    models.compliance_window_hardware_groups.create({
+      window_hardware_group_id: parseInt(hardwareId, 10),
+      country_id: parseInt(countryId, 10)
+    }).then(function (result) {
+      return;
+    });
+  });
+}
+
+function _destroyHardwareSystem(hardwareId, countryId) {
+  models.compliance_window_hardware_groups.findOne({
+    where: {
+      window_hardware_group_id: hardwareId,
+      country_id: countryId
     }
   }).then(function (result) {
     if (!result) return;

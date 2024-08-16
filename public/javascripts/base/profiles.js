@@ -1016,4 +1016,36 @@ $(function () {
       });
     }
   }
+
+  $('td.country-item input').click(function() {
+    countryId = $(this).attr('value');
+    country_status = $(this).is(":checked");
+    var CheckCountry ={};
+    if (country_status)
+    {
+       CheckCountry[countryId] = 1;
+    }
+    else
+    {
+       CheckCountry[countryId] = 0;
+    }
+   setProfileCountry($(this).attr('data-profile-id'), CheckCountry);
+  });
+
+  function setProfileCountry(ProfilefolderId, CheckCountry) {
+    $.post('/base/profiles/getProfileCountry/' + ProfilefolderId, CheckCountry
+    , function(data) {
+      if (!CheckCountry)
+      {
+        $("[name='checkProfile']").each(function() {
+            if (data[$(this).attr('value')]){
+              $(this).prop('checked', true);
+            }
+            else{
+              $(this).prop('checked', false);
+            }
+        });
+      }
+    });
+  }
 });
