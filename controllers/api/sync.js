@@ -1244,6 +1244,7 @@ module.exports = function (req, res) {
                     WHERE F.factory_id = ${factory_id} AND S.is_editable = 1 AND S.id = CPS.profile_system_id`
                   )
                   .then(function (profile_systems) {
+                    console.log("profile_systems", profile_systems);
                     var profileSystemsIds = profile_systems[0].map(function (
                       profile
                     ) {
@@ -1981,9 +1982,12 @@ function sortValues(result, __callback) {
 
   if (result.length) {
     for (var i = 0, len = result.length; i < len; i++) {
-      var _val = Object.keys(result[i].dataValues).map(function (key) {
-        return result[i][key];
-      });
+      let _val = [];
+      if (result[i].dataValues) {
+        _val = Object.keys(result[i].dataValues).map(function (key) {
+          return result[i][key];
+        });
+      }
       values.push(_val);
       if (i === len - 1) {
         __callback(values);
