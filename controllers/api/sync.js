@@ -910,10 +910,16 @@ module.exports = function (req, res) {
               },
               function (callback) {
                 /** glass_folders */
-                models.glass_folders
-                  .findAll({
-                    where: { factory_id: factory_id },
-                  })
+                models.sequelize
+                  .query(
+                    `SELECT GF.id, GF.name, GF.position, GF.modified, GF.factory_id, GF.img, GF.description, GF.link, GF.is_base
+                  FROM glass_folders AS GF
+                  JOIN users AS U ON U.id = ${userId}
+                  JOIN cities AS C ON C.id = U.city_id
+                  JOIN regions AS R ON R.id = C.region_id
+                  JOIN compliance_glass_folders AS CGF ON CGF.country_id = R.country_id
+                  WHERE GF.factory_id = ${factory_id} AND GF.id = CGF.glass_folders_id`
+                  )
                   .then(function (glass_folders) {
                     tables.glass_folders = {};
                     tables.glass_folders.fields = [
@@ -1228,14 +1234,14 @@ module.exports = function (req, res) {
                 /** profile_systems */
                 models.sequelize
                   .query(
-                    "SELECT S.id, S.name, S.short_name, S.folder_id, S.rama_list_id, S.rama_still_list_id, S.stvorka_list_id, S.impost_list_id, S.shtulp_list_id, S.is_editable, S.is_default, S.position, S.country, S.modified, S.cameras, S.heat_coeff, S.noise_coeff, S.heat_coeff_value, S.link, S.description, S.img, S.is_push " +
-                      "FROM profile_systems S " +
-                      "JOIN profile_system_folders F " +
-                      "ON S.folder_id = F.id " +
-                      "WHERE F.factory_id = " +
-                      factory_id +
-                      " AND S.is_editable = 1" +
-                      ""
+                    `SELECT S.id, S.name, S.short_name, S.folder_id, S.rama_list_id, S.rama_still_list_id, S.stvorka_list_id, S.impost_list_id, S.shtulp_list_id, S.is_editable, S.is_default, S.position, S.country, S.modified, S.cameras, S.heat_coeff, S.noise_coeff, S.heat_coeff_value, S.link, S.description, S.img, S.is_push
+                    FROM profile_systems S
+                    JOIN profile_system_folders F ON S.folder_id = F.id
+                    JOIN users AS U ON U.id = ${userId}
+                    JOIN cities AS C ON C.id = U.city_id
+                    JOIN regions AS R ON R.id = C.region_id
+                    JOIN compliance_profile_systems AS CPS ON CPS.country_id = R.country_id
+                    WHERE F.factory_id = ${factory_id} AND S.is_editable = 1 AND S.id = CPS.profile_system_id`
                   )
                   .then(function (profile_systems) {
                     var profileSystemsIds = profile_systems[0].map(function (
@@ -1641,14 +1647,14 @@ module.exports = function (req, res) {
                 /** window_hardware_groups */
                 models.sequelize
                   .query(
-                    "SELECT G.id, G.name, G.short_name, G.is_editable, G.folder_id, G.is_group, G.is_in_calculation, G.position, G.modified, G.link, G.description, G.img, G.producer, G.country, G.heat_coeff, G.noise_coeff, G.is_default, G.min_height, G.max_height, G.min_width, G.max_width, G.is_push " +
-                      "FROM window_hardware_groups G " +
-                      "JOIN window_hardware_folders F " +
-                      "ON G.folder_id = F.id " +
-                      "WHERE F.factory_id = " +
-                      factory_id +
-                      " AND G.is_in_calculation = 1" +
-                      ""
+                    `SELECT G.id, G.name, G.short_name, G.is_editable, G.folder_id, G.is_group, G.is_in_calculation, G.position, G.modified, G.link, G.description, G.img, G.producer, G.country, G.heat_coeff, G.noise_coeff, G.is_default, G.min_height, G.max_height, G.min_width, G.max_width, G.is_push
+                    FROM window_hardware_groups G
+                    JOIN window_hardware_folders F ON G.folder_id = F.id
+                    JOIN users AS U ON U.id = ${userId}
+                    JOIN cities AS C ON C.id = U.city_id
+                    JOIN regions AS R ON R.id = C.region_id
+                    JOIN compliance_window_hardware_groups AS CWHG ON CWHG.country_id = R.country_id
+                    WHERE F.factory_id = ${factory_id} AND G.is_in_calculation = 1 AND G.id = CWHG.window_hardware_group_id`
                   )
                   .then(function (window_hardware_groups) {
                     tables.window_hardware_groups = {};
