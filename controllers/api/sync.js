@@ -923,15 +923,15 @@ module.exports = function (req, res) {
                   .then(function (glass_folders) {
                     tables.glass_folders = {};
                     tables.glass_folders.fields = [
-                      "is_base",
-                      "link",
-                      "description",
-                      "img",
-                      "factory_id",
-                      "modified",
-                      "position",
-                      "name",
                       "id",
+                      "name",
+                      "position",
+                      "modified",
+                      "factory_id",
+                      "img",
+                      "description",
+                      "link",
+                      "is_base",
                     ];
                     sortQueries(glass_folders[0], function (values) {
                       tables.glass_folders.rows = values;
