@@ -42,12 +42,18 @@ block content
               each laminationFactory in laminationsFactory
                 - defaults.push(laminationFactory.lamination_default_color.id)
                 .lamination-color
-                  input.laminations-cb(id="checkbox" + laminationFactory.id, type="checkbox", value=laminationFactory.lamination_default_color.id, checked)
+                  input.laminations-cb(id="checkbox" + laminationFactory.id, type="checkbox", data-delete-lamin=laminationFactory.id, value=laminationFactory.lamination_default_color.id, checked)
                   label(for="checkbox" + laminationFactory.id)
                     .editable-lamination
                       =laminationFactory.name
                   br
-                  img(src=laminationFactory.lamination_default_color.url, class="b-img-radius" width="200", height="70")
+                  img(src=laminationFactory.lamination_default_color.url, class="b-img-radius" width="200", height="160")
+                  .country-check-lamination
+                    each country in countries 
+                      .country-item
+                        input(type="checkbox", id="country-checkbox" + country.id + laminationFactory.id, name="checkLamination", data-lamination-id=laminationFactory.id, value=country.id, checked=laminationFactory.country_ids.includes(country.id)?true:false)
+                        label(for="country-checkbox" + country.id + laminationFactory.id) 
+                          =country.name
             each laminationColor in laminationsDefault
               if (defaults.indexOf(laminationColor.id) < 0)
                 if (laminationColor.id !== 1)
@@ -57,7 +63,7 @@ block content
                       .editable-lamination
                         =laminationColor.name
                     br
-                    img(src=laminationColor.url, class="b-img-radius" width="200", height="70")
+                    img(src=laminationColor.url, class="b-img-radius" width="200", height="160")
       .content-footer
         #content-footer-save-lamination
           a(class="external-link", href="#", id="saveBtn", )

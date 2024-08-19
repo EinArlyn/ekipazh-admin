@@ -13,6 +13,9 @@ var util = require('util');
 router.get('/laminations', isAuthenticated, getLaminations);
 router.post('/lamination/save', isAuthenticated, saveLamination);
 router.post('/lamination/delete', isAuthenticated, deleteLamination);
+
+router.post('/getLaminationCountry/:id', isAuthenticated, getLaminationCountry);
+
 /** Discounts */
 router.get('/discounts', isAuthenticated, getDiscounts);
 router.post('/percent/save', isAuthenticated, savePercent);
@@ -27,6 +30,9 @@ router.get('/glazed-window/get-folder/:id', isAuthenticated, getGlassFolder);
 router.post('/glazed-window/save-folder', isAuthenticated, saveGlassFolder);
 router.post('/glazed-window/add-new-folder', isAuthenticated, addNewGlassFolder);
 router.post('/glazed-window/remove-folder', isAuthenticated, removeGlassFolder);
+
+router.post('/getGlassesCountry/:id', isAuthenticated, getGlassesCountry);
+
 /** Window sills */
 router.get('/window-sills', isAuthenticated, getWindowSills);
 router.post('/window-sills/add-new-folder', isAuthenticated, addNewSillFolder);
@@ -87,15 +93,37 @@ function getLaminations (req, res) {
       where: {factory_id: req.session.user.factory_id},
       include: [{ model: models.lamination_default_colors}]
     }).then(function (lamination_factory) {
-      res.render('base/options/laminations', {
-        i18n               : i18n,
-        title              : i18n.__('Options'),
-        laminationsDefault : lamination_default,
-        laminationsFactory : lamination_factory,
-        thisPageLink       : '/base/options/',
-        cssSrcs            : ['/assets/stylesheets/base/options.css'],
-        scriptSrcs         : ['/assets/javascripts/vendor/localizer/i18next-1.10.1.min.js', '/assets/javascripts/base/options.js']
-      });
+      models.countries.findAll({
+        attributes: ["id", "name"]
+      }).then(function(countries){
+        models.compliance_lamination_colors.findAll({
+  
+        }).then(function(compliance_lamination_colors){
+
+          const countryMap = {};
+          compliance_lamination_colors.forEach(country => {
+            const { lamination_factory_colors_id, country_id } = country.dataValues;
+            if (!countryMap[lamination_factory_colors_id]) {
+              countryMap[lamination_factory_colors_id] = [];
+            }
+            countryMap[lamination_factory_colors_id].push(country_id);
+          });
+          lamination_factory.forEach(folder => {
+              folder.country_ids = countryMap[folder.id] || [];
+          });
+
+          res.render('base/options/laminations', {
+            i18n               : i18n,
+            title              : i18n.__('Options'),
+            laminationsDefault : lamination_default,
+            laminationsFactory : lamination_factory,
+            countries          : countries,
+            thisPageLink       : '/base/options/',
+            cssSrcs            : ['/assets/stylesheets/base/options.css'],
+            scriptSrcs         : ['/assets/javascripts/vendor/localizer/i18next-1.10.1.min.js', '/assets/javascripts/base/options.js']
+          });
+        })
+      })
     });
   });
 }
@@ -134,14 +162,38 @@ function getGlazedWindow(req, res) {
     where: {factory_id: req.session.user.factory_id},
     order: 'position'
   }).then(function(glassFolders) {
-    res.render('base/options/glazed-window', {
-      i18n               : i18n,
-      title              : i18n.__('Options'),
-      glassFolders       : glassFolders,
-      thisPageLink       : '/base/options/',
-      cssSrcs            : ['/assets/stylesheets/base/options.css'],
-      scriptSrcs          : ['/assets/javascripts/vendor/localizer/i18next-1.10.1.min.js', '/assets/javascripts/base/options.js']
-    });
+    models.countries.findAll({
+      attributes: ["id", "name"]
+    }).then(function(countries){
+      models.compliance_glass_folders.findAll({
+
+      }).then(function(compliance_glass_folders){
+
+        const countryMap = {};
+        compliance_glass_folders.forEach(country => {
+          const { glass_folders_id, country_id } = country.dataValues;
+          if (!countryMap[glass_folders_id]) {
+            countryMap[glass_folders_id] = [];
+          }
+          countryMap[glass_folders_id].push(country_id);
+        });
+        glassFolders.forEach(folder => {
+            folder.country_ids = countryMap[folder.id] || [];
+        });
+
+        // console.log('I AM GLASSFOLDERS........',glassFolders)
+        res.render('base/options/glazed-window', {
+          i18n               : i18n,
+          title              : i18n.__('Options'),
+          glassFolders       : glassFolders,
+          countries          : countries,
+          thisPageLink       : '/base/options/',
+          cssSrcs            : ['/assets/stylesheets/base/options.css'],
+          scriptSrcs         : ['/assets/javascripts/vendor/localizer/i18next-1.10.1.min.js', '/assets/javascripts/base/options.js']
+        });
+
+      });
+    });  
   }).catch(function(err) {
     console.log(err);
     res.end('Internal server error.');
@@ -215,6 +267,19 @@ function saveLamination(req, res) {
 
 function deleteLamination(req, res) {
   var laminationTypeId = req.body.laminationId;
+  const delId = req.body.delFromListCountry;
+
+  if(delId) {
+      models.compliance_lamination_colors.destroy({
+        where: {
+          lamination_factory_colors_id: delId
+        }
+      }).then(function (deletedCount) {
+
+      }).catch(function (error) {
+        console.error(`Error deleting records: ${error}`);
+      });
+  }
 
   models.lamination_factory_colors.find({
     where: {factory_id: req.session.user.factory_id, lamination_type_id: laminationTypeId}
@@ -1857,6 +1922,134 @@ function getAdditionFolder (additionalTypeId, factoryId) {
   });
 }
 
+// checkboxes country
+  // glassesCountry
 
+function getGlassesCountry (req, res) {
+  var groupId	= parseInt(req.params.id);
+  var obj = Object.assign({},req.body);
+  for (const property in obj) {
+    if (obj[property] == 1)
+    {
+       _saveGlassesSystem(groupId, property);
+    }
+    else
+    {
+       _destroyGlassesSystem(groupId, property);
+    }
+  }  
+    models.sequelize.query("SELECT CGF.country_id, CGF.glass_folders_id " +
+                          "FROM compliance_glass_folders CGF " +
+                          "JOIN glass_folders GF " +
+                          "ON CGF.glass_folders_id = GF.id " +
+                          // "JOIN window_hardware_folders GF " +
+                          // "ON GF.folder_id = GF.id " +
+                          "WHERE CGF.glass_folders_id = " + parseInt(groupId) +
+                          " AND GF.factory_id = " + parseInt(req.session.user.factory_id) +
+    "").then(function (compliance_glass_folders) {
+        var rows =  compliance_glass_folders[0];
+        var whps =  {};
+        for (var i = 0, len = rows.length; i < len; i++) {
+      whps[rows[i].country_id]=rows[i].glass_folders_id;
+        };
+      console.log(whps);
+      res.send(whps);
+    });
+}
+
+function _saveGlassesSystem (glassesId, countryId) {
+  models.compliance_glass_folders.findOne({
+    where: {
+      glass_folders_id: glassesId,
+      country_id: countryId
+    }
+  }).then(function (result) {
+    if (result) return;
+    models.compliance_glass_folders.create({
+      glass_folders_id: parseInt(glassesId, 10),
+      country_id: parseInt(countryId, 10)
+    }).then(function (result) {
+      return;
+    });
+  });
+}
+
+function _destroyGlassesSystem(glassesId, countryId) {
+  models.compliance_glass_folders.findOne({
+    where: {
+      glass_folders_id: glassesId,
+      country_id: countryId
+    }
+  }).then(function (result) {
+    if (!result) return;
+    result.destroy().then(function () {
+      return;
+    });
+  });
+}
+
+  // laminationCountry
+function getLaminationCountry (req, res) {
+  var groupId	= parseInt(req.params.id);
+  var obj = Object.assign({},req.body);
+  for (const property in obj) {
+    if (obj[property] == 1)
+    {
+       _saveLaminationSystem(groupId, property);
+    }
+    else
+    {
+       _destroyLaminationSystem(groupId, property);
+    }
+  }  
+  models.sequelize.query("SELECT CLC.country_id, CLC.lamination_factory_colors_id " +
+                         "FROM compliance_lamination_colors CLC " +
+                         "JOIN lamination_factory_colors LFC " +
+                         "ON CLC.lamination_factory_colors_id = LFC.id " +
+                        //  "JOIN window_hardware_folders WHF " +
+                        //  "ON LFC.folder_id = WHF.id " +
+                         "WHERE CLC.lamination_factory_colors_id = " + parseInt(groupId) +
+                         " AND LFC.factory_id = " + parseInt(req.session.user.factory_id) +
+  "").then(function (compliance_lamination_colors) {
+      var rows =  compliance_lamination_colors[0];
+      var whps =  {};
+      for (var i = 0, len = rows.length; i < len; i++) {
+    whps[rows[i].country_id]=rows[i].lamination_factory_colors_id;
+      };
+    console.log(whps);
+    res.send(whps);
+  });
+}
+
+function _saveLaminationSystem (laminationId, countryId) {
+  models.compliance_lamination_colors.findOne({
+    where: {
+      lamination_factory_colors_id: laminationId,
+      country_id: countryId
+    }
+  }).then(function (result) {
+    if (result) return;
+    models.compliance_lamination_colors.create({
+      lamination_factory_colors_id: parseInt(laminationId, 10),
+      country_id: parseInt(countryId, 10)
+    }).then(function (result) {
+      return;
+    });
+  });
+}
+
+function _destroyLaminationSystem(laminationId, countryId) {
+  models.compliance_lamination_colors.findOne({
+    where: {
+      lamination_factory_colors_id: laminationId,
+      country_id: countryId
+    }
+  }).then(function (result) {
+    if (!result) return;
+    result.destroy().then(function () {
+      return;
+    });
+  });
+}
 
 module.exports = router;

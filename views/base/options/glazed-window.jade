@@ -52,6 +52,12 @@ block content
                   .glass-folder-edit.btn-edit-folder(data-folder=glassFolder.id)
               //td
                 =glassFolder.link
+            tr.country-check
+                  each country in countries 
+                    td.country-item
+                      input(type="checkbox", id="country-checkbox" + country.id + glassFolder.id, name="checkGlass", data-glasses-id=glassFolder.id, value=country.id, checked=glassFolder.country_ids.includes(country.id)?true:false)
+                      label(for="country-checkbox" + country.id + glassFolder.id) 
+                        =country.name
           tr.folder-tr
             td.folder-name.glass-folder-add
               span.folder-add-text
