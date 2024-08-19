@@ -146,9 +146,11 @@ $(function () {
         });
       } else {
         var laminationId = $(this).attr('value');
+        const delFromListCountry = $(this).attr('data-delete-lamin');
 
         $.post('/base/options/lamination/delete', {
-          laminationId: laminationId
+          laminationId: laminationId,
+          delFromListCountry : delFromListCountry
         }, function (data) {
           window.location.reload();
         });
@@ -888,5 +890,73 @@ $(function () {
         position: {top: '60px', right: '30px'}
       });
     }
+  }
+
+  // checkboxes country
+    // glassesCountry
+
+  $('td.country-item input').click(function() {
+    countryId = $(this).attr('value');
+    country_status = $(this).is(":checked");
+    var CheckCountry ={};
+    if (country_status)
+    {
+       CheckCountry[countryId] = 1;
+    }
+    else
+    {
+       CheckCountry[countryId] = 0;
+    }
+   setGlassesCountry($(this).attr('data-glasses-id'), CheckCountry);
+  });
+
+  function setGlassesCountry(GlassesfolderId, CheckCountry) {
+    $.post('/base/options/getGlassesCountry/' + GlassesfolderId, CheckCountry
+    , function(data) {
+      if (!CheckCountry)
+      {
+        $("[name='checkGlass']").each(function() {
+            if (data[$(this).attr('value')]){
+              $(this).prop('checked', true);
+            }
+            else{
+              $(this).prop('checked', false);
+            }
+        });
+      }
+    });
+  }
+
+    // laminationCountry
+  $('div.country-item input').click(function() {
+    countryId = $(this).attr('value');
+    country_status = $(this).is(":checked");
+    var CheckCountry ={};
+    if (country_status)
+    {
+       CheckCountry[countryId] = 1;
+    }
+    else
+    {
+       CheckCountry[countryId] = 0;
+    }
+   setLaminationCountry($(this).attr('data-lamination-id'), CheckCountry);
+  });
+
+  function setLaminationCountry(LaminationfolderId, CheckCountry) {
+    $.post('/base/options/getLaminationCountry/' + LaminationfolderId, CheckCountry
+    , function(data) {
+      if (!CheckCountry)
+      {
+        $("[name='checkLamination']").each(function() {
+            if (data[$(this).attr('value')]){
+              $(this).prop('checked', true);
+            }
+            else{
+              $(this).prop('checked', false);
+            }
+        });
+      }
+    });
   }
 });

@@ -138,16 +138,31 @@ function getHardwares (req, res) {
                 
               }).then(function(compliance_window_hardware_groups){
 
+                  // hardwareFolders.forEach(folder => {
+                  //   folder.window_hardware_groups.forEach(hardware => {
+                  //     hardware.country_ids = [];
+                  //     compliance_window_hardware_groups.forEach(country =>{
+                  //       if(country.dataValues.window_hardware_group_id == hardware.id) {
+                  //         hardware.country_ids.push(country.dataValues.country_id)
+                  //       }
+                  //     })
+                  //   })
+                  // })
+                  
+                  // оптимизация
+                  const countryMap = {};
+                  compliance_window_hardware_groups.forEach(country => {
+                    const { window_hardware_group_id, country_id } = country.dataValues;
+                    if (!countryMap[window_hardware_group_id]) {
+                      countryMap[window_hardware_group_id] = [];
+                    }
+                    countryMap[window_hardware_group_id].push(country_id);
+                  });
                   hardwareFolders.forEach(folder => {
                     folder.window_hardware_groups.forEach(hardware => {
-                      hardware.country_ids = [];
-                      compliance_window_hardware_groups.forEach(country =>{
-                        if(country.dataValues.window_hardware_group_id == hardware.id) {
-                          hardware.country_ids.push(country.dataValues.country_id)
-                        }
-                      })
-                    })
-                  })
+                      hardware.country_ids = countryMap[hardware.id] || [];
+                    });
+                  });
 
                 res.render('base/hardware', {
                 title               : i18n.__('Hardware'),
