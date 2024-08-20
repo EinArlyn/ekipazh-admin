@@ -50,6 +50,12 @@ block content
                   .edit-wrap
                     .sill-folder-delete.btn-delete-folder(data-folder=sillsFolder.id)
                     .sill-folder-edit.btn-edit-folder(data-folder=sillsFolder.id)
+              tr.country-check
+                each country in countries 
+                  td.country-item-sills
+                    input(type="checkbox", id="country-checkbox" + country.id + sillsFolder.id, name="checkAddElems", data-addElems-id=sillsFolder.id, value=country.id, checked=sillsFolder.country_ids.includes(country.id)?true:false)
+                    label(for="country-checkbox" + country.id + sillsFolder.id) 
+                      =country.name
           else
             tr.folder-tr
               td.sill-folder-not-exist(calspan="4")
