@@ -52,22 +52,16 @@ module.exports = function (req, res) {
               },
               function (callback) {
                 /** addition_folders */
-                models.addition_folders
-                  .findAll({
-                    where: { factory_id: factory_id },
-                    attributes: [
-                      "max_size",
-                      "position",
-                      "img",
-                      "description",
-                      "link",
-                      "modified",
-                      "factory_id",
-                      "addition_type_id",
-                      "name",
-                      "id",
-                    ],
-                  })
+                models.sequelize
+                  .query(
+                    `SELECT AF.max_size, AF.position, AF.img, AF.description, AF.link, AF.modified, AF.factory_id, AF.addition_type_id, AF.name, AF.id
+                    FROM addition_folders AS AF
+                    JOIN users AS U ON U.id = ${userId}
+                    JOIN cities AS C ON C.id = U.city_id
+                    JOIN regions AS R ON R.id = C.region_id
+                    JOIN compliance_addition_folders AS CAF ON CAF.country_id = R.country_id
+                    WHERE AF.factory_id = ${factory_id} AND AF.id = CAF.addition_folders_id`
+                  )
                   .then(function (addition_folders) {
                     var values = [];
                     tables.addition_folders = {};
@@ -83,7 +77,7 @@ module.exports = function (req, res) {
                       "name",
                       "id",
                     ];
-                    sortValues(addition_folders, function (values) {
+                    sortQueries(addition_folders[0], function (values) {
                       tables.addition_folders.rows = values;
                       callback(null);
                     });
