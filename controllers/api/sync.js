@@ -941,11 +941,21 @@ module.exports = function (req, res) {
               },
               function (callback) {
                 // lamination_factory_colors
-                models.lamination_factory_colors
-                  .findAll({
-                    where: { factory_id: factory_id },
-                  })
+                models.sequelize
+                  .query(
+                    `SELECT LFC.factory_id, LFC.lamination_type_id, LFC.name, LFC.id
+                  FROM lamination_factory_colors AS LFC
+                  JOIN users AS U ON U.id = ${userId}
+                  JOIN cities AS C ON C.id = U.city_id
+                  JOIN regions AS R ON R.id = C.region_id
+                  JOIN compliance_lamination_colors AS CLC ON CLC.country_id = R.country_id
+                  WHERE LFC.factory_id = ${factory_id} AND LFC.id = CLC.lamination_factory_colors_id`
+                  )
                   .then(function (lamination_factory_colors) {
+                    console.log(
+                      "+++++++++++++++++++++++++++++++++++++++++++++++++++++++++",
+                      lamination_factory_colors
+                    );
                     tables.lamination_factory_colors = {};
                     tables.lamination_factory_colors.fields = [
                       "factory_id",
