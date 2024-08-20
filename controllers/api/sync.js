@@ -952,10 +952,6 @@ module.exports = function (req, res) {
                   WHERE LFC.factory_id = ${factory_id} AND LFC.id = CLC.lamination_factory_colors_id`
                   )
                   .then(function (lamination_factory_colors) {
-                    console.log(
-                      "+++++++++++++++++++++++++++++++++++++++++++++++++++++++++",
-                      lamination_factory_colors
-                    );
                     tables.lamination_factory_colors = {};
                     tables.lamination_factory_colors.fields = [
                       "factory_id",
@@ -963,10 +959,13 @@ module.exports = function (req, res) {
                       "name",
                       "id",
                     ];
-                    sortValues(lamination_factory_colors, function (values) {
-                      tables.lamination_factory_colors.rows = values;
-                      callback(null);
-                    });
+                    sortQueries(
+                      lamination_factory_colors[0],
+                      function (values) {
+                        tables.lamination_factory_colors.rows = values;
+                        callback(null);
+                      }
+                    );
                   });
               },
               function (callback) {
