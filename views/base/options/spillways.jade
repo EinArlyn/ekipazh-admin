@@ -50,6 +50,12 @@ block content
                   .edit-wrap
                     .spillway-folder-delete.btn-delete-folder(data-folder=spillwaysFolder.id)
                     .spillway-folder-edit.btn-edit-folder(data-folder=spillwaysFolder.id)
+              tr.country-check
+                each country in countries 
+                  td.country-item-spillways
+                    input(type="checkbox", id="country-checkbox" + country.id + spillwaysFolder.id, name="checkAddElems", data-addElems-id=spillwaysFolder.id, value=country.id, checked=spillwaysFolder.country_ids.includes(country.id)?true:false)
+                    label(for="country-checkbox" + country.id + spillwaysFolder.id) 
+                      =country.name
           else
             tr.folder-tr
               td.folder-not-exist(calspan="4")

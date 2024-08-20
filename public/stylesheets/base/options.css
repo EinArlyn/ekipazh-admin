@@ -516,7 +516,7 @@ table.sill-folders-table {
   flex-wrap: wrap;
   padding: 5px;
 }
-.country-item {
+.country-item, .country-item-sills {
   width: 100px;
   font-size: 12px;
 }

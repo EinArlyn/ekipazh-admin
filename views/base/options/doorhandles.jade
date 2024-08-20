@@ -50,6 +50,12 @@ block content
                   .edit-wrap
                     input.remove-btn.btn-delete-folder(type="button" data-folder=doorhandlesFolder.id)
                     input.edit-btn.btn-edit-folder(type="button" data-folder=doorhandlesFolder.id)
+              tr.country-check
+                each country in countries 
+                  td.country-item-handle
+                    input(type="checkbox", id="country-checkbox" + country.id + doorhandlesFolder.id, name="checkAddElems", data-addElems-id=doorhandlesFolder.id, value=country.id, checked=doorhandlesFolder.country_ids.includes(country.id)?true:false)
+                    label(for="country-checkbox" + country.id + doorhandlesFolder.id) 
+                      =country.name      
           else
             tr.folder-row
               td.folder-field.folder-not-exist(calspan="4")

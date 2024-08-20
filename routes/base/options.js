@@ -79,6 +79,9 @@ router.get('/application/get-template/:id', isAuthenticated, getTemplate);
 router.post('/application/edit-template', isAuthenticated, editTemplate);
 router.post('/application/remove-template', isAuthenticated, removeTemplate);
 
+// for all checkboxes country in addElems 
+router.post('/getAddElemsCountry/:id', isAuthenticated, getAddElemsCountry);
+
 /** Connectors */
 router.get('/connectors', isAuthenticated, getConnectors);
 /** Mosquitos */
@@ -526,17 +529,39 @@ function getWindowSills (req, res) {
     if (sillsColorsFolders === null || sillsFolders === null || sillsColorsFolders === undefined || sillsFolders === undefined) {
       res.send('Internal server error.');
     } else {
-        res.render('base/options/window-sills', {
-          i18n                : i18n,
-          title               : i18n.__('Options'),
-          sillsFolders        : sillsFolders,
-          sillsColorsFolders  : sillsColorsFolders,
-          folderTypeId        : folderTypeId,
-          colorTypeId         : colorTypeId,
-          thisPageLink        : '/base/options/',
-          cssSrcs             : ['/assets/stylesheets/base/options.css'],
-          scriptSrcs          : ['/assets/javascripts/vendor/localizer/i18next-1.10.1.min.js', '/assets/javascripts/base/options.js']
-        });
+      models.countries.findAll({
+        attributes: ["id", "name"]
+      }).then(function(countries){
+        models.compliance_addition_folders.findAll({
+
+        }).then(function(compliance_addition_folders){
+  
+            const countryMap = {};
+            compliance_addition_folders.forEach(country => {
+              const { addition_folders_id, country_id } = country.dataValues;
+              if (!countryMap[addition_folders_id]) {
+                countryMap[addition_folders_id] = [];
+              }
+              countryMap[addition_folders_id].push(country_id);
+            });
+            sillsFolders.forEach(folder => {
+                folder.country_ids = countryMap[folder.id] || [];
+            });
+          
+          res.render('base/options/window-sills', {
+            i18n                : i18n,
+            title               : i18n.__('Options'),
+            sillsFolders        : sillsFolders,
+            sillsColorsFolders  : sillsColorsFolders,
+            countries           : countries,
+            folderTypeId        : folderTypeId,
+            colorTypeId         : colorTypeId,
+            thisPageLink        : '/base/options/',
+            cssSrcs             : ['/assets/stylesheets/base/options.css'],
+            scriptSrcs          : ['/assets/javascripts/vendor/localizer/i18next-1.10.1.min.js', '/assets/javascripts/base/options.js']
+          });
+        })
+      })
     }
   });  
 }
@@ -761,17 +786,40 @@ function getSpillways(req, res) {
     if (spillwaysColorsFolders === null || spillwaysFolders === null || spillwaysColorsFolders === undefined || spillwaysFolders === undefined) {
       res.send('Internal server error.');
     } else {
-        res.render('base/options/spillways', {
-          i18n                    : i18n,
-          title                   : i18n.__('Options'),
-          spillwaysFolders        : spillwaysFolders,
-          spillwaysColorsFolders  : spillwaysColorsFolders,
-          folderTypeId            : folderTypeId,
-          colorTypeId             : colorTypeId,
-          thisPageLink            : '/base/options/',
-          cssSrcs                 : ['/assets/stylesheets/base/options/spillways.css'],
-          scriptSrcs              : ['/assets/javascripts/vendor/localizer/i18next-1.10.1.min.js', '/assets/javascripts/base/options/spillways.js']
-        });
+      models.countries.findAll({
+        attributes: ["id", "name"]
+      }).then(function(countries){
+
+        models.compliance_addition_folders.findAll({
+
+        }).then(function(compliance_addition_folders){
+  
+          const countryMap = {};
+          compliance_addition_folders.forEach(country => {
+            const { addition_folders_id, country_id } = country.dataValues;
+            if (!countryMap[addition_folders_id]) {
+              countryMap[addition_folders_id] = [];
+            }
+            countryMap[addition_folders_id].push(country_id);
+          });
+          spillwaysFolders.forEach(folder => {
+              folder.country_ids = countryMap[folder.id] || [];
+          });
+
+          res.render('base/options/spillways', {
+            i18n                    : i18n,
+            title                   : i18n.__('Options'),
+            spillwaysFolders        : spillwaysFolders,
+            spillwaysColorsFolders  : spillwaysColorsFolders,
+            countries               : countries,
+            folderTypeId            : folderTypeId,
+            colorTypeId             : colorTypeId,
+            thisPageLink            : '/base/options/',
+            cssSrcs                 : ['/assets/stylesheets/base/options/spillways.css'],
+            scriptSrcs              : ['/assets/javascripts/vendor/localizer/i18next-1.10.1.min.js', '/assets/javascripts/base/options/spillways.js']
+          });
+        })
+      })
     }
   });  
 }
@@ -966,14 +1014,37 @@ function getVisors(req, res) {
   models.addition_folders.findAll({
     where: {factory_id: req.session.user.factory_id, addition_type_id: 21}
   }).then(function(visorsFolders) {
-    res.render('base/options/visors', {
-      i18n               : i18n,
-      title              : i18n.__('Options'),
-      visorsFolders      : visorsFolders,
-      thisPageLink       : '/base/options/',
-      cssSrcs            : ['/assets/stylesheets/base/options/visors.css'],
-      scriptSrcs          : ['/assets/javascripts/vendor/localizer/i18next-1.10.1.min.js', '/assets/javascripts/base/options/visors.js']
-    });
+    models.countries.findAll({
+      attributes: ["id", "name"]
+    }).then(function(countries){
+
+      models.compliance_addition_folders.findAll({
+
+      }).then(function(compliance_addition_folders){
+
+          const countryMap = {};
+          compliance_addition_folders.forEach(country => {
+            const { addition_folders_id, country_id } = country.dataValues;
+            if (!countryMap[addition_folders_id]) {
+              countryMap[addition_folders_id] = [];
+            }
+            countryMap[addition_folders_id].push(country_id);
+          });
+          visorsFolders.forEach(folder => {
+              folder.country_ids = countryMap[folder.id] || [];
+          });
+
+          res.render('base/options/visors', {
+            i18n               : i18n,
+            title              : i18n.__('Options'),
+            visorsFolders      : visorsFolders,
+            countries          : countries,
+            thisPageLink       : '/base/options/',
+            cssSrcs            : ['/assets/stylesheets/base/options/visors.css'],
+            scriptSrcs          : ['/assets/javascripts/vendor/localizer/i18next-1.10.1.min.js', '/assets/javascripts/base/options/visors.js']
+          });
+      })
+    })
   }).catch(function(err) {
     console.log(err);
     res.send('Internal server error.')
@@ -1795,16 +1866,39 @@ function getConnectors (req, res) {
       addition_type_id: folderTypeId
     }
   }).then(function (connectorsFolders) {
-    res.render('base/options/connectors', {
-      i18n: i18n,
-      title: i18n.__('Connectors'),
-      connectorsFolders: connectorsFolders,
-      folderTypeId: folderTypeId,
-      cssSrcs: ['/assets/stylesheets/base/options/templates.css'],
-      scriptSrcs: ['/assets/javascripts/vendor/localizer/i18next-1.10.1.min.js',
-                   '/assets/javascripts/base/options/index.js',
-                   '/assets/javascripts/base/options/connectors.js']
-    });
+    models.countries.findAll({
+      attributes: ["id", "name"]
+    }).then(function(countries){
+
+      models.compliance_addition_folders.findAll({
+
+      }).then(function(compliance_addition_folders){
+
+        const countryMap = {};
+        compliance_addition_folders.forEach(country => {
+          const { addition_folders_id, country_id } = country.dataValues;
+          if (!countryMap[addition_folders_id]) {
+            countryMap[addition_folders_id] = [];
+          }
+          countryMap[addition_folders_id].push(country_id);
+        });
+        connectorsFolders.forEach(folder => {
+            folder.country_ids = countryMap[folder.id] || [];
+        });
+      
+        res.render('base/options/connectors', {
+          i18n: i18n,
+          title: i18n.__('Connectors'),
+          connectorsFolders: connectorsFolders,
+          countries        : countries,
+          folderTypeId     : folderTypeId,
+          cssSrcs          : ['/assets/stylesheets/base/options/templates.css'],
+          scriptSrcs       : ['/assets/javascripts/vendor/localizer/i18next-1.10.1.min.js',
+                              '/assets/javascripts/base/options/index.js',
+                              '/assets/javascripts/base/options/connectors.js']
+        });
+      })
+    })
   }).catch(function (error) {
     console.log(error);
     res.send('Internal server error.');
@@ -1844,18 +1938,41 @@ function doorsHandles (req, res) {
     if (handleColorsFolders === null || doorhandlesFolders === null || handleColorsFolders === undefined || doorhandlesFolders === undefined) {
       res.send('Internal server error.');
     } else {
-        res.render('base/options/doorhandles', {
-          i18n                : i18n,
-          title               : i18n.__('Connectors'),
-          doorhandlesFolders  : doorhandlesFolders,
-          handleColorsFolders : handleColorsFolders,
-          folderTypeId        : folderTypeId,
-          colorTypeId         : colorTypeId,
-          cssSrcs             : ['/assets/stylesheets/base/options/templates.css'],
-          scriptSrcs          : ['/assets/javascripts/vendor/localizer/i18next-1.10.1.min.js',
-                                '/assets/javascripts/base/options/index.js',
-                                '/assets/javascripts/base/options/doorhandles.js']
-        });
+      models.countries.findAll({
+        attributes: ["id", "name"]
+      }).then(function(countries){
+
+        models.compliance_addition_folders.findAll({
+
+        }).then(function(compliance_addition_folders){
+  
+          const countryMap = {};
+          compliance_addition_folders.forEach(country => {
+            const { addition_folders_id, country_id } = country.dataValues;
+            if (!countryMap[addition_folders_id]) {
+              countryMap[addition_folders_id] = [];
+            }
+            countryMap[addition_folders_id].push(country_id);
+          });
+          doorhandlesFolders.forEach(folder => {
+              folder.country_ids = countryMap[folder.id] || [];
+          });
+        
+          res.render('base/options/doorhandles', {
+            i18n                : i18n,
+            title               : i18n.__('Connectors'),
+            doorhandlesFolders  : doorhandlesFolders,
+            handleColorsFolders : handleColorsFolders,
+            countries           : countries,
+            folderTypeId        : folderTypeId,
+            colorTypeId         : colorTypeId,
+            cssSrcs             : ['/assets/stylesheets/base/options/templates.css'],
+            scriptSrcs          : ['/assets/javascripts/vendor/localizer/i18next-1.10.1.min.js',
+                                  '/assets/javascripts/base/options/index.js',
+                                  '/assets/javascripts/base/options/doorhandles.js']
+          });
+        })
+      })  
     }
   });  
 }
@@ -2042,6 +2159,70 @@ function _destroyLaminationSystem(laminationId, countryId) {
   models.compliance_lamination_colors.findOne({
     where: {
       lamination_factory_colors_id: laminationId,
+      country_id: countryId
+    }
+  }).then(function (result) {
+    if (!result) return;
+    result.destroy().then(function () {
+      return;
+    });
+  });
+}
+
+  //  addElems sills
+function getAddElemsCountry (req, res) {
+  var groupId	= parseInt(req.params.id);
+  var obj = Object.assign({},req.body);
+  for (const property in obj) {
+    if (obj[property] == 1)
+    {
+       _saveAddElemsSystem(groupId, property);
+    }
+    else
+    {
+       _destroyAddElemsSystem(groupId, property);
+    }
+  }  
+  models.sequelize.query("SELECT CAF.country_id, CAF.addition_folders_id " +
+                         "FROM compliance_addition_folders CAF " +
+                         "JOIN addition_folders AF " +
+                         "ON CAF.addition_folders_id = AF.id " +
+                        //  "JOIN window_hardware_folders WHF " +
+                        //  "ON LFC.folder_id = WHF.id " +
+                         "WHERE CAF.addition_folders_id = " + parseInt(groupId) +
+                         " AND AF.factory_id = " + parseInt(req.session.user.factory_id) +
+  "").then(function (compliance_addition_folders) {
+      var rows =  compliance_addition_folders[0];
+      var whps =  {};
+      for (var i = 0, len = rows.length; i < len; i++) {
+    whps[rows[i].country_id]=rows[i].addition_folders_id;
+      };
+    console.log(whps);
+    res.send(whps);
+  });
+}
+
+function _saveAddElemsSystem (addElemsId, countryId) {
+  models.compliance_addition_folders.findOne({
+    where: {
+      addition_folders_id: addElemsId,
+      country_id: countryId
+    }
+  }).then(function (result) {
+    if (result) return;
+    models.compliance_addition_folders.create({
+      addition_folders_id: parseInt(addElemsId, 10),
+      country_id: parseInt(countryId, 10)
+    }).then(function (result) {
+      return;
+    });
+  });
+}
+
+function _destroyAddElemsSystem(addElemsId, countryId) {
+  models.compliance_addition_folders.findOne({
+    where: {
+      addition_folders_id: addElemsId,
       country_id: countryId
     }
   }).then(function (result) {

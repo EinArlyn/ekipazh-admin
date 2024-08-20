@@ -378,4 +378,37 @@ $(function () {
       });
     }
   }
+
+  // country checkbox
+  $('td.country-item-spillways input').click(function() {
+    countryId = $(this).attr('value');
+    country_status = $(this).is(":checked");
+    var CheckCountry ={};
+    if (country_status)
+    {
+       CheckCountry[countryId] = 1;
+    }
+    else
+    {
+       CheckCountry[countryId] = 0;
+    }
+   setAddElemsCountry($(this).attr('data-addElems-id'), CheckCountry);
+  });
+
+  function setAddElemsCountry(addElemsId, CheckCountry) {
+    $.post('/base/options/getAddElemsCountry/' + addElemsId, CheckCountry
+    , function(data) {
+      if (!CheckCountry)
+      {
+        $("[name='checkAddElems']").each(function() {
+            if (data[$(this).attr('value')]){
+              $(this).prop('checked', true);
+            }
+            else{
+              $(this).prop('checked', false);
+            }
+        });
+      }
+    });
+  }
 });

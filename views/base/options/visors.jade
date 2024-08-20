@@ -50,6 +50,12 @@ block content
                   .edit-wrap
                     .visor-folder-delete.btn-delete-folder(data-folder=visorsFolder.id)
                     .visor-folder-edit.btn-edit-folder(data-folder=visorsFolder.id)
+              tr.country-check
+                each country in countries 
+                  td.country-item-visors
+                    input(type="checkbox", id="country-checkbox" + country.id + visorsFolder.id, name="checkAddElems", data-addElems-id=visorsFolder.id, value=country.id, checked=visorsFolder.country_ids.includes(country.id)?true:false)
+                    label(for="country-checkbox" + country.id + visorsFolder.id) 
+                      =country.name
           else
             tr.folder-tr
               td.folder-not-exist(calspan="4")
