@@ -417,6 +417,39 @@ module.exports = function (req, res) {
                   .findAll({
                     where: {
                       factory_id: factory_id,
+                      table_name: "addition_colors",
+                    },
+                  })
+                  .then(function (locales_names) {
+                    tables.locales_names_addition_colors = {};
+                    tables.locales_names_addition_colors.fields = [
+                      "id",
+                      "table_name",
+                      "table_id",
+                      "table_attr",
+                      "ru",
+                      "en",
+                      "ua",
+                      "de",
+                      "ro",
+                      "it",
+                      "pl",
+                      "es",
+                      "bg",
+                    ];
+                    sortValues(locales_names, function (values) {
+                      tables.locales_names_addition_colors.rows =
+                        values;
+                      callback(null);
+                    });
+                  });
+              },
+              function (callback) {
+                /** locales_names */
+                models.locales_names
+                  .findAll({
+                    where: {
+                      factory_id: factory_id,
                       table_name: "window_hardware_folders",
                     },
                   })
