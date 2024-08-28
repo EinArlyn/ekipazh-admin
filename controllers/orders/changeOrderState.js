@@ -18,7 +18,7 @@ module.exports = function (req, res) {
 
   if (state === 'sended' && new Date(update[state]) > new Date(0)) {
     exportOrder(orderId, function (err) {
-      if (err) return res.send({ status: false, error: err });
+      // if (err) return res.send({ status: false, error: err });
       models.orders.find({
         where: { id: orderId }
       }).then(function (order) {

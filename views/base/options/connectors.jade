@@ -65,8 +65,43 @@ block content
             td.folder-field.folder-name.folder-add
               span.folder-add-text
                 =i18n.__("Add +")
-
-  include ./includes/popups/add-folder.jade
-  include ./includes/popups/edit-folder.jade
-  include ./includes/popups/alert-remove-folder.jade
+  form(method='post', action='/base/option/save', id="main-form")
+    .connectors-option.checked-option
+      .main-header
+        span.header
+          =i18n.__('Color')
+      .main-content
+        table.folders-table(cellspasing="0", cellpadding="0", border="0")
+          if (connectorsColorsFolders.length)
+            each connectorsColorFolder in connectorsColorsFolders
+              tr.folder-row
+                td.folder-field.folder-name
+                  span.folder-text
+                    =connectorsColorFolder.name
+                td.folder-field.folder-img
+                  .glass-img-wraper
+                    img(src=(connectorsColorFolder.img ? connectorsColorFolder.img : '/local_storage/default.png'), alt="")
+                td.folder-field.folder-description
+                  =i18n.__('Description')
+                  | :
+                  .description-wraper
+                    =connectorsColorFolder.description
+                  .edit-wrap
+                    input.remove-btn.btn-delete-color(type="button" data-color=connectorsColorFolder.id)
+                    input.edit-btn.btn-edit-color(type="button" data-color=connectorsColorFolder.id)
+          else
+            tr.folder-row
+              td.folder-field.folder-not-exist(calspan="4")
+                span.folder-add-text
+                  =i18n.__('Empty')
+          tr.folder-row
+            td.folder-field.folder-name.color-add
+              span.folder-add-text
+                =i18n.__("Add +")
+  include includes/popups/add-folder.jade
+  include includes/popups/edit-folder.jade
+  include includes/popups/alert-remove-folder.jade
+  include includes/popups/add-color.jade
+  include includes/popups/edit-color.jade
+  include includes/popups/alert-remove-color.jade
   

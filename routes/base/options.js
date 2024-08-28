@@ -1859,46 +1859,49 @@ function removeTemplate(req, res) {
 
 function getConnectors (req, res) {
   var folderTypeId = 7;
+  var colorTypeId = 27;
 
-  models.addition_folders.findAll({
-    where: {
-      factory_id: req.session.user.factory_id,
-      addition_type_id: folderTypeId
-    }
-  }).then(function (connectorsFolders) {
-    models.countries.findAll({
-      attributes: ["id", "name"]
-    }).then(function(countries){
+  Promise.all([getColor(colorTypeId), getAdditionFolder(folderTypeId, req.session.user.factory_id)]).then((results) => {
+    const [connectorsColorsFolders, connectorsFolders] = results;
+    if (connectorsColorsFolders === null || connectorsFolders === null || connectorsColorsFolders === undefined || connectorsFolders === undefined) {
+      res.send('Internal server error.');
+    } else {
+      models.countries.findAll({
+        attributes: ["id", "name"]
+      }).then(function(countries){
 
-      models.compliance_addition_folders.findAll({
+        models.compliance_addition_folders.findAll({
 
-      }).then(function(compliance_addition_folders){
+        }).then(function(compliance_addition_folders){
 
-        const countryMap = {};
-        compliance_addition_folders.forEach(country => {
-          const { addition_folders_id, country_id } = country.dataValues;
-          if (!countryMap[addition_folders_id]) {
-            countryMap[addition_folders_id] = [];
-          }
-          countryMap[addition_folders_id].push(country_id);
-        });
-        connectorsFolders.forEach(folder => {
-            folder.country_ids = countryMap[folder.id] || [];
-        });
-      
-        res.render('base/options/connectors', {
-          i18n: i18n,
-          title: i18n.__('Connectors'),
-          connectorsFolders: connectorsFolders,
-          countries        : countries,
-          folderTypeId     : folderTypeId,
-          cssSrcs          : ['/assets/stylesheets/base/options/templates.css'],
-          scriptSrcs       : ['/assets/javascripts/vendor/localizer/i18next-1.10.1.min.js',
-                              '/assets/javascripts/base/options/index.js',
-                              '/assets/javascripts/base/options/connectors.js']
-        });
+          const countryMap = {};
+          compliance_addition_folders.forEach(country => {
+            const { addition_folders_id, country_id } = country.dataValues;
+            if (!countryMap[addition_folders_id]) {
+              countryMap[addition_folders_id] = [];
+            }
+            countryMap[addition_folders_id].push(country_id);
+          });
+          connectorsFolders.forEach(folder => {
+              folder.country_ids = countryMap[folder.id] || [];
+          });
+        
+          res.render('base/options/connectors', {
+            i18n: i18n,
+            title: i18n.__('Connectors'),
+            connectorsFolders      : connectorsFolders,
+            connectorsColorsFolders: connectorsColorsFolders,
+            countries              : countries,
+            folderTypeId           : folderTypeId,
+            colorTypeId            : colorTypeId,
+            cssSrcs                : ['/assets/stylesheets/base/options/templates.css'],
+            scriptSrcs             : ['/assets/javascripts/vendor/localizer/i18next-1.10.1.min.js',
+                                      '/assets/javascripts/base/options/index.js',
+                                      '/assets/javascripts/base/options/connectors.js']
+          });
+        })
       })
-    })
+    }
   }).catch(function (error) {
     console.log(error);
     res.send('Internal server error.');

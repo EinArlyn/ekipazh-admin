@@ -49,6 +49,7 @@ $(function () {
     }
   });
   // work with color for window sill
+  // 
   $('.color-add').click(addNewColor);
   $('.btn-delete-color').click(removeColor);
   $('.btn-edit-color').click(editColor);
