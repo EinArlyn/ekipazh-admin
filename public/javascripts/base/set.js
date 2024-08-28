@@ -168,6 +168,11 @@ $(function () {
     } else {
       $(".spillway-color").hide();
     }
+    if (group == 12) {
+      $(".connectors-color").show();
+    } else {
+      $(".connectors-color").hide();
+    }
 
 
     if (group == 8) {
@@ -638,6 +643,8 @@ $(function () {
     } else if (groupId == 12) {
       additionalFolderId = $('#connectors-group').val();
       _saveAdditionalFolder(setId, additionalFolderId);
+      additionalFolderId = $('#connectors-group-color').val();
+      _saveAdditionalColor(setId, additionalFolderId);
     } else if (groupId == 24) {
       additionalFolderId = $('#doorhandles-group').val();
       _saveAdditionalFolder(setId, additionalFolderId);

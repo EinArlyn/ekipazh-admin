@@ -110,35 +110,40 @@ function getSet (req, res) {
                                     }).then(function(windowSillsColors) {
                                       models.addition_colors.findAll({ where: {lists_type_id: 33}
                                       }).then(function(spillwaysColors) {
+                                        models.addition_colors.findAll({ where: {lists_type_id: 27}
+                                        }).then(function(connectorsColors) {
                                         
-                                        res.render('base/set', {
-                                          i18n               : i18n,
-                                          title              : i18n.__('Edit set'),
-                                          list               : list,
-                                          parent_element     : parent_element,
-                                          lists_groups       : lists_groups,
-                                          lists_types        : lists_types,
-                                          elementsChilds     : elementsChilds,
-                                          listsChilds        : listsChilds,
-                                          windowSillsFolders : windowSillsFolders,
-                                          spillwaysFolders   : spillwaysFolders,
-                                          visorsFolders      : visorsFolders,
-                                          connectorsFolders  : connectorsFolders,
-                                          size               : list.size,
-                                          // mosquitosFolders   : mosquitosFolders,
-                                          doorhandlesFolders : doorhandlesFolders,
-                                          handlesColors      : handlesColors,
-                                          windowSillsColors  : windowSillsColors,
-                                          spillwaysColors    : spillwaysColors,
-                                          hardwareHandles    : hardwareHandles,
-                                          factoryLaminations : factoryLaminations,
-                                          thisPageLink       : '/base/set/',
-                                          cssSrcs            : ['/assets/stylesheets/base/set.css'],
-                                          scriptSrcs         : ['/assets/javascripts/vendor/localizer/i18next-1.10.1.min.js', '/assets/javascripts/vendor/imagePicker/image-picker.min.js', '/assets/javascripts/base/set.js']
+                                              res.render('base/set', {
+                                                i18n               : i18n,
+                                                title              : i18n.__('Edit set'),
+                                                list               : list,
+                                                parent_element     : parent_element,
+                                                lists_groups       : lists_groups,
+                                                lists_types        : lists_types,
+                                                elementsChilds     : elementsChilds,
+                                                listsChilds        : listsChilds,
+                                                windowSillsFolders : windowSillsFolders,
+                                                spillwaysFolders   : spillwaysFolders,
+                                                visorsFolders      : visorsFolders,
+                                                connectorsFolders  : connectorsFolders,
+                                                size               : list.size,
+                                                // mosquitosFolders   : mosquitosFolders,
+                                                doorhandlesFolders : doorhandlesFolders,
+                                                handlesColors      : handlesColors,
+                                                windowSillsColors  : windowSillsColors,
+                                                spillwaysColors    : spillwaysColors,
+                                                connectorsColors   : connectorsColors,
+                                                hardwareHandles    : hardwareHandles,
+                                                factoryLaminations : factoryLaminations,
+                                                thisPageLink       : '/base/set/',
+                                                cssSrcs            : ['/assets/stylesheets/base/set.css'],
+                                                scriptSrcs         : ['/assets/javascripts/vendor/localizer/i18next-1.10.1.min.js', '/assets/javascripts/vendor/imagePicker/image-picker.min.js', '/assets/javascripts/base/set.js']
+                                              });
+                                      
+                                        }).catch(function(error) {
+                                          console.log(error);
+                                          res.send('Internal sever error.');
                                         });
-                                      }).catch(function(error) {
-                                        console.log(error);
-                                        res.send('Internal sever error.');
                                       });
                                     });
                                     // console.log('LIST',list)
