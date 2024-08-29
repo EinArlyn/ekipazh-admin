@@ -134,8 +134,7 @@ function _setPrices(orderRow, user, factory, childPurchase, seller) {
       var constructDiscount = 0;
       var addElemDiscount = 0;
       // var userPurchasePrice = parseFloat(parseFloat(orderRow.order_price) - (parseFloat(orderRow.templates_price * (userDiscounts.max_construct / 100)) + parseFloat(orderRow.addelems_price * (userDiscounts.max_add_elem / 100)))).toFixed(2);
-      // var userPurchasePrice = parseFloat((parseFloat(orderRow.templates_price / ((userDiscounts.default_construct + 100 ) / 100)) + parseFloat(orderRow.addelems_price / ((userDiscounts.default_add_elem + 100) / 100)))).toFixed(2);
-      var userPurchasePrice = (+orderRow.order_price) - ((+orderRow.templates_price - (+orderRow.templates_price / ((+userDiscounts.default_construct + 100) / 100))) + (+orderRow.templates_price - (+orderRow.addelems_price / ((+userDiscounts.default_add_elem + 100) / 100)))).toFixed(2);
+      var userPurchasePrice = (+orderRow.order_price) - ((+orderRow.templates_price - (+orderRow.templates_price / ((+userDiscounts.default_construct + 100) / 100))) + (+orderRow.addelems_price - (+orderRow.addelems_price / ((+userDiscounts.default_add_elem + 100) / 100)))).toFixed(2);
 
       var userBasePrice = parseFloat(orderRow.order_price).toFixed(2);
       var userSalePrice = parseFloat(childPurchase).toFixed(2);
