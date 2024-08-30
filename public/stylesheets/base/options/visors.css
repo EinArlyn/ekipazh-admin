@@ -225,6 +225,53 @@ tr.folder-tr {
   .pop-up {
     display: none;
   }
+  .popup-add-color,
+  .popup-edit-color {
+    width: 350px;
+    height: 200px;
+    border: 1px solid #e5e5e5;
+    border-radius: 5px;
+    background-color: #e4e4e4;
+    padding: 0 30px;
+    font-size: 12px;
+  }
+  .btn-delete-color {
+    float: right;
+    margin-top: -54px;
+    margin-right: -83px;
+    height: 20px;
+    width: 20px;
+    background-image: url('/assets/images/remove_btn.png');
+  }
+  .btn-edit-color {
+    float: right;
+    margin-top: -84px;
+    margin-right: -85px;
+    height: 26px;
+    width: 24px;
+    background-image: url('/assets/images/hardwares/edit_inactive.png');
+  }
+  .btn-edit-color:hover {
+    cursor: pointer;
+    background-image: url('/assets/images/hardwares/edit_active.png');
+  }
+  .btn-delete-color:hover {
+    cursor: pointer;
+  }
+  td.color-add:hover{
+    background-color: #e1e1e1;
+    cursor: pointer;
+  }
+  td.color-add {
+    background-color: #d0d0d0;
+    color: #767676;
+    font-size: 12px;
+    -webkit-transition: background-color 0.5s;
+    -moz-transition: background-color 0.5s;
+    -ms-transition: background-color 0.5s;
+    -o-transition: background-color 0.5s;
+    transition: background-color 0.5s;
+  }
 
     .content-block {
       height: 30px;

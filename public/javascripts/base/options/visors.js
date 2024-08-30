@@ -46,6 +46,16 @@ $(function () {
     }
   });
 
+  // work with color 
+  $('.color-add').click(addNewColor);
+  $('.btn-delete-color').click(removeColor);
+  $('.btn-edit-color').click(editColor);
+  $('.alert-remove-color input.pop-up-submit-btn').click(submitRemoveColor);
+  $('.popup-add-color input.add-image-btn').click(addImageColor);
+  $('.popup-edit-color input.add-image-btn').click(editImageColor);
+  $('form#add-new-connector-color-form').on('submit', submitFolder);
+  $('form#edit-connector-color-form').on('submit', submitFolder);
+
   $('.pop-up-close-wrap').click(function(e) {
     e.preventDefault();
 
@@ -343,5 +353,61 @@ $(function () {
         });
       }
     });
+  }
+  
+  // work with color
+  function addNewColor (e) {
+    $('.popup-add-color').popup('show');
+  }
+  function editColor (e) {
+    var colorId = $(this).attr('data-color');
+    $.get('/base/options/colors/get/' + colorId, function (data) {
+      if (data.status) {
+        $('.popup-edit-color input[name="color_id"]').val(data.color.id);
+        $('.popup-edit-color input[name="name"]').val(data.color.name);
+        $('.popup-edit-color img.color-image').attr('src', data.color.img);
+        $('.popup-edit-color').popup('show');
+      }
+    })
+  }
+  function removeColor (e) {
+    var colorId = $(this).attr('data-color');
+    window.localStorage.setItem('colorId', colorId);
+    $('.alert-remove-color').popup('show');
+  }
+  function submitRemoveColor (e) {
+    var colorId = window.localStorage.getItem('colorId');
+    
+    $.post('/base/options/colors/remove', {
+      colorId: colorId
+    }, function (data) {
+      if (data.status) {
+        $('.alert-remove-color').popup('hide');
+        window.location.reload();
+      }
+    })
+  }
+  function addImageColor (e) {
+    selectImageColor('.popup-add-color');
+  }
+  function editImageColor (e) {
+    selectImageColor('.popup-edit-color');
+  }
+  function selectImageColor (popup) {
+    $(popup + ' input.color-image-file').trigger('click');
+  }
+  function submitFolder (e) {
+    e.preventDefault();
+
+    var formData = new FormData(this);
+    var formAction = $(this).attr('action');
+
+    submitForm({ action: formAction, data: formData }, onResponse);
+
+    function onResponse (data) {
+      if (data.status) {
+        window.location.reload();
+      }
+    }
   }
 });

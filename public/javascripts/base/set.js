@@ -153,7 +153,7 @@ $(function () {
       $("#amendment_pruning").show();
     }
 
-    if (group == 8 || group == 9) {
+    if (group == 8 || group == 9 || group == 21) {
       $("#size").show();
     } else {
       $("#size").hide();  
@@ -173,6 +173,17 @@ $(function () {
     } else {
       $(".connectors-color").hide();
     }
+    if (group == 10) {
+      $(".mosquitos-color").show();
+    } else {
+      $(".mosquitos-color").hide();
+    }
+    if (group == 21) {
+      $(".visors-color").show();
+    } else {
+      $(".visors-color").hide();
+    }
+    // console.log(group);
 
 
     if (group == 8) {

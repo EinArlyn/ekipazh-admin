@@ -1010,41 +1010,49 @@ function removeSpillwayFolder(req, res) {
 /**
  * Get visors folders
  */
+
 function getVisors(req, res) {
-  models.addition_folders.findAll({
-    where: {factory_id: req.session.user.factory_id, addition_type_id: 21}
-  }).then(function(visorsFolders) {
-    models.countries.findAll({
-      attributes: ["id", "name"]
-    }).then(function(countries){
+  var folderTypeId = 21;
+  var colorTypeId = 29;
 
-      models.compliance_addition_folders.findAll({
+  Promise.all([getColor(colorTypeId), getAdditionFolder(folderTypeId, req.session.user.factory_id)]).then((results) => {
+    const [visorsColorsFolders, visorsFolders] = results;
+    if (visorsColorsFolders === null || visorsFolders === null || visorsColorsFolders === undefined || visorsFolders === undefined) {
+      res.send('Internal server error.');
+    } else {
+      models.countries.findAll({
+        attributes: ["id", "name"]
+      }).then(function(countries){
+          models.compliance_addition_folders.findAll({
 
-      }).then(function(compliance_addition_folders){
+          }).then(function(compliance_addition_folders){
 
-          const countryMap = {};
-          compliance_addition_folders.forEach(country => {
-            const { addition_folders_id, country_id } = country.dataValues;
-            if (!countryMap[addition_folders_id]) {
-              countryMap[addition_folders_id] = [];
-            }
-            countryMap[addition_folders_id].push(country_id);
-          });
-          visorsFolders.forEach(folder => {
-              folder.country_ids = countryMap[folder.id] || [];
-          });
+            const countryMap = {};
+            compliance_addition_folders.forEach(country => {
+              const { addition_folders_id, country_id } = country.dataValues;
+              if (!countryMap[addition_folders_id]) {
+                countryMap[addition_folders_id] = [];
+              }
+              countryMap[addition_folders_id].push(country_id);
+            });
+            visorsFolders.forEach(folder => {
+                folder.country_ids = countryMap[folder.id] || [];
+            });
 
           res.render('base/options/visors', {
             i18n               : i18n,
             title              : i18n.__('Options'),
             visorsFolders      : visorsFolders,
+            visorsColorsFolders: visorsColorsFolders,
             countries          : countries,
+            colorTypeId        : colorTypeId,
             thisPageLink       : '/base/options/',
             cssSrcs            : ['/assets/stylesheets/base/options/visors.css'],
-            scriptSrcs          : ['/assets/javascripts/vendor/localizer/i18next-1.10.1.min.js', '/assets/javascripts/base/options/visors.js']
+            scriptSrcs         : ['/assets/javascripts/vendor/localizer/i18next-1.10.1.min.js', '/assets/javascripts/base/options/visors.js']
           });
+        })
       })
-    })
+    }
   }).catch(function(err) {
     console.log(err);
     res.send('Internal server error.')
@@ -1910,23 +1918,48 @@ function getConnectors (req, res) {
 
 function getMosquitos (req, res) {
   var folderTypeId = 12;
+  var colorTypeId = 20;
 
-  models.addition_folders.findAll({
-    where: {
-      factory_id: req.session.user.factory_id,
-      addition_type_id: folderTypeId
+  Promise.all([getColor(colorTypeId), getAdditionFolder(folderTypeId, req.session.user.factory_id)]).then((results) => {
+    const [mosquitosColorsFolders, mosquitosFolders] = results;
+    if (mosquitosColorsFolders === null || mosquitosFolders === null || mosquitosColorsFolders === undefined || mosquitosFolders === undefined) {
+      res.send('Internal server error.');
+    } else {
+      models.countries.findAll({
+        attributes: ["id", "name"]
+      }).then(function(countries){
+          models.compliance_addition_folders.findAll({
+
+          }).then(function(compliance_addition_folders){
+
+            const countryMap = {};
+            compliance_addition_folders.forEach(country => {
+              const { addition_folders_id, country_id } = country.dataValues;
+              if (!countryMap[addition_folders_id]) {
+                countryMap[addition_folders_id] = [];
+              }
+              countryMap[addition_folders_id].push(country_id);
+            });
+            mosquitosFolders.forEach(folder => {
+                folder.country_ids = countryMap[folder.id] || [];
+            });
+
+          res.render('base/options/mosquitos', {
+            i18n: i18n,
+            title: i18n.__('Connectors'),
+            mosquitosFolders        : mosquitosFolders,
+            mosquitosColorsFolders  : mosquitosColorsFolders,
+            countries               : countries,
+            folderTypeId            : folderTypeId,
+            colorTypeId             : colorTypeId,
+            cssSrcs                 : ['/assets/stylesheets/base/options/templates.css'],
+            scriptSrcs              : ['/assets/javascripts/vendor/localizer/i18next-1.10.1.min.js',
+                                        '/assets/javascripts/base/options/index.js',
+                                        '/assets/javascripts/base/options/mosquitos.js']
+          });
+        })
+      })
     }
-  }).then(function (mosquitosFolders) {
-    res.render('base/options/mosquitos', {
-      i18n: i18n,
-      title: i18n.__('Connectors'),
-      mosquitosFolders: mosquitosFolders,
-      folderTypeId: folderTypeId,
-      cssSrcs: ['/assets/stylesheets/base/options/templates.css'],
-      scriptSrcs: ['/assets/javascripts/vendor/localizer/i18next-1.10.1.min.js',
-                   '/assets/javascripts/base/options/index.js',
-                   '/assets/javascripts/base/options/mosquitos.js']
-    });
   }).catch(function (error) {
     console.log(error);
     res.send('Internal server error.');
