@@ -189,6 +189,26 @@ block content
                   option(value="0" selected)=i18n.__('Not exist')
                   each connectorsColor in connectorsColors
                     option(value=connectorsColor.id selected=(list.add_color_id === connectorsColor.id ? 'selected' : undefined))=connectorsColor.name
+            .mosquitos-color.hidden.additional-folders
+              span.additional-text-align
+                =i18n.__('Color')
+                | :
+              br
+              span.additional-select-align
+                select.select-default#mosquitos-group-color(style="width: 225px; margin-top: 5px; margin-bottom: 5px;")
+                  option(value="0" selected)=i18n.__('Not exist')
+                  each mosquitosColor in mosquitosColors
+                    option(value=mosquitosColor.id selected=(list.add_color_id === mosquitosColor.id ? 'selected' : undefined))=mosquitosColor.name
+            .visors-color.hidden.additional-folders
+              span.additional-text-align
+                =i18n.__('Color')
+                | :
+              br
+              span.additional-select-align
+                select.select-default#visors-group-color(style="width: 225px; margin-top: 5px; margin-bottom: 5px;")
+                  option(value="0" selected)=i18n.__('Not exist')
+                  each visorsColor in visorsColors
+                    option(value=visorsColor.id selected=(list.add_color_id === visorsColor.id ? 'selected' : undefined))=visorsColor.name
                     //- 
         hr.opener
         .opener.frame-content-open

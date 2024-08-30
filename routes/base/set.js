@@ -79,105 +79,72 @@ function getSet (req, res) {
                   order: 'name'
                 }).then(function (lists_types) {
                   models.addition_folders.findAll({
-                    where: {factory_id: req.session.user.factory_id, addition_type_id: 8}
-                  }).then(function(windowSillsFolders) {
-                    models.addition_folders.findAll({
-                      where: {factory_id: req.session.user.factory_id, addition_type_id: 9}
-                    }).then(function(spillwaysFolders) {
-                      models.addition_folders.findAll({
-                        where: {factory_id: req.session.user.factory_id, addition_type_id: 21}
-                      }).then(function(visorsFolders) {
-                        models.addition_folders.findAll({
-                          where: {factory_id: req.session.user.factory_id, addition_type_id: 7}
-                        }).then(function(connectorsFolders) {
-                          // models.addition_folders.findAll({
-                          //   where: {factory_id: req.session.user.factory_id, addition_type_id: 12}
-                          // }).then(function(mosquitosFolders) {
-                            models.addition_folders.findAll({
-                              where: {factory_id: req.session.user.factory_id, addition_type_id: 10}
-                            }).then(function(doorhandlesFolders) {
-                              models.window_hardware_handles.find({
-                                where: {list_id: id}
-                              }).then(function(hardwareHandles) {
-                                models.lamination_factory_colors.findAll({
-                                  where: {
-                                    factory_id: req.session.user.factory_id
-                                  }
-                                }).then(function(factoryLaminations) {
-                                  models.addition_colors.findAll({ where: {lists_type_id: 24}
-                                  }).then(function(handlesColors) {
-                                    models.addition_colors.findAll({ where: {lists_type_id: 32}
-                                    }).then(function(windowSillsColors) {
-                                      models.addition_colors.findAll({ where: {lists_type_id: 33}
-                                      }).then(function(spillwaysColors) {
-                                        models.addition_colors.findAll({ where: {lists_type_id: 27}
-                                        }).then(function(connectorsColors) {
-                                        
-                                              res.render('base/set', {
-                                                i18n               : i18n,
-                                                title              : i18n.__('Edit set'),
-                                                list               : list,
-                                                parent_element     : parent_element,
-                                                lists_groups       : lists_groups,
-                                                lists_types        : lists_types,
-                                                elementsChilds     : elementsChilds,
-                                                listsChilds        : listsChilds,
-                                                windowSillsFolders : windowSillsFolders,
-                                                spillwaysFolders   : spillwaysFolders,
-                                                visorsFolders      : visorsFolders,
-                                                connectorsFolders  : connectorsFolders,
-                                                size               : list.size,
-                                                // mosquitosFolders   : mosquitosFolders,
-                                                doorhandlesFolders : doorhandlesFolders,
-                                                handlesColors      : handlesColors,
-                                                windowSillsColors  : windowSillsColors,
-                                                spillwaysColors    : spillwaysColors,
-                                                connectorsColors   : connectorsColors,
-                                                hardwareHandles    : hardwareHandles,
-                                                factoryLaminations : factoryLaminations,
-                                                thisPageLink       : '/base/set/',
-                                                cssSrcs            : ['/assets/stylesheets/base/set.css'],
-                                                scriptSrcs         : ['/assets/javascripts/vendor/localizer/i18next-1.10.1.min.js', '/assets/javascripts/vendor/imagePicker/image-picker.min.js', '/assets/javascripts/base/set.js']
-                                              });
-                                      
-                                        }).catch(function(error) {
-                                          console.log(error);
-                                          res.send('Internal sever error.');
-                                        });
-                                      });
-                                    });
-                                    // console.log('LIST',list)
-                                    // console.log('>>>><<<<<<<<',doorhandlesFolders);
-                                  
-                                  // models.lock_lists.findAll({
-                                  //   where: {
-                                  //     list_id: id
-                                  //   },
-                                  //   include: [{
-                                  //     model: models.lists
-                                  //   }]
-                                  // }).then(function (lockLists) {
-                                    // models.sequelize.query('SELECT L.id, L.name ' +
-                                    //   'FROM lists L ' +
-                                    //     'JOIN elements E ' +
-                                    //     'ON L.parent_element_id = E.id ' +
-                                    //   'WHERE E.factory_id=' + parseInt(req.session.user.factory_id) + ' ' +
-                                    //     'AND L.list_type_id IN (35, 36)' +
-                                    // '').then(function (availableLockLists) {
-                                     
-                                  //   }).catch(function (error) {
-                                  //     console.log(error);
-                                  //     res.send('Internal server error.');
-                                  //   });
-                                  // }).catch(function (error) {
-                                  //   console.log(error);
-                                  //   res.send('Internal server error.');
-                                  // });
-                                });
-                                });
-                              });
-                            // });
-                          });
+                    where: {
+                      factory_id: req.session.user.factory_id,
+                      addition_type_id: [8, 9, 21, 7, 12, 10]
+                    }
+                  }).then(function(folders) {
+
+                    const windowSillsFolders = folders.filter(folder => folder.addition_type_id === 8);
+                    const spillwaysFolders = folders.filter(folder => folder.addition_type_id === 9);
+                    const visorsFolders = folders.filter(folder => folder.addition_type_id === 21);
+                    const connectorsFolders = folders.filter(folder => folder.addition_type_id === 7);
+                    const mosquitosFolders = folders.filter(folder => folder.addition_type_id === 12);
+                    const doorhandlesFolders = folders.filter(folder => folder.addition_type_id === 10);
+                  
+                    models.window_hardware_handles.find({
+                      where: {list_id: id}
+                    }).then(function(hardwareHandles) {
+                      models.lamination_factory_colors.findAll({
+                        where: {
+                          factory_id: req.session.user.factory_id
+                        }
+                      }).then(function(factoryLaminations) {
+                          models.addition_colors.findAll({
+                            where: {
+                              lists_type_id: [24, 32, 33, 27, 20, 29]
+                            }
+                          }).then(function(colors) {
+
+                            const handlesColors = colors.filter(color => color.lists_type_id === 24);
+                            const windowSillsColors = colors.filter(color => color.lists_type_id === 32);
+                            const spillwaysColors = colors.filter(color => color.lists_type_id === 33);
+                            const connectorsColors = colors.filter(color => color.lists_type_id === 27);
+                            const mosquitosColors = colors.filter(color => color.lists_type_id === 20);
+                            const visorsColors = colors.filter(color => color.lists_type_id === 29);
+
+                            res.render('base/set', {
+                              i18n               : i18n,
+                              title              : i18n.__('Edit set'),
+                              list               : list,
+                              parent_element     : parent_element,
+                              lists_groups       : lists_groups,
+                              lists_types        : lists_types,
+                              elementsChilds     : elementsChilds,
+                              listsChilds        : listsChilds,
+                              windowSillsFolders : windowSillsFolders,
+                              spillwaysFolders   : spillwaysFolders,
+                              visorsFolders      : visorsFolders,
+                              connectorsFolders  : connectorsFolders,
+                              size               : list.size,
+                              mosquitosFolders   : mosquitosFolders,
+                              doorhandlesFolders : doorhandlesFolders,
+                              handlesColors      : handlesColors,
+                              windowSillsColors  : windowSillsColors,
+                              spillwaysColors    : spillwaysColors,
+                              connectorsColors   : connectorsColors,
+                              mosquitosColors    : mosquitosColors,
+                              visorsColors       : visorsColors,
+                              hardwareHandles    : hardwareHandles,
+                              factoryLaminations : factoryLaminations,
+                              thisPageLink       : '/base/set/',
+                              cssSrcs            : ['/assets/stylesheets/base/set.css'],
+                              scriptSrcs         : ['/assets/javascripts/vendor/localizer/i18next-1.10.1.min.js', '/assets/javascripts/vendor/imagePicker/image-picker.min.js', '/assets/javascripts/base/set.js']
+                            });
+                    
+                        }).catch(function(error) {
+                          console.log(error);
+                          res.send('Internal sever error.');
                         });
                       });
                     });

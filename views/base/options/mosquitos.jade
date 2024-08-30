@@ -50,6 +50,12 @@ block content
                   .edit-wrap
                     input.remove-btn.btn-delete-folder(type="button" data-folder=mosquitosFolder.id)
                     input.edit-btn.btn-edit-folder(type="button" data-folder=mosquitosFolder.id)
+              tr.country-check
+                each country in countries 
+                  td.country-item-mosquitos
+                    input(type="checkbox", id="country-checkbox" + country.id + mosquitosFolder.id, name="checkAddElems", data-addElems-id=mosquitosFolder.id, value=country.id, checked=mosquitosFolder.country_ids.includes(country.id)?true:false)
+                    label(for="country-checkbox" + country.id + mosquitosFolder.id) 
+                      =country.name
           else
             tr.folder-row
               td.folder-field.folder-not-exist(calspan="4")
@@ -59,8 +65,45 @@ block content
             td.folder-field.folder-name.folder-add
               span.folder-add-text
                 =i18n.__("Add +")
+  form(method='post', action='/base/option/save', id="main-form")
+    .connectors-option.checked-option
+      .main-header
+        span.header
+          =i18n.__('Color')
+      .main-content
+        table.folders-table(cellspasing="0", cellpadding="0", border="0")
+          if (mosquitosColorsFolders.length)
+            each mosquitosColorFolder in mosquitosColorsFolders
+              tr.folder-row
+                td.folder-field.folder-name
+                  span.folder-text
+                    =mosquitosColorFolder.name
+                td.folder-field.folder-img
+                  .glass-img-wraper
+                    img(src=(mosquitosColorFolder.img ? mosquitosColorFolder.img : '/local_storage/default.png'), alt="")
+                td.folder-field.folder-description
+                  =i18n.__('Description')
+                  | :
+                  .description-wraper
+                    =mosquitosColorFolder.description
+                  .edit-wrap
+                    input.remove-btn.btn-delete-color(type="button" data-color=mosquitosColorFolder.id)
+                    input.edit-btn.btn-edit-color(type="button" data-color=mosquitosColorFolder.id)
+          else
+            tr.folder-row
+              td.folder-field.folder-not-exist(calspan="4")
+                span.folder-add-text
+                  =i18n.__('Empty')
+          tr.folder-row
+            td.folder-field.folder-name.color-add
+              span.folder-add-text
+                =i18n.__("Add +")
+                
 
   include ./includes/popups/add-folder.jade
   include ./includes/popups/edit-folder.jade
   include ./includes/popups/alert-remove-folder.jade
+  include includes/popups/add-color.jade
+  include includes/popups/edit-color.jade
+  include includes/popups/alert-remove-color.jade
   

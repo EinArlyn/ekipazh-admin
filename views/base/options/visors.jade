@@ -65,6 +65,42 @@ block content
             td.folder-name.visor-folder-add
               span.folder-add-text
                 =i18n.__("Add +")
+  form(method='post', action='/base/option/save', id="main-form")
+    .visors-option.checked-option
+      .main-header
+        span.header
+          =i18n.__('Color')
+      .main-content
+        table.visor-folders-table(cellspasing="0", cellpadding="0", border="0")
+          if (visorsColorsFolders.length)
+            each visorsColorFolder in visorsColorsFolders
+              tr.folder-tr
+                td.folder-name
+                  span.folder-text
+                    =visorsColorFolder.name
+                td.folder-img
+                  .glass-img-wraper
+                    img(src=(visorsColorFolder.img ? visorsColorFolder.img : '/local_storage/default.png'), alt="")
+                td.folder-description
+                  =i18n.__('Description')
+                  | :
+                  .description-wraper
+                    =visorsColorFolder.description
+                  .edit-wrap
+                    .btn-delete-color(data-color=visorsColorFolder.id)
+                    .btn-edit-color(data-color=visorsColorFolder.id)
+          else
+            tr.folder-tr
+              td.folder-not-exist(calspan="4")
+                span.folder-add-text
+                  =i18n.__('Empty')
+          tr.folder-tr
+            td.folder-name.color-add
+              span.folder-add-text
+                =i18n.__("Add +")
   include includes/options-add-new-visor-folder-popup.jade
   include includes/options-edit-visor-folder-popup.jade
   include includes/alert-delete-visor-folder.jade
+  include includes/popups/add-color.jade
+  include includes/popups/edit-color.jade
+  include includes/popups/alert-remove-color.jade
