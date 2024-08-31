@@ -651,6 +651,8 @@ $(function () {
     } else if (groupId == 21) {
       additionalFolderId = $('#visors-group').val();
       _saveAdditionalFolder(setId, additionalFolderId);
+      additionalFolderId = $('#visors-group-color').val();
+      _saveAdditionalColor(setId, additionalFolderId);
     } else if (groupId == 12) {
       additionalFolderId = $('#connectors-group').val();
       _saveAdditionalFolder(setId, additionalFolderId);
@@ -660,6 +662,9 @@ $(function () {
       additionalFolderId = $('#doorhandles-group').val();
       _saveAdditionalFolder(setId, additionalFolderId);
       additionalFolderId = $('#doorhandles-group-color').val();
+      _saveAdditionalColor(setId, additionalFolderId);
+    } else if (groupId == 10) {
+      additionalFolderId = $('#mosquitos-group-color').val();
       _saveAdditionalColor(setId, additionalFolderId);
     }
 
