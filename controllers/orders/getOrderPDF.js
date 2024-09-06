@@ -62,7 +62,7 @@ module.exports = function (req, res) {
         where: {
           user_id: userId
         },
-        attributes: ['max_construct', 'max_add_elem']
+        attributes: ['max_construct', 'max_add_elem', 'default_construct', 'default_add_elem']
       }).then(function (userDiscounts) {
         // check if hardwares from door groups
         if (order.order.order_products.length) {
@@ -94,7 +94,7 @@ module.exports = function (req, res) {
         }
 
         function __formPDF () {
-          formContent(order, factory, userDiscounts, additionalProductsIds, function (result) {
+          formContent(order, factory, userDiscounts, userId ,additionalProductsIds, function (result) {
             models.currencies.find({
               where: {
                 factory_id: factory, is_base: 1
@@ -121,6 +121,13 @@ module.exports = function (req, res) {
                 }              
               
               // console.log('should render with result:', result);
+              var addServicePrice;
+              if(+userId !== +order.dataValues.seller_id) {
+                addServicePrice = 0.00;
+              } else {
+                addServicePrice = order.order.sale_price;
+              }
+
               res.render('orderPDF', {
                 i18n: i18n,
                 user: user,
@@ -138,7 +145,7 @@ module.exports = function (req, res) {
                 currency: currency.name,
                 delivery: order.delivery,
                 mounting: order.mounting,
-                addServicePrice: order.order.sale_price,
+                addServicePrice: addServicePrice,
                 total: order.sale_price,
                 lang: lang
               });
