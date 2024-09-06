@@ -107,6 +107,10 @@ function _setPrices(orderRow, user, factory, childPurchase, seller) {
       var userMountingPrice = 0.00;
       var userDeliveryPrice = 0.00;
 
+      if(parseInt(user.id, 10) !== parseInt(seller.id, 10)) {
+        userPurchasePrice = userSalePrice;
+      }
+
       /** mouting */
       if (parseInt(orderRow.mounting_user_id, 10) === parseInt(user.id, 10) || parseInt(orderRow.mounting_user_id, 10) === parseInt(factory.id, 10)) {
         userMountingPrice = parseFloat(orderRow.mounting_price);
