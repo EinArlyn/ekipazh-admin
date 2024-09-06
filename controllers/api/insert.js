@@ -141,7 +141,7 @@ function _setPrices(orderRow, user, factory, childPurchase, seller) {
       var userMountingPrice = 0.00;
       var userDeliveryPrice = 0.00;
 
-      if(user.id !== seller.id) {
+      if(parseInt(user.id, 10) !== parseInt(seller.id, 10)) {
         userPurchasePrice = userSalePrice;
       }
 
