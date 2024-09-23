@@ -159,6 +159,16 @@ block content
                   option(value="0" selected)=i18n.__('Not exist')
                   each handlesColor in handlesColors
                     option(value=handlesColor.id selected=(list.add_color_id === handlesColor.id ? 'selected' : undefined))=handlesColor.name
+            .additional-decors.hidden.additional-folders
+              span.additional-text-align
+                =i18n.__('Color')
+                | :
+              br
+              span.additional-select-align
+                select.select-default#decors-group-color(style="width: 225px; margin-top: 5px; margin-bottom: 5px;")
+                  option(value="0" selected)=i18n.__('Not exist')
+                  each decorsColor in decorsColors
+                    option(value=decorsColor.id selected=(list.add_color_id === decorsColor.id ? 'selected' : undefined))=decorsColor.name
             .sill-color.hidden.additional-folders
               span.additional-text-align
                 =i18n.__('Color')

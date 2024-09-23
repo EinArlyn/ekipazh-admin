@@ -88,6 +88,8 @@ router.get('/connectors', isAuthenticated, getConnectors);
 router.get('/mosquitos', isAuthenticated, getMosquitos);
 /** getDoorhandles */
 router.get('/doorhandles', isAuthenticated, doorsHandles);
+/** getDecors */
+router.get('/decors', isAuthenticated, getDecors);
 
 /** Get aviable laminations for factory */
 function getLaminations (req, res) {
@@ -2009,6 +2011,29 @@ function doorsHandles (req, res) {
           });
         })
       })  
+    }
+  });  
+}
+// Decors Декоры
+function getDecors (req, res) {
+
+  var colorTypeId = 25;
+  Promise.all([getColor(colorTypeId)]).then((results) => {
+    const [decorsColorsFolders] = results;
+    if (decorsColorsFolders === null || decorsColorsFolders === undefined ) {
+      res.send('Internal server error.');
+    } else {        
+          res.render('base/options/decors', {
+            i18n                : i18n,
+            title               : i18n.__('Connectors'),
+            decorsColorsFolders : decorsColorsFolders,
+            // folderTypeId        : folderTypeId,
+            colorTypeId         : colorTypeId,
+            cssSrcs             : ['/assets/stylesheets/base/options/templates.css'],
+            scriptSrcs          : ['/assets/javascripts/vendor/localizer/i18next-1.10.1.min.js',
+                                  '/assets/javascripts/base/options/index.js',
+                                  '/assets/javascripts/base/options/decors.js']
+          });
     }
   });  
 }

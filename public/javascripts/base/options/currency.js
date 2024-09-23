@@ -46,6 +46,9 @@ $(function() {
     } else if (selectedOption == 14) {
       $('.checked-option').addClass('disabled');
       window.location.href = '/base/options/doorhandles';
+    } else if (selectedOption == 15) {
+      $('.checked-option').addClass('disabled');
+      window.location.href = '/base/options/decors';
     }
   });
 

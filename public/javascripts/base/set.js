@@ -198,6 +198,8 @@ $(function () {
       $('.additional-connectors').show();
     } else if (group == 24) {
       $('.additional-doorhandles').show();
+    } else if (group == 16) {
+      $('.additional-decors').show();
     }
 
     if (group == 17 || group == 16 || group == 18 || group == 20 || group == 24 || group == 23) {
@@ -665,6 +667,9 @@ $(function () {
       _saveAdditionalColor(setId, additionalFolderId);
     } else if (groupId == 10) {
       additionalFolderId = $('#mosquitos-group-color').val();
+      _saveAdditionalColor(setId, additionalFolderId);
+    } else if (groupId == 16) {
+      additionalFolderId = $('#decors-group-color').val();
       _saveAdditionalColor(setId, additionalFolderId);
     }
 
