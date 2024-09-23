@@ -102,11 +102,12 @@ function getSet (req, res) {
                       }).then(function(factoryLaminations) {
                           models.addition_colors.findAll({
                             where: {
-                              lists_type_id: [24, 32, 33, 27, 20, 29]
+                              lists_type_id: [24, 32, 33, 27, 20, 29, 25]
                             }
                           }).then(function(colors) {
 
                             const handlesColors = colors.filter(color => color.lists_type_id === 24);
+                            const decorsColors = colors.filter(color => color.lists_type_id === 25);
                             const windowSillsColors = colors.filter(color => color.lists_type_id === 32);
                             const spillwaysColors = colors.filter(color => color.lists_type_id === 33);
                             const connectorsColors = colors.filter(color => color.lists_type_id === 27);
@@ -130,6 +131,7 @@ function getSet (req, res) {
                               mosquitosFolders   : mosquitosFolders,
                               doorhandlesFolders : doorhandlesFolders,
                               handlesColors      : handlesColors,
+                              decorsColors       : decorsColors,
                               windowSillsColors  : windowSillsColors,
                               spillwaysColors    : spillwaysColors,
                               connectorsColors   : connectorsColors,

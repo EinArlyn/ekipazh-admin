@@ -1,0 +1,67 @@
+extends ../layout
+
+block content
+  .main-nav
+    .nav-link
+      a(class="external-link", href="/")= i18n.__('Dashboard') 
+      | 
+      | -> 
+      span#nav-text
+        =i18n.__('Options')
+      img.loader-ico(src="/assets/images/loader_ico.GIF")
+  .main-select-option
+    select(id="lamination-select", name="", class="select-default selected-option", style="width: 180px;")
+      option(value="1")=i18n.__('Lamination')
+      option(value="2")=i18n.__('Discounts')
+      option(value="3")=i18n.__('Coefficients')
+      option(value="8")=i18n.__('Suppliers')
+      option(value="9")=i18n.__('Currency')
+      option(value="10")=i18n.__('General options')
+      option(value="11")=i18n.__('Application options')
+      option(disabled)=i18n.__('Groups')
+      option(value="4")=i18n.__('Glazed window')
+      option(value="5")=i18n.__('Window sills')
+      option(value="6")=i18n.__('Spillways')
+      option(value="7")=i18n.__('Visors')
+      option(value="12")=i18n.__('Connectors')
+      option(value="13")=i18n.__('Mosquitos')
+      option(value="14")=i18n.__('Doorhandles')
+      option(value="15" selected)=i18n.__('Decors')
+  
+  form(method='post', action='/base/option/save', id="main-form")
+    .connectors-option.checked-option
+      .main-header
+        span.header
+          =i18n.__('Color')
+      .main-content
+        table.folders-table(cellspasing="0", cellpadding="0", border="0")
+          if (decorsColorsFolders.length)
+            each decorsColorsFolder in decorsColorsFolders
+              tr.folder-row
+                td.folder-field.folder-name
+                  span.folder-text
+                    =decorsColorsFolder.name
+                td.folder-field.folder-img
+                  .glass-img-wraper
+                    img(src=(decorsColorsFolder.img ? decorsColorsFolder.img : '/local_storage/default.png'), alt="")
+                td.folder-field.folder-description
+                  =i18n.__('Description')
+                  | :
+                  .description-wraper
+                    =decorsColorsFolder.description
+                  .edit-wrap
+                    input.remove-btn.btn-delete-color(type="button" data-color=decorsColorsFolder.id)
+                    input.edit-btn.btn-edit-color(type="button" data-color=decorsColorsFolder.id)
+          else
+            tr.folder-row
+              td.folder-field.folder-not-exist(calspan="4")
+                span.folder-add-text
+                  =i18n.__('Empty')
+          tr.folder-row
+            td.folder-field.folder-name.color-add
+              span.folder-add-text
+                =i18n.__("Add +")
+
+  include ./includes/popups/add-color.jade
+  include ./includes/popups/edit-color.jade
+  include ./includes/popups/alert-remove-color.jade
