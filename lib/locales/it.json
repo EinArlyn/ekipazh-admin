@@ -526,5 +526,9 @@
 	"Responsabilidad del cliente": "Il cliente è responsabile della corretta dimensione, configurazione e completezza dell'ordine. Una fattura pagata è la conferma.",
 	"Additional services": "Servizi aggiuntivi",
 	"Handle": "Maniglia",
-	"Decors": "Decori"
+	"Confirm action": "Conferma azione",
+    "Send order to factory for invoicing?": "Inviare l'ordine alla fabbrica per la fatturazione?",
+    "Attention! Unchecking this box does not cancel the processing of the previously sent order by the factory. Uncheck the box?": "Attenzione! Deselezionare questa casella non annulla l'elaborazione dell'ordine precedentemente inviato alla fabbrica. Deselezionare la casella?",
+    "Yes": "Sì",
+    "No": "No"
 }

@@ -273,9 +273,9 @@ $(function () {
       } else {
         window.localStorage.setItem('sendId', sendId);
         if (checked) {
-          $('#order-action-type').text('Отправить заказ на завод для выставления счёта?');
+          $('#order-action-type').text(i18n.t('Send order to factory for invoicing?'));
         } else {
-          $('#order-action-type').text('Внимание! Снятие данной отметки не отменяет обработку заводом отправленного ранее заказа. Снять отметку?');
+          $('#order-action-type').text(i18n.t('Attention! Unchecking this box does not cancel the processing of the previously sent order by the factory. Uncheck the box?'));
         }
         showSendAlert();
       }

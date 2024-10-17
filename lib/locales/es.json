@@ -527,5 +527,10 @@
     "Responsabilidad del cliente": "El cliente es responsable del tamaño correcto, la configuración y la integridad del pedido. El pago de la cuenta es la confirmación.",
 	"Additional services": "Servicios adicionales",
 	"Handle": "Manija",
-	"Decors": "Decoración"
+	"Decors": "Decoración",
+	"Confirm action": "Confirmar acción",
+    "Send order to factory for invoicing?": "¿Enviar pedido a la fábrica para facturación?",
+    "Attention! Unchecking this box does not cancel the processing of the previously sent order by the factory. Uncheck the box?": "¡Atención! Desmarcar esta casilla no cancela el procesamiento del pedido previamente enviado a la fábrica. ¿Desmarcar la casilla?",
+    "Yes": "Sí",
+    "No": "No"
 }

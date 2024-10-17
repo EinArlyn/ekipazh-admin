@@ -16,6 +16,8 @@ var iv = '1234567890123456';
 module.exports = function(req, res) {
   if (req.query.lang !== undefined) {
     i18n.setLocale(req.query.lang);
+    res.cookie('i18next', req.query.lang, { maxAge: 900000, httpOnly: false, path: '/' });
+
   }
 
 
