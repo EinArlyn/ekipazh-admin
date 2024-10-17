@@ -413,5 +413,10 @@
 	"Visors": "Visors",
 	"Connectors": "Connectors",
 	"Mosquitos": "Mosquitos",
-	"Doorhandles": "Doorhandles"
+	"Doorhandles": "Doorhandles",
+	"Confirm action": "Confirm action",
+    "Send order to factory for invoicing?": "Send order to factory for invoicing?",
+    "Attention! Unchecking this box does not cancel the processing of the previously sent order by the factory. Uncheck the box?": "Attention! Unchecking this box does not cancel the processing of the previously sent order by the factory. Uncheck the box?",
+    "Yes": "Yes",
+    "No": "No"
 }

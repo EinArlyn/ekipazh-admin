@@ -79,6 +79,8 @@ app.use(function (req, res, next) {
     const language = determineLanguage(req);
     if (language) {
       i18n.setLocale(language);
+      // document.cookie = "i18next=" + language + ";path=/;expires=Fri, 31 Dec 9999 23:59:59 GMT";
+      res.cookie('i18next', language, { maxAge: 900000, httpOnly: false, path: '/' });
     }
   }
 

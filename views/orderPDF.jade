@@ -28,7 +28,7 @@ html
       .bound
         .row
           .col-md-7
-            img(src="/assets/images/logo_ekipazh.png" style="width:inherit;")
+            img(src="/assets/images/logo_ekipazh.png" style="width:220px;")
           .col-md-5
             b
               br
@@ -113,7 +113,6 @@ html
                   td(align="right" style="color:#283891; padding-right:20px;")
                     =perimeter.toFixed(2)
               br
-              br
               table(cellspacing="0" cellpadding="2" border="0" style="font-size:11px; border-collapse: collapse; text-align: right; width: 100%")
                 tr
                   th
@@ -161,18 +160,18 @@ html
                     =parseFloat(addServicePrice).toFixed(2)
                   td
                 tr
-                  td(style="text-align: left;")
+                  td(style="text-align: left; padding-top: 10px;")
                     b
                       =i18n.__('TOTAL')
                       | :
-                  td(align="rigth" style="color:#283891; padding-right:10px; ")
-                  td(align="rigth" style="color:#283891; padding-right:10px; ")
+                  td(align="rigth" style="color:#283891; padding-right:10px; padding-top: 10px; ")
+                  td(align="rigth" style="color:#283891; padding-right:10px; padding-top: 10px; ")
                     b=parseFloat(total).toFixed(2)
                     | 
                     =currency
                   td
               div(id="mainSVG", value=order)
-      hr
+      hr(style="margin:10px 0px !important")
       div(id="products")
          !{products}
       .row.warning-label

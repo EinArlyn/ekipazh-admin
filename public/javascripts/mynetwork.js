@@ -1325,6 +1325,7 @@ console.error(data.error ?? data.error_1);
                         '<select class="select-default mounting-edit" ' +
                           'data-field="type" ' +
                         'data-row="' + userMountings.mountings[i].id + '">' +
+                        // tyta
                           '<option value="1">' + i18n.t('Price per 1 construction') + '</option>' +
                           '<option value="2">' + i18n.t('Price for 1 meter construction') + '</option>' +
                           '<option value="3">' + i18n.t('Price for 1 mp construction') + '</option>' +

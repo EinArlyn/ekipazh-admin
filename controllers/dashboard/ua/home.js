@@ -15,6 +15,8 @@ var iv = '1234567890123456';
 module.exports = function(req, res) {
   var lang = 'ua';
   i18n.setLocale(lang);
+  res.cookie('i18next', lang, { maxAge: 900000, httpOnly: false, path: '/' });
+
 
   if (auth.checkAuth(req, res)) {
     /** Get accessible routes */

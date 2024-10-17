@@ -17,6 +17,9 @@ module.exports = function (req, res) {
   var additionalProductsIds = [];
 
   i18n.setLocale(lang);
+  // document.cookie = "i18next=" + lang + ";path=/;expires=Fri, 31 Dec 9999 23:59:59 GMT";
+  res.cookie('i18next', lang, { maxAge: 900000, httpOnly: false, path: '/' });
+
 
   models.users.find({
     where: {
