@@ -515,6 +515,8 @@ $(function () {
   function submitSavingElement(id) {
     var checkedProfiles = [];
     var uncheckedProfiles = [];
+    var checkedGlasses = [];
+    var uncheckedGlasses = [];
     var elementId = id;
     var col_1_range, col_1_price, col_2_range_1, col_2_range_2, col_2_price,
         col_3_range_1, col_3_range_2, col_3_price, col_4_range_1, col_4_range_2,
@@ -531,6 +533,21 @@ $(function () {
     $.post('/base/element/setElementProfileSystems/' + elementId, {
       checked: checkedProfiles.join(','),
       unchecked: uncheckedProfiles.join(',')
+    }, function(data) {        
+    });
+
+
+    $("input[name='glasses_folders']").each(function() {
+      if ($(this).prop('checked')) {
+        checkedGlasses.push($(this).val());
+      } else {
+        uncheckedGlasses.push($(this).val());
+      }
+    });
+
+    $.post('/base/element/setElementGlassesFolders/' + elementId, {
+      checked: checkedGlasses.join(','),
+      unchecked: uncheckedGlasses.join(',')
     }, function(data) {        
     });
 

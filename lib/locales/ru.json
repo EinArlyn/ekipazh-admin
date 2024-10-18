@@ -529,9 +529,10 @@
 	"Additional services": "Дополнительные услуги",
 	"Handle": "Ручка",
 	"Decors": "Декоры",
-	"Yes":"Да",
+	"Yes": "Да",
 	"No": "Нет",
 	"Confirm action": "Подтвердите действие",
 	"Send order to factory for invoicing?": "Отправить заказ на завод для выставления счёта?",
-	"Attention! Unchecking this box does not cancel the processing of the previously sent order by the factory. Uncheck the box?": "Внимание! Снятие данной отметки не отменяет обработку заводом отправленного ранее заказа. Снять отметку?"
+	"Attention! Unchecking this box does not cancel the processing of the previously sent order by the factory. Uncheck the box?": "Внимание! Снятие данной отметки не отменяет обработку заводом отправленного ранее заказа. Снять отметку?",
+	"Glasses Folders": "Glasses Folders"
 }

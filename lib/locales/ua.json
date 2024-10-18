@@ -529,8 +529,9 @@
 	"Handle": "Ручка",
 	"Decors": "Декори",
 	"Confirm action": "Підтвердьте дію",
-    "Send order to factory for invoicing?": "Відправити замовлення на завод для виставлення рахунка?",
-    "Attention! Unchecking this box does not cancel the processing of the previously sent order by the factory. Uncheck the box?": "Увага! Зняття цієї відмітки не скасовує обробку раніше відправленого замовлення заводом. Зняти відмітку?",
-    "Yes": "Так",
-    "No": "Ні"
+	"Send order to factory for invoicing?": "Відправити замовлення на завод для виставлення рахунка?",
+	"Attention! Unchecking this box does not cancel the processing of the previously sent order by the factory. Uncheck the box?": "Увага! Зняття цієї відмітки не скасовує обробку раніше відправленого замовлення заводом. Зняти відмітку?",
+	"Yes": "Так",
+	"No": "Ні",
+	"Glasses Folders": "Glasses Folders"
 }
