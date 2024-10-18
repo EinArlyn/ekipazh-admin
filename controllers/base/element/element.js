@@ -66,27 +66,43 @@ module.exports = function (req, res) {
                       where: { id: req.session.user.factory_id },
                       attributes: ['therm_coeff_id']
                     }).then(function (factory) {
-                      res.render('base/element', {
-                        i18n              : i18n,
-                        title             : i18n.__('Edit element'),
-                        element           : element,
-                        elements_groups   : elements_groups,
-                        lists             : lists,
-                        suppliers         : suppliers,
-                        glass_folders     : glass_folders,
-                        currencies        : currencies,
-                        profile_systems   : profile_systems,
-                        filteredProfiles  : filteredProfiles,
-                        defaultLaminations: defaultLaminations,
-                        usedCoeff         : factory.therm_coeff_id,
-                        thisPageLink      : '/base/elements/',
-                        cssSrcs           : ['/assets/stylesheets/base/element.css'],
-                        scriptSrcs        : ['/assets/javascripts/vendor/localizer/i18next-1.10.1.min.js',
-                                             '/assets/javascripts/base/element.js']
+
+                      models.glasses_folders.findAll({
+                        where: { element_id: element.id },
+                        attributes: ['element_id', 'glass_folders_id']
+                      }).then(function (glasses_folders) {
+                          var filteredGlassesFolders = [];
+
+                          glasses_folders.filter(function (child) {
+                            if (child.element_id === element.id) {
+                              filteredGlassesFolders.push(child.glass_folders_id);
+                            }
+                          });                      
+
+                        res.render('base/element', {
+                          i18n                    : i18n,
+                          title                   : i18n.__('Edit element'),
+                          element                 : element,
+                          elements_groups         : elements_groups,
+                          lists                   : lists,
+                          suppliers               : suppliers,
+                          glass_folders           : glass_folders,
+                          currencies              : currencies,
+                          profile_systems         : profile_systems,
+                          filteredProfiles        : filteredProfiles,
+                          filteredGlassesFolders  : filteredGlassesFolders,
+                          defaultLaminations      : defaultLaminations,
+                          usedCoeff               : factory.therm_coeff_id,
+                          thisPageLink            : '/base/elements/',
+                          cssSrcs                 : ['/assets/stylesheets/base/element.css'],
+                          scriptSrcs              : ['/assets/javascripts/vendor/localizer/i18next-1.10.1.min.js',
+                                                    '/assets/javascripts/base/element.js']
+                        });
+
+                      }).catch(function (err) {
+                        console.log(err);
+                        res.send('Internal server error.');
                       });
-                    }).catch(function (err) {
-                      console.log(err);
-                      res.send('Internal server error.');
                     });
                   });
                 });

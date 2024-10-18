@@ -76,10 +76,19 @@ block content
                   label(for="profile-checkbox" + profile_system.id)
                     =profile_system.name
           div(class="main-glass")
-            .glass-type-text
-              span#glass-type
+            .glasses_folders-content
                 =i18n.__('Glazed window type')
                 | :
+            .glasses_folders-box
+              each glass_folder in glass_folders
+                .glasses_folders_item 
+                  input(id="glasses-checkbox" + glass_folder.id, type='checkbox', name='glasses_folders', value=glass_folder.id)
+                  label(for="glasses-checkbox" + glass_folder.id)
+                    =glass_folder.name
+            .glass-type-text
+              //- span#glass-type
+              //-   =i18n.__('Glazed window type')
+              //-   | :
               span#glass-width
                 =i18n.__('Width (mm)')
                 | :

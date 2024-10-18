@@ -7,6 +7,7 @@ router.post('/set/create', ElementController.createSet);
 router.get('/getProfilePrices/:id', ElementController.getProfilePrices);
 router.get('/getGlassPrices/:id', ElementController.getGlassPrices);
 router.post('/setElementProfileSystems/:id', ElementController.setElementProfileSystems);
+router.post('/setElementGlassesFolders/:id', ElementController.setElementGlassesFolders);
 router.post('/setGlassPrices/:id', ElementController.setGlassPrices);
 router.get('/getListContents/:id', ElementController.getListContents);
 router.get('/create/:type', ElementController.createNewElement);

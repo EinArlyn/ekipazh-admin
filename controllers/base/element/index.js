@@ -4,6 +4,7 @@ exports.createSet = require('./createSet.js');
 exports.getProfilePrices = require('./getProfilePrices.js');
 exports.getGlassPrices = require('./getGlassPrices.js');
 exports.setElementProfileSystems = require('./setElementProfileSystems.js');
+exports.setElementGlassesFolders = require('./setElementGlassesFolders.js');
 exports.setGlassPrices = require('./setGlassPrices.js');
 exports.getListContents = require('./getListContents.js');
 exports.createNewElement = require('./createNewElement.js');

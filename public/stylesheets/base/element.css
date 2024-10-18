@@ -207,7 +207,7 @@ main .main-content {
 		}
 /* ----------------Glass content------------------------ */
 		.main-glass {
-			height: 130px;
+			/* height: 130px; */
 			max-height: 400px;
 			width: 100%;
 			margin: 0;
@@ -236,6 +236,12 @@ main .main-content {
 					height: 25px;
 					vertical-align: middle;
 				}
+				.glasses_folders-content {
+					width: 495px;
+					margin: 0px auto;
+					height: 25px;
+					vertical-align: middle;
+				}
 
 				.profile-systems-box {
 					width: 100%;
@@ -246,7 +252,31 @@ main .main-content {
 					-moz-border-radius: 3px; 
 					-khtml-border-radius: 3px;
 				}
+				
 					.profile_item {
+						width: 150px;
+						height: 20px;
+						margin: 5px 0 0 10px;
+						display: inline-block;
+						white-space: nowrap;
+						overflow: hidden;
+						text-overflow: ellipsis;
+						-o-text-overflow: ellipsis;
+						color: grey;
+					}
+
+				.glasses_folders-box {
+					width: 495px;
+					margin: 10px auto;
+					/* height: 100%; */
+					background: #fff;
+					border: 1px solid #cdcdcd;
+					-webkit-border-radius: 3px; 
+					-moz-border-radius: 3px; 
+					-khtml-border-radius: 3px;
+				}
+
+					.glasses_folders_item {
 						width: 150px;
 						height: 20px;
 						margin: 5px 0 0 10px;
@@ -286,11 +316,12 @@ main .main-content {
 
 				#glass-type-form {
 					width: 145px;
-					display: inline-block;
+					/* display: inline-block; */
+					display: none;
 				}
 
 				.glass-width {
-					margin-left: 30px;
+					/* margin-left: 30px; */
 					display: inline-block;
 				}
 
@@ -299,7 +330,7 @@ main .main-content {
 				}
 
 				.glass-height {
-					margin-left: 25px;
+					margin-left: 17px;
 					display: inline-block;
 				}
 
