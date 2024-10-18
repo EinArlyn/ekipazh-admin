@@ -254,6 +254,26 @@ module.exports = function (req, res) {
                   });
               },
               function (callback) {
+                /** glasses_folders */
+                models.sequelize
+                  .query(
+                    "SELECT glass_folders_id, element_id " +
+                      "FROM glasses_folders " +
+                      ""
+                  )
+                  .then(function (glasses_folders) {
+                    tables.glasses_folders = {};
+                    tables.glasses_folders.fields = [
+                      "glass_folders_id",
+                      "element_id",
+                    ];
+                    sortQueries(glasses_folders[0], function (values) {
+                      tables.glasses_folders.rows = values;
+                      callback(null);
+                    });
+                  });
+              },
+              function (callback) {
                 /** locales_names */
                 models.locales_names
                   .findAll({
@@ -438,8 +458,7 @@ module.exports = function (req, res) {
                       "bg",
                     ];
                     sortValues(locales_names, function (values) {
-                      tables.locales_names_addition_colors.rows =
-                        values;
+                      tables.locales_names_addition_colors.rows = values;
                       callback(null);
                     });
                   });
