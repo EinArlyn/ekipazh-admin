@@ -22,6 +22,12 @@
       .col-md-10
         input.input-default.width-90(type="text" name="name" value="" required)
     .row
+      .col-md-2.text-right
+        =i18n.__('Description')
+        | :
+      .col-md-10
+        textarea.input-default.input-margin#doors-group-description-input(name="description" style="width: 220px; height: 50px; resize: none;")
+    .row
       .col-md-4
       .col-md-4
         input.pop-up-submit-btn.block-center(type="submit" value=i18n.__('Save'))
