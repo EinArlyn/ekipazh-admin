@@ -1,4 +1,3 @@
-var async = require("async");
 const models = require("../../lib/models");
 
 /**
@@ -7,32 +6,36 @@ const models = require("../../lib/models");
  * @param {*} response response object
  * @returns
  */
-module.exports = async function (request, response) {
-  const { login, access_token, limit = 10 } = request.query; // Деструктуризация параметров запроса
+module.exports = function (request, response) {
+  var login = request.query.login;
+  var access_token = request.query.access_token;
+  var limit = request.query.limit || 10;
 
-  try {
-    // Аутентификация пользователя
-    const user = await authenticateUser(login, access_token);
-    if (!user) {
-      return response
-        .status(401)
-        .send({ error: "Пользователь не авторизован" });
-    }
+  // Аутентификация пользователя
+  authenticateUser(login, access_token)
+    .then(function (user) {
+      if (!user) {
+        return response
+          .status(401)
+          .send({ error: "Пользователь не авторизован" });
+      }
 
-    // Получение популярных комплектующих
-    const top = await getTopProducts(user.id, limit);
-    if (!top.length) {
-      return response.status(404).send({ error: "Данные не сформированы" });
-    }
+      // Получение популярных комплектующих
+      return getTopProducts(user.id, limit).then(function (top) {
+        if (!top.length) {
+          return response.status(404).send({ error: "Данные не сформированы" });
+        }
 
-    // Успешный ответ
-    response.send({
-      data: top[0].item,
+        // Успешный ответ
+        response.send({
+          data: top[0].item,
+        });
+      });
+    })
+    .catch(function (error) {
+      console.error("Ошибка обработки запроса: " + error.message, error);
+      response.status(500).send({ error: error.message });
     });
-  } catch (error) {
-    console.error(error.message, error);
-    response.status(500).send({ error: error.message });
-  }
 };
 
 /**
@@ -45,26 +48,55 @@ function validateAuthParams(login, accessToken) {
   return Boolean(login && accessToken);
 }
 
-// Аутентификация как middleware
-async function authenticateUser(login, accessToken) {
-  if (!validateAuthParams(login, accessToken)) {
-    throw new Error("Неверные параметры аутентификации");
-  }
+/**
+ * Аутентификация пользователя
+ * @param {string} login
+ * @param {string} accessToken
+ * @returns {Promise<Object|null>}
+ */
+function authenticateUser(login, accessToken) {
+  return new Promise(function (resolve, reject) {
+    if (!validateAuthParams(login, accessToken)) {
+      return reject(new Error("Неверные параметры аутентификации"));
+    }
 
-  const [user] = await models.sequelize.query(
-    "SELECT * FROM users WHERE phone = ? AND device_code = ?",
-    { replacements: [login, accessToken] }
-  );
-
-  return user && user.length > 0 ? user[0] : null;
+    models.sequelize
+      .query("SELECT * FROM users WHERE phone = ? AND device_code = ?", {
+        replacements: [login, accessToken],
+      })
+      .then(function (result) {
+        var user = result[0];
+        if (user && user.length > 0) {
+          resolve(user[0]);
+        } else {
+          resolve(null);
+        }
+      })
+      .catch(function (error) {
+        reject(error);
+      });
+  });
 }
 
-// Получение популярных комплектующих
-async function getTopProducts(userId, limit) {
-  const [top] = await models.sequelize.query(getSqlQuery(), {
-    replacements: [userId, limit],
+/**
+ * Получение популярных комплектующих
+ * @param {number} userId
+ * @param {number} limit
+ * @returns {Promise<Array>}
+ */
+function getTopProducts(userId, limit) {
+  return new Promise(function (resolve, reject) {
+    models.sequelize
+      .query(getSqlQuery(), {
+        replacements: [userId, limit],
+      })
+      .then(function (result) {
+        resolve(result[0]);
+      })
+      .catch(function (error) {
+        reject(error);
+      });
   });
-  return top;
 }
 
 function getSqlQuery() {
