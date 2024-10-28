@@ -21,7 +21,8 @@ module.exports = function (req, res) {
 
       group.updateAttributes({
         name: fields.name,
-        folder_id: fields.folder_id
+        folder_id: fields.folder_id,
+        description: fields.description
       }).then(function (updatedGroup) {
         res.send({ status: true, group: updatedGroup, newFolder: newFolder });
       }).catch(function (error) {

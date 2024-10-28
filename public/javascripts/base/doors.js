@@ -309,10 +309,16 @@ $(function () {
     var currentName = $('.tr-group-item[data-id="' + groupId + '"]').find('span.group-description').text();
     var currentFolder = $(this).closest('.table-door-groups').attr('data-id');
 
-    $('.popup-edit-group input[name="group_id"]').val(groupId);
-    $('.popup-edit-group input[name="name"]').val(currentName);
-    $('.popup-edit-group select[name="folder_id"]').val(currentFolder);
-    $('.popup-edit-group').popup('show');
+    $.get('/base/doors/folder/open/' + currentFolder, function (data) {
+      
+      const findGroup = data.groups.find(group => group.id == groupId);
+
+      $('#doors-group-description-input').val(findGroup.description);
+      $('.popup-edit-group input[name="group_id"]').val(groupId);
+      $('.popup-edit-group input[name="name"]').val(currentName);
+      $('.popup-edit-group select[name="folder_id"]').val(currentFolder);
+      $('.popup-edit-group').popup('show');
+    })
   }
 
   function submitEditGroup (e) {
