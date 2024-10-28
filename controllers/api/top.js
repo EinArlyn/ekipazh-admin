@@ -1,30 +1,6 @@
 const models = require("../../lib/models");
 
 /**
- * Проверка параметров аутентификации
- * @param {*} login Логин пользователя
- * @param {*} accessToken Токен доступа
- * @returns {boolean} Результат проверки
- */
-const validateAuthParams = (login, accessToken) => {
-  return Boolean(login && accessToken);
-};
-
-// Аутентификация как middleware
-const authenticateUser = async (login, accessToken) => {
-  if (!validateAuthParams(login, accessToken)) {
-    throw new Error("Неверные параметры аутентификации");
-  }
-
-  const [user] = await models.sequelize.query(
-    "SELECT * FROM users WHERE phone = ? AND device_code = ?",
-    { replacements: [login, accessToken] }
-  );
-
-  return user && user.length > 0 ? user[0] : null;
-};
-
-/**
  * Обработчик запроса GET /api/top
  * @param {*} request request object
  * @param {*} response response object
@@ -58,13 +34,37 @@ module.exports = async function (request, response) {
   }
 };
 
+/**
+ * Проверка параметров аутентификации
+ * @param {*} login Логин пользователя
+ * @param {*} accessToken Токен доступа
+ * @returns {boolean} Результат проверки
+ */
+function validateAuthParams(login, accessToken) {
+  return Boolean(login && accessToken);
+}
+
+// Аутентификация как middleware
+async function authenticateUser(login, accessToken) {
+  if (!validateAuthParams(login, accessToken)) {
+    throw new Error("Неверные параметры аутентификации");
+  }
+
+  const [user] = await models.sequelize.query(
+    "SELECT * FROM users WHERE phone = ? AND device_code = ?",
+    { replacements: [login, accessToken] }
+  );
+
+  return user && user.length > 0 ? user[0] : null;
+}
+
 // Получение популярных комплектующих
-const getTopProducts = async (userId, limit) => {
+async function getTopProducts(userId, limit) {
   const [top] = await models.sequelize.query(getSqlQuery(), {
     replacements: [userId, limit],
   });
   return top;
-};
+}
 
 function getSqlQuery() {
   return `
