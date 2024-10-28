@@ -1,3 +1,4 @@
+var async = require("async");
 const models = require("../../lib/models");
 
 /**
