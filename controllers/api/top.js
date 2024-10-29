@@ -88,7 +88,7 @@ function getTopProducts(userId, limit) {
   return new Promise(function (resolve, reject) {
     models.sequelize
       .query(getSqlQuery(), {
-        replacements: [userId, limit],
+        replacements: [userId, limit, limit],
       })
       .then(function (result) {
         resolve(result[0]);
@@ -104,7 +104,8 @@ function getSqlQuery() {
         WITH order_products_filtered AS (
             -- Получение всех комплектующих из заказов пользователя
             SELECT
-                op.hardware_id
+                op.hardware_id,
+                unnest(string_to_array(op.glass_id, ','))::int AS glass_id
             FROM order_products AS op
             JOIN orders AS o ON o.id = op.order_id
             WHERE o.user_id = ?
@@ -118,11 +119,21 @@ function getSqlQuery() {
             GROUP BY hardware_id
             ORDER BY hardware_count DESC
             LIMIT ?
+        ),
+        glass AS (
+            SELECT
+                glass_id,
+                COUNT(*) AS glass_count
+            FROM order_products_filtered
+            GROUP BY glass_id
+            ORDER BY glass_count DESC
+            LIMIT ?
         )
         SELECT row_to_json(top) AS item
         FROM (
             SELECT
-                (SELECT ARRAY_AGG(hardware_id) FROM hardware) AS "hardware_ids"
+                (SELECT ARRAY_AGG(hardware_id) FROM hardware) AS "hardware_ids",
+                (SELECT ARRAY_AGG(glass_id) FROM glass) AS "glass_ids"
         ) AS top;
     `;
 }
