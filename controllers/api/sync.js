@@ -671,6 +671,13 @@ module.exports = function (req, res) {
 
                         tables.doors_groups = {};
                         tables.doors_groups.fields = [
+                          "img",
+                          "description",
+                          "link",
+                          "heat_coeff_value",
+                          "noise_coeff",
+                          "heat_coeff",
+                          "cameras",
                           "rama_sill_list_id",
                           "code_sync_white",
                           "shtulp_list_id",
