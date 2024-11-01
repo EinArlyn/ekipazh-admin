@@ -310,9 +310,11 @@ $(function () {
     var currentFolder = $(this).closest('.table-door-groups').attr('data-id');
 
     $.get('/base/doors/folder/open/' + currentFolder, function (data) {
-      
-      const findGroup = data.groups.find(group => group.id == groupId);
 
+      const findGroup = data.groups.find(group => group.id == groupId);
+      var img = (findGroup.img ? findGroup.img : '/local_storage/hardware/default.png');
+
+      $('#doors-group-edit-system-image').attr('src', img);
       $('#doors-group-description-input').val(findGroup.description);
       $('.popup-edit-group input[name="group_id"]').val(groupId);
       $('.popup-edit-group input[name="name"]').val(currentName);
@@ -320,6 +322,30 @@ $(function () {
       $('.popup-edit-group').popup('show');
     })
   }
+
+  $('#edit-doors-group-system-img').click(function(e) {
+    e.preventDefault();
+
+    $('#select-doors-group-edit-system-image').trigger('click');
+  });
+
+    $('#select-doors-group-edit-system-image').change(function(evt) {
+      var files = evt.target.files;
+      for (var i = 0, f; f = files[i]; i++) {
+        // Only process image files.
+        if (!f.type.match('image.*')) {
+          continue;
+        }
+        var reader = new FileReader();
+        // Closure to capture the file information.
+        reader.onload = (function(theFile) {
+          return function(e) {
+            $('#doors-group-edit-system-image').attr('src', e.target.result);
+          };
+        })(f);
+        reader.readAsDataURL(f);
+      }
+    });
 
   function submitEditGroup (e) {
     e.preventDefault();

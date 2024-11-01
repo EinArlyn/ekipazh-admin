@@ -372,7 +372,7 @@ console.error(data.error ?? data.error_1);
         } else {
           $('#history-body').append('<tr class="user-information_text">' +
             '<td class="user-information" colspan="3" style="text-align: center;">' +
-              'История отсутствует.' +
+              i18n.t('History is missing') +
             '</td>' +
           '</tr>');
         }
@@ -1233,7 +1233,7 @@ console.error(data.error ?? data.error_1);
                 } else {
                   $('#delivery-type-table tbody').append('<tr class="content-delivery-type-tr deliveries-empty">' +
                     '<td colspan="4">' +
-                      'Виды доставок отсутствуют' +
+                      i18n.t('Types of deliveries are missing') +
                     '</td>' +
                   '</tr>');
                 }
@@ -1362,7 +1362,7 @@ console.error(data.error ?? data.error_1);
                   $('#mounting-type-table tbody').append('<tr ' +
                       'class="content-mounting-type-tr mountings-empty">' +
                     '<td colspan="4">' +
-                      'Виды монтажей отсутствуют' +
+                      i18n.t('Types of installations are missing') +
                     '</td>' +
                   '</tr>');
                 }

@@ -185,5 +185,16 @@ td.add-dependency-btn {
 
 .popup-add-new-group,
 .popup-edit-group {
-  height: 200px;
+  height: 270px;
+}
+
+#edit-doors-group-system-img{
+  position: relative;
+  display: inline-block;
+  width: 164px;
+  height: 64px;
+  background-image: url('/assets/images/add_img_btn_inactive.png');
+}
+#edit-doors-group-system-img:hover {
+  background-image: url('/assets/images/add_img_btn_active.png');
 }
