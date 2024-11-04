@@ -303,7 +303,6 @@ class StekoBD
 		$sync_filds['rama_still_list_id']['sync_table']		= "lists";
 		$sync_filds['stvorka_list_id']['sync_table']		= "lists";
 		$sync_filds['impost_list_id']['sync_table']			= "lists";
-		$sync_filds['impost_in_stvorka_list_id']['sync_table']			= "lists";
 		$sync_filds['shtulp_list_id']['sync_table']			= "lists";
 		$sync_filds['sync_filds_update_fix']['name']		= 1;
 		$sync_filds['sync_filds_update_fix']['short_name']	= 1;
@@ -332,7 +331,6 @@ class StekoBD
 		$sync_filds['door_sill_list_id']['sync_table']				= "lists";
 		$sync_filds['stvorka_list_id']['sync_table']				= "lists";
 		$sync_filds['impost_list_id']['sync_table']					= "lists";
-		$sync_filds['impost_in_stvorka_list_id']['sync_table']					= "lists";
 		$sync_filds['shtulp_list_id']['sync_table']					= "lists";
 		$sync_filds['rama_sill_list_id']['sync_table']				= "lists";
 		$ext_table_link												= array(); //таблицы для выборочной синхронизации текущей таблицы
@@ -370,7 +368,6 @@ class StekoBD
 		$sync_filds['door_sill_list_id']['sync_table']	= "lists";
 		$sync_filds['stvorka_list_id']['sync_table']	= "lists";
 		$sync_filds['impost_list_id']['sync_table']		= "lists";
-		$sync_filds['impost_in_stvorka_list_id']['sync_table']		= "lists";
 		$sync_filds['shtulp_list_id']['sync_table']		= "lists";
 		$sync_filds['rama_sill_list_id']['sync_table']	= "lists";
 		$sync_table['sync_filds']						= $sync_filds;
@@ -417,7 +414,6 @@ class StekoBD
 		$sync_filds['rama_still_list_id']['sync_table']	= "lists";
 		$sync_filds['stvorka_list_id']['sync_table']	= "lists";
 		$sync_filds['impost_list_id']['sync_table']		= "lists";
-		$sync_filds['impost_in_stvorka_list_id']['sync_table']		= "lists";
 		$sync_filds['shtulp_list_id']['sync_table']		= "lists";
 		$sync_table['sync_filds']						= $sync_filds;
 		$this -> sync_tables[]							= $sync_table;

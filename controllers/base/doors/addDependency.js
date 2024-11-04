@@ -17,7 +17,7 @@ module.exports = function (req, res) {
     door_sill_list_id: parseInt(req.body.doorSillListId, 10),
     stvorka_list_id: parseInt(req.body.stvorkaListId, 10),
     impost_list_id: parseInt(req.body.impostListId, 10),
-    impost_in_stvorka_list_id: parseInt(req.body.impostStvorkaListId, 10),
+    // impost_in_stvorka_list_id: parseInt(req.body.impostStvorkaListId, 10),
     shtulp_list_id: parseInt(req.body.shtulpListId, 10),
     rama_sill_list_id: parseInt(req.body.ramaSillListId, 10),
     code_sync: req.body.codeSync,

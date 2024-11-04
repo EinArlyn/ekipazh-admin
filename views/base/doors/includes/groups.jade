@@ -67,11 +67,11 @@ each doorGroup in doorGroups
                 option(value="0" selected=("0" === doorGroup.impost_list_id ? 'selected' : undefined)) Отсутствует
                 each impostList in impostLists[0]
                   option(value=impostList.id selected=(impostList.id === doorGroup.impost_list_id ? 'selected' : undefined))=impostList.name
-            td.td-content
-              select.select-default.default-option.td-select(data-group=doorGroup.id data-field="impost_in_stvorka_list_id" style="width: 150px;")
-                option(value="0" selected=("0" === doorGroup.impost_in_stvorka_list_id ? 'selected' : undefined)) Отсутствует
-                each impostList in impostLists[0]
-                  option(value=impostList.id selected=(impostList.id === doorGroup.impost_in_stvorka_list_id ? 'selected' : undefined))=impostList.name
+            //- td.td-content
+            //-   select.select-default.default-option.td-select(data-group=doorGroup.id data-field="impost_in_stvorka_list_id" style="width: 150px;")
+            //-     option(value="0" selected=("0" === doorGroup.impost_in_stvorka_list_id ? 'selected' : undefined)) Отсутствует
+            //-     each impostList in impostLists[0]
+            //-       option(value=impostList.id selected=(impostList.id === doorGroup.impost_in_stvorka_list_id ? 'selected' : undefined))=impostList.name
             td.td-content
               select.select-default.default-option.td-select(data-group=doorGroup.id data-field="shtulp_list_id" style="width: 150px;")
                 option(value="0" selected=("0" === doorGroup.shtulp_list_id ? 'selected' : undefined)) Отсутствует

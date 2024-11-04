@@ -86,7 +86,6 @@ SELECT
             'rama_still_list_id', ps.rama_still_list_id,
             'stvorka_list_id', ps.stvorka_list_id,
             'impost_list_id', ps.impost_list_id,
-            'impost_in_stvorka_list_id', ps.impost_in_stvorka_list_id,
             'shtulp_list_id', ps.shtulp_list_id,
             'code_sync_white', ps.code_sync_white,
             'country_ids', ci.country_ids
@@ -747,7 +746,7 @@ function submitLaminationDependency(req, res) {
     rama_still_list_id: parseInt(req.body.frame_with_sill_id, 10),
     stvorka_list_id: parseInt(req.body.leaf_id, 10),
     impost_list_id: parseInt(req.body.impost_id, 10),
-    impost_in_stvorka_list_id: parseInt(req.body.impost_stvorka_id, 10),
+    // impost_in_stvorka_list_id: parseInt(req.body.impost_stvorka_id, 10),
     shtulp_list_id: parseInt(req.body.shtulp_id, 10),
     code_sync: req.body.code_sync,
     modified: new Date()

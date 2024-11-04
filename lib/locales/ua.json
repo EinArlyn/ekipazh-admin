@@ -536,5 +536,6 @@
 	"Attention! Unchecking this box does not cancel the processing of the previously sent order by the factory. Uncheck the box?": "Увага! Зняття цієї відмітки не скасовує обробку раніше відправленого замовлення заводом. Зняти відмітку?",
 	"Yes": "Так",
 	"No": "Ні",
-	"Glasses Folders": "Glasses Folders"
+	"Glasses Folders": "Glasses Folders",
+	"ImpostStvorka": "ImpostStvorka"
 }
