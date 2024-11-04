@@ -110,6 +110,7 @@ $(function () {
             $(selector + ' table.door-lamination-table[data-id="0"] select[data-field="door_sill_list_id"]').val(group.door_sill_list_id);
             $(selector + ' table.door-lamination-table[data-id="0"] select[data-field="stvorka_list_id"]').val(group.stvorka_list_id);
             $(selector + ' table.door-lamination-table[data-id="0"] select[data-field="impost_list_id"]').val(group.impost_list_id);
+            $(selector + ' table.door-lamination-table[data-id="0"] select[data-field="impost_in_stvorka_list_id"]').val(group.impost_in_stvorka_list_id);
             $(selector + ' table.door-lamination-table[data-id="0"] select[data-field="shtulp_list_id"]').val(group.shtulp_list_id);
             $(selector + ' table.door-lamination-table[data-id="0"] select[data-field="rama_sill_list_id"]').val(group.rama_sill_list_id);
           }
@@ -135,6 +136,7 @@ $(function () {
           door_sill_list_id: 0,
           stvorka_list_id: 0,
           impost_list_id: 0,
+          impost_in_stvorka_list_id: 0,
           shtulp_list_id: 0,
           rama_sill_list_id: 0,
           code_sync_white: null
@@ -162,6 +164,7 @@ $(function () {
     var doorSillListId = selector.find('select[data-field="door_sill_list_id"]').val();
     var stvorkaListId = selector.find('select[data-field="stvorka_list_id"]').val();
     var impostListId = selector.find('select[data-field="impost_list_id"]').val();
+    var impostStvorkaListId = selector.find('select[data-field="impost_in_stvorka_list_id"]').val();
     var shtulpListId = selector.find('select[data-field="shtulp_list_id"]').val();
     var ramaSillListId = selector.find('select[data-field="rama_sill_list_id"]').val();
 
@@ -174,6 +177,7 @@ $(function () {
       doorSillListId: doorSillListId,
       stvorkaListId: stvorkaListId,
       impostListId: impostListId,
+      impostStvorkaListId: impostStvorkaListId,
       shtulpListId: shtulpListId,
       ramaSillListId: ramaSillListId
     }, function (data) {
@@ -262,6 +266,7 @@ $(function () {
       $(selector + ' table.door-lamination-table[data-id="' + dependency.id + '"] select[data-field="door_sill_list_id"]').val(dependency.door_sill_list_id);
       $(selector + ' table.door-lamination-table[data-id="' + dependency.id + '"] select[data-field="stvorka_list_id"]').val(dependency.stvorka_list_id);
       $(selector + ' table.door-lamination-table[data-id="' + dependency.id + '"] select[data-field="impost_list_id"]').val(dependency.impost_list_id);
+      $(selector + ' table.door-lamination-table[data-id="' + dependency.id + '"] select[data-field="impost_in_stvorka_list_id"]').val(dependency.impost_in_stvorka_list_id);
       $(selector + ' table.door-lamination-table[data-id="' + dependency.id + '"] select[data-field="shtulp_list_id"]').val(dependency.shtulp_list_id);
       $(selector + ' table.door-lamination-table[data-id="' + dependency.id + '"] select[data-field="rama_sill_list_id"]').val(dependency.rama_sill_list_id);
       $(selector + ' table.door-lamination-table[data-id="' + dependency.id + '"] select').change(updateDependency);
@@ -422,6 +427,9 @@ $(function () {
               i18n.t('Impost') + ': ' +
             '</td>' +
             '<td class="td-header header-select">' +
+              i18n.t('ImpostStvorka') + ': ' +
+            '</td>' +
+            '<td class="td-header header-select">' +
               i18n.t('Face plate') + ': ' +
             '</td>' +
           '</tr>' +
@@ -449,6 +457,13 @@ $(function () {
             '</td>' +
             '<td class="td-content">' +
               '<select class="select-default td-select option-impost" data-dependency="' + dependency.id + '" data-field="impost_list_id" style="width: 150px;">' +
+                '<option value="0" selected>' + i18n.t('Not exist single') +
+                '</option>' +
+                options.impostOptions +
+              '</select>' +
+            '</td>' +
+            '<td class="td-content">' +
+              '<select class="select-default td-select option-impost-stvorka" data-dependency="' + dependency.id + '" data-field="impost_in_stvorka_list_id" style="width: 150px;">' +
                 '<option value="0" selected>' + i18n.t('Not exist single') +
                 '</option>' +
                 options.impostOptions +
@@ -539,6 +554,9 @@ $(function () {
                   i18n.t('Impost') + ': ' +
                 '</td>' +
                 '<td class="td-header header-select">' +
+                  i18n.t('ImpostStvorka') + ': ' +
+                '</td>' +
+                '<td class="td-header header-select">' +
                   i18n.t('Face plate') + ': ' +
                 '</td>' +
               '</tr>' +
@@ -566,6 +584,13 @@ $(function () {
                 '</td>' +
                 '<td class="td-content">' +
                   '<select class="select-default td-select option-impost" data-group="' + group.id + '" data-field="impost_list_id" style="width: 150px;">' +
+                    '<option value="0" selected>' + i18n.t('Not exist single') +
+                    '</option>' +
+                    options.impostOptions +
+                  '</select>' +
+                '</td>' +
+                '<td class="td-content">' +
+                  '<select class="select-default td-select option-impost-stvorka" data-group="' + group.id + '" data-field="impost_in_stvorka_list_id" style="width: 150px;">' +
                     '<option value="0" selected>' + i18n.t('Not exist single') +
                     '</option>' +
                     options.impostOptions +

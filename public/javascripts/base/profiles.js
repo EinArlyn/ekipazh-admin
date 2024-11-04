@@ -726,6 +726,8 @@ $(function () {
                   '</td>' +
                   '<td class="td-header header-select">' + i18n.t('Impost') + ': ' +
                   '</td>' +
+                  '<td class="td-header header-select">' + i18n.t('ImpostStvorka') + ': ' +
+                  '</td>' +
                   '<td class="td-header header-select">' + i18n.t('Face plate') + ': ' +
                   '</td>' +
                 '</tr>' +
@@ -759,6 +761,13 @@ $(function () {
                     '</select>' +
                   '</td>' +
                   '<td class="td-content">' +
+                    '<select class="select-default new-option td-select option-impost-stvorka" data-profile="' + id + '" data-dependency="' + data.laminations[i].id + '" data-field="impost_in_stvorka_list_id" style="width: 150px;">' +
+                      '<option value="0" selected>' + i18n.t('Not exist single') +
+                      '</option>' +
+                      impostOptions +
+                    '</select>' +
+                  '</td>' +
+                  '<td class="td-content">' +
                     '<select class="select-default new-option td-select option-shtulp" data-profile="' + id + '" data-dependency="' + data.laminations[i].id + '" data-field="shtulp_list_id" style="width: 150px;">' +
                       '<option value="0" selected>' + i18n.t('Not exist single') +
                       '</option>' +
@@ -780,6 +789,7 @@ $(function () {
           $(qrSelector + '.option-rama-still').val(data.laminations[j].rama_still_list_id);
           $(qrSelector + '.option-stvorka').val(data.laminations[j].stvorka_list_id);
           $(qrSelector + '.option-impost').val(data.laminations[j].impost_list_id);
+          $(qrSelector + '.option-impost-stvorka').val(data.laminations[j].impost_in_stvorka_list_id);
           $(qrSelector + '.option-shtulp').val(data.laminations[j].shtulp_list_id);
           $(qrSelector + '.new-option.td-select').change(updateLaminationList);
         }
@@ -862,6 +872,8 @@ $(function () {
                 '</td>' +
                 '<td class="td-header header-select">' + i18n.t('Impost') + ': ' +
                 '</td>' +
+                '<td class="td-header header-select">' + i18n.t('ImpostStvorka') + ': ' +
+                '</td>' +
                 '<td class="td-header header-select">' + i18n.t('Face plate') + ': ' +
                 '</td>' +
               '</tr>' +
@@ -889,6 +901,13 @@ $(function () {
                 '</td>' +
                 '<td class="td-content">' +
                   '<select class="select-default td-select option-impost" data-profile="' + id + '" data-dependency="" data-field="impost_list_id" style="width: 150px;">' +
+                    '<option value="0" selected>' + i18n.t('Not exist single') +
+                    '</option>' +
+                    impostOptions +
+                  '</select>' +
+                '</td>' +
+                '<td class="td-content">' +
+                  '<select class="select-default td-select option-impost-stvorka" data-profile="' + id + '" data-dependency="" data-field="impost_in_stvorka_list_id" style="width: 150px;">' +
                     '<option value="0" selected>' + i18n.t('Not exist single') +
                     '</option>' +
                     impostOptions +
@@ -925,6 +944,7 @@ $(function () {
     var frame_with_sill_id = $(trSelector + ' .option-frameWithSill').val();
     var leaf_id = $(trSelector + ' .option-leaf').val();
     var impost_id = $(trSelector + ' .option-impost').val();
+    var impost_stvorka_id = $(trSelector + ' .option-impost-stvorka').val();
     var shtulp_id = $(trSelector + ' .option-shtulp').val();
 
     $.post('/base/profiles/submitLaminationDependency', {
@@ -936,6 +956,7 @@ $(function () {
       frame_with_sill_id: frame_with_sill_id,
       leaf_id: leaf_id,
       impost_id: impost_id,
+      impost_stvorka_id: impost_stvorka_id,
       shtulp_id: shtulp_id
     }, function(data) {
       if (data.status) {
