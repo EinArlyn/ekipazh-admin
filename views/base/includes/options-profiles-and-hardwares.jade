@@ -54,6 +54,11 @@
                   each impostList in impostLists[0]
                     option(value=impostList.id selected=(impostList.id === profileSystem.impost_list_id ? 'selected' : undefined))=impostList.name
               td.td-content
+                select.td-select(data-profile=profileSystem.id data-field="impost_in_stvorka_list_id")
+                  option(value="0" selected=("0" === profileSystem.impost_in_stvorka_list_id ? 'selected' : undefined)) Отсутствует
+                  each impostList in impostLists[0]
+                    option(value=impostList.id selected=(impostList.id === profileSystem.impost_in_stvorka_list_id ? 'selected' : undefined))=impostList.name
+              td.td-content
                 select.td-select(data-profile=profileSystem.id data-field="shtulp_list_id")
                   option(value="0" selected=("0" === profileSystem.shtulp_list_id ? 'selected' : undefined)) Отсутствует
                   each shtulpList in shtulpLists[0]

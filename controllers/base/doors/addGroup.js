@@ -21,6 +21,7 @@ module.exports = function (req, res) {
       code_sync_white: null,
       shtulp_list_id: 0,
       impost_list_id: 0,
+      impost_in_stvorka_list_id: 0,
       stvorka_list_id: 0,
       door_sill_list_id: 0,
       rama_list_id: 0,
