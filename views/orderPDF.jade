@@ -117,8 +117,9 @@ html
                 tr
                   th
                   th(align="rigth" style="color:#283891; padding-right:10px; ")
-                    =i18n.__('Discount')
-                    | %
+                    if (+maxConstructDisc !== 0 || +maxAddElemDisc !== 0)
+                      =i18n.__('Discount')
+                      | %
                   th(align="rigth" style="color:#283891; padding-right:10px; ")
                     =i18n.__('Total to pay')
                   th
@@ -126,7 +127,8 @@ html
                   td(style="text-align: left;")
                     =i18n.__('Constructions')
                   td(align="rigth" style="color:#283891; padding-right:10px; ")
-                    =parseFloat(maxConstructDisc).toFixed(2)
+                    if (+maxConstructDisc !== 0)
+                      =parseFloat(maxConstructDisc).toFixed(2)
                   td(align="rigth" style="color:#283891; padding-right:10px; ")
                     =parseFloat(basePriceDisc).toFixed(2)
                   td
@@ -134,7 +136,8 @@ html
                   td(style="text-align: left;")
                     =i18n.__('Add. elements')
                   td(align="rigth" style="color:#283891; padding-right:10px; ")
-                    =parseFloat(maxAddElemDisc).toFixed(2)
+                    if (+maxAddElemDisc !== 0)
+                      =parseFloat(maxAddElemDisc).toFixed(2)
                   td(align="rigth" style="color:#283891; padding-right:10px; ")
                     =parseFloat(additionalPriceDisc).toFixed(2)
                   td
@@ -181,7 +184,7 @@ html
         .col-md-12
           =i18n.__('Responsabilidad del cliente')
       br
-      .row
+      .row(style="font-size: 13px")
         .col-md-6
           =i18n.__('Customer_pdf')
           | 
