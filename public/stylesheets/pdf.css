@@ -179,6 +179,7 @@ body {
 }
 
   #wrapper {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
     background-color: #fff;
     width: 750px;
     margin: 0px auto;
@@ -219,7 +220,7 @@ body {
           position: relative;
           margin-left: 10px;
           color: #283891;
-          font-size: 12px;
+          font-size: 11px;
           height: 46px;
         }
 
