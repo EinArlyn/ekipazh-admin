@@ -19,8 +19,8 @@ $(function() {
     $.get('/orders/getScheme/' + schemeId, function(data) {
       console.log(data);
       var obj = $.parseJSON(data.product.template_source);
-      var WIDTH = 300;
-      var HEIGHT = 250;
+      var WIDTH = 350;
+      var HEIGHT = 280;
 
       var depths = {
         frameDepth: {
@@ -71,10 +71,824 @@ $(function() {
     d3.selectAll('.schemes .dim_block').classed('dim_hidden', false);
   }
 
+  function applyGradientsToTemplate(svgId, template, door_type) {
+    const svg = d3.select(`#${svgId}`);
+
+    // Создаем 4 градиента с разными направлениями
+    const defs = svg.append('defs');
+
+
+    const frame_fp1 = defs.append("linearGradient")
+          .attr("id", "frame_fp1")
+          .attr("x1", "0%")
+          .attr("y1", "100%")
+          .attr("x2", "0%")
+          .attr("y2", "0%");
+
+      frame_fp1.append("stop")
+          .attr("offset", "0")
+          .attr("stop-color", "#808284");
+
+      frame_fp1.append("stop")
+          .attr("offset", "2.024708e-02")
+          .attr("stop-color", "#C2C6C7");
+
+      frame_fp1.append("stop")
+          .attr("offset", "3.927802e-02")
+          .attr("stop-color", "#E0E4E6");
+
+      frame_fp1.append("stop")
+          .attr("offset", "0.94")
+          .attr("stop-color", "#E0E4E6");
+      frame_fp1.append("stop")
+          .attr("offset", "0.95")
+          .attr("stop-color", "#F2F6F8");
+      frame_fp1.append("stop")
+          .attr("offset", "1")
+          .attr("stop-color", "#FFFFFF");
+
+    const frame_fp2 = defs.append("linearGradient")
+          .attr("id", "frame_fp2")
+          .attr("x1", "0%")
+          .attr("y1", "0%")
+          .attr("x2", "100%")
+          .attr("y2", "0%");
+
+      frame_fp2.append("stop")
+          .attr("offset", "0")
+          .attr("stop-color", "#FFFFFF");
+
+      frame_fp2.append("stop")
+          .attr("offset", "2.024708e-02")
+          .attr("stop-color", "#F1F5F6");
+
+      frame_fp2.append("stop")
+          .attr("offset", "3.927802e-02")
+          .attr("stop-color", "#E0E4E5");
+
+      frame_fp2.append("stop")
+          .attr("offset", "0.94")
+          .attr("stop-color", "#E0E4E5");
+
+
+      frame_fp2.append("stop")
+          .attr("offset", "0.98")
+          .attr("stop-color", "#888A8C")
+          .attr("stop-opacity", 0.8);
+
+      frame_fp2.append("stop")
+          .attr("offset", "1")
+          .attr("stop-color", "#000B2A");
+
+    const frame_fp3 = defs.append("linearGradient")
+          .attr("id", "frame_fp3")
+          .attr("x1", "0%")
+          .attr("y1", "0%")
+          .attr("x2", "0%")
+          .attr("y2", "100%");
+
+      frame_fp3.append("stop")
+          .attr("offset", "0")
+          .attr("stop-color", "#FFFFFF");
+
+      frame_fp3.append("stop")
+          .attr("offset", "2.024708e-02")
+          .attr("stop-color", "#F1F5F6");
+
+      frame_fp3.append("stop")
+          .attr("offset", "3.927802e-02")
+          .attr("stop-color", "#E0E4E5");
+
+      frame_fp3.append("stop")
+          .attr("offset", "0.94")
+          .attr("stop-color", "#E0E4E5");
+
+
+      frame_fp3.append("stop")
+          .attr("offset", "0.98")
+          .attr("stop-color", "#888A8C")
+          .attr("stop-opacity", 0.8);
+
+      frame_fp3.append("stop")
+          .attr("offset", "1")
+          .attr("stop-color", "#000B2A");
+
+    const blackGradient = defs.append("linearGradient")
+          .attr("id", "black_gradient")
+          .attr("x1", "0%")
+          .attr("y1", "0%")
+          .attr("x2", "0%")
+          .attr("y2", "100%");
+
+      blackGradient.append("stop")
+          .attr("offset", "0")
+          .attr("stop-color", "#000000")
+          .attr("stop-opacity", 1);
+
+    const frame_fp4 = defs.append("linearGradient")
+          .attr("id", "frame_fp4")
+          .attr("x1", "100%")
+          .attr("y1", "0%")
+          .attr("x2", "0%")
+          .attr("y2", "0%");
+
+      frame_fp4.append("stop")
+          .attr("offset", "0")
+          .attr("stop-color", "#808284");
+
+      frame_fp4.append("stop")
+          .attr("offset", "2.024708e-02")
+          .attr("stop-color", "#C2C6C7");
+
+      frame_fp4.append("stop")
+          .attr("offset", "3.927802e-02")
+          .attr("stop-color", "#E0E4E6");
+
+      frame_fp4.append("stop")
+          .attr("offset", "0.94")
+          .attr("stop-color", "#E0E4E6");
+
+      frame_fp4.append("stop")
+          .attr("offset", "0.95")
+          .attr("stop-color", "#F2F6F8");
+
+      frame_fp4.append("stop")
+          .attr("offset", "1")
+          .attr("stop-color", "#FFFFFF");
+
+
+    const sash_fp1 = defs.append("linearGradient")
+          .attr("id", "sash_fp1")
+          .attr("x1", "0%")
+          .attr("y1", "100%")
+          .attr("x2", "0%")
+          .attr("y2", "0%");
+
+      sash_fp1.append("stop")
+          .attr("offset", "0")
+          .attr("stop-color", "#808384"); //     <stop  offset="0" style="stop-color:#808384"/>
+      sash_fp1.append("stop")
+          .attr("offset", "1.403468e-02")
+          .attr("stop-color", "#808384"); // <stop  offset="1.403468e-02" style="stop-color:#808384"/>
+      sash_fp1.append("stop")
+          .attr("offset", "1.750650e-02")
+          .attr("stop-color", "#C2C6C7"); //   <stop  offset="1.750650e-02" style="stop-color:#C2C6C7"/>
+      sash_fp1.append("stop")
+          .attr("offset", "2.527444e-02")
+          .attr("stop-color", "#C2C6C7"); //  <stop  offset="2.527444e-02" style="stop-color:#C2C6C7"/>
+      sash_fp1.append("stop")
+          .attr("offset", "2.893414e-02")
+          .attr("stop-color", "#C2C6C7"); //   <stop  offset="2.893414e-02" style="stop-color:#C2C6C7"/>
+      sash_fp1.append("stop")
+          .attr("offset", "3.200000e-02")
+          .attr("stop-color", "#E0E4E6"); //  <stop  offset="3.200000e-02" style="stop-color:#E0E4E6"/>
+      sash_fp1.append("stop")
+          .attr("offset", "0.101")
+          .attr("stop-color", "#E0E4E6"); //  <stop  offset="0.101" style="stop-color:#E0E4E6"/>
+      sash_fp1.append("stop")
+          .attr("offset", "0.73")
+          .attr("stop-color", "#E0E4E6"); //  <stop  offset="0.73" style="stop-color:#E0E4E6"/>
+      sash_fp1.append("stop")
+          .attr("offset", "0.7313")
+          .attr("stop-color", "#E0E4E6"); //   <stop  offset="0.7313" style="stop-color:#E0E4E6"/>
+      sash_fp1.append("stop")
+          .attr("offset", "0.7363")
+          .attr("stop-color", "#F1F5F7"); //  <stop  offset="0.7363" style="stop-color:#F1F5F7"/>
+      sash_fp1.append("stop")
+          .attr("offset", "0.7506")
+          .attr("stop-color", "#F1F5F7"); //  <stop  offset="0.7506" style="stop-color:#F1F5F7"/>
+      sash_fp1.append("stop")
+          .attr("offset", "0.7519")
+          .attr("stop-color", "#FFFFFF"); //  <stop  offset="0.7519" style="stop-color:#FFFFFF"/>
+      sash_fp1.append("stop")
+          .attr("offset", "0.7523")
+          .attr("stop-color", "#F3F6F8"); //  <stop  offset="0.7523" style="stop-color:#F3F6F8"/>
+      sash_fp1.append("stop")
+          .attr("offset", "0.7523")
+          .attr("stop-color", "#F1F5F7"); //   <stop  offset="0.7523" style="stop-color:#F1F5F7"/>
+      sash_fp1.append("stop")
+          .attr("offset", "0.77")
+          .attr("stop-color", "#E2E6E8"); //  <stop  offset="0.77" style="stop-color:#E2E6E8"/>
+      sash_fp1.append("stop")
+          .attr("offset", "0.7732")
+          .attr("stop-color", "#E4E8EA"); //   <stop  offset="0.7732" style="stop-color:#E4E8EA"/>
+      sash_fp1.append("stop")
+          .attr("offset", "0.7918")
+          .attr("stop-color", "#ECF0F2"); //   <stop  offset="0.7918" style="stop-color:#ECF0F2"/>
+      sash_fp1.append("stop")
+          .attr("offset", "0.83")
+          .attr("stop-color", "#EEF2F4"); //   <stop  offset="0.83" style="stop-color:#EEF2F4"/>
+      sash_fp1.append("stop")
+          .attr("offset", "0.8474")
+          .attr("stop-color", "#F5F9FB"); //  <stop  offset="0.8474" style="stop-color:#F5F9FB"/>
+      sash_fp1.append("stop")
+          .attr("offset", "0.93")
+          .attr("stop-color", "#FFFFFF"); //   <stop  offset="0.93" style="stop-color:#FFFFFF"/>
+      sash_fp1.append("stop")
+          .attr("offset", "0.975")
+          .attr("stop-color", "#FFFFFF"); //   <stop  offset="0.975" style="stop-color:#FFFFFF"/>
+      sash_fp1.append("stop")
+          .attr("offset", "0.9816")
+          .attr("stop-color", "#FFFFFF")
+          .attr("stop-opacity", "0.9033"); //  <stop  offset="0.9816" style="stop-color:#FFFFFF;stop-opacity:0.9033"/>
+      sash_fp1.append("stop")
+          .attr("offset", "0.988")
+          .attr("stop-color", "#FFFFFF")
+          .attr("stop-opacity", "0.9487"); //   <stop  offset="0.988" style="stop-color:#FFFFFF;stop-opacity:0.9487"/>
+      sash_fp1.append("stop")
+          .attr("offset", "1")
+          .attr("stop-color", "#96989A"); //  <stop  offset="1" style="stop-color:#96989A"/>
+
+
+    const sash_fp2 = defs.append("linearGradient")
+          .attr("id", "sash_fp2")
+          .attr("x1", "0%")
+          .attr("y1", "0%")
+          .attr("x2", "100%")
+          .attr("y2", "0%");
+      sash_fp2.append("stop")
+          .attr("offset", "0")
+          .attr("stop-color", "#FFFFFF"); //    <stop  offset="0" style="stop-color:#FFFFFF"/>
+      sash_fp2.append("stop")
+          .attr("offset", "1.539045e-02")
+          .attr("stop-color", "#FFFFFF"); // <stop  offset="1.539045e-02" style="stop-color:#FFFFFF"/>
+      sash_fp2.append("stop")
+          .attr("offset", "1.724665e-02")
+          .attr("stop-color", "#F1F5F7"); //  <stop  offset="1.724665e-02" style="stop-color:#F1F5F7"/>
+      sash_fp2.append("stop")
+          .attr("offset", "2.110961e-02")
+          .attr("stop-color", "#F1F5F7"); //   <stop  offset="2.110961e-02" style="stop-color:#F1F5F7"/>
+      sash_fp2.append("stop")
+          .attr("offset", "3.266179e-02")
+          .attr("stop-color", "#E3E7E9"); //  <stop  offset="3.266179e-02" style="stop-color:#E3E7E9"/>
+      sash_fp2.append("stop")
+          .attr("offset", "3.370352e-02")
+          .attr("stop-color", "#EDF1F3"); //   <stop  offset="3.370352e-02" style="stop-color:#EDF1F3"/>
+      sash_fp2.append("stop")
+          .attr("offset", "0.1106")
+          .attr("stop-color", "#E0E4E6"); //  <stop  offset="0.1106" style="stop-color:#E0E4E6"/>
+      sash_fp2.append("stop")
+          .attr("offset", "0.7301")
+          .attr("stop-color", "#E0E4E6"); //  <stop  offset="0.7301" style="stop-color:#E0E4E6"/>
+      sash_fp2.append("stop")
+          .attr("offset", "0.7353")
+          .attr("stop-color", "#CCD0D1"); //  <stop  offset="0.7353" style="stop-color:#CCD0D1"/>
+      sash_fp2.append("stop")
+          .attr("offset", "0.7447")
+          .attr("stop-color", "#989B9D"); //  <stop  offset="0.7447" style="stop-color:#989B9D"/>
+      sash_fp2.append("stop")
+          .attr("offset", "0.7524")
+          .attr("stop-color", "#8A8D8F"); //   <stop  offset="0.7524" style="stop-color:#8A8D8F"/>
+      sash_fp2.append("stop")
+          .attr("offset", "0.7562")
+          .attr("stop-color", "#808284"); //   <stop  offset="0.7562" style="stop-color:#808284"/>
+      sash_fp2.append("stop")
+          .attr("offset", "0.7728")
+          .attr("stop-color", "#D3D7D9"); //   <stop  offset="0.7728" style="stop-color:#D3D7D9"/>
+      sash_fp2.append("stop")
+          .attr("offset", "0.8529")
+          .attr("stop-color", "#D0D4D6"); //  <stop  offset="0.8529" style="stop-color:#D0D4D6"/>
+      sash_fp2.append("stop")
+          .attr("offset", "0.93")
+          .attr("stop-color", "#ADB0B1"); //   <stop  offset="0.93" style="stop-color:#ADB0B1"/>
+      sash_fp2.append("stop")
+          .attr("offset", "0.9704")
+          .attr("stop-color", "#A0A3A4"); //   <stop  offset="0.9704" style="stop-color:#A0A3A4"/>
+      sash_fp2.append("stop")
+          .attr("offset", "0.975")
+          .attr("stop-color", "#969899"); //   <stop  offset="0.975" style="stop-color:#969899"/>
+      sash_fp2.append("stop")
+          .attr("offset", "0.9806")
+          .attr("stop-color", "#8E9091"); //   <stop  offset="0.9806" style="stop-color:#8E9091"/>
+      sash_fp2.append("stop")
+          .attr("offset", "0.988")
+          .attr("stop-color", "#8E9091"); //   <stop  offset="0.988" style="stop-color:#8E9091"/>
+      sash_fp2.append("stop")
+          .attr("offset", "0.9915")
+          .attr("stop-color", "#67696A"); //   <stop  offset="0.9915" style="stop-color:#67696A"/>
+      sash_fp2.append("stop")
+          .attr("offset", "1")
+          .attr("stop-color", "#67696A"); //  <stop  offset="1" style="stop-color:#67696A"/>
+
+
+    const sash_fp3 = defs.append("linearGradient")
+          .attr("id", "sash_fp3")
+          .attr("x1", "0%")
+          .attr("y1", "0%")
+          .attr("x2", "0%")
+          .attr("y2", "100%");
+      sash_fp3.append("stop")
+          .attr("offset", "0")
+          .attr("stop-color", "#FFFFFF"); //<stop  offset="0" style="stop-color:#FFFFFF"/>
+      sash_fp3.append("stop")
+          .attr("offset", "1.539045e-02")
+          .attr("stop-color", "#FFFFFF"); //<stop  offset="1.539045e-02" style="stop-color:#FFFFFF"/>
+      sash_fp3.append("stop")
+          .attr("offset", "1.724665e-02")
+          .attr("stop-color", "#F1F5F7"); //<stop  offset="1.724665e-02" style="stop-color:#F1F5F7"/>
+      sash_fp3.append("stop")
+          .attr("offset", "2.110961e-02")
+          .attr("stop-color", "#F1F5F7"); //<stop  offset="2.110961e-02" style="stop-color:#F1F5F7"/>
+      sash_fp3.append("stop")
+          .attr("offset", "3.266179e-02")
+          .attr("stop-color", "#E3E7E9"); //<stop  offset="3.266179e-02" style="stop-color:#E3E7E9"/>
+      sash_fp3.append("stop")
+          .attr("offset", "3.370352e-02")
+          .attr("stop-color", "#EDF1F3"); //<stop  offset="3.370352e-02" style="stop-color:#EDF1F3"/>
+      sash_fp3.append("stop")
+          .attr("offset", "0.1106")
+          .attr("stop-color", "#E0E4E6"); //<stop  offset="0.1106" style="stop-color:#E0E4E6"/>
+      sash_fp3.append("stop")
+          .attr("offset", "0.7301")
+          .attr("stop-color", "#E0E4E6"); //<stop  offset="0.7301" style="stop-color:#E0E4E6"/>
+      sash_fp3.append("stop")
+          .attr("offset", "0.7353")
+          .attr("stop-color", "#CCD0D1"); //<stop  offset="0.7353" style="stop-color:#CCD0D1"/>
+      sash_fp3.append("stop")
+          .attr("offset", "0.7447")
+          .attr("stop-color", "#989B9D"); //<stop  offset="0.7447" style="stop-color:#989B9D"/>
+      sash_fp3.append("stop")
+          .attr("offset", "0.7524")
+          .attr("stop-color", "#8A8D8F"); //<stop  offset="0.7524" style="stop-color:#8A8D8F"/>
+      sash_fp3.append("stop")
+          .attr("offset", "0.7562")
+          .attr("stop-color", "#808284"); //<stop  offset="0.7562" style="stop-color:#808284"/>
+      sash_fp3.append("stop")
+          .attr("offset", "0.7728")
+          .attr("stop-color", "#D3D7D9"); //<stop  offset="0.7728" style="stop-color:#D3D7D9"/>
+      sash_fp3.append("stop")
+          .attr("offset", "0.8529")
+          .attr("stop-color", "#D0D4D6"); //<stop  offset="0.8529" style="stop-color:#D0D4D6"/>
+      sash_fp3.append("stop")
+          .attr("offset", "0.93")
+          .attr("stop-color", "#ADB0B1"); //<stop  offset="0.93" style="stop-color:#ADB0B1"/>
+      sash_fp3.append("stop")
+          .attr("offset", "0.9704")
+          .attr("stop-color", "#A0A3A4"); // <stop  offset="0.9704" style="stop-color:#A0A3A4"/>
+      sash_fp3.append("stop")
+          .attr("offset", "0.975")
+          .attr("stop-color", "#969899"); // <stop  offset="0.975" style="stop-color:#969899"/>
+      sash_fp3.append("stop")
+          .attr("offset", "0.9806")
+          .attr("stop-color", "#8E9091"); //<stop  offset="0.9806" style="stop-color:#8E9091"/>
+      sash_fp3.append("stop")
+          .attr("offset", "0.988")
+          .attr("stop-color", "#8E9091"); // <stop  offset="0.988" style="stop-color:#8E9091"/>
+      sash_fp3.append("stop")
+          .attr("offset", "0.9915")
+          .attr("stop-color", "#67696A"); // <stop  offset="0.9915" style="stop-color:#67696A"/>
+      sash_fp3.append("stop")
+          .attr("offset", "1")
+          .attr("stop-color", "#67696A"); //  <stop  offset="1" style="stop-color:#67696A"/>
+
+
+    const sash_fp4 = defs.append("linearGradient")
+          .attr("id", "sash_fp4")
+          .attr("x1", "100%")
+          .attr("y1", "0%")
+          .attr("x2", "0%")
+          .attr("y2", "0%");
+      sash_fp4.append("stop")
+          .attr("offset", "0")
+          .attr("stop-color", "#808384"); //     <stop  offset="0" style="stop-color:#808384"/>
+      sash_fp4.append("stop")
+          .attr("offset", "1.403468e-02")
+          .attr("stop-color", "#808384"); // <stop  offset="1.403468e-02" style="stop-color:#808384"/>
+      sash_fp4.append("stop")
+          .attr("offset", "1.750650e-02")
+          .attr("stop-color", "#C2C6C7"); //   <stop  offset="1.750650e-02" style="stop-color:#C2C6C7"/>
+      sash_fp4.append("stop")
+          .attr("offset", "2.527444e-02")
+          .attr("stop-color", "#C2C6C7"); //  <stop  offset="2.527444e-02" style="stop-color:#C2C6C7"/>
+      sash_fp4.append("stop")
+          .attr("offset", "2.893414e-02")
+          .attr("stop-color", "#C2C6C7"); //   <stop  offset="2.893414e-02" style="stop-color:#C2C6C7"/>
+      sash_fp4.append("stop")
+          .attr("offset", "3.200000e-02")
+          .attr("stop-color", "#E0E4E6"); //  <stop  offset="3.200000e-02" style="stop-color:#E0E4E6"/>
+      sash_fp4.append("stop")
+          .attr("offset", "0.101")
+          .attr("stop-color", "#E0E4E6"); //  <stop  offset="0.101" style="stop-color:#E0E4E6"/>
+      sash_fp4.append("stop")
+          .attr("offset", "0.73")
+          .attr("stop-color", "#E0E4E6"); //  <stop  offset="0.73" style="stop-color:#E0E4E6"/>
+      sash_fp4.append("stop")
+          .attr("offset", "0.7313")
+          .attr("stop-color", "#E0E4E6"); //   <stop  offset="0.7313" style="stop-color:#E0E4E6"/>
+      sash_fp4.append("stop")
+          .attr("offset", "0.7363")
+          .attr("stop-color", "#F1F5F7"); //  <stop  offset="0.7363" style="stop-color:#F1F5F7"/>
+      sash_fp4.append("stop")
+          .attr("offset", "0.7506")
+          .attr("stop-color", "#F1F5F7"); //  <stop  offset="0.7506" style="stop-color:#F1F5F7"/>
+      sash_fp4.append("stop")
+          .attr("offset", "0.7519")
+          .attr("stop-color", "#FFFFFF"); //  <stop  offset="0.7519" style="stop-color:#FFFFFF"/>
+      sash_fp4.append("stop")
+          .attr("offset", "0.7523")
+          .attr("stop-color", "#F3F6F8"); //  <stop  offset="0.7523" style="stop-color:#F3F6F8"/>
+      sash_fp4.append("stop")
+          .attr("offset", "0.7523")
+          .attr("stop-color", "#F1F5F7"); //   <stop  offset="0.7523" style="stop-color:#F1F5F7"/>
+      sash_fp4.append("stop")
+          .attr("offset", "0.77")
+          .attr("stop-color", "#E2E6E8"); //  <stop  offset="0.77" style="stop-color:#E2E6E8"/>
+      sash_fp4.append("stop")
+          .attr("offset", "0.7732")
+          .attr("stop-color", "#E4E8EA"); //   <stop  offset="0.7732" style="stop-color:#E4E8EA"/>
+      sash_fp4.append("stop")
+          .attr("offset", "0.7918")
+          .attr("stop-color", "#ECF0F2"); //   <stop  offset="0.7918" style="stop-color:#ECF0F2"/>
+      sash_fp4.append("stop")
+          .attr("offset", "0.83")
+          .attr("stop-color", "#EEF2F4"); //   <stop  offset="0.83" style="stop-color:#EEF2F4"/>
+      sash_fp4.append("stop")
+          .attr("offset", "0.8474")
+          .attr("stop-color", "#F5F9FB"); //  <stop  offset="0.8474" style="stop-color:#F5F9FB"/>
+      sash_fp4.append("stop")
+          .attr("offset", "0.93")
+          .attr("stop-color", "#FFFFFF"); //   <stop  offset="0.93" style="stop-color:#FFFFFF"/>
+      sash_fp4.append("stop")
+          .attr("offset", "0.975")
+          .attr("stop-color", "#FFFFFF"); //   <stop  offset="0.975" style="stop-color:#FFFFFF"/>
+      sash_fp4.append("stop")
+          .attr("offset", "0.9816")
+          .attr("stop-color", "#FFFFFF")
+          .attr("stop-opacity", "0.9033"); //  <stop  offset="0.9816" style="stop-color:#FFFFFF;stop-opacity:0.9033"/>
+      sash_fp4.append("stop")
+          .attr("offset", "0.988")
+          .attr("stop-color", "#FFFFFF")
+          .attr("stop-opacity", "0.9487"); //   <stop  offset="0.988" style="stop-color:#FFFFFF;stop-opacity:0.9487"/>
+      sash_fp4.append("stop")
+          .attr("offset", "1")
+          .attr("stop-color", "#96989A"); //  <stop  offset="1" style="stop-color:#96989A"/>
+
+    const bead_fp1 = defs.append("linearGradient")
+          .attr("id", "bead_fp1")
+          .attr("x1", "0%")
+          .attr("y1", "100%")
+          .attr("x2", "0%")
+          .attr("y2", "0%");
+
+      bead_fp1.append("stop")
+          .attr("offset", "0")
+          .attr("stop-color", "#8EDFD4"); //<stop  offset="0" style="stop-color:#8EDFD4"/>
+      bead_fp1.append("stop")
+          .attr("offset", "2.231633e-02")
+          .attr("stop-color", "#8EDFD4"); // <stop  offset="2.231633e-02" style="stop-color:#8EDFD4"/>
+      bead_fp1.append("stop")
+          .attr("offset", "2.447930e-02")
+          .attr("stop-color", "#82CBC1"); //  <stop  offset="2.447930e-02" style="stop-color:#82CBC1"/>
+      bead_fp1.append("stop")
+          .attr("offset", "3.288487e-02")
+          .attr("stop-color", "#54847D"); //  <stop  offset="3.288487e-02" style="stop-color:#54847D"/>
+      bead_fp1.append("stop")
+          .attr("offset", "4.043980e-02")
+          .attr("stop-color", "#304B47"); // <stop  offset="4.043980e-02" style="stop-color:#304B47"/>
+      bead_fp1.append("stop")
+          .attr("offset", "4.687349e-02")
+          .attr("stop-color", "#162221"); // <stop  offset="4.687349e-02" style="stop-color:#162221"/>
+      bead_fp1.append("stop")
+          .attr("offset", "5.193689e-02")
+          .attr("stop-color", "#060909"); // <stop  offset="5.193689e-02" style="stop-color:#060909"/>
+      bead_fp1.append("stop")
+          .attr("offset", "5.500000e-02")
+          .attr("stop-color", "#000000"); // <stop  offset="5.500000e-02" style="stop-color:#000000"/>
+      bead_fp1.append("stop")
+          .attr("offset", "0.1216")
+          .attr("stop-color", "#000000"); // <stop  offset="0.1216" style="stop-color:#000000"/>
+      bead_fp1.append("stop")
+          .attr("offset", "0.1261")
+          .attr("stop-color", "#68696A"); // <stop  offset="0.1261" style="stop-color:#68696A"/>
+      bead_fp1.append("stop")
+          .attr("offset", "0.3224")
+          .attr("stop-color", "#919395"); // <stop  offset="0.3224" style="stop-color:#919395"/>
+      bead_fp1.append("stop")
+          .attr("offset", "0.499")
+          .attr("stop-color", "#AFB2B3"); // <stop  offset="0.499" style="stop-color:#AFB2B3"/>
+      bead_fp1.append("stop")
+          .attr("offset", "0.6488")
+          .attr("stop-color", "#C1C4C6"); //  <stop  offset="0.6488" style="stop-color:#C1C4C6"/>
+      bead_fp1.append("stop")
+          .attr("offset", "0.7537")
+          .attr("stop-color", "#C7CBCD"); // <stop  offset="0.7537" style="stop-color:#C7CBCD"/>
+      bead_fp1.append("stop")
+          .attr("offset", "0.8036")
+          .attr("stop-color", "#CDD1D3"); // <stop  offset="0.8036" style="stop-color:#CDD1D3"/>
+      bead_fp1.append("stop")
+          .attr("offset", "1")
+          .attr("stop-color", "#DEE2E4"); // <stop  offset="1" style="stop-color:#DEE2E4"/>
+
+
+    const bead_fp2 = defs.append("linearGradient")
+          .attr("id", "bead_fp2")
+          .attr("x1", "0%")
+          .attr("y1", "0%")
+          .attr("x2", "100%")
+          .attr("y2", "0%");
+
+      bead_fp2.append("stop")
+          .attr("offset", "1.040365e-02")
+          .attr("stop-color", "#769C97"); //<stop  offset="1.040365e-02" style="stop-color:#769C97"/>
+      bead_fp2.append("stop")
+          .attr("offset", "3.798177e-02")
+          .attr("stop-color", "#000000"); // <stop  offset="3.798177e-02" style="stop-color:#000000"/>
+      bead_fp2.append("stop")
+          .attr("offset", "0.12")
+          .attr("stop-color", "#000000"); // <stop  offset="0.12" style="stop-color:#000000"/>
+      bead_fp2.append("stop")
+          .attr("offset", "0.12")
+          .attr("stop-color", "#FFFFFF"); // <stop  offset="0.12" style="stop-color:#FFFFFF"/>
+      bead_fp2.append("stop")
+          .attr("offset", "0.5977")
+          .attr("stop-color", "#FFFFFF"); // <stop  offset="0.5977" style="stop-color:#FFFFFF"/>
+      bead_fp2.append("stop")
+          .attr("offset", "0.6944")
+          .attr("stop-color", "#F7F8F9"); // <stop  offset="0.6944" style="stop-color:#F7F8F9"/>
+      bead_fp2.append("stop")
+          .attr("offset", "0.8376")
+          .attr("stop-color", "#E2E6E8"); // <stop  offset="0.8376" style="stop-color:#E2E6E8"/>
+      bead_fp2.append("stop")
+          .attr("offset", "0.8986")
+          .attr("stop-color", "#D7DBDD")
+          .attr("stop-opacity", "0.8737"); //  <stop  offset="0.8986" style="stop-color:#D7DBDD; stop-opacity:0.8737"/>
+      bead_fp2.append("stop")
+          .attr("offset", "0.9825")
+          .attr("stop-color", "#C2C6C7")
+          .attr("stop-opacity", "0.7"); // <stop  offset="0.9825" style="stop-color:#C2C6C7;stop-opacity:0.7"/>
+      bead_fp2.append("stop")
+          .attr("offset", "0.9851")
+          .attr("stop-color", "#808384"); // <stop  offset="0.9851" style="stop-color:#808384"/>
+      bead_fp2.append("stop")
+          .attr("offset", "1")
+          .attr("stop-color", "#808384"); // <stop  offset="1" style="stop-color:#808384"/>
+
+    const bead_fp3 = defs.append("linearGradient")
+          .attr("id", "bead_fp3")
+          .attr("x1", "0%")
+          .attr("y1", "0%")
+          .attr("x2", "0%")
+          .attr("y2", "100%");
+
+      bead_fp3.append("stop")
+          .attr("offset", "1.040365e-02")
+          .attr("stop-color", "#769C97"); //<stop  offset="1.040365e-02" style="stop-color:#769C97"/>
+      bead_fp3.append("stop")
+          .attr("offset", "3.798177e-02")
+          .attr("stop-color", "#000000"); // <stop  offset="3.798177e-02" style="stop-color:#000000"/>
+      bead_fp3.append("stop")
+          .attr("offset", "0.12")
+          .attr("stop-color", "#000000"); // <stop  offset="0.12" style="stop-color:#000000"/>
+      bead_fp3.append("stop")
+          .attr("offset", "0.12")
+          .attr("stop-color", "#FFFFFF"); // <stop  offset="0.12" style="stop-color:#FFFFFF"/>
+      bead_fp3.append("stop")
+          .attr("offset", "0.5977")
+          .attr("stop-color", "#FFFFFF"); // <stop  offset="0.5977" style="stop-color:#FFFFFF"/>
+      bead_fp3.append("stop")
+          .attr("offset", "0.6944")
+          .attr("stop-color", "#F7F8F9"); // <stop  offset="0.6944" style="stop-color:#F7F8F9"/>
+      bead_fp3.append("stop")
+          .attr("offset", "0.8376")
+          .attr("stop-color", "#E2E6E8"); // <stop  offset="0.8376" style="stop-color:#E2E6E8"/>
+      bead_fp3.append("stop")
+          .attr("offset", "0.8986")
+          .attr("stop-color", "#D7DBDD")
+          .attr("stop-opacity", "0.8737"); //  <stop  offset="0.8986" style="stop-color:#D7DBDD; stop-opacity:0.8737"/>
+      bead_fp3.append("stop")
+          .attr("offset", "0.9825")
+          .attr("stop-color", "#C2C6C7")
+          .attr("stop-opacity", "0.7"); // <stop  offset="0.9825" style="stop-color:#C2C6C7;stop-opacity:0.7"/>
+      bead_fp3.append("stop")
+          .attr("offset", "0.9851")
+          .attr("stop-color", "#808384"); // <stop  offset="0.9851" style="stop-color:#808384"/>
+      bead_fp3.append("stop")
+          .attr("offset", "1")
+          .attr("stop-color", "#808384"); // <stop  offset="1" style="stop-color:#808384"/>
+
+    const bead_fp4 = defs.append("linearGradient")
+          .attr("id", "bead_fp4")
+          .attr("x1", "100%")
+          .attr("y1", "0%")
+          .attr("x2", "0%")
+          .attr("y2", "0%");
+      bead_fp4.append("stop")
+          .attr("offset", "0")
+          .attr("stop-color", "#8EDFD4"); //<stop  offset="0" style="stop-color:#8EDFD4"/>
+      bead_fp4.append("stop")
+          .attr("offset", "2.231633e-02")
+          .attr("stop-color", "#8EDFD4"); // <stop  offset="2.231633e-02" style="stop-color:#8EDFD4"/>
+      bead_fp4.append("stop")
+          .attr("offset", "2.447930e-02")
+          .attr("stop-color", "#82CBC1"); //  <stop  offset="2.447930e-02" style="stop-color:#82CBC1"/>
+      bead_fp4.append("stop")
+          .attr("offset", "3.288487e-02")
+          .attr("stop-color", "#54847D"); //  <stop  offset="3.288487e-02" style="stop-color:#54847D"/>
+      bead_fp4.append("stop")
+          .attr("offset", "4.043980e-02")
+          .attr("stop-color", "#304B47"); // <stop  offset="4.043980e-02" style="stop-color:#304B47"/>
+      bead_fp4.append("stop")
+          .attr("offset", "4.687349e-02")
+          .attr("stop-color", "#162221"); // <stop  offset="4.687349e-02" style="stop-color:#162221"/>
+      bead_fp4.append("stop")
+          .attr("offset", "5.193689e-02")
+          .attr("stop-color", "#060909"); // <stop  offset="5.193689e-02" style="stop-color:#060909"/>
+      bead_fp4.append("stop")
+          .attr("offset", "5.500000e-02")
+          .attr("stop-color", "#000000"); // <stop  offset="5.500000e-02" style="stop-color:#000000"/>
+      bead_fp4.append("stop")
+          .attr("offset", "0.1216")
+          .attr("stop-color", "#000000"); // <stop  offset="0.1216" style="stop-color:#000000"/>
+      bead_fp4.append("stop")
+          .attr("offset", "0.1261")
+          .attr("stop-color", "#68696A"); // <stop  offset="0.1261" style="stop-color:#68696A"/>
+      bead_fp4.append("stop")
+          .attr("offset", "0.3224")
+          .attr("stop-color", "#919395"); // <stop  offset="0.3224" style="stop-color:#919395"/>
+      bead_fp4.append("stop")
+          .attr("offset", "0.499")
+          .attr("stop-color", "#AFB2B3"); // <stop  offset="0.499" style="stop-color:#AFB2B3"/>
+      bead_fp4.append("stop")
+          .attr("offset", "0.6488")
+          .attr("stop-color", "#C1C4C6"); //  <stop  offset="0.6488" style="stop-color:#C1C4C6"/>
+      bead_fp4.append("stop")
+          .attr("offset", "0.7537")
+          .attr("stop-color", "#C7CBCD"); // <stop  offset="0.7537" style="stop-color:#C7CBCD"/>
+      bead_fp4.append("stop")
+          .attr("offset", "0.8036")
+          .attr("stop-color", "#CDD1D3"); // <stop  offset="0.8036" style="stop-color:#CDD1D3"/>
+      bead_fp4.append("stop")
+          .attr("offset", "1")
+          .attr("stop-color", "#DEE2E4"); // <stop  offset="1" style="stop-color:#DEE2E4"/>
+
+    const impost = defs.append("linearGradient")
+          .attr("id", "impost")
+          .attr("x1", "0%")
+          .attr("y1", "0%")
+          .attr("x2", "100%")
+          .attr("y2", "100%");
+      impost.append("stop")
+          .attr("offset", "0")
+          .attr("stop-color", "#E0E4E6");
+      /*<stop offset="0" style="stop-color:#E0E4E6"/>*/
+      impost.append("stop")
+          .attr("offset", "1")
+          .attr("stop-color", "#E0E4E6");
+
+    svg.selectAll('[item_type="sash"]')
+          .each(function() {
+            const element = d3.select(this);
+        
+            // Получаем значение атрибута item_side
+            const itemSide = element.attr('item_side');
+        
+            // Определяем fill на основе значения item_side
+            let fillValue;
+            if (itemSide === "0") {
+              fillValue = "url(#sash_fp3)";
+            } else if (itemSide === "1") {
+              fillValue = "url(#sash_fp4)";
+            } else if (itemSide === "2") {
+              fillValue = "url(#sash_fp1)";
+            } else if (itemSide === "3") {
+              fillValue = "url(#sash_fp2)";
+            } else {
+              console.warn(`Unexpected item_side value: ${itemSide}`);
+              fillValue = "none"; // Значение по умолчанию
+            }
+        
+            // Назначаем fill
+            element.attr('fill', fillValue)
+            .attr('stroke', '#363636');
+          });
+        
+    svg.selectAll('[item_type="frame"]')
+          .each(function() {
+            const element = d3.select(this);
+
+            // Получаем значение атрибута item_side
+            const itemSide = element.attr('item_side');
+            // Определяем fill на основе значения item_side
+            let fillValue;
+            if (itemSide === "0") {
+              if (door_type === 3) {
+                fillValue = "#000000";
+              } else if (door_type === 1) {
+                fillValue = "#ffffff";
+              } else {
+                fillValue = "url(#frame_fp3)";
+              }
+            } else if (itemSide === "1") {
+              fillValue = "url(#frame_fp4)";
+            } else if (itemSide === "2") {
+              fillValue = "url(#frame_fp1)";
+            } else if (itemSide === "3") {
+              fillValue = "url(#frame_fp2)";
+            } else {
+              console.warn(`Unexpected item_side value: ${itemSide}`);
+              fillValue = "none"; // Значение по умолчанию
+            }
+
+            // Назначаем fill и stroke
+            element.attr('fill', fillValue)
+              .attr('stroke', '#363636');
+          });
+
+    svg.selectAll('[item_type="bead"]')
+          .each(function() {
+            const element = d3.select(this);
+        
+            // Получаем значение атрибута item_side
+            const itemSide = element.attr('item_side');
+        
+            // Определяем fill на основе значения item_side
+            let fillValue;
+            if (itemSide === "0") {
+              fillValue = "url(#bead_fp3)";
+            } else if (itemSide === "1") {
+              fillValue = "url(#bead_fp4)";
+            } else if (itemSide === "2") {
+              fillValue = "url(#bead_fp1)";
+            } else if (itemSide === "3") {
+              fillValue = "url(#bead_fp2)";
+            } else {
+              console.warn(`Unexpected item_side value: ${itemSide}`);
+              fillValue = "none"; // Значение по умолчанию
+            }
+        
+            // Назначаем fill и stroke
+            element.attr('fill', fillValue)
+              .attr('stroke', '#363636');
+          });
+        
+    svg.selectAll('[item_type="impost"]')
+          .each(function() {
+            const element = d3.select(this);
+        
+            // Определяем fill (одинаковый для всех impost)
+            const fillValue = "url(#impost)";
+        
+            // Назначаем fill и stroke
+            element.attr('fill', fillValue)
+              .attr('stroke', '#363636');
+          });
+  }
+
 
   function buildSVG(template, widthSVG, heightSVG, elem, depths, sizeConstr) {
     const buildId = Date.now().toString(36);
     var elem = $('#' + elem);
+
+    const door_type = template.details[0].door_type_index;
+    template.details.forEach(detail => {
+      if (detail.parts && Array.isArray(detail.parts)) {
+          let sashIndex = 0;
+          let frameIndex = 0;
+          let beadIndex = 0;
+
+          detail.parts.forEach(part => {
+            if (part.type === 'sash') {
+              part.sideGradient = sashIndex % 4;
+              sashIndex++;
+            } else if (part.type === 'frame') {
+                  part.sideGradient = frameIndex % 4;
+                  part.points = part.points.map(point => ({ ...point }));
+
+                  if (door_type == 3) {
+                    if (part.sideGradient === 0) {
+                      part.points[2].x = part.points[1].x;
+                      part.points[3].x = part.points[0].x;
+                      part.path = assamblingPath(part.points);
+                    } else if (part.sideGradient === 1) {
+                      part.points[0].y = part.points[3].y;
+                      part.path = assamblingPath(part.points);
+                    } else if (part.sideGradient === 3) {
+                      part.points[1].y = part.points[2].y;
+                      part.path = assamblingPath(part.points);
+                    }
+                  }
+                  if (door_type == 1) {
+                    if (part.sideGradient === 0) {
+                      part.points[0].x = part.points[3].x;
+                      part.points[1].x = part.points[2].x;
+                      part.path = assamblingPath(part.points);
+                    } else if (part.sideGradient === 1) {
+                      part.points[3].y = part.points[0].y;
+                      part.path = assamblingPath(part.points);
+                    } else if (part.sideGradient === 3) {
+                      part.points[2].y = part.points[1].y;
+                      part.path = assamblingPath(part.points);
+                    }
+                  }
+                  frameIndex++;
+              } else if (part.type === 'bead') {
+                  part.sideGradient = beadIndex % 4;
+                  beadIndex++;
+              }
+          });
+      }
+    });
+
     //if(template && !$.isEmptyObject(template)) {
       var container = document.createElement('div'),
           lineCreator = d3.svg.line()
@@ -95,11 +909,24 @@ $(function() {
       if(scope.typeConstruction === 'icon') {
         mainSVG.attr('class', 'tamlateIconSVG');
       } else {
-        mainSVG.attr('id', 'tamlateSVG');
+        mainSVG.attr('id', `tamlateSVG${buildId}`);
       }
 
       points = collectAllPointsOut(template.details);
       dimMaxMin = getMaxMinCoord(points);
+      // if(dimMaxMin.maxX < 1000){
+      //   padding = 0.5;
+      //   if(dimMaxMin.maxX < 700) {
+      //     padding = 0.45;
+      //   }
+      // }
+      // if(dimMaxMin.maxY < 1000){
+      //   padding = 0.5;
+      //   if(dimMaxMin.maxY < 700){
+      //     padding = 0.45;
+      //   }
+      // }
+      
       scale = setTemplateScale(dimMaxMin, widthSVG, heightSVG, padding);
       if(scope.typeConstruction !== 'icon') {
         position = setTemplatePosition(dimMaxMin, widthSVG, heightSVG, scale);
@@ -144,6 +971,11 @@ $(function() {
                 return (d.type === 'glass') ? 'glass' : 'frame';
               }
             },
+            'item_side': function (d) {
+              if(d.sideGradient || d.sideGradient === 0){
+                return d.sideGradient;
+              } 
+            },
             'item_type': function (d) {
               return d.type;
             },
@@ -162,32 +994,71 @@ $(function() {
         if(scope.typeConstruction !== 'icon') {
           //----- sash open direction
           if (template.details[i].sashOpenDir) {
+            // console.log('D',template.details[i])
             elementsGroup.selectAll('path.sash_mark.' + template.details[i].id)
               .data(template.details[i].sashOpenDir)
               .enter()
               .append('path')
-              .classed('sash_mark', true)
+              .classed({
+                'sash_mark': template.details[i].sashType !== 17,
+                'sash_mark_shtulp': template.details[i].sashType == 17
+              })
               .attr({
                 'd': function (d) {
                       return lineCreator(d.points);
                     },
                 'marker-mid': function(d) {
                   var dirQty = template.details[i].sashOpenDir.length;
+                  const handle_type = template.details[0].handle_type ? template.details[0].handle_type : 0;
+
                   if(dirQty === 1) {
                     if(d.points[1].fi < 45 || d.points[1].fi > 315) {
-                      return `url(#handleR_${buildId})`;
+                      if(template.details[i].sashType !== 17){
+                        if (handle_type == 36) {
+                          return `url(#handleR_type36${buildId})`;
+                        } else if (handle_type == 35) {
+                          return `url(#handleR_type35${buildId})`;
+                        } else {
+                          return `url(#handleR_window${buildId})`;
+                        }
+                      }
                     } else if (d.points[1].fi > 45 && d.points[1].fi < 135) {
                       return 'url(#handleU)';
                     } else if(d.points[1].fi > 135 && d.points[1].fi < 225) {
-                      return `url(#handleL_${buildId})`;
+                      if(template.details[i].sashType !== 17){
+                        if (handle_type == 36) {
+                          return `url(#handleL_type36${buildId})`;
+                        } else if (handle_type == 35) {
+                          return `url(#handleL_type35${buildId})`;
+                        } else {
+                          return `url(#handleL_window${buildId})`;
+                        }
+                        // return `url(#handleL_${buildId})`;
+                      }
                     } else if (d.points[1].fi > 225 && d.points[1].fi < 315) {
                       return 'url(#handleD)';
                     }
                   } else if(dirQty === 2) {
                     if(d.points[1].fi < 45 || d.points[1].fi > 315) {
-                      return `url(#handleR_${buildId})`;
+                      if (handle_type == 36) {
+                        return `url(#handleR_type36${buildId})`;
+                      } else if (handle_type == 35) {
+                        return `url(#handleR_type35${buildId})`;
+                      } else {
+                        return `url(#handleR_window${buildId})`;
+                      }
+                      // return `url(#handleR_${buildId})`;
                     } else if(d.points[1].fi > 135 && d.points[1].fi < 225) {
-                      return `url(#handleL_${buildId})`;
+                      if (handle_type == 36) {
+                        return `url(#handleL_type36${buildId})`;
+                      } else if (handle_type == 35) {
+                        return `url(#handleL_type35${buildId})`;
+                      } else {
+                        return `url(#handleL_window${buildId})`;
+                      }
+                      
+                      // return `url(#handleL_${buildId})`;
+
                     }
                   }
                 }
@@ -232,30 +1103,47 @@ $(function() {
             dimQQty = template.dimension.dimQ.length,
             heightSash,
             currHeightHandle = 0,
-            pathHandle = "M4.5,0C2.015,0,0,2.015,0,4.5v6c0,1.56,0.795,2.933,2,3.74V7.5C2,6.119,3.119,5,4.5,5S7,6.119,7,7.5v6.74c1.205-0.807,2-2.18,2-3.74v-6C9,2.015,6.985,0,4.5,0z"+
-"M7,26.5C7,27.881,5.881,29,4.5,29l0,0C3.119,29,2,27.881,2,26.5v-19C2,6.119,3.119,5,4.5,5l0,0C5.881,5,7,6.119,7,7.5V26.5z";
+            pathHandleOffice = "M4.5,0A4.5,4.5 0 1,1 4.5,13.5A4.5,4.5 0 1,1 4.5,0z" + 
+  "M7,13.5C7,15.572,5.881,18,4.5,18l0,0C3.119,18,2,15.572,2,13.5v67.5C2,84.178,3.119,87,4.5,87l0,0C5.881,87,7,84.178,7,81.5z" +
+  "M7,81.5C7,83.572,5.881,86,4.5,86l0,0C3.119,86,2,83.572,2,81.5v1.5C2,84.178,3.119,87,4.5,87l0,0C5.881,87,7,84.178,7,83.5z" + 
+  "M4.5,87A4.5,4.5 0 1,1 4.5,100.5A4.5,4.5 0 1,1 4.5,87z"; 
+
+            pathHandle = "M4.5,0C2.015,0,0,2.015,0,4.5v6c0,1.56,0.795,2.933,2,3.74V7.5C2,6.119,3.119,5,4.5,5S7,6.119,7,7.5v6.74c1.205-0.807,2-2.18,2-3.74v-6C9,2.015,6.985,0,4.5,0z" +
+  "M7,40C7,41.381,5.881,43,4.5,43l0,0C3.119,43,2,41.381,2,40v-35C2,4.119,3.119,3,4.5,3l0,0C5.881,3,7,4.119,7,5.5V40z";
 
         template.details.forEach(block => {
           if (block.blockType == "sash" && block.heightHandle && block.heightHandle > 0) {
-              heightSash = (block.center.y*2*1.4)/10;
-              currHeightHandle = Math.floor((heightSash-5) - (heightSash-5)/(block.center.y/block.heightHandle));
+              // heightSash = (block.center.y*2)/10;
+              heightSash = block.sashLinesOut[0].size;
+              let coeffHeight = heightSash/block.heightHandle;
+              // currHeightHandle = Math.floor((heightSash-5) - (heightSash-5)/(block.center.y/block.heightHandle));
+              currHeightHandle = -heightSash/10 + ((heightSash/10-10)/coeffHeight)*2;
           }
         })
-
+        
         //----- horizontal marker arrow
-        setMarker(defs, 'dimHorL', '-5, -5, 1, 8', -5, -2, 0, 50, 50, 'M 0,0 L -4,-2 L0,-4 z', 'size-line');
-        setMarker(defs, 'dimHorR', '-5, -5, 1, 8', -5, -2, 180, 50, 50, 'M 0,0 L -4,-2 L0,-4 z', 'size-line');
+        setMarker(defs, 'dimHorL', '-2, -2, 1, 8', 0, 3, 45, 50, 50, 'M 0,0 L 0,10', 'size-line');
+        setMarker(defs, 'dimHorR', '-2, -2, 1, 8', 0, 3, 45, 50, 50, 'M 0,0 L 0,10', 'size-line');
         //------- vertical marker arrow
-        setMarker(defs, 'dimVertL', '4.2, -1, 8, 9', 5, 2, 90, 100, 60, 'M 0,0 L 4,2 L0,4 z', 'size-line');
-        setMarker(defs, 'dimVertR', '4.2, -1, 8, 9', 5, 2, 270, 100, 60, 'M 0,0 L 4,2 L0,4 z', 'size-line');
+        setMarker(defs, 'dimVertL', '-2, -2, 8, 9', 0, 3, 45, 50, 50, 'M 0,0 L 0,10', 'size-line');
+        setMarker(defs, 'dimVertR', '-2, -2, 8, 9', 0, 3, 45, 50, 50, 'M 0,0 L 0,10', 'size-line');
 
         setMarker(defs, 'dimArrow', '4.2, -1, 8, 9', 5, 2, 'auto', 100, 60, 'M 0,0 L 4,2 L0,4 z', 'size-line');
 
         //------- marker handle
-        setMarker(defs, `handleR_${buildId}`, '0 -1 9 32', 4+currHeightHandle*(-1), 23, 90, 29, 49, pathHandle, 'handle-mark');
-        setMarker(defs, `handleL_${buildId}`, '0 -1 9 32', 5+currHeightHandle, 23, 270, 29, 49, pathHandle, 'handle-mark');
+        
+        setMarker(defs, `handleR_type35${buildId}`, '0 -1 9 52', 4+currHeightHandle*(-1), 18, 90, 49, 69, pathHandle, 'handle-mark');
+        setMarker(defs, `handleL_type35${buildId}`, '0 -1 9 52', 5+currHeightHandle, 18, 270, 49, 69, pathHandle, 'handle-mark');
+        
+        setMarker(defs, `handleR_type36${buildId}`, '0 -1 9 110', -5, 50+currHeightHandle, 0, 100, 120, pathHandleOffice, 'handle-mark');
+        setMarker(defs, `handleL_type36${buildId}`, '0 -1 9 110', 15, 50+currHeightHandle, 360, 100, 120, pathHandleOffice, 'handle-mark');
+        
+        setMarker(defs, `handleR_window${buildId}`, '0 -1 9 70', -6, 10+currHeightHandle, 0, 69, 89, pathHandle, 'handle-mark');
+        setMarker(defs, `handleL_window${buildId}`, '0 -1 9 70', 16, 10+currHeightHandle, 360, 69, 89, pathHandle, 'handle-mark');
+        
         setMarker(defs, 'handleU', '0 -1 9 32', -10, 10, 270, 29, 49, pathHandle, 'handle-mark');
         setMarker(defs, 'handleD', '0 -1 9 32', 20, 10, 270, 29, 49, pathHandle, 'handle-mark');
+        
 
         //            console.log('SVG=========dim==', template.dimension);
         for (var dx = 0; dx < dimXQty; dx++) {
@@ -289,6 +1177,16 @@ $(function() {
       //   DesignServ.initAllDimension();
       // }
     //}
+    let textCoeff = 1400;
+    if(dimMaxMin.maxX >= dimMaxMin.maxY) {
+      textCoeff = dimMaxMin.maxX;
+    } else if (dimMaxMin.maxX < dimMaxMin.maxY) {
+      textCoeff = dimMaxMin.maxY;
+    } 
+    let azaza = textCoeff / 1400;
+    const sizeTxtElements = d3.select(`#tamlateSVG${buildId}`).selectAll('.size-txt');
+    sizeTxtElements.style('font-size', `${90 * azaza}px`);
+    applyGradientsToTemplate(`tamlateSVG${buildId}`, template, door_type);
   }
 
 
@@ -316,14 +1214,19 @@ $(function() {
 
   function createDimension(dir, dim, dimGroup, lineCreator, depths, sizeConstr) {
     let renov = 0,
-    sizeConstruction = 0;
+    sizeConstruction = 0,
+    positionLine = -90;
+    
+    if (dim.blockId === "block_1" && !depths) {
+      positionLine = -40;
+    }
     if (depths){
       renov = depths.frameDepth.e;
       sizeConstruction = dir ? sizeConstr.widthConstr : sizeConstr.heightConstr;  
     }
-    var dimLineHeight = renov ? (dir?60:40) :-150,     // отступ блока размера 
+    var dimLineHeight = renov ? (dir?200+sizeConstruction:150+sizeConstruction) :positionLine,     // отступ блока размера 
         dimEdger = 50,            // отступ размерной линии 
-        dimMarginBottom = renov ? 200+sizeConstruction+(dir?50:0):-20,    // глубина линий границ 
+        dimMarginBottom = renov ? 130+(dir?50:0):60,    // глубина линий границ 
         sizeBoxWidth = 160,
         sizeBoxHeight = 70,
 
@@ -407,8 +1310,8 @@ $(function() {
        'class': function() { return (scope.typeConstruction === 'edit') ? 'size-txt-edit' : 'size-txt'; },
        'x': function() { return (dir) ? (dimLineHeight - sizeBoxWidth*0.8) : (dim.from + dim.to - sizeBoxWidth)/2; },
        'y': function() { return (dir) ? (dim.from + dim.to - sizeBoxHeight)/2 : (dimLineHeight - sizeBoxHeight*0.8); },
-       'dx': 80,
-       'dy': 40,
+       'dx': renov ? (dir?260:80):(dir?80:80),
+       'dy': renov ? (dir?40:120):(dir?40:80),
        'type': 'line',
        'block_id': dim.blockId,
        'size_val': dim.text-(renov*2),
@@ -1831,14 +2734,22 @@ $(function() {
             //----- 'up'
             case 1:
               part.points.push(getCrossPointSashDir(1, center, 225, beadLines));
+              part.points[0].y = beadLines[0].to.y
+              part.points[0].x = beadLines[0].to.x 
               part.points.push(getCrossPointSashDir(3, center, 90, beadLines));
               part.points.push(getCrossPointSashDir(1, center, 315, beadLines));
+              part.points[2].y = beadLines[2].from.y
+              part.points[2].x = beadLines[1].to.x
               break;
             //----- 'right'
             case 2:
               part.points.push(getCrossPointSashDir(2, center, 225, beadLines));
+              part.points[0].y = beadLines[0].from.y
+              part.points[0].x = beadLines[2].from.x
               part.points.push(getCrossPointSashDir(4, center, 180, beadLines));
               part.points.push(getCrossPointSashDir(2, center, 135, beadLines));
+              part.points[2].y = beadLines[0].to.y
+              part.points[2].x = beadLines[2].to.x
               break;
             //------ 'down'
             case 3:
@@ -1849,8 +2760,12 @@ $(function() {
             //----- 'left'
             case 4:
               part.points.push(getCrossPointSashDir(4, center, 45, beadLines));
+              part.points[0].y = beadLines[0].from.y
+              part.points[0].x = beadLines[0].from.x
               part.points.push(getCrossPointSashDir(2, center, 180, beadLines));
               part.points.push(getCrossPointSashDir(4, center, 315, beadLines));
+              part.points[2].y = beadLines[0].to.y
+              part.points[2].x = beadLines[0].to.x
               break;
           }
           parts.push(part);

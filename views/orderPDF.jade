@@ -25,164 +25,186 @@ html
           <path d="M19 8H5c-1.66 0-3 1.34-3 3v6h4v4h12v-4h4v-6c0-1.66-1.34-3-3-3zm-3 11H8v-5h8v5zm3-7c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm-1-9H6v4h12V3z">
           </path>
           </g></svg>
-      .bound
-        .row
-          .col-md-7
-            img(src="/assets/images/logo_ekipazh.png" style="width:130px;")
-          .col-md-5
-            b
-              br
+      .bound-titel
+        .block-header
+          .logo-pdf
+            img(src="https://admin.ekipazh.windowscalculator.net"+user.avatar)
+          .info-header
+            .order-num 
               | №
               | 
               =order.order_hz 
-        .row
-          .col-md-7
-            p
-              =i18n.__('Customer_pdf')
-              | : 
-              =order.customer_name
-              br
-              =i18n.__('City_pdf')
-              | : 
-              =order.customer_location
-              | 
-              br
-              =i18n.__('Address')
-              | : 
-              =order.customer_address
-              | 
-              | д. 
-              =order.customer_house
-              | 
-              | кв. 
-              =order.customer_flat
-              | 
-              | этаж 
-              =order.customer_floor
-              br
-              =i18n.__('Mob. phone')
-              | : 
-              =order.customer_phone
-              br
-              if (order.comment)
-                =i18n.__('Order comment')
-                | :
-                =order.comment
-            p 
-              =i18n.__('Salon_pdf')
-              | : 
-              =user.name
-              | ; 
-              br
-              =i18n.__('Phone_u')
-              | : 
-              =user.city_phone || '-------'
-              | ; 
-              br
-              =i18n.__('City')
-              | :  
-              =user.city.name
-              br
-              =i18n.__('Address')
-              | : 
-              =user.address || '-------'
-              | 
-              | (
-              =('0' + order.created.getDate()).slice(-2)
-              | .
-              =('0' + (order.created.getMonth() + 1)).slice(-2)
-              | .
-              =order.created.getFullYear()
-              | )
-          .col-md-5
-            p
-              table(cellspacing="0" cellpadding="2" border="0" style="font-size:11px; border-collapse: collapse; text-align: right; width: 100%")
-                tr
-                  td(style="width:650pt;text-align: left;")
+            .info_header-content
+              .row1 
+                .total-count-name
                     =i18n.__('The total number of constructions')
-                  td(align="right" style="width:80pt; color:#283891; padding-right:20px;")
-                    =count
-                tr
-                  td(style="text-align: left;")
+                .total-square-name
                     =i18n.__('The total area of constructions')
-                  td(align="right" style="color:#283891; padding-right:20px;")
-                    =square.toFixed(2)
-                tr
-                  td(style="text-align: left;")
+                .total-perimeter-name
                     =i18n.__('The total perimeter of constructions')
-                  td(align="right" style="color:#283891; padding-right:20px;")
+                //- .total-price-name
+                //-       =i18n.__('TOTAL')
+                //-       | :
+
+              .row2
+                .total-count-value
+                    =count
+                .total-square-value
+                    =square.toFixed(2)
+                .total-perimeter-value
                     =perimeter.toFixed(2)
-              br
-              table(cellspacing="0" cellpadding="2" border="0" style="font-size:11px; border-collapse: collapse; text-align: right; width: 100%")
-                tr
-                  th
-                  th(align="rigth" style="color:#283891; padding-right:10px; ")
-                    if (+maxConstructDisc !== 0 || +maxAddElemDisc !== 0)
-                      =i18n.__('Discount')
-                      | %
-                  th(align="rigth" style="color:#283891; padding-right:10px; ")
-                    =i18n.__('Total to pay')
-                  th
-                tr
-                  td(style="text-align: left;")
-                    =i18n.__('Constructions')
-                  td(align="rigth" style="color:#283891; padding-right:10px; ")
-                    if (+maxConstructDisc !== 0)
-                      =parseFloat(maxConstructDisc).toFixed(2)
-                  td(align="rigth" style="color:#283891; padding-right:10px; ")
-                    =parseFloat(basePriceDisc).toFixed(2)
-                  td
-                tr
-                  td(style="text-align: left;")
-                    =i18n.__('Add. elements')
-                  td(align="rigth" style="color:#283891; padding-right:10px; ")
-                    if (+maxAddElemDisc !== 0)
-                      =parseFloat(maxAddElemDisc).toFixed(2)
-                  td(align="rigth" style="color:#283891; padding-right:10px; ")
-                    =parseFloat(additionalPriceDisc).toFixed(2)
-                  td
-                tr
-                  td(style="text-align: left;")
-                    =i18n.__('Delivery')
-                  td(align="rigth" style="color:#283891; padding-right:10px; ")
-                  td(align="rigth" style="color:#283891; padding-right:10px; ")
-                    =parseFloat(delivery).toFixed(2)
-                  td
-                tr
-                  td(style="text-align: left;")
-                    =i18n.__('Mounting')
-                  td(align="rigth" style="color:#283891; padding-right:10px; ")
-                  td(align="rigth" style="color:#283891; padding-right:10px; ")
-                    =parseFloat(mounting).toFixed(2)
-                  td
-                tr
-                  td(style="text-align: left;")
-                    =i18n.__('Additional services')
-                  td(align="rigth" style="color:#283891; padding-right:10px; ")
-                  td(align="rigth" style="color:#283891; padding-right:10px; ")
-                    =parseFloat(addServicePrice).toFixed(2)
-                  td
-                tr
-                  td(style="text-align: left; padding-top: 10px;")
-                    b
-                      =i18n.__('TOTAL')
-                      | :
-                  td(align="rigth" style="color:#283891; padding-right:10px; padding-top: 10px; ")
-                  td(align="rigth" style="color:#283891; padding-right:10px; padding-top: 10px; ")
-                    b=parseFloat(total).toFixed(2)
-                    | 
-                    =currency
-                  td
-              div(id="mainSVG", value=order)
-      hr(style="margin:10px 0px !important")
+                //- .total-price-value 
+                //-     =parseFloat(total).toFixed(2)
+                //-     | 
+                //-     =currency
+        .block-subheader
+          .users-info 
+            .customer-info
+              .name 
+                =i18n.__('Customer_pdf')
+                | : 
+                =order.customer_name
+              //- .location 
+              //-   =i18n.__('City_pdf')
+              //-   | : 
+              //-   =order.customer_location
+              //-   | 
+              .address
+                =i18n.__('Address')
+                | : 
+                =order.customer_city
+                | , 
+                =order.customer_address
+                | ,
+                =order.customer_house
+                | , 
+                =i18n.__('Client flat')
+                =order.customer_flat
+                | , 
+                =i18n.__('Client floor')
+                =order.customer_floor
+              .phone
+                =i18n.__('Mob. phone')
+                | : 
+                =order.customer_phone
+              if (order.comment)
+                .comment 
+                  =i18n.__('Order comment')
+                  | : 
+                  =order.comment
+            .manager-info
+              .name 
+                =i18n.__('Salon_pdf')
+                | : 
+                =user.name
+                | ; 
+              //- .location
+              //-   =i18n.__('City')
+              //-   | :  
+              //-   =user.city.name
+              .address 
+                =i18n.__('Address')
+                | : 
+                =user.city.name || '-------'
+                , 
+                | 
+                =user.address || '-------'
+                //- | (
+                //- =('0' + order.created.getDate()).slice(-2)
+                //- | .
+                //- =('0' + (order.created.getMonth() + 1)).slice(-2)
+                //- | .
+                //- =order.created.getFullYear()
+                //- | )
+              .phone
+                =i18n.__('Phone_u')
+                | : 
+                =user.city_phone || '-------'
+                | ; 
+                =user.email || ''
+          .price-info
+            .row1-price
+              .price-constructions-name 
+                =i18n.__('Constructions')
+              if (+maxConstructDisc !== 0)
+                .price-disocunt-constructions-name 
+                  =i18n.__('Discount on constructions')
+                  |  - 
+                  =parseFloat(maxConstructDisc).toFixed(0)
+                  |  %
+                .price-constructions-name 
+                  =i18n.__('Cost of constructions with discount')
+              .price-addelems-name
+                =i18n.__('Add. elements')
+              if (+maxAddElemDisc !== 0)
+                .price-disocunt-addelems-name
+                  =i18n.__('Discount on additional elements')
+                  |   - 
+                  =parseFloat(maxAddElemDisc).toFixed(0)
+                  |  %
+                .price-addelems-name
+                  =i18n.__('Cost of additional elements with discount')
+              .price-delivery-name 
+                =i18n.__('Delivery')
+              .price-mounting-name
+                =i18n.__('Mounting')
+              .price-addservice-name
+                =i18n.__('Additional services')
+              .price-total-name
+                =i18n.__('TOTAL')
+                | :
+            .row2-price
+              .price-constructions-value 
+                =parseFloat(basePrice).toFixed(2)
+                | 
+                =currency
+              if (+maxConstructDisc !== 0)
+                .price-discount-constructions-value 
+                  =parseFloat(-basePrice + basePriceDisc).toFixed(2)
+                  | 
+                  =currency
+                .price-constructions-value 
+                  =parseFloat(basePriceDisc).toFixed(2)
+                  | 
+                  =currency
+              .price-addelems-value
+                =parseFloat(additionalPrice).toFixed(2)
+                | 
+                =currency
+              if (+maxAddElemDisc !==0)
+                .price-discount-addelems-value
+                  =parseFloat(-additionalPrice + additionalPriceDisc).toFixed(2)
+                  | 
+                  =currency
+                .price-addelems-value
+                  =parseFloat(additionalPriceDisc).toFixed(2)
+                  | 
+                  =currency
+              .price-delivery-value 
+                =parseFloat(delivery).toFixed(2)
+                | 
+                =currency
+              .price-mounting-value
+                =parseFloat(mounting).toFixed(2)
+                | 
+                =currency
+              .price-addservice-value
+                =parseFloat(addServicePrice).toFixed(2)
+                | 
+                =currency
+              .price-total-value
+                =parseFloat(total).toFixed(2)
+                | 
+                =currency
+
       div(id="products")
          !{products}
-      .row.warning-label
-        .col-md-12
-          =i18n.__('Plant responsibility')
-      .row.warning-label
-        .col-md-12
-          =i18n.__('Responsabilidad del cliente')
+      //- .row.warning-label
+      //-   .col-md-12
+      //-     =i18n.__('Plant responsibility')
+      //- .row.warning-label
+      //-   .col-md-12
+      //-     =i18n.__('Responsabilidad del cliente')
       br
       .row(style="font-size: 13px")
         .col-md-6
