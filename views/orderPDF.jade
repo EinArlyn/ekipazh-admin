@@ -26,14 +26,89 @@ html
           </path>
           </g></svg>
       .bound-titel
+        .logo-pdf
+          img(src="https://admin.ekipazh.windowscalculator.net"+user.avatar)
         .block-header
-          .logo-pdf
-            img(src="https://admin.ekipazh.windowscalculator.net"+user.avatar)
+          //- .logo-pdf
+          //-   img(src="https://admin.ekipazh.windowscalculator.net"+user.avatar)
+          .users-info 
+            .customer-info
+              .name 
+                =i18n.__('Customer_pdf')
+                | : 
+                =order.customer_name
+              //- .location 
+              //-   =i18n.__('City_pdf')
+              //-   | : 
+              //-   =order.customer_location
+              //-   | 
+              .address
+                =i18n.__('Address')
+                | : 
+                =order.customer_city
+                | , 
+                =order.customer_address
+                | ,
+                =order.customer_house
+                | , 
+                =i18n.__('Client flat')
+                =order.customer_flat
+                | , 
+                =i18n.__('Client floor')
+                =order.customer_floor
+              .phone
+                =i18n.__('Mob. phone')
+                | : 
+                =order.customer_phone
+              if (order.comment)
+                .comment 
+                  =i18n.__('Order comment')
+                  | : 
+                  =order.comment
+            .manager-info
+              .name 
+                =i18n.__('Salon_pdf')
+                | : 
+                =user.name
+                | ; 
+              //- .location
+              //-   =i18n.__('City')
+              //-   | :  
+              //-   =user.city.name
+              .address 
+                =i18n.__('Address')
+                | : 
+                =user.city.name || '-------'
+                , 
+                | 
+                =user.address || '-------'
+                //- | (
+                //- =('0' + order.created.getDate()).slice(-2)
+                //- | .
+                //- =('0' + (order.created.getMonth() + 1)).slice(-2)
+                //- | .
+                //- =order.created.getFullYear()
+                //- | )
+              .phone
+                =i18n.__('Phone_u')
+                | : 
+                =user.city_phone || '-------'
+                | ; 
+                =user.email || ''
           .info-header
             .order-num 
               | №
               | 
               =order.order_hz 
+              | 
+              =i18n.__('from')
+              | 
+              =('0' + order.created.getDate()).slice(-2)
+              | .
+              =('0' + (order.created.getMonth() + 1)).slice(-2)
+              | .
+              =order.created.getFullYear()
+              | 
             .info_header-content
               .row1 
                 .total-count-name
@@ -126,7 +201,7 @@ html
             .row1-price
               .price-constructions-name 
                 =i18n.__('Constructions')
-              if (+maxConstructDisc !== 0)
+              if (+maxConstructDisc !== 0 && +parseFloat(-basePrice + basePriceDisc).toFixed(2) !== 0)
                 .price-disocunt-constructions-name 
                   =i18n.__('Discount on constructions')
                   |  - 
@@ -136,7 +211,7 @@ html
                   =i18n.__('Cost of constructions with discount')
               .price-addelems-name
                 =i18n.__('Add. elements')
-              if (+maxAddElemDisc !== 0)
+              if (+maxAddElemDisc !== 0 && +parseFloat(-additionalPrice + additionalPriceDisc).toFixed(2) !== 0)
                 .price-disocunt-addelems-name
                   =i18n.__('Discount on additional elements')
                   |   - 
@@ -158,7 +233,7 @@ html
                 =parseFloat(basePrice).toFixed(2)
                 | 
                 =currency
-              if (+maxConstructDisc !== 0)
+              if (+maxConstructDisc !== 0 && +parseFloat(-basePrice + basePriceDisc).toFixed(2) !== 0)
                 .price-discount-constructions-value 
                   =parseFloat(-basePrice + basePriceDisc).toFixed(2)
                   | 
@@ -171,7 +246,7 @@ html
                 =parseFloat(additionalPrice).toFixed(2)
                 | 
                 =currency
-              if (+maxAddElemDisc !==0)
+              if (+maxAddElemDisc !==0 && +parseFloat(-additionalPrice + additionalPriceDisc).toFixed(0) !== 0)
                 .price-discount-addelems-value
                   =parseFloat(-additionalPrice + additionalPriceDisc).toFixed(2)
                   | 
@@ -206,15 +281,15 @@ html
       //-   .col-md-12
       //-     =i18n.__('Responsabilidad del cliente')
       br
-      .row(style="font-size: 13px")
-        .col-md-6
-          =i18n.__('Customer_pdf')
-          | 
-          span.signature
-            | 
-        .col-md-6
-          =i18n.__('Salon_pdf')
-          | 
-          span.signature
-            | 
+      //- .row(style="font-size: 13px")
+      //-   .col-md-6
+      //-     =i18n.__('Customer_pdf')
+      //-     | 
+      //-     span.signature
+      //-       | 
+      //-   .col-md-6
+      //-     =i18n.__('Salon_pdf')
+      //-     | 
+      //-     span.signature
+      //-       | 
     script(src="/assets/javascripts/PDF/pdf.js")

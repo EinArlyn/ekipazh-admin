@@ -425,6 +425,7 @@
 	"Reassign to": "Riassegnare a",
 	"Coefficient type": "Tipo di coefficiente",
 	"U_coeff": "U (W/m²·°C)",
+	"U_coeff_short": "W/m²·°C",
 	"R_coeff": "R (m²·°C/W)",
 	"Application link": "Link dell'applicazione",
 	"Application templates": "Modelli dell'applicazione",

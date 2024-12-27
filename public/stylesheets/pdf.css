@@ -22,12 +22,6 @@
   stroke-width: 2;
 } */
 
-@font-face {
-  font-family: 'DejaVu Sans';
-  src: url('../../update/css/fonts/Dejavu/DejaVuLGCSans.ttf') format('truetype');
-  font-weight: normal;
-  font-style: normal;
-}
 
 .frame-icon {
   fill: #aaa;
@@ -70,8 +64,8 @@
 
 .handle-mark {
   fill: #f9f9f9;
-  stroke: #5E5E5E;
-  stroke-width: 1;
+  stroke: black;
+  stroke-width: 0.5;
 }
 
 .error_glass {
@@ -167,20 +161,6 @@ body {
   #lang-selector {
     display: none;
   }
-  /* .header-product {
-    background-color: lightgray !important;
-  }
-  .price-discount-constructions-value {
-    background-color: black !important;
-    color: white !important;
-  }
-  .price-discount-addelems-value {
-    background-color: black !important;
-    color: white !important;
-  }
-  .line-coeff-under {
-    background: linear-gradient(-2deg, lightgray 50%, white 50%) !important;
-  } */
 }
 
 #lang-selector {
@@ -281,8 +261,8 @@ body {
 
         .schemes {
           position: relative;
-          max-height: 240px;
-          min-height: 240px;
+          max-height: 320px;
+          min-height: 320px;
         }
 
         table.product-table {
@@ -317,19 +297,24 @@ body {
     }
 
     .bound {
-      max-height: 370px;
-      min-height: 370px;
+      max-height: 501px;
+      min-height: 501px;
+      page-break-inside: avoid;
     }
     .bound-titel {
-      max-height: 320px;
-      min-height: 320px;
+      max-height: 500px;
+      min-height: 500px;
+      img {
+        height: 100px;
+        margin-left: 20px;
+      }
     }
 
     .construct-divider {
       display: block;
-      height: 180px;
-      max-height: 180px; 
-      min-height: 180px;
+      height: 80px;
+      max-height: 80px; 
+      min-height: 80px;
     }
 
 hr {
@@ -338,7 +323,6 @@ hr {
 }
 
 .block-header {
-  font-family: 'DejaVu Sans', sans-serif;
   width: 100%;
   display: flex;
   justify-content: space-between;
@@ -354,6 +338,39 @@ hr {
       /* width: 130px; */
       max-width: 200px;
       max-height: 100px;
+    }
+  }
+
+  .users-info {
+    max-width: 45%;
+    margin-left: 20px;
+    font-size: 12px;
+    .customer-info {
+      .name {
+        font-weight: bold;
+        /* margin-bottom: 10px; */
+      }
+      .location {}
+      .address {}
+      .phone {}
+      .comment {
+        max-height: 60px; 
+        overflow: hidden;
+        display: -webkit-box; 
+        -webkit-line-clamp: 4; 
+        -webkit-box-orient: vertical; 
+      }
+    }
+
+    .manager-info {
+      .name {
+        font-weight: bold;
+        /* margin: 10px 0; */
+        margin-top: 10px;
+      }
+      .location {}
+      .address {}
+      .phone {}
     }
   }
 
@@ -414,7 +431,8 @@ hr {
   padding: 10px 0;
   line-height: 16px;
   .users-info {
-    max-width: 35%;
+    opacity: 0;
+    max-width: 45%;
     margin-left: 20px;
     .customer-info {
       .name {
@@ -457,7 +475,7 @@ hr {
       .price-mounting-name {}
       .price-addservice-name {}
       .price-total-name {
-        /* font-weight: bold; */
+        font-weight: bold;
         margin-top: 7px;
       }
     }
@@ -479,7 +497,7 @@ hr {
       .price-mounting-value {}
       .price-addservice-value {}
       .price-total-value {
-        /* font-weight: bold; */
+        font-weight: bold;
         margin-top: 7px;
       }
     }
@@ -493,17 +511,17 @@ hr {
   align-items: center;
   width: 100%;
   background-color: lightgray;
-  border: 1px solid black;
+  border: 1px solid lightgray;
   padding: 6px 0;
-  border-radius: 10px;
+  /* border-radius: 10px; */
   .product-counter {
     margin-left: 20px;
     font-weight: bold;
-    font-size: 13px;
+    font-size: 12px;
   }
   .product-description {
     margin-right: 20px;
-    font-size: 11px;
+    font-size: 12px;
   }
 }
 
@@ -518,31 +536,135 @@ hr {
       .schemes {
         margin-bottom: 50px;
       }
+      .info-titel {
+        font-size: 12px;
+        /* margin-left: 70px;
+        margin-bottom: 20px; */
+        margin: 0 auto 20px auto;
+        font-weight: bold;
+      }
+      .heat-coeff-block {
+        position: relative;
+        margin: 10px 0 10px 93px;
+        height: 5px;
+        font-size: 12px;
+        .line-coeff {
+          width: 250px;
+          height: 4px;
+          /* border: 1px solid black; */
+          border-radius: 5px;
+          background-color: lightgray;
+        }
+        .line-coeff-under2 {
+          position: absolute;
+          height: 0px;
+          width: 230px;
+          border: 1px solid black;
+          top: 0px;
+          transform: rotate(-2deg);
+        }
+        .line-coeff-under {
+          position: absolute;
+          width: 230px;
+          height: 0px;
+          top: 5px;
+          border: 1px solid black;
+          /* border-radius: 5px; */
+          /* background-color: lightgray; */
+          /* background: linear-gradient(-2deg, lightgray 50%, white 50%); */
+          &::before {
+            /* content: 'Min';
+            position: absolute;
+            left: -30px;
+            top: -7px; */
+            content: url('../images/finger-bottom.png');
+            position: absolute;
+            left: -35px;
+            top: -7px;
+            /* width: 20px; 
+            height: 20px;  */
+            /* background-image: url('../images/finger-bottom.png');
+            background-size: cover; 
+            background-repeat: no-repeat; */
+          }
+          &::after {
+            /* content: 'Max';
+            position: absolute;
+            right: -32px;
+            top: -7px; */
+            content: url('../images/finger-top2.png');
+            position: absolute;
+            right: -35px;
+            top: -19px;
+            /* width: 20px; 
+            height: 20px;  */
+            /* background-image: url('../images/finger-top.png'); */
+            /* background-size: cover; 
+            background-repeat: no-repeat;  */
+          }
+        }
+        .flag-coeff{
+          /* position: absolute;
+          width: 11px;
+          height: 11px;
+          top: -5px;
+          border-radius: 50%;
+          border: 1px solid black;
+          background-color: lightgray; */
+
+          position: absolute;
+          width: 0;
+          height: 0;
+          top: 6px;
+          /* transform: rotate(180deg); */
+          border-left: 5px solid transparent;
+          border-right: 5px solid transparent;
+          border-bottom: 9px solid black;
+        }
+        .flag-coeff-normal{
+          position: absolute;
+          width: 30px;
+          height: 7px;
+          /* top: -2px; */
+          /* transform: rotate(45deg); */
+          border-radius: 5px;
+          /* border: 1px solid black; */
+          font-size: 10px;
+          &::before {
+            content: 'Norm ';
+            position: relative;
+            background-color: white;
+            padding: 2px;
+            top: -6px;
+            left: 5px;
+          }
+        }
+    }
       .product-price {
-        margin: 0 50px;
+        margin: 0 70px;
         display: flex;
         justify-content: space-between;
-        font-size: 10px;
-        /* font-weight: bold; */
+        font-size: 12px;
+        font-weight: bold;
       }
       .addelem-price {
-        margin: 0 50px;
+        margin: 0 70px;
         display: flex;
         justify-content: space-between;
-        font-size: 10px;
-        /* font-weight: bold; */
+        font-size: 12px;
+        font-weight: bold;
       }
     }
     .product-info-conteiner {
       width: 45%;
       margin-top: 5px;
-      font-size: 10px;
+      font-size: 12px;
       .info-titel {
         margin: 10px 20px 5px 0;
         font-weight: bold;
       }
       .info-sub-titel {
-        font-size: 9px;
+        font-size: 12px;
         margin-right: 20px; 
       }
       .heat-coeff-block {
@@ -582,7 +704,7 @@ hr {
           &::after {
             content: 'Max';
             position: absolute;
-            right: -30px;
+            right: -32px;
             top: -7px;
           }
         }
@@ -598,7 +720,7 @@ hr {
           position: absolute;
           width: 0;
           height: 0;
-          top: 2px;
+          top: 6px;
           /* transform: rotate(180deg); */
           border-left: 5px solid transparent;
           border-right: 5px solid transparent;
@@ -618,7 +740,7 @@ hr {
             position: relative;
             background-color: white;
             padding: 2px;
-            top: -9px;
+            top: -6px;
             left: 5px;
           }
         }
