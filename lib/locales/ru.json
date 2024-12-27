@@ -412,6 +412,7 @@
 	"Reassign to": "Переподчинить к",
 	"Coefficient type": "Тип коэффициента",
 	"U_coeff": "U (ВТ/м²·°С)",
+	"U_coeff_short": "ВТ/м²·°С",
 	"R_coeff": "R (м²·°C/Вт)",
 	"Application link": "Ссылка для приложения",
 	"Application templates": "Шаблоны приложения",

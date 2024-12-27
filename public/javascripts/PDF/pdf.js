@@ -19,8 +19,8 @@ $(function() {
     $.get('/orders/getScheme/' + schemeId, function(data) {
       console.log(data);
       var obj = $.parseJSON(data.product.template_source);
-      var WIDTH = 350;
-      var HEIGHT = 280;
+      var WIDTH = 420;
+      var HEIGHT = 320;
 
       var depths = {
         frameDepth: {
@@ -895,7 +895,7 @@ $(function() {
             .x(function(d) { return d.x; })
             .y(function(d) { return d.y; })
             .interpolate("linear"),
-          padding = 0.6,
+          padding = 0.7,
           position = {x: 0, y: 0},
           mainSVG, mainGroup, elementsGroup, dimGroup, points, dimMaxMin, scale, blocksQty;
      
@@ -1147,13 +1147,13 @@ $(function() {
 
         //            console.log('SVG=========dim==', template.dimension);
         for (var dx = 0; dx < dimXQty; dx++) {
-          createDimension(0, template.dimension.dimX[dx], dimGroup, lineCreator);
+          createDimension(0, template.dimension.dimX[dx], dimGroup, lineCreator, 0, sizeConstr);
           if(template.dimension.dimX[dx].blockId == 'block_1' && depths.frameDepth.e > 0){
             createDimension(0, template.dimension.dimX[dx], dimGroup, lineCreator, depths,sizeConstr);
           }
         }
         for (var dy = 0; dy < dimYQty; dy++) {
-          createDimension(1, template.dimension.dimY[dy], dimGroup, lineCreator);
+          createDimension(1, template.dimension.dimY[dy], dimGroup, lineCreator, 0, sizeConstr);
           if(template.dimension.dimY[dy].blockId == 'block_1' && depths.frameDepth.e > 0){
             createDimension(1, template.dimension.dimY[dy], dimGroup, lineCreator, depths,sizeConstr);
           }
@@ -1177,15 +1177,15 @@ $(function() {
       //   DesignServ.initAllDimension();
       // }
     //}
-    let textCoeff = 1400;
+    let textCoeff = 1800;
     if(dimMaxMin.maxX >= dimMaxMin.maxY) {
       textCoeff = dimMaxMin.maxX;
     } else if (dimMaxMin.maxX < dimMaxMin.maxY) {
       textCoeff = dimMaxMin.maxY;
     } 
-    let azaza = textCoeff / 1400;
+    let finishTextCoeff = textCoeff / 1800;
     const sizeTxtElements = d3.select(`#tamlateSVG${buildId}`).selectAll('.size-txt');
-    sizeTxtElements.style('font-size', `${90 * azaza}px`);
+    sizeTxtElements.style('font-size', `${90 * finishTextCoeff}px`);
     applyGradientsToTemplate(`tamlateSVG${buildId}`, template, door_type);
   }
 
@@ -1214,19 +1214,24 @@ $(function() {
 
   function createDimension(dir, dim, dimGroup, lineCreator, depths, sizeConstr) {
     let renov = 0,
-    sizeConstruction = 0,
-    positionLine = -90;
+    sizeConstruction = 0;
     
-    if (dim.blockId === "block_1" && !depths) {
-      positionLine = -40;
+    if (dim.level !== 1 && !depths) {
+      sizeConstruction = dir ? sizeConstr.widthConstr : sizeConstr.heightConstr+30;
     }
     if (depths){
       renov = depths.frameDepth.e;
       sizeConstruction = dir ? sizeConstr.widthConstr : sizeConstr.heightConstr;  
     }
-    var dimLineHeight = renov ? (dir?200+sizeConstruction:150+sizeConstruction) :positionLine,     // отступ блока размера 
+
+    let positionLine = sizeConstruction;
+    if (dim.blockId === "block_1" && !depths) {
+      positionLine = dir ? 50 : 30;
+    }
+
+    var dimLineHeight = renov ? (dir?300+sizeConstruction:250+sizeConstruction) :positionLine,     // отступ блока размера 
         dimEdger = 50,            // отступ размерной линии 
-        dimMarginBottom = renov ? 130+(dir?50:0):60,    // глубина линий границ 
+        dimMarginBottom = renov ? 130+(dir?50:0) : (dim.blockId !== "block_1" ? (sizeConstruction - 100) : 120),    // глубина линий границ 
         sizeBoxWidth = 160,
         sizeBoxHeight = 70,
 
@@ -1235,20 +1240,20 @@ $(function() {
         lineCenter = [],
         dimBlock, sizeBox,
         pointL1 = {
-          x: (dir) ? dimMarginBottom : dim.from+renov,
-          y: (dir) ? dim.from+renov : dimMarginBottom
+          x: (dir) ? dimMarginBottom + (dim.blockId !== "block_1" ? (60) : 0) : dim.from+renov,
+          y: (dir) ? dim.from+renov : dimMarginBottom + (dim.blockId !== "block_1" ? (60) : 0)
         },
         pointL2 = {
-          x: (dir) ? dimLineHeight : dim.from+renov,
-          y: (dir) ? dim.from+renov : dimLineHeight
+          x: (dir) ? dimLineHeight + (dim.blockId !== "block_1" ? (60) : 0) : dim.from+renov,
+          y: (dir) ? dim.from+renov : dimLineHeight + (dim.blockId !== "block_1" ? (60) : 0)
         },
         pointR1 = {
-          x: (dir) ? dimMarginBottom : dim.to-renov,
-          y: (dir) ? dim.to-renov : dimMarginBottom
+          x: (dir) ? dimMarginBottom + (dim.blockId !== "block_1" ? (60) : 0) : dim.to-renov,
+          y: (dir) ? dim.to-renov : dimMarginBottom + (dim.blockId !== "block_1" ? (60) : 0)
         },
         pointR2 = {
-          x: (dir) ? dimLineHeight : dim.to-renov,
-          y: (dir) ? dim.to-renov : dimLineHeight
+          x: (dir) ? dimLineHeight + (dim.blockId !== "block_1" ? (60) : 0) : dim.to-renov,
+          y: (dir) ? dim.to-renov : dimLineHeight + (dim.blockId !== "block_1" ? (60) : 0)
         },
         pointC1 = {
           x: (dir) ? dimLineHeight + dimEdger : dim.from+renov,
@@ -1310,8 +1315,8 @@ $(function() {
        'class': function() { return (scope.typeConstruction === 'edit') ? 'size-txt-edit' : 'size-txt'; },
        'x': function() { return (dir) ? (dimLineHeight - sizeBoxWidth*0.8) : (dim.from + dim.to - sizeBoxWidth)/2; },
        'y': function() { return (dir) ? (dim.from + dim.to - sizeBoxHeight)/2 : (dimLineHeight - sizeBoxHeight*0.8); },
-       'dx': renov ? (dir?260:80):(dir?80:80),
-       'dy': renov ? (dir?40:120):(dir?40:80),
+       'dx': renov ? (dir?120:80):(dir?120:80),
+       'dy': renov ? (dir?40:120):(dir?40:110),
        'type': 'line',
        'block_id': dim.blockId,
        'size_val': dim.text-(renov*2),
@@ -1320,7 +1325,14 @@ $(function() {
        'dim_id': dim.dimId,
        'from_point': dim.from,
        'to_point': dim.to,
-       'axis': dim.axis
+       'axis': dim.axis,
+       'transform': function() {
+        const x = (dir) ? (dimLineHeight - sizeBoxWidth * 0.8) : (dim.from + dim.to - sizeBoxWidth) / 2;
+        const y = (dir) ? (dim.from + dim.to - sizeBoxHeight) / 2 : (dimLineHeight - sizeBoxHeight * 0.8);
+        if (dir) {
+          return `rotate(270, ${x+150}, ${y})`;
+        } 
+        }
      });
 
   }
@@ -3316,6 +3328,7 @@ $(function() {
 
 
       function initDimensions(blocks) {
+        // console.log('blocks', blocks)
         var dimension = {
               dimX: [],
               dimY: [],
@@ -3464,31 +3477,34 @@ $(function() {
 
             //========== build Dimension
 
-            if (blockDimX.length > 1) {
+            if (blockDimX.length) {
               //------ delete dublicates
   //            cleanDublicat(1, blockDimX);
               blockDimX = cleanDublicatNoFP(1, blockDimX);
               //---- sorting
               blockDimX.sort(sortByX);
-  //            console.log('`````````` new dim X ``````````', blockDimX);
+            //  console.log('`````````` new dim X ``````````', blockDimX);
   //            collectDimension(0, 'x', blockDimX, dimension.dimX, blockLimits, blocks[b].parent, maxSizeLimit);
               collectDimension(0, 'x', blockDimX, dimension.dimX, blockLimits, blocks[b].id, maxSizeLimit);
+              // console.log('tatataX', dimension.dimX)
             }
-            if (blockDimY.length > 1) {
+            if (blockDimY.length) {
               //------ delete dublicates
   //            cleanDublicat(2, blockDimY);
               blockDimY = cleanDublicatNoFP(2, blockDimY);
               //---- sorting
               blockDimY.sort(sortByY);
-  //            console.log('`````````` new dim Y ``````````', blockDimY);
+            //  console.log('`````````` new dim Y ``````````', blockDimY);
   //            collectDimension(0, 'y', blockDimY, dimension.dimY, blockLimits, blocks[b].parent, maxSizeLimit);
               collectDimension(0, 'y', blockDimY, dimension.dimY, blockLimits, blocks[b].id, maxSizeLimit);
+              // console.log('tatataY', dimension.dimY)
             }
           }
         }
 
         dimension.dimX = JSON.parse(JSON.stringify(deleteDublicatDim(dimension.dimX)));
         dimension.dimY = JSON.parse(JSON.stringify(deleteDublicatDim(dimension.dimY)));
+        // console.log('dim', dimension)
         return dimension;
       }
 
@@ -3697,6 +3713,7 @@ $(function() {
             }
           }
         }
+        // console.log('FINISH @ @ @ ', dimLimit)
         return dimLimit;
       }
 
@@ -3708,7 +3725,7 @@ $(function() {
 
 
       function setLimitsDim(axis, pointDim, startDim, limits, maxSizeLimit) {
-  //      console.log('!!!!!!!!! DIM LIMITS ------------', axis, pointDim, startDim, limits, maxSizeLimit);
+      //  console.log('!!!!!!!!! DIM LIMITS ------------', axis, pointDim, startDim, limits, maxSizeLimit);
         var dimLimit = {},
             //------ set new Limints by X or Y
             currLimits = setNewLimitsInBlock(axis, pointDim, limits),
@@ -3782,6 +3799,7 @@ $(function() {
             }
           }
         }
+        // console.log('FINISHZZZ', dimLimit)
         return dimLimit;
       }
 

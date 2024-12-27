@@ -419,6 +419,7 @@
 	"Reassign to": "Перепорядкувати до",
 	"Coefficient type": "Тип коефіцієнту",
 	"U_coeff": "U (ВТ/м²·°С)",
+	"U_coeff_short": "ВТ/м²·°С",
 	"R_coeff": "R (м²·°C/Вт)",
 	"Application link": "Посилання для додатку",
 	"Application templates": "Шаблони додатку",
