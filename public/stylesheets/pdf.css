@@ -187,11 +187,25 @@ body {
 
   #wrapper {
     font-family: 'Helvetica Neue', Arial, sans-serif;
+    -webkit-text-size-adjust: 100%;
     background-color: #fff;
     width: 750px;
     margin: 0px auto;
     padding: 10px;
     /*box-shadow: 0 0 10px rgba(0,0,0,0.5);*/
+    .footer-pdf {
+      margin-left: 20px;
+      display: flex;
+      justify-content: space-between;
+      font-size: 13px;
+      height: 50px;
+      .customer-sign {
+        
+      }
+      .salon-sign {
+        width: 45%;
+      }
+    }
   }
 
     .product-top {
@@ -377,7 +391,7 @@ hr {
   .info-header {
     width: 45%;
     .order-num {
-      font-size: 15px;
+      font-size: 14px;
       font-weight: bold;
       margin-bottom: 10px;
     }
@@ -545,9 +559,10 @@ hr {
       }
       .heat-coeff-block {
         position: relative;
-        margin: 10px 0 10px 93px;
+        margin: 10px 0 13px 82px;
         height: 5px;
         font-size: 12px;
+        transform: scale(0.85);
         .line-coeff {
           width: 250px;
           height: 4px;
@@ -577,10 +592,11 @@ hr {
             position: absolute;
             left: -30px;
             top: -7px; */
-            content: url('../images/finger-bottom.png');
+            content: url('../images/frozen-icon.png');
             position: absolute;
             left: -35px;
-            top: -7px;
+            top: -12px;
+            transform: scale(0.8);
             /* width: 20px; 
             height: 20px;  */
             /* background-image: url('../images/finger-bottom.png');
@@ -592,10 +608,11 @@ hr {
             position: absolute;
             right: -32px;
             top: -7px; */
-            content: url('../images/finger-top2.png');
+            content: url('../images/sun-icon.png');
             position: absolute;
             right: -35px;
-            top: -19px;
+            top: -12px;
+            transform: scale(0.8);
             /* width: 20px; 
             height: 20px;  */
             /* background-image: url('../images/finger-top.png'); */
@@ -663,6 +680,31 @@ hr {
         margin: 10px 20px 5px 0;
         font-weight: bold;
       }
+
+      .info-prod-price {
+        display: flex;
+        justify-content: space-between;
+        margin: 10px 20px 5px 0;
+        font-weight: bold;
+        .product-price-value {
+          background-color: lightgray;
+          border: 1px solid lightgray;
+          padding: 0 10px;
+        }
+      }
+
+      .info-add-price {
+        display: flex;
+        justify-content: space-between;
+        margin: 10px 20px 5px 0;
+        font-weight: bold;
+        .addelem-price-value {
+          background-color: lightgray;
+          border: 1px solid lightgray;
+          padding: 0 10px;
+        }
+      }
+
       .info-sub-titel {
         font-size: 12px;
         margin-right: 20px; 
