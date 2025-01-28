@@ -895,7 +895,7 @@ $(function() {
             .x(function(d) { return d.x; })
             .y(function(d) { return d.y; })
             .interpolate("linear"),
-          padding = 0.7,
+          padding = 0.65,
           position = {x: 0, y: 0},
           mainSVG, mainGroup, elementsGroup, dimGroup, points, dimMaxMin, scale, blocksQty;
      
@@ -1000,8 +1000,8 @@ $(function() {
               .enter()
               .append('path')
               .classed({
-                'sash_mark': template.details[i].sashType !== 17,
-                'sash_mark_shtulp': template.details[i].sashType == 17
+                'sash_mark': template.details[i].sashType !== 4,
+                'sash_mark_shtulp': template.details[i].sashType == 4
               })
               .attr({
                 'd': function (d) {
@@ -1013,7 +1013,7 @@ $(function() {
 
                   if(dirQty === 1) {
                     if(d.points[1].fi < 45 || d.points[1].fi > 315) {
-                      if(template.details[i].sashType !== 17){
+                      if(template.details[i].sashType !== 4){
                         if (handle_type == 36) {
                           return `url(#handleR_type36${buildId})`;
                         } else if (handle_type == 35) {
@@ -1025,7 +1025,7 @@ $(function() {
                     } else if (d.points[1].fi > 45 && d.points[1].fi < 135) {
                       return 'url(#handleU)';
                     } else if(d.points[1].fi > 135 && d.points[1].fi < 225) {
-                      if(template.details[i].sashType !== 17){
+                      if(template.details[i].sashType !== 4){
                         if (handle_type == 36) {
                           return `url(#handleL_type36${buildId})`;
                         } else if (handle_type == 35) {
