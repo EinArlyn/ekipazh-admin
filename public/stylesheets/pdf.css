@@ -159,13 +159,18 @@ body {
 
 @media print {
   #lang-selector {
-    display: none;
+    display: none !important;
   }
 }
 
 #lang-selector {
+  position: fixed;
+  right: 80px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   text-align: right;
-  padding-right: 25px;
+  gap: 10px;
 }
 
 #lang-rus,
