@@ -161,6 +161,12 @@ body {
   #lang-selector {
     display: none !important;
   }
+  .small-logo-pdf-wrapp-print {
+    display: block !important;
+  }
+  .small-logo-pdf-wrapp-web {
+    display: none !important;
+  }
 }
 
 #lang-selector {
@@ -209,6 +215,37 @@ body {
       }
       .salon-sign {
         width: 45%;
+      }
+    }
+    .logo-wrapper-header-pdf {
+      position: relative;
+      width: 300px;
+      /* display: none; */
+      &::before {
+        content: url(../images/small-logo-pdf.png);
+        position: absolute;
+        bottom: -850px;
+        right: -480px;
+        transform: scale(0.1);
+      }
+    }
+    .small-logo-pdf-wrapp-print {
+      display: none;
+      position: relative;
+      height: 0;
+      .small-logo-pdf {
+        position: absolute;
+        width: 100px;
+        right: 0;
+      }
+    }
+    .small-logo-pdf-wrapp-web {
+      position: relative;
+      height: 0;
+      .small-logo-pdf {
+        position: absolute;
+        width: 100px;
+        right: 0;
       }
     }
   }
