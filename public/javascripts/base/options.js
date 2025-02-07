@@ -49,6 +49,9 @@ $(function () {
     } else if (selectedOption == 15) {
       $('.checked-option').addClass('disabled');
       window.location.href = '/base/options/decors';
+    } else if (selectedOption == 16) {
+      $('.checked-option').addClass('disabled');
+      window.location.href = '/base/options/otherelems';
     }
   });
   // work with color for window sill

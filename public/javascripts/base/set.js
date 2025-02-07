@@ -198,6 +198,8 @@ $(function () {
       $('.additional-connectors').show();
     } else if (group == 24) {
       $('.additional-doorhandles').show();
+    } else if (group == 18) {
+      $('.additional-otherElems').show();
     } else if (group == 16) {
       $('.additional-decors').show();
     }
@@ -664,6 +666,11 @@ $(function () {
       additionalFolderId = $('#doorhandles-group').val();
       _saveAdditionalFolder(setId, additionalFolderId);
       additionalFolderId = $('#doorhandles-group-color').val();
+      _saveAdditionalColor(setId, additionalFolderId);
+    } else if (groupId == 18) {
+      additionalFolderId = $('#otherElems-group').val();
+      _saveAdditionalFolder(setId, additionalFolderId);
+      additionalFolderId = $('#otherElems-group-color').val();
       _saveAdditionalColor(setId, additionalFolderId);
     } else if (groupId == 10) {
       additionalFolderId = $('#mosquitos-group-color').val();

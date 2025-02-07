@@ -81,7 +81,7 @@ function getSet (req, res) {
                   models.addition_folders.findAll({
                     where: {
                       factory_id: req.session.user.factory_id,
-                      addition_type_id: [8, 9, 21, 7, 12, 10]
+                      addition_type_id: [8, 9, 21, 7, 12, 10, 11]
                     }
                   }).then(function(folders) {
 
@@ -91,6 +91,7 @@ function getSet (req, res) {
                     const connectorsFolders = folders.filter(folder => folder.addition_type_id === 7);
                     const mosquitosFolders = folders.filter(folder => folder.addition_type_id === 12);
                     const doorhandlesFolders = folders.filter(folder => folder.addition_type_id === 10);
+                    const otherElemsFolders = folders.filter(folder => folder.addition_type_id === 11);
                   
                     models.window_hardware_handles.find({
                       where: {list_id: id}
@@ -102,7 +103,7 @@ function getSet (req, res) {
                       }).then(function(factoryLaminations) {
                           models.addition_colors.findAll({
                             where: {
-                              lists_type_id: [24, 32, 33, 27, 20, 29, 25]
+                              lists_type_id: [24, 32, 33, 27, 20, 29, 25, 18]
                             }
                           }).then(function(colors) {
 
@@ -113,6 +114,7 @@ function getSet (req, res) {
                             const connectorsColors = colors.filter(color => color.lists_type_id === 27);
                             const mosquitosColors = colors.filter(color => color.lists_type_id === 20);
                             const visorsColors = colors.filter(color => color.lists_type_id === 29);
+                            const otherElemsColors = colors.filter(color => color.lists_type_id === 18);
 
                             res.render('base/set', {
                               i18n               : i18n,
@@ -130,6 +132,7 @@ function getSet (req, res) {
                               size               : list.size,
                               mosquitosFolders   : mosquitosFolders,
                               doorhandlesFolders : doorhandlesFolders,
+                              otherElemsFolders  : otherElemsFolders,
                               handlesColors      : handlesColors,
                               decorsColors       : decorsColors,
                               windowSillsColors  : windowSillsColors,
@@ -137,6 +140,7 @@ function getSet (req, res) {
                               connectorsColors   : connectorsColors,
                               mosquitosColors    : mosquitosColors,
                               visorsColors       : visorsColors,
+                              otherElemsColors   : otherElemsColors,
                               hardwareHandles    : hardwareHandles,
                               factoryLaminations : factoryLaminations,
                               thisPageLink       : '/base/set/',

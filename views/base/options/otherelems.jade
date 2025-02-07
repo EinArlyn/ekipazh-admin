@@ -23,41 +23,42 @@ block content
       option(value="5")=i18n.__('Window sills')
       option(value="6")=i18n.__('Spillways')
       option(value="7")=i18n.__('Visors')
-      option(value="12" selected)=i18n.__('Connectors')
+      option(value="12")=i18n.__('Connectors')
       option(value="13")=i18n.__('Mosquitos')
       option(value="14")=i18n.__('Doorhandles')
       option(value="15")=i18n.__('Decors')
-      option(value="16")=i18n.__('Others')
+      option(value="16" selected)=i18n.__('Others')
+
   form(method='post', action='/base/option/save', id="main-form")
     .connectors-option.checked-option
       .main-header
         span.header
-          =i18n.__('Connectors groups')
+          =i18n.__('Doorhandles groups')
       .main-content
         table.folders-table(cellspasing="0", cellpadding="0", border="0")
-          if (connectorsFolders.length)
-            each connectorsFolder in connectorsFolders
+          if (otherElemsFolders.length)
+            each otherElemsFolder in otherElemsFolders
               tr.folder-row
                 td.folder-field.folder-name
                   span.folder-text
-                    =connectorsFolder.name
+                    =otherElemsFolder.name
                 td.folder-field.folder-img
                   .glass-img-wraper
-                    img(src=(connectorsFolder.img ? connectorsFolder.img : '/local_storage/default.png'), alt="")
+                    img(src=(otherElemsFolder.img ? otherElemsFolder.img : '/local_storage/default.png'), alt="")
                 td.folder-field.folder-description
                   =i18n.__('Description')
                   | :
                   .description-wraper
-                    =connectorsFolder.description
+                    =otherElemsFolder.description
                   .edit-wrap
-                    input.remove-btn.btn-delete-folder(type="button" data-folder=connectorsFolder.id)
-                    input.edit-btn.btn-edit-folder(type="button" data-folder=connectorsFolder.id)
+                    input.remove-btn.btn-delete-folder(type="button" data-folder=otherElemsFolder.id)
+                    input.edit-btn.btn-edit-folder(type="button" data-folder=otherElemsFolder.id)
               tr.country-check
                 each country in countries 
-                  td.country-item-connectors
-                    input(type="checkbox", id="country-checkbox" + country.id + connectorsFolder.id, name="checkAddElems", data-addElems-id=connectorsFolder.id, value=country.id, checked=connectorsFolder.country_ids.includes(country.id)?true:false)
-                    label(for="country-checkbox" + country.id + connectorsFolder.id) 
-                      =country.name
+                  td.country-item-otherelems
+                    input(type="checkbox", id="country-checkbox" + country.id + otherElemsFolder.id, name="checkAddElems", data-addElems-id=otherElemsFolder.id, value=country.id, checked=otherElemsFolder.country_ids.includes(country.id)?true:false)
+                    label(for="country-checkbox" + country.id + otherElemsFolder.id) 
+                      =country.name      
           else
             tr.folder-row
               td.folder-field.folder-not-exist(calspan="4")
@@ -74,23 +75,23 @@ block content
           =i18n.__('Color')
       .main-content
         table.folders-table(cellspasing="0", cellpadding="0", border="0")
-          if (connectorsColorsFolders.length)
-            each connectorsColorFolder in connectorsColorsFolders
+          if (otherElemsColors.length)
+            each otherElemsColor in otherElemsColors
               tr.folder-row
                 td.folder-field.folder-name
                   span.folder-text
-                    =connectorsColorFolder.name
+                    =otherElemsColor.name
                 td.folder-field.folder-img
                   .glass-img-wraper
-                    img(src=(connectorsColorFolder.img ? connectorsColorFolder.img : '/local_storage/default.png'), alt="")
+                    img(src=(otherElemsColor.img ? otherElemsColor.img : '/local_storage/default.png'), alt="")
                 td.folder-field.folder-description
                   =i18n.__('Description')
                   | :
                   .description-wraper
-                    =connectorsColorFolder.description
+                    =otherElemsColor.description
                   .edit-wrap
-                    input.remove-btn.btn-delete-color(type="button" data-color=connectorsColorFolder.id)
-                    input.edit-btn.btn-edit-color(type="button" data-color=connectorsColorFolder.id)
+                    input.remove-btn.btn-delete-color(type="button" data-color=otherElemsColor.id)
+                    input.edit-btn.btn-edit-color(type="button" data-color=otherElemsColor.id)
           else
             tr.folder-row
               td.folder-field.folder-not-exist(calspan="4")
@@ -100,10 +101,10 @@ block content
             td.folder-field.folder-name.color-add
               span.folder-add-text
                 =i18n.__("Add +")
-  include includes/popups/add-folder.jade
-  include includes/popups/edit-folder.jade
-  include includes/popups/alert-remove-folder.jade
-  include includes/popups/add-color.jade
-  include includes/popups/edit-color.jade
-  include includes/popups/alert-remove-color.jade
-  
+
+  include ./includes/popups/add-folder.jade
+  include ./includes/popups/add-color.jade
+  include ./includes/popups/edit-folder.jade
+  include ./includes/popups/edit-color.jade
+  include ./includes/popups/alert-remove-folder.jade
+  include ./includes/popups/alert-remove-color.jade
