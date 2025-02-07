@@ -159,6 +159,26 @@ block content
                   option(value="0" selected)=i18n.__('Not exist')
                   each handlesColor in handlesColors
                     option(value=handlesColor.id selected=(list.add_color_id === handlesColor.id ? 'selected' : undefined))=handlesColor.name
+            .additional-otherElems.hidden.additional-folders
+              span.additional-text-align
+                =i18n.__('Group of other elements')
+                | :
+              br
+              span.additional-select-align
+                select.select-default#otherElems-group(style="width: 225px; margin-top: 5px; margin-bottom: 5px;")
+                  option(value="0" selected)=i18n.__('Not exist')
+                  each otherElemsFolder in otherElemsFolders
+                    option(value=otherElemsFolder.id selected=(list.addition_folder_id === otherElemsFolder.id ? 'selected' : undefined))=otherElemsFolder.name
+            .additional-otherElems.hidden.additional-folders
+              span.additional-text-align
+                =i18n.__('Color')
+                | :
+              br
+              span.additional-select-align
+                select.select-default#otherElems-group-color(style="width: 225px; margin-top: 5px; margin-bottom: 5px;")
+                  option(value="0" selected)=i18n.__('Not exist')
+                  each otherElemsColor in otherElemsColors
+                    option(value=otherElemsColor.id selected=(list.add_color_id === otherElemsColor.id ? 'selected' : undefined))=otherElemsColor.name
             .additional-decors.hidden.additional-folders
               span.additional-text-align
                 =i18n.__('Color')

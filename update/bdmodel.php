@@ -2815,6 +2815,13 @@ echo $sql_sync.'<br>';
 		$locales['addition_colors_29']['table']				= 'addition_colors';
 		$locales['addition_colors_29']['locales']			= array();
 		
+		$locales['addition_colors_18']						= array();
+		$locales['addition_colors_18']['left_join']			= '';
+		$locales['addition_colors_18']['where']				= 'WHERE public.addition_colors.lists_type_id=18 and public.addition_colors.factory_id='.$this->base_id;			
+		$locales['addition_colors_18']['name']				= 'Цвета прочих елементов';
+		$locales['addition_colors_18']['table']				= 'addition_colors';
+		$locales['addition_colors_18']['locales']			= array();
+
 //		$locales['addition_folders_12']						= array();
 //		$locales['addition_folders_12']['left_join']		= '';
 //		$locales['addition_folders_12']['where']			= 'WHERE public.addition_folders.addition_type_id=12 and public.addition_folders.factory_id='.$this->base_id;			
