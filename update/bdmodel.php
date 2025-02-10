@@ -2766,6 +2766,13 @@ echo $sql_sync.'<br>';
 		$locales['addition_folders_10']['table']			= 'addition_folders';
 		$locales['addition_folders_10']['locales']			= array();
 
+		$locales['addition_folders_11']						= array();
+		$locales['addition_folders_11']['left_join']		= '';
+		$locales['addition_folders_11']['where']			= 'WHERE public.addition_folders.addition_type_id=11 and public.addition_folders.factory_id='.$this->base_id;			
+		$locales['addition_folders_11']['name']				= 'Группы прочих елементов';
+		$locales['addition_folders_11']['table']			= 'addition_folders';
+		$locales['addition_folders_11']['locales']			= array();
+
 		$locales['lists_24']								= array();
 		$locales['lists_24']['left_join']					= 'LEFT JOIN public.elements on public.elements.id=public.lists.parent_element_id';
 		$locales['lists_24']['where']						= 'WHERE public.lists.list_group_id=24 and public.elements.factory_id='.$this->base_id;			
