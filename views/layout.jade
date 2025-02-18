@@ -20,12 +20,15 @@ html
                 | Ua
               | &nbsp;&nbsp;
 
-              a#lang-ua(href="/?lang=en" class=(lang === 'en' ? 'selected': ''))
+              a#lang-en(href="/?lang=en" class=(lang === 'en' ? 'selected': ''))
                 | En
               | &nbsp;&nbsp;
 
-              a#lang-es(href="/?lang=it" class=(lang === 'it' ? 'selected': ''))
+              a#lang-it(href="/?lang=it" class=(lang === 'it' ? 'selected': ''))
                 | It
+              | &nbsp;&nbsp;&nbsp;
+              a#lang-de(href="/?lang=de" class=(lang === 'de' ? 'selected': ''))
+                | De
               | &nbsp;&nbsp;&nbsp;
             span#nav-logout-button
               img(src='/assets/images/logout.png', alt="Выход")

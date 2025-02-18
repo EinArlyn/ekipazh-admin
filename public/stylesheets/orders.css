@@ -162,12 +162,14 @@
       display: inline-block;
       width: 120px;
       vertical-align: top;
+      word-wrap: break-word;
     }
 
     #created {
       text-align: center;
       display: inline-block;
       width: 90px;
+      word-wrap: break-word;
     }
 
     #seller {

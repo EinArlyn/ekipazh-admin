@@ -65,6 +65,8 @@ body {
       #lang-rus,
       #lang-it,
       #lang-ua,
+      #lang-en,
+      #lang-de,
       #lang-es,
       #lang-eng {
         position: relative;
@@ -75,6 +77,8 @@ body {
       #lang-rus.selected,
       #lang-it.selected,
       #lang-ua.selected,
+      #lang-en.selected,
+      #lang-de.selected,
       #lang-es.selected,
       #lang-eng.selected {
         color: #F44336;

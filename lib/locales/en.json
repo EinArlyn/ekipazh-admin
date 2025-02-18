@@ -440,5 +440,7 @@
 	"Yes": "Yes",
 	"No": "No",
 	"x": "x",
-	"thermal conductivity": "thermal conductivity"
+	"thermal conductivity": "thermal conductivity",
+	"Hardware by default": "Hardware by default",
+	"Edit hardware types": "Edit hardware types"
 }

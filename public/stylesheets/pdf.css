@@ -182,6 +182,7 @@ body {
 #lang-rus,
 #lang-ua,
 #lang-es,
+#lang-de,
 #lang-it,
 #lang-eng {
   text-decoration: none;
@@ -191,6 +192,7 @@ body {
 #lang-rus.selected,
 #lang-it.selected,
 #lang-ua.selected,
+#lang-de.selected,
 #lang-es.selected,
 #lang-eng.selected {
   color: #F44336;
