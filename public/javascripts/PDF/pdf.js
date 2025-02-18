@@ -9,11 +9,12 @@ $(function() {
   });
 
   // set up lang selectors
-  $('#lang-rus').attr('href', window.location.href.replace('&lang=ru', '').replace('&lang=en', '').replace('&lang=it', '').replace('&lang=ua', '').replace('&lang=es', '') + '&lang=ru');
-  $('#lang-eng').attr('href', window.location.href.replace('&lang=ru', '').replace('&lang=en', '').replace('&lang=it', '').replace('&lang=ua', '').replace('&lang=es', '') + '&lang=en');
-  $('#lang-it').attr('href', window.location.href.replace('&lang=ru', '').replace('&lang=en', '').replace('&lang=it', '').replace('&lang=ua', '').replace('&lang=es', '') + '&lang=it');
-  $('#lang-ua').attr('href', window.location.href.replace('&lang=ru', '').replace('&lang=en', '').replace('&lang=it', '').replace('&lang=ua', '').replace('&lang=es', '') + '&lang=ua');
-  $('#lang-es').attr('href', window.location.href.replace('&lang=ru', '').replace('&lang=en', '').replace('&lang=it', '').replace('&lang=ua', '').replace('&lang=es', '') + '&lang=es');
+  $('#lang-rus').attr('href', window.location.href.replace('&lang=ru', '').replace('&lang=de', '').replace('&lang=en', '').replace('&lang=it', '').replace('&lang=ua', '').replace('&lang=es', '') + '&lang=ru');
+  $('#lang-eng').attr('href', window.location.href.replace('&lang=ru', '').replace('&lang=de', '').replace('&lang=en', '').replace('&lang=it', '').replace('&lang=ua', '').replace('&lang=es', '') + '&lang=en');
+  $('#lang-it').attr('href', window.location.href.replace('&lang=ru', '').replace('&lang=de', '').replace('&lang=en', '').replace('&lang=it', '').replace('&lang=ua', '').replace('&lang=es', '') + '&lang=it');
+  $('#lang-ua').attr('href', window.location.href.replace('&lang=ru', '').replace('&lang=de', '').replace('&lang=en', '').replace('&lang=it', '').replace('&lang=ua', '').replace('&lang=es', '') + '&lang=ua');
+  $('#lang-es').attr('href', window.location.href.replace('&lang=ru', '').replace('&lang=de', '').replace('&lang=en', '').replace('&lang=it', '').replace('&lang=ua', '').replace('&lang=es', '') + '&lang=es');
+  $('#lang-de').attr('href', window.location.href.replace('&lang=ru', '').replace('&lang=de', '').replace('&lang=en', '').replace('&lang=it', '').replace('&lang=ua', '').replace('&lang=es', '') + '&lang=de');
 
   function initTemplates(schemeId, id) { 
     $.get('/orders/getScheme/' + schemeId, function(data) {
