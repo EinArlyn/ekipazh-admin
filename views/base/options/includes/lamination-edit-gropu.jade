@@ -1,0 +1,17 @@
+.pop-up.edit-lamination-folder-pop-up
+  form#edit-lamination-fodler-form(method="POST" action="/base/options/lamination/save-folder" enctype="multipart/form-data")
+    input.hidden#edit-lamination-fodler-input-id(type="text" name="folder_id" value="")
+    .pop-up-close-wrap
+      a(class="pop-up-close", href="#")
+    span.pop-up-header
+      =i18n.__('Edit group')
+    .content-block
+      span.field-margin-popup
+        =i18n.__('Group name')
+        | /
+        =i18n.__('Position')
+        | :
+      input.input-default.input-margin-popup#group-position-popup(type="text" name="position" value="" style="width: 30px;")
+      input.input-default.input-margin-popup#group-name-popup(type="text" name="name" value="" style="width: 166px;")
+    .submit-row
+      input.btn-submit#submit-edit-group-lamination(type="button" data-folder="" value=i18n.__('Save'))

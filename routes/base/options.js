@@ -11,6 +11,11 @@ var util = require('util');
 
 /** Laminations */
 router.get('/laminations', isAuthenticated, getLaminations);
+router.post('/addLaminationGroup', isAuthenticated, addLaminationGroup);
+router.post('/lamination/remove-folder', isAuthenticated, removeLaminationFolder);
+router.post('/lamination/changeLaminationFolder', isAuthenticated, changeLaminationFolder);
+router.post('/lamination/save-folder', isAuthenticated, saveLaminationFolder);
+router.get('/lamination/get-folder/:id', isAuthenticated, getLaminationFolder);
 router.post('/lamination/save', isAuthenticated, saveLamination);
 router.post('/lamination/delete', isAuthenticated, deleteLamination);
 
@@ -95,45 +100,149 @@ router.get('/decors', isAuthenticated, getDecors);
 
 /** Get aviable laminations for factory */
 function getLaminations (req, res) {
-  models.lamination_default_colors.findAll().then(function (lamination_default) {
-    models.lamination_factory_colors.findAll({
-      where: {factory_id: req.session.user.factory_id},
-      include: [{ model: models.lamination_default_colors}]
-    }).then(function (lamination_factory) {
-      models.countries.findAll({
-        attributes: ["id", "name"]
-      }).then(function(countries){
-        models.compliance_lamination_colors.findAll({
-  
-        }).then(function(compliance_lamination_colors){
+  models.lamination_folders.findAll().then(function (lamination_folders) {  
+    models.lamination_default_colors.findAll().then(function (lamination_default) {
+      models.lamination_factory_colors.findAll({
+        where: {factory_id: req.session.user.factory_id},
+        include: [{ model: models.lamination_default_colors}]
+      }).then(function (lamination_factory) {
+        models.countries.findAll({
+          attributes: ["id", "name"]
+        }).then(function(countries){
+          models.compliance_lamination_colors.findAll({
+    
+          }).then(function(compliance_lamination_colors){
 
-          const countryMap = {};
-          compliance_lamination_colors.forEach(country => {
-            const { lamination_factory_colors_id, country_id } = country.dataValues;
-            if (!countryMap[lamination_factory_colors_id]) {
-              countryMap[lamination_factory_colors_id] = [];
-            }
-            countryMap[lamination_factory_colors_id].push(country_id);
-          });
-          lamination_factory.forEach(folder => {
-              folder.country_ids = countryMap[folder.id] || [];
-          });
+            const countryMap = {};
+            compliance_lamination_colors.forEach(country => {
+              const { lamination_factory_colors_id, country_id } = country.dataValues;
+              if (!countryMap[lamination_factory_colors_id]) {
+                countryMap[lamination_factory_colors_id] = [];
+              }
+              countryMap[lamination_factory_colors_id].push(country_id);
+            });
+            lamination_factory.forEach(folder => {
+                folder.country_ids = countryMap[folder.id] || [];
+            });
 
-          res.render('base/options/laminations', {
-            i18n               : i18n,
-            title              : i18n.__('Options'),
-            laminationsDefault : lamination_default,
-            laminationsFactory : lamination_factory,
-            countries          : countries,
-            thisPageLink       : '/base/options/',
-            cssSrcs            : ['/assets/stylesheets/base/options.css'],
-            scriptSrcs         : ['/assets/javascripts/vendor/localizer/i18next-1.10.1.min.js', '/assets/javascripts/base/options.js']
-          });
+            res.render('base/options/laminations', {
+              i18n               : i18n,
+              title              : i18n.__('Options'),
+              laminationsDefault : lamination_default,
+              laminationsFactory : lamination_factory,
+              lamination_folders : lamination_folders,
+              countries          : countries,
+              thisPageLink       : '/base/options/',
+              cssSrcs            : ['/assets/stylesheets/base/options.css'],
+              scriptSrcs         : ['/assets/javascripts/vendor/localizer/i18next-1.10.1.min.js', '/assets/javascripts/base/options.js']
+            });
+          })
         })
-      })
+      });
     });
   });
 }
+
+function addLaminationGroup(req, res) {
+  var form = new formidable.IncomingForm();
+  form.keepExtensions = true;
+  form.parse(req, function (err, fields, files) {
+    models.lamination_folders.create({
+      name: fields.name,
+      factory_id: parseInt(req.session.user.factory_id, 10),
+      position: parseInt(fields.position, 10) || 0,
+    }).then(function(result) {
+      
+      res.send({status: true});
+    }).catch(function(err) {
+      console.log(err);
+      res.send({status: false});
+    });
+  });
+}
+
+function removeLaminationFolder(req, res) {
+  var folderId = req.body.folderId;
+
+  models.lamination_folders.findOne({
+    where: {id: folderId}
+  }).then(function(laminationFolder) {
+    if (laminationFolder) {
+      laminationFolder.destroy().then(function() {
+        res.send({status: true});
+      });
+    }
+  }).catch(function(err) {
+    console.log(err);
+    res.send({status: false});
+  });
+}
+
+
+function changeLaminationFolder(req, res) {
+  var laminationFolder = req.body.laminationFolder;
+  var laminationColorId = req.body.laminationColorId;
+  
+  models.lamination_factory_colors.find({
+    where: {factory_id: req.session.user.factory_id, id: laminationColorId }
+  }).then(function (result) {
+    if (result) {
+      result.updateAttributes({
+        lamination_folders_id: laminationFolder
+      }).then(function () {
+        res.json({ status: true });
+      }).catch(function (err) {
+        console.error("Ошибка при обновлении:", err);
+        res.status(500).json({ status: false, error: err.message });
+      });
+    } else {
+      console.log('not exist!');
+      res.status(404).json({ status: false, message: "Запись не найдена" });
+    }
+  }).catch(function (err) {
+    console.error("Ошибка при поиске:", err);
+    res.status(500).json({ status: false, error: err.message });
+  });
+}
+
+
+function saveLaminationFolder(req, res) {
+  var form = new formidable.IncomingForm();
+
+  form.keepExtensions = true;
+  form.parse(req, function (err, fields, files) {
+    models.lamination_folders.findOne({
+      where: {id: fields.folder_id}
+    }).then(function(lamination_folder) {
+
+      lamination_folder.updateAttributes({
+        name: fields.name,
+        position: parseInt(fields.position)
+      }).then(function () {
+        res.send({status: true});
+      });
+    }).catch(function(err) {
+      console.log(err);
+      res.send({status: false});
+    });
+  });
+}
+
+
+function getLaminationFolder(req, res) {
+  var folderId = req.params.id;
+  console.log(folderId);
+  models.lamination_folders.findOne({
+    where: {id: folderId}
+  }).then(function(laminationFolder) {
+    res.send({status: true, folder: laminationFolder});
+  }).catch(function(err) {
+    console.log(err);
+    res.send({status: false});
+  });
+}
+
+// -----------------------------------------------------------------------------
 
 /** Get aviable discounts for factory */
 function getDiscounts (req, res) {
