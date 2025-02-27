@@ -3,14 +3,14 @@ extends ../layout
 block content
   .main-nav
     .nav-link
-      a(class="external-link", href="/")= i18n.__('Dashboard') 
+      a(class="external-link" href="/")= i18n.__('Dashboard') 
       | 
       | -> 
       span#nav-text
         =i18n.__('Options')
       img.loader-ico(src="/assets/images/loader_ico.GIF")
   .main-select-option
-    select(id="lamination-select", name="", class="select-default selected-option", style="width: 180px;")
+    select(id="lamination-select" name="" class="select-default selected-option" style="width: 180px;")
       option(value="1" selected)=i18n.__('Lamination')
       option(value="2")=i18n.__('Discounts')
       option(value="3")=i18n.__('Coefficients')
@@ -28,21 +28,21 @@ block content
       option(value="14")=i18n.__('Doorhandles')
       option(value="15")=i18n.__('Decors')
       option(value="16")=i18n.__('Others')
-  form(method='post', action='/base/option/save', id="main-form")
+  form(method='post' action='/base/option/save' id="main-form")
     .lamination-option.checked-option
       .main-content
         .content-wrap
           .add-button
-                  a(href="#", id="add-lamination-group")
-                    span#add-lamination-group-text
-                      =i18n.__('Add group +') 
+            a(href="#" id="add-lamination-group")
+              span#add-lamination-group-text
+                =i18n.__('Add group +') 
           .lamination-color-items
             .lamination-color.default-white
-              input(id="checkbox00001", type="checkbox", value=1, disabled, checked)
+              input(id="checkbox00001" type="checkbox", value=1, disabled, checked)
               label(for="checkbox00001")
                 =i18n.__('White')
               br
-              img(src="/assets/images/lamination_colors/white.jpg", class="b-img-radius" width="200", height="70")
+              img(src="/assets/images/lamination_colors/white.jpg" class="b-img-radius" width="200" height="70")
             //- if (laminationsFactory)
             //-   - var defaults = []
             //-   each laminationFactory in laminationsFactory
@@ -59,15 +59,15 @@ block content
             //-           else 
             //-             option(data-lamination=laminationFactory.id value=lamination_folder.id)=lamination_folder.name 
             //-       br
-            //-       img(src=laminationFactory.lamination_default_color.url, class="b-img-radius" width="200", height="160")
+            //-       img(src=laminationFactory.lamination_default_color.url, class="b-img-radius" width="200" height="160")
             //-       .country-check-lamination
             //-         each country in countries 
             //-           .country-item
-            //-             input(type="checkbox", id="country-checkbox" + country.id + laminationFactory.id, name="checkLamination", data-lamination-id=laminationFactory.id, value=country.id, checked=laminationFactory.country_ids.includes(country.id)?true:false)
+            //-             input(type="checkbox" id="country-checkbox" + country.id + laminationFactory.id, name="checkLamination", data-lamination-id=laminationFactory.id, value=country.id, checked=laminationFactory.country_ids.includes(country.id)?true:false)
             //-             label(for="country-checkbox" + country.id + laminationFactory.id) 
             //-               =country.name
-                  
-                  
+
+
             //- each laminationColor in laminationsDefault
             //-   if (defaults.indexOf(laminationColor.id) < 0)
             //-     if (laminationColor.id !== 1)
@@ -77,7 +77,7 @@ block content
             //-           .editable-lamination
             //-             =laminationColor.name
             //-         br
-            //-         img(src=laminationColor.url, class="b-img-radius" width="200", height="160")
+            //-         img(src=laminationColor.url, class="b-img-radius" width="200" height="160")
             each lamination_folder in lamination_folders
               .lamination-folder 
                 .folder-name
@@ -102,22 +102,21 @@ block content
                               else 
                                 option(data-lamination=laminationFactory.id value=lamination_folder.id)=lamination_folder.name 
                           br
-                          img(src=laminationFactory.lamination_default_color.url, class="b-img-radius" width="200", height="160")
+                          img(src=laminationFactory.lamination_default_color.url, class="b-img-radius" width="200" height="160")
                           .country-check-lamination
                             each country in countries 
                               .country-item
-                                input(type="checkbox", id="country-checkbox" + country.id + laminationFactory.id, name="checkLamination", data-lamination-id=laminationFactory.id, value=country.id, checked=laminationFactory.country_ids.includes(country.id)?true:false)
+                                input(type="checkbox" id="country-checkbox" + country.id + laminationFactory.id, name="checkLamination", data-lamination-id=laminationFactory.id, value=country.id, checked=laminationFactory.country_ids.includes(country.id)?true:false)
                                 label(for="country-checkbox" + country.id + laminationFactory.id) 
                                   =country.name
-            
+
       .content-footer
         #content-footer-save-lamination
-          a(class="external-link", href="#", id="saveBtn", )
+          a(class="external-link" href="#" id="saveBtn", )
             span#saveBtnText
               =i18n.__('Save')
-
-      include includes/lamination-add-group.jade
-      include includes/lamination-edit-gropu.jade
-      include includes/alert-delete-lamination-folder.jade
+  include includes/lamination-add-group.jade
+  include includes/lamination-edit-gropu.jade
+  include includes/alert-delete-lamination-folder.jade
 
 
