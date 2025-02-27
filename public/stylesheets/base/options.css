@@ -72,6 +72,103 @@ main {
     .lamination-option {
       display: none;
     }
+
+    .lamination-folder {
+      position: relative;
+      transition: 0.5s;
+      .folder-name {
+        background-color: #616161;
+        color: white;
+        width: 180px;
+        border-top-right-radius: 5px;
+        border-bottom-right-radius: 5px;
+        font-size: 16px;
+        padding: 5px;
+        margin: 10px 0;
+        text-align: center;
+        font-weight: bold;
+        text-transform: uppercase;
+        cursor: pointer;
+      }
+      .folder-colors {
+        transition: 0.5s;
+        max-height: 0;
+        overflow: hidden;
+        &.open {
+          max-height: 2000px;
+          /* overflow: auto; */
+        }
+      }
+    }
+    .btn-delete-lamination-folder {
+      position: absolute;
+      cursor: pointer;
+      left: 225px;
+      top: 13px;
+      height: 20px;
+      width: 20px;
+      background-image: url('/assets/images/remove_btn.png');
+    }
+
+    .add-group-pop-up_1 {
+      width: 300px;
+      height: 110px;
+      border: 1px solid #e5e5e5;
+      border-radius: 5px;
+      background-color: #e4e4e4;
+      padding: 20px 30px;
+      font-size: 12px;
+      .wrapp1 {
+
+      }
+      .wrapp2 {
+
+      }
+      .wrapp-btn {
+        display: flex;
+        justify-content: center;
+        button {
+          background-color: #59c22d;
+          color: white;
+          border-radius: 5px;
+          border: 1px solid #bababa;
+          padding: 10px;
+          margin: 10px auto;
+        }
+      }
+    }
+
+    .add-button {
+      display: flex;
+      justify-content: center;
+      width: 150px;
+      /* padding: 20px; */
+      margin: 10px;
+      border: 1px solid #bababa;
+      background-color: #c9c9c9;
+      a {
+        padding: 20px;
+        text-decoration: none;
+        text-wrap: nowrap;
+        color: black;
+      }
+    }
+
+    .lamination-folders {
+      float: right;
+    }
+
+    .lamination-folder-edit {
+      position: absolute;
+      left: 195px;
+      top: 11px;
+      height: 26px;
+      width: 24px;
+      background-image: url('/assets/images/hardwares/edit_inactive.png');
+      cursor: pointer;
+    }
+
+
     .country-check-lamination {
       height: 150px;
       max-width: 600px;
@@ -489,6 +586,7 @@ table {
 
   .default-white {
     opacity: 0.5;
+    height: 100px;
   }
 
 /** Glazed window */
@@ -742,7 +840,8 @@ table.sill-folders-table {
 
   .add-new-glass-folder-pop-up,
   .edit-glass-folder-pop-up,
-  .edit-sill-folder-pop-up {
+  .edit-sill-folder-pop-up,
+  .edit-lamination-folder-pop-up {
     width: 350px;
     height: 340px;
     border: 1px solid #e5e5e5;
