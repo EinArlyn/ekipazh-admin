@@ -64,6 +64,7 @@ main {
   .content-wrap {
     border-top: 1px solid #c6c6c6;
     font-size: 12px;
+    padding-bottom: 5px;
     box-shadow: inset 0 0 3px #bababa;
     background-image: url('/assets/images/background-glass.png');
   }
@@ -100,6 +101,17 @@ main {
         }
       }
     }
+    .last-folder {
+      border-bottom: 5px solid #767676;
+    }
+    .border {
+      font-size: 16px;
+      padding: 20px;
+      text-align: start;
+      text-transform: uppercase;
+      font-weight: bold;
+      color: #616161;
+    }
     .btn-delete-lamination-folder {
       position: absolute;
       cursor: pointer;
@@ -110,19 +122,23 @@ main {
       background-image: url('/assets/images/remove_btn.png');
     }
 
-    .add-group-pop-up_1 {
-      width: 300px;
-      height: 110px;
+    .add-group-pop-up_1, .add-color-pop-up {
+      width: 350px;
+      height: 170px;
       border: 1px solid #e5e5e5;
       border-radius: 5px;
       background-color: #e4e4e4;
       padding: 20px 30px;
       font-size: 12px;
       .wrapp1 {
-
+        label {
+          margin-right: 5px;
+        }
       }
       .wrapp2 {
-
+        label {
+          margin-right: 5px;
+        }
       }
       .wrapp-btn {
         display: flex;
@@ -134,6 +150,7 @@ main {
           border: 1px solid #bababa;
           padding: 10px;
           margin: 10px auto;
+          cursor: pointer;
         }
       }
     }
