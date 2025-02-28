@@ -122,7 +122,8 @@ block content
                       .editable-lamination
                         =laminationColor.name
                     br
-                    img(src=laminationColor.url, class="b-img-radius" width="200" height="160")                    
+                    img(src=laminationColor.url, class="b-img-radius" width="200" height="160")    
+                    .lamination-color-edit(data-color=laminationColor.id)                
           .add-button
             a(href="#" id="add-lamination-color")
               span#add-lamination-color-text
@@ -134,6 +135,7 @@ block content
             span#saveBtnText
               =i18n.__('Save')
   include includes/lamination-add-group.jade
+  include includes/lamination-edit-color.jade
   include includes/lamination-add-color.jade
   include includes/lamination-edit-gropu.jade
   include includes/alert-delete-lamination-folder.jade
