@@ -177,14 +177,14 @@ function addLaminationColor(req, res) {
       img: '',
     }).then(function(result) {
       if (files.folder_img.name) {
-        var url = '/assets/images/lamination_colors/' + Math.floor(Math.random()*1000000) + files.folder_img.name;
+        var url = '/local_storage/lamination_colors/' + Math.floor(Math.random()*1000000) + files.folder_img.name;
         loadImage(files.folder_img.path, url);
 
         models.lamination_default_colors.findOne({
           where: {id: parseInt(result.id)}
-        }).then(function(visorFolder) {
-          console.log(visorFolder)
-          visorFolder.updateAttributes({
+        }).then(function(laminationColor) {
+          console.log(laminationColor)
+          laminationColor.updateAttributes({
             url: url
           });
         });
