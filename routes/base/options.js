@@ -13,6 +13,7 @@ var util = require('util');
 router.get('/laminations', isAuthenticated, getLaminations);
 router.post('/addLaminationGroup', isAuthenticated, addLaminationGroup);
 router.post('/addLaminationColor', isAuthenticated, addLaminationColor);
+router.post('/editLaminationColor', isAuthenticated, editLaminationColor);
 router.post('/lamination/remove-folder', isAuthenticated, removeLaminationFolder);
 router.post('/lamination/changeLaminationFolder', isAuthenticated, changeLaminationFolder);
 router.post('/lamination/save-folder', isAuthenticated, saveLaminationFolder);
@@ -174,7 +175,7 @@ function addLaminationColor(req, res) {
   form.parse(req, function (err, fields, files) {
     models.lamination_default_colors.create({
       name: fields.name,
-      img: '',
+      url: '',
     }).then(function(result) {
       if (files.folder_img.name) {
         var url = '/local_storage/lamination_colors/' + Math.floor(Math.random()*1000000) + files.folder_img.name;
@@ -194,6 +195,26 @@ function addLaminationColor(req, res) {
       console.log(err);
       res.send({status: false});
     });
+  });
+}
+
+function editLaminationColor(req, res) {
+  var form = new formidable.IncomingForm();
+  form.keepExtensions = true;
+  form.parse(req, function (err, fields, files) {
+      if (files.folder_img.name) {
+        var url = '/local_storage/lamination_colors/' + Math.floor(Math.random()*1000000) + files.folder_img.name;
+        loadImage(files.folder_img.path, url);
+
+        models.lamination_default_colors.findOne({
+          where: {id: parseInt(fields.color_id)}
+        }).then(function(laminationColor) {
+          laminationColor.updateAttributes({
+            url: url
+          });
+        });
+      }
+      res.send({status: true});
   });
 }
 

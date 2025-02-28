@@ -325,6 +325,73 @@ $(function () {
         reader.readAsDataURL(f);
       }
     });
+
+    $('#lamination-color-img').click(function() {
+      $('#select-edit-lamination-color-image').trigger('click');
+    });
+
+    /** On image change */
+    $('#select-edit-lamination-color-image').change(function (evt) {
+      var files = evt.target.files;
+      for (var i = 0, f; f = files[i]; i++) {
+        // Only process image files.
+        if (!f.type.match('image.*')) {
+          continue;
+        }
+        var reader = new FileReader();
+        // Closure to capture the file information.
+        reader.onload = (function(theFile) {
+          return function(e) {
+            $('#lamination-color-image').attr('src', e.target.result);
+          };
+        })(f);
+        reader.readAsDataURL(f);
+      }
+    });
+
+    
+    $('.lamination-color-edit').click(function(e) {
+      e.preventDefault();
+  
+      var colorId = $(this).attr('data-color');
+      $('.edit-lamination-color-submit').attr('colorId', colorId);
+      $('#edit-lamination-color-input-id').val(colorId);
+      $('.edit-lamination-color-pop-up').popup('show');
+  
+      
+    });
+
+    $('#edit-lamination-color-form').on('submit', function (e) {
+      e.preventDefault();
+  
+      var formData = new FormData(this);
+  
+      $.ajax({
+        type:'POST',
+        url: $(this).attr('action'),
+        data: formData,
+        cache: false,
+        contentType: false,
+        processData: false,
+        success: function(data) {
+          if (data.status) {
+            setTimeout(function() {
+              $('.pop-up').popup('hide');
+              window.location.reload();
+            }, 300);
+          }
+        },
+        error: function(data){
+          console.log("error");
+          console.log(data);
+        }
+      });
+    });
+
+    $('.edit-lamination-color-submit').click(function(e) {
+      e.preventDefault();  
+      $('#edit-lamination-color-form').submit();
+    });
     // ---------------------------------------
 
     
@@ -379,10 +446,7 @@ $(function () {
   });
 
   $('#submit-edit-group-lamination').click(function(e) {
-    e.preventDefault();
-    console.log($('form#edit-lamination-folder-form').css('display'))
-    
-    
+    e.preventDefault();  
     $('#edit-lamination-folder-form').submit();
   });
     

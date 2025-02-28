@@ -1,0 +1,16 @@
+.pop-up.edit-lamination-color-pop-up
+    form#edit-lamination-color-form(method="POST" action="/base/options/editLaminationColor" enctype="multipart/form-data")
+        input.hidden#edit-lamination-color-input-id(type="text" name="color_id" value="")
+        .pop-up-close-wrap
+            a.pop-up-close(href="#")
+
+        br
+
+        .content-block-image
+            input.hidden(id="select-edit-lamination-color-image" type="file" name="folder_img")
+            a.group-img(href="#" type="button" id="lamination-color-img" style="margin-left: 10px;")
+            img.group-image(id="lamination-color-image" style="height: 64px; width: 124px; margin-left: 20px;" src="/local_storage/default.png")
+
+        .wrapp-btn
+            button.edit-lamination-color-submit(data-color="" type="submit") 
+                =i18n.__('Save') 
