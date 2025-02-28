@@ -1,2 +1,23 @@
 .pop-up.add-group-pop-up_1
- 
+    form#add-lamination-group-form_1(method="POST" action="/base/options/addLaminationGroup" enctype="multipart/form-data")
+        .pop-up-close-wrap
+            a.pop-up-close(href="#")
+
+        .wrapp1
+            label(for="lamination-group-position-input") 
+                =i18n.__('Position')
+                | :
+            input.input-default.profile-edit-group-input-align#lamination-group-position-input(type="text" name="position" value="0" style="width: 22px;")
+
+        br
+
+        .wrapp2
+            label(for="lamination-group-name-input") 
+                =i18n.__('Group name')
+            input.input-default.profile-edit-group-input-align#lamination-group-name-input(type="text" name="name" style="width: 200px;")
+
+        br
+
+        .wrapp-btn
+            button(type="submit") 
+                =i18n.__('Add group +') 

@@ -43,6 +43,7 @@ block content
                 =i18n.__('White')
               br
               img(src="/assets/images/lamination_colors/white.jpg" class="b-img-radius" width="200" height="70")
+
             //- if (laminationsFactory)
             //-   - var defaults = []
             //-   each laminationFactory in laminationsFactory
@@ -78,16 +79,18 @@ block content
             //-             =laminationColor.name
             //-         br
             //-         img(src=laminationColor.url, class="b-img-radius" width="200" height="160")
-            each lamination_folder in lamination_folders
-              .lamination-folder 
+
+            each lamination_folder, index in lamination_folders
+              .lamination-folder(class= (index === lamination_folders.length - 1 ? "last-folder" : "")) 
                 .folder-name
-                  =lamination_folder.name
+                  //- =lamination_folder.name
+                  = lamination_folder.id == 0 ? i18n.__('Group') + " " + i18n.__('Not exist') : lamination_folder.name
                 if (lamination_folder.id !== 0)
                   .btn-delete-lamination-folder(data-folder=lamination_folder.id)
                   .lamination-folder-edit(data-folder=lamination_folder.id)
 
                 if (laminationsFactory)
-                  .folder-colors
+                  .folder-colors(class= (lamination_folder.id == 0 ? "open" : ""))
                     each laminationFactory in laminationsFactory
                       if (lamination_folder.id === laminationFactory.lamination_folders_id)
                         .lamination-color
@@ -109,6 +112,21 @@ block content
                                 input(type="checkbox" id="country-checkbox" + country.id + laminationFactory.id, name="checkLamination", data-lamination-id=laminationFactory.id, value=country.id, checked=laminationFactory.country_ids.includes(country.id)?true:false)
                                 label(for="country-checkbox" + country.id + laminationFactory.id) 
                                   =country.name
+            .border Inactive colors
+            each laminationColor in laminationsDefault
+              if (arrLaminIds.indexOf(laminationColor.id) < 0)
+                if (laminationColor.id !== 1)
+                  .lamination-color
+                    input.laminations-cb(id="checkbox00" + laminationColor.id, type="checkbox", value=laminationColor.id)
+                    label(for="checkbox00" + laminationColor.id)
+                      .editable-lamination
+                        =laminationColor.name
+                    br
+                    img(src=laminationColor.url, class="b-img-radius" width="200" height="160")                    
+          .add-button
+            a(href="#" id="add-lamination-color")
+              span#add-lamination-color-text
+                =i18n.__('Color') + " " + "+"
 
       .content-footer
         #content-footer-save-lamination
@@ -116,6 +134,7 @@ block content
             span#saveBtnText
               =i18n.__('Save')
   include includes/lamination-add-group.jade
+  include includes/lamination-add-color.jade
   include includes/lamination-edit-gropu.jade
   include includes/alert-delete-lamination-folder.jade
 

@@ -170,68 +170,80 @@ $(function () {
 
   $('#add-lamination-group').click(function(e) {
     e.preventDefault();
-    if ($('#add-lamination-group-form_1').length === 0) {
-      $('.add-group-pop-up_1').append(`
-        <form id="add-lamination-group-form_1" method="POST" action="/base/options/addLaminationGroup" enctype="multipart/form-data">
-            <div class="pop-up-close-wrap">
-              <a class="pop-up-close" href="#"></a>
-            </div>
-            <div class="wrapp1">
-              <label for="lamination-group-position-input">Позиция:</label>
-              <input class="input-default profile-edit-group-input-align" id="lamination-group-position-input" type="text" name="position" value="0" style="width: 22px;">
-            </div>
-            <br>
-            <div class="wrapp2">
-              <label for="lamination-group-name-input">Имя группы:</label>
-              <input class="input-default profile-edit-group-input-align" id="lamination-group-name-input" type="text" name="name" style="width: 200px;">
-            </div>
-            <br>
-            <div class="wrapp-btn">
-              <button type="submit">Добавить</button>
-            </div>
-        </form>
-      `);
-
-      $('#add-lamination-group-form_1').on('submit', function (e) {
-        e.preventDefault();
-        var formData = new FormData(this);
-        $.ajax({
-          type:'POST',
-          url: $(this).attr('action'),
-          data: formData,
-          cache: false,
-          contentType: false,
-          processData: false,
-          success: function(data){
-            if (data.status) {
-              setTimeout(function() {
-                $('.pop-up').popup('hide');
-                window.location.reload();
-              }, 300);
-            }
-          },
-          error: function(data){
-            console.log("error");
-            console.log(data);
-          }
-        });
-      });
-    }
+    
     $('.add-group-pop-up_1').popup('show');
 
     setTimeout(function() {
         $('#lamination-group-name-input').focus();
     }, 200);
-
     
+  });
 
-    $('.pop-up-close-wrap').click(function(e) {
-      e.preventDefault();
+  $('#add-lamination-color').click(function(e) {
+    e.preventDefault();
+    
+    $('.add-color-pop-up').popup('show');
+
+    setTimeout(function() {
+        $('#lamination-color-name-input').focus();
+    }, 200);
+    
+  });
   
-      $('.pop-up').popup('hide');
-      $('.pop-up-default').popup('hide');
-    });
+  $('.pop-up-close-wrap').click(function(e) {
+    e.preventDefault();
 
+    $('.pop-up').popup('hide');
+    $('.pop-up-default').popup('hide');
+  });
+  
+  $('#add-lamination-group-form_1').on('submit', function (e) {
+    e.preventDefault();
+    var formData = new FormData(this);
+    $.ajax({
+      type:'POST',
+      url: $(this).attr('action'),
+      data: formData,
+      cache: false,
+      contentType: false,
+      processData: false,
+      success: function(data){
+        if (data.status) {
+          setTimeout(function() {
+            $('.pop-up').popup('hide');
+            window.location.reload();
+          }, 300);
+        }
+      },
+      error: function(data){
+        console.log("error");
+        console.log(data);
+      }
+    });
+  });
+  $('#add-lamination-color-form').on('submit', function (e) {
+    e.preventDefault();
+    var formData = new FormData(this);
+    $.ajax({
+      type:'POST',
+      url: $(this).attr('action'),
+      data: formData,
+      cache: false,
+      contentType: false,
+      processData: false,
+      success: function(data){
+        if (data.status) {
+          setTimeout(function() {
+            $('.pop-up').popup('hide');
+            window.location.reload();
+          }, 300);
+        }
+      },
+      error: function(data){
+        console.log("error");
+        console.log(data);
+      }
+    });
   });
   
   
@@ -290,6 +302,29 @@ $(function () {
       $('.delete-alert').popup('show');
     });
 
+
+    $('#lamination-group-img').click(function() {
+      $('#select-lamination-group-image').trigger('click');
+    });
+
+    /** On image change */
+    $('#select-lamination-group-image').change(function (evt) {
+      var files = evt.target.files;
+      for (var i = 0, f; f = files[i]; i++) {
+        // Only process image files.
+        if (!f.type.match('image.*')) {
+          continue;
+        }
+        var reader = new FileReader();
+        // Closure to capture the file information.
+        reader.onload = (function(theFile) {
+          return function(e) {
+            $('#lamination-group-image').attr('src', e.target.result);
+          };
+        })(f);
+        reader.readAsDataURL(f);
+      }
+    });
     // ---------------------------------------
 
     
@@ -331,7 +366,7 @@ $(function () {
     e.preventDefault();
 
     var folderId = $(this).attr('data-folder');
-    $('#edit-lamination-fodler-input-id').val(folderId);
+    $('#edit-lamination-folder-input-id').val(folderId);
 
     $.get('/base/options/lamination/get-folder/' + folderId, function(data) {
       if (data.status) {
@@ -345,8 +380,10 @@ $(function () {
 
   $('#submit-edit-group-lamination').click(function(e) {
     e.preventDefault();
+    console.log($('form#edit-lamination-folder-form').css('display'))
     
-    $('#edit-lamination-fodler-form').submit();
+    
+    $('#edit-lamination-folder-form').submit();
   });
     
 
@@ -355,6 +392,33 @@ $(function () {
     autoopen: false,
     scrolllock: true,
     transition: 'all 0.3s'
+  });
+
+  $('#edit-lamination-folder-form').on('submit', function (e) {
+    e.preventDefault();
+
+    var formData = new FormData(this);
+
+    $.ajax({
+      type:'POST',
+      url: $(this).attr('action'),
+      data: formData,
+      cache: false,
+      contentType: false,
+      processData: false,
+      success: function(data) {
+        if (data.status) {
+          setTimeout(function() {
+            $('.pop-up').popup('hide');
+            window.location.reload();
+          }, 300);
+        }
+      },
+      error: function(data){
+        console.log("error");
+        console.log(data);
+      }
+    });
   });
 
   // ---------------------------------------------------------------

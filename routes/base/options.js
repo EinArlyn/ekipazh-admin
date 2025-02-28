@@ -12,6 +12,7 @@ var util = require('util');
 /** Laminations */
 router.get('/laminations', isAuthenticated, getLaminations);
 router.post('/addLaminationGroup', isAuthenticated, addLaminationGroup);
+router.post('/addLaminationColor', isAuthenticated, addLaminationColor);
 router.post('/lamination/remove-folder', isAuthenticated, removeLaminationFolder);
 router.post('/lamination/changeLaminationFolder', isAuthenticated, changeLaminationFolder);
 router.post('/lamination/save-folder', isAuthenticated, saveLaminationFolder);
@@ -125,12 +126,18 @@ function getLaminations (req, res) {
                 folder.country_ids = countryMap[folder.id] || [];
             });
 
+            const arrLaminIds = [];
+            lamination_factory.forEach(lamin => {
+              arrLaminIds.push(lamin.lamination_type_id);
+            })
+
             res.render('base/options/laminations', {
               i18n               : i18n,
               title              : i18n.__('Options'),
               laminationsDefault : lamination_default,
               laminationsFactory : lamination_factory,
               lamination_folders : lamination_folders,
+              arrLaminIds        : arrLaminIds,
               countries          : countries,
               thisPageLink       : '/base/options/',
               cssSrcs            : ['/assets/stylesheets/base/options.css'],
@@ -153,6 +160,35 @@ function addLaminationGroup(req, res) {
       position: parseInt(fields.position, 10) || 0,
     }).then(function(result) {
       
+      res.send({status: true});
+    }).catch(function(err) {
+      console.log(err);
+      res.send({status: false});
+    });
+  });
+}
+
+function addLaminationColor(req, res) {
+  var form = new formidable.IncomingForm();
+  form.keepExtensions = true;
+  form.parse(req, function (err, fields, files) {
+    models.lamination_default_colors.create({
+      name: fields.name,
+      img: '',
+    }).then(function(result) {
+      if (files.folder_img.name) {
+        var url = '/assets/images/lamination_colors/' + Math.floor(Math.random()*1000000) + files.folder_img.name;
+        loadImage(files.folder_img.path, url);
+
+        models.lamination_default_colors.findOne({
+          where: {id: parseInt(result.id)}
+        }).then(function(visorFolder) {
+          console.log(visorFolder)
+          visorFolder.updateAttributes({
+            url: url
+          });
+        });
+      }
       res.send({status: true});
     }).catch(function(err) {
       console.log(err);
@@ -231,7 +267,7 @@ function saveLaminationFolder(req, res) {
 
 function getLaminationFolder(req, res) {
   var folderId = req.params.id;
-  console.log(folderId);
+
   models.lamination_folders.findOne({
     where: {id: folderId}
   }).then(function(laminationFolder) {
