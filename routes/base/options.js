@@ -14,9 +14,11 @@ router.get('/laminations', isAuthenticated, getLaminations);
 router.post('/addLaminationGroup', isAuthenticated, addLaminationGroup);
 router.post('/addLaminationColor', isAuthenticated, addLaminationColor);
 router.post('/editLaminationColor', isAuthenticated, editLaminationColor);
+router.get('/lamination/getLaminationSettings/:id', isAuthenticated, getLaminationSettings);
 router.post('/lamination/remove-folder', isAuthenticated, removeLaminationFolder);
 router.post('/lamination/changeLaminationFolder', isAuthenticated, changeLaminationFolder);
 router.post('/lamination/save-folder', isAuthenticated, saveLaminationFolder);
+router.post('/lamination/save-edit-lamination', isAuthenticated, saveEditLamination);
 router.get('/lamination/get-folder/:id', isAuthenticated, getLaminationFolder);
 router.post('/lamination/save', isAuthenticated, saveLamination);
 router.post('/lamination/delete', isAuthenticated, deleteLamination);
@@ -114,36 +116,42 @@ function getLaminations (req, res) {
           models.compliance_lamination_colors.findAll({
     
           }).then(function(compliance_lamination_colors){
+            models.addition_colors.findAll({
+              where: {lists_type_id: 25}
+            }).then(function (decorColors) {
+            
+              const countryMap = {};
+              compliance_lamination_colors.forEach(country => {
+                const { lamination_factory_colors_id, country_id } = country.dataValues;
+                if (!countryMap[lamination_factory_colors_id]) {
+                  countryMap[lamination_factory_colors_id] = [];
+                }
+                countryMap[lamination_factory_colors_id].push(country_id);
+              });
+              lamination_factory.forEach(folder => {
+                  folder.country_ids = countryMap[folder.id] || [];
+              });
 
-            const countryMap = {};
-            compliance_lamination_colors.forEach(country => {
-              const { lamination_factory_colors_id, country_id } = country.dataValues;
-              if (!countryMap[lamination_factory_colors_id]) {
-                countryMap[lamination_factory_colors_id] = [];
-              }
-              countryMap[lamination_factory_colors_id].push(country_id);
-            });
-            lamination_factory.forEach(folder => {
-                folder.country_ids = countryMap[folder.id] || [];
-            });
-
-            const arrLaminIds = [];
-            lamination_factory.forEach(lamin => {
-              arrLaminIds.push(lamin.lamination_type_id);
+              const arrLaminIds = [];
+              lamination_factory.forEach(lamin => {
+                arrLaminIds.push(lamin.lamination_type_id);
+              })
+              // console.log("lamination_factory",lamination_factory)
+              // console.log("lamination_folders", lamination_folders)
+              res.render('base/options/laminations', {
+                i18n               : i18n,
+                title              : i18n.__('Options'),
+                laminationsDefault : lamination_default,
+                laminationsFactory : lamination_factory,
+                lamination_folders : lamination_folders,
+                decor_colors       : decorColors,
+                arrLaminIds        : arrLaminIds,
+                countries          : countries,
+                thisPageLink       : '/base/options/',
+                cssSrcs            : ['/assets/stylesheets/base/options.css'],
+                scriptSrcs         : ['/assets/javascripts/vendor/localizer/i18next-1.10.1.min.js', '/assets/javascripts/base/options.js']
+              });
             })
-
-            res.render('base/options/laminations', {
-              i18n               : i18n,
-              title              : i18n.__('Options'),
-              laminationsDefault : lamination_default,
-              laminationsFactory : lamination_factory,
-              lamination_folders : lamination_folders,
-              arrLaminIds        : arrLaminIds,
-              countries          : countries,
-              thisPageLink       : '/base/options/',
-              cssSrcs            : ['/assets/stylesheets/base/options.css'],
-              scriptSrcs         : ['/assets/javascripts/vendor/localizer/i18next-1.10.1.min.js', '/assets/javascripts/base/options.js']
-            });
           })
         })
       });
@@ -214,6 +222,25 @@ function editLaminationColor(req, res) {
           });
         });
       }
+      res.send({status: true});
+  });
+}
+
+function saveEditLamination(req, res) {
+  var form = new formidable.IncomingForm();
+  form.keepExtensions = true;
+  form.parse(req, function (err, fields, files) {
+        models.lamination_factory_colors.findOne({
+          where: {id: parseInt(fields.color_id)}
+        }).then(function(laminationColor) {
+          laminationColor.updateAttributes({
+            name: fields.name,
+            position: fields.position,
+            lamination_folders_id: fields.change_group,
+            addition_colors_id: fields.change_decor
+          });
+        });
+      
       res.send({status: true});
   });
 }
@@ -293,6 +320,30 @@ function getLaminationFolder(req, res) {
     where: {id: folderId}
   }).then(function(laminationFolder) {
     res.send({status: true, folder: laminationFolder});
+  }).catch(function(err) {
+    console.log(err);
+    res.send({status: false});
+  });
+}
+
+function getLaminationSettings(req, res) {
+  var laminationId = req.params.id;
+  
+  models.lamination_factory_colors.findOne({
+    where: {id: laminationId}
+  }).then(function(lamination) {
+    models.lamination_folders.findAll().then(function (lamination_folders) {
+      models.addition_colors.findAll({
+        where: {lists_type_id: 25}
+      }).then(function (decorColors) {
+        res.send({status: true, 
+          lamination: lamination,
+          lamination_folders: lamination_folders,
+          decorColors: decorColors
+        });
+
+      })
+    })
   }).catch(function(err) {
     console.log(err);
     res.send({status: false});

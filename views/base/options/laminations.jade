@@ -32,10 +32,15 @@ block content
     .lamination-option.checked-option
       .main-content
         .content-wrap
-          .add-button
-            a(href="#" id="add-lamination-group")
-              span#add-lamination-group-text
-                =i18n.__('Add group +') 
+          .btn-wrapp
+            .add-button
+              a(href="#" id="add-lamination-group")
+                span#add-lamination-group-text
+                  =i18n.__('Add group +') 
+            #content-footer-save-lamination
+              a(class="external-link" href="#" id="saveBtn", )
+                span#saveBtnText
+                  =i18n.__('Save')
           .lamination-color-items
             .lamination-color.default-white
               input(id="checkbox00001" type="checkbox", value=1, disabled, checked)
@@ -93,18 +98,31 @@ block content
                   .folder-colors(class= (lamination_folder.id == 0 ? "open" : ""))
                     each laminationFactory in laminationsFactory
                       if (lamination_folder.id === laminationFactory.lamination_folders_id)
+                        - var findFolder = lamination_folders.find( function(folder) {return  folder.id === laminationFactory.lamination_folders_id} )
+                        - var findDecor = decor_colors.find( function(color) {return  color.id === laminationFactory.addition_colors_id} )
                         .lamination-color
                           input.laminations-cb(id="checkbox" + laminationFactory.id, type="checkbox", data-delete-lamin=laminationFactory.id, value=laminationFactory.lamination_default_color.id, checked)
                           label(for="checkbox" + laminationFactory.id)
                             .editable-lamination
                               =laminationFactory.name
-                          select.lamination-folders.select-default(name="new-lamination-folder")
-                            each lamination_folder in lamination_folders 
-                              if (lamination_folder.id == laminationFactory.lamination_folders_id)
-                                option(data-lamination=laminationFactory.id value=lamination_folder.id selected)=lamination_folder.name
-                              else 
-                                option(data-lamination=laminationFactory.id value=lamination_folder.id)=lamination_folder.name 
+                          .info-lamination-wrap
+                            span.lamination-info-title
+                               =i18n.__('Position')
+                            span.lamination-info-position.lamination-info-value= laminationFactory.position 
+                            span.lamination-info-title
+                               =i18n.__('Group')
+                            span.lamination-info-folder-name.lamination-info-value= findFolder.name
+                            span.lamination-info-title
+                               =i18n.__('Decors')
+                            span.lamination-info-decor.lamination-info-value= findDecor.name
+                          //- select.lamination-folders.select-default(name="new-lamination-folder")
+                          //-   each lamination_folder in lamination_folders 
+                          //-     if (lamination_folder.id == laminationFactory.lamination_folders_id)
+                          //-       option(data-lamination=laminationFactory.id value=lamination_folder.id selected)=lamination_folder.name
+                          //-     else 
+                          //-       option(data-lamination=laminationFactory.id value=lamination_folder.id)=lamination_folder.name 
                           br
+                          .lamination-settings-edit(data-lamination=laminationFactory.id) 
                           img(src=laminationFactory.lamination_default_color.url, class="b-img-radius" width="200" height="160")
                           .country-check-lamination
                             each country in countries 
@@ -130,11 +148,9 @@ block content
                 =i18n.__('Color') + " " + "+"
 
       .content-footer
-        #content-footer-save-lamination
-          a(class="external-link" href="#" id="saveBtn", )
-            span#saveBtnText
-              =i18n.__('Save')
+        
   include includes/lamination-add-group.jade
+  include includes/lamination-settings-edit.jade
   include includes/lamination-edit-color.jade
   include includes/lamination-add-color.jade
   include includes/lamination-edit-gropu.jade

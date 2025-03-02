@@ -1,0 +1,24 @@
+.pop-up.lamination-settings-edit-pop-up
+  form#lamination-settings-edit-form(method="POST" action="/base/options/lamination/save-edit-lamination" enctype="multipart/form-data")
+    input.hidden#lamination-settings-edit-input-id(type="text" name="color_id" value="")
+    .pop-up-close-wrap
+      a(class="pop-up-close", href="#")
+    span.pop-up-header
+      =i18n.__('Edit')
+    .content
+        .values
+            label(for="")
+              =i18n.__('Name')
+            input.input-default.input-margin-popup#lamination-name-popup(type="text" name="name" value="" style="width: 166px;")
+            label(for="")
+              =i18n.__('Position')
+            input.input-default.input-margin-popup#lamination-position-popup(type="text" name="position" value="" style="width: 30px;")
+            label(for="")
+              =i18n.__('Group')
+            select.select-default(id="lamination-group-input" name="change_group" style="width: 200px;")
+            label(for="")
+              =i18n.__('Decors')
+            select.select-default(id="lamination-decor-input" name="change_decor" style="width: 200px;")
+
+    .submit-row
+      input.btn-submit#submit-lamination-settings-edit(type="button" data-folder="" value=i18n.__('Save'))
