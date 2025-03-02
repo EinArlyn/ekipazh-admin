@@ -121,18 +121,19 @@ $(function () {
   /*
     Editable laminations
   */
-  $('.editable-lamination').editable(function (value) {
-    return value;
-  }, {
-    id: 'name',
-    name: 'value',
-    indicator: 'Сохранение..',
-    tooltip: 'Нажмите для редактирования',
-    submit: 'Ок',
-    cssclass : 'edit-input',
-    height: '12px',
-    width: '120px'
-  });
+
+  // $('.editable-lamination').editable(function (value) {
+  //   return value;
+  // }, {
+  //   id: 'name',
+  //   name: 'value',
+  //   indicator: 'Сохранение..',
+  //   tooltip: 'Нажмите для редактирования',
+  //   submit: 'Ок',
+  //   cssclass : 'edit-input',
+  //   height: '12px',
+  //   width: '120px'
+  // });
 
   /*
     Save laminations
@@ -459,6 +460,89 @@ $(function () {
   });
 
   $('#edit-lamination-folder-form').on('submit', function (e) {
+    e.preventDefault();
+
+    var formData = new FormData(this);
+
+    $.ajax({
+      type:'POST',
+      url: $(this).attr('action'),
+      data: formData,
+      cache: false,
+      contentType: false,
+      processData: false,
+      success: function(data) {
+        if (data.status) {
+          setTimeout(function() {
+            $('.pop-up').popup('hide');
+            window.location.reload();
+          }, 300);
+        }
+      },
+      error: function(data){
+        console.log("error");
+        console.log(data);
+      }
+    });
+  });
+
+
+  $('.lamination-settings-edit').click(function (e) {
+    e.preventDefault();
+    var laminationId = $(this).attr('data-lamination');
+    editLaminationSettings(laminationId);
+
+  })
+
+  function editLaminationSettings (laminationId) {
+    $.get('/base/options/lamination/getLaminationSettings/' + laminationId, function (data) {
+      if (data.status) {
+        $('#lamination-group-input').find('option').remove();
+        for (var i = 0, len = data.lamination_folders.length; i < len; i++) {
+          if (data.lamination_folders[i].id === data.lamination.lamination_folders_id) {
+            $('#lamination-group-input').append('<option ' +
+              'value="' + data.lamination.lamination_folders_id + '"' + 'selected' + '>' +
+              data.lamination_folders[i].name +
+              '</option>');
+          } else {
+            $('#lamination-group-input').append('<option ' +
+              'value="' + data.lamination_folders[i].id + '">' +
+              data.lamination_folders[i].name +
+              '</option>');
+          }
+        }
+
+        $('#lamination-decor-input').find('option').remove();
+        for (var i = 0, len = data.decorColors.length; i < len; i++) {
+          if (data.decorColors[i].id === data.lamination.addition_colors_id) {
+            $('#lamination-decor-input').append('<option ' +
+              'value="' + data.decorColors[i].id + '"' + 'selected' + '>' +
+              data.decorColors[i].name +
+              '</option>');
+          } else {
+            $('#lamination-decor-input').append('<option ' +
+              'value="' + data.decorColors[i].id + '">' +
+              data.decorColors[i].name +
+              '</option>');
+          }
+        }
+
+        
+        $('#lamination-settings-edit-input-id').val(laminationId);
+        $('#lamination-name-popup').val(data.lamination.name);
+        $('#lamination-position-popup').val(data.lamination.position);
+       
+        $('.lamination-settings-edit-pop-up').popup('show');
+      }
+
+    })
+  }
+  $('#submit-lamination-settings-edit').click(function(e) {
+    e.preventDefault();  
+    $('#lamination-settings-edit-form').submit();
+  });
+
+  $('#lamination-settings-edit-form').on('submit', function (e) {
     e.preventDefault();
 
     var formData = new FormData(this);

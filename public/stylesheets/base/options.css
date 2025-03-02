@@ -170,9 +170,21 @@ main {
         color: black;
       }
     }
+    .btn-wrapp {
+      display: flex;
+      justify-content: space-between;
+      #content-footer-save-lamination {
+        float: none;
+      }
+    }
 
     .lamination-folders {
       float: right;
+    }
+
+    .lamination-position {
+      position: absolute;
+      width: 50px;
     }
 
     .lamination-folder-edit {
@@ -192,6 +204,30 @@ main {
       width: 24px;
       background-image: url('/assets/images/hardwares/edit_inactive.png');
       cursor: pointer;
+    }
+    
+    .lamination-settings-edit {
+      position: absolute;
+      right: 0;
+      top: -5px;
+      height: 26px;
+      width: 24px;
+      background-image: url('/assets/images/hardwares/edit_inactive.png');
+      cursor: pointer;
+    }
+
+    .info-lamination-wrap {
+      display: inline-block;
+      float: right;
+      margin-right: 30px;
+      span.lamination-info-title {
+        /* margin: 0 20px; */
+      }
+      span.lamination-info-value {
+        margin: 0 25px 0 5px;
+        background-color: white;
+        padding: 0 5px;
+      }
     }
 
 
@@ -876,6 +912,24 @@ table.sill-folders-table {
     background-color: #e4e4e4;
     padding: 0 30px;
     font-size: 12px;
+  }
+
+  .lamination-settings-edit-pop-up {
+    width: 350px;
+    height: 340px;
+    border: 1px solid #e5e5e5;
+    border-radius: 5px;
+    background-color: #e4e4e4;
+    padding: 0 30px;
+    font-size: 12px;
+    .values {
+      display: flex;
+      flex-direction: column;
+      margin-bottom: 20px;
+      input, select {
+        margin-bottom: 5px;
+      }
+    }
   }
   .edit-lamination-color-pop-up {
     width: 350px;
