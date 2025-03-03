@@ -49,8 +49,8 @@
 
 /** logo image */
 img.logo-image {
-  height: 70px;
-  margin: 10px 0;
+  height: 200px;
+  margin: 20px 0;
 }
 
 /** Default pop-up */
@@ -371,6 +371,24 @@ input.add-btn {
   border-radius: 2px;
 }
 
+input.add-btn-login {
+  height: 25px;
+  width: 72%;
+  background: black;
+  /* background-image: url('/assets/images/save_active.png'); */
+  /* background-size: 90px 25px; */
+  /* background-color: transparent; */
+  text-shadow: 0px 1px 0px #45822b;
+  color: #fff;
+  font-family: Tahoma, Verdana, Segoe, sans-serif;
+  font-weight: bold;
+  font-size: 11px;
+  cursor: pointer;
+  outline: none;
+  border: 0;
+  border-radius: 2px;
+}
+
   input.add-btn:hover {
     opacity: 0.85;
   }
@@ -581,7 +599,7 @@ select.select-default {
 }
 
 .input-form {
-  margin: 0 0 5px 0;
+  margin: 0 0 20px 0;
 }
 
 img.folder-image, img.color-image {
@@ -661,13 +679,13 @@ input[type=checkbox]:not(old):disabled + label {
 
 .form-container {
   position: relative;
-  height: 210px;
+  height: 410px;
   width: 340px;
   padding: 15px;
-  margin-top: 10%;
+  margin-top: 5%;
   text-align: center;
-  background-color: #dadada;
-  border: 1px solid #c6c6c6;
+  /* background-color: #dadada; */
+  /* border: 1px solid #c6c6c6; */
 }
 
   .form-container input.add-btn {
