@@ -1036,6 +1036,22 @@ module.exports = function (req, res) {
                   });
               },
               function (callback) {
+                // lamination_folders
+                models.sequelize.query(
+                  `
+                  SELECT lf.id, lf.name, lf.position
+                  FROM lamination_folders AS lf
+                  WHERE lf.factory_id = ${factory_id}`
+                ).then(function (lamination_folders) {
+                  tables.lamination_folders = {};
+                  tables.lamination_folders.fields = ["id", "name", "position"];
+                  sortQueries(lamination_folders[0], function (values) {
+                    tables.lamination_folders.rows = values;
+                    callback(null);
+                  });
+                });
+              },
+              function (callback) {
                 /** lamination_types */
                 models.lamination_types
                   .findAll()
