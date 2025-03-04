@@ -1007,7 +1007,7 @@ module.exports = function (req, res) {
                 // lamination_factory_colors
                 models.sequelize
                   .query(
-                    `SELECT LFC.factory_id, LFC.lamination_type_id, LFC.name, LFC.id
+                    `SELECT LFC.addition_colors_id, LFC.position, LFC.lamination_folders_id, LFC.factory_id, LFC.lamination_type_id, LFC.name, LFC.id
                   FROM lamination_factory_colors AS LFC
                   JOIN users AS U ON U.id = ${userId}
                   JOIN cities AS C ON C.id = U.city_id
@@ -1018,6 +1018,9 @@ module.exports = function (req, res) {
                   .then(function (lamination_factory_colors) {
                     tables.lamination_factory_colors = {};
                     tables.lamination_factory_colors.fields = [
+                      "addition_colors_id",
+                      "position",
+                      "lamination_folders_id",
                       "factory_id",
                       "lamination_type_id",
                       "name",
