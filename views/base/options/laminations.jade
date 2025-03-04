@@ -104,6 +104,8 @@ block content
                           input.laminations-cb(id="checkbox" + laminationFactory.id, type="checkbox", data-delete-lamin=laminationFactory.id, value=laminationFactory.lamination_default_color.id, checked)
                           label(for="checkbox" + laminationFactory.id)
                             .editable-lamination
+                              //- =laminationFactory.name
+                          span.lamination-name
                               =laminationFactory.name
                           .info-lamination-wrap
                             span.lamination-info-title
@@ -130,6 +132,10 @@ block content
                                 input(type="checkbox" id="country-checkbox" + country.id + laminationFactory.id, name="checkLamination", data-lamination-id=laminationFactory.id, value=country.id, checked=laminationFactory.country_ids.includes(country.id)?true:false)
                                 label(for="country-checkbox" + country.id + laminationFactory.id) 
                                   =country.name
+            .add-button
+              a(href="#" id="add-lamination-color")
+                span#add-lamination-color-text
+                  =i18n.__('Add') + " " + i18n.__('Color') 
             .border Inactive colors
             each laminationColor in laminationsDefault
               if (arrLaminIds.indexOf(laminationColor.id) < 0)
@@ -142,12 +148,12 @@ block content
                     br
                     img(src=laminationColor.url, class="b-img-radius" width="200" height="160")    
                     .lamination-color-edit(data-color=laminationColor.id)                
-          .add-button
-            a(href="#" id="add-lamination-color")
-              span#add-lamination-color-text
-                =i18n.__('Color') + " " + "+"
+          //- .add-button
+          //-   a(href="#" id="add-lamination-color")
+          //-     span#add-lamination-color-text
+          //-       =i18n.__('Color') + " " + "+"
 
-      .content-footer
+      //- .content-footer
         
   include includes/lamination-add-group.jade
   include includes/lamination-settings-edit.jade
