@@ -1052,6 +1052,22 @@ module.exports = function (req, res) {
                 });
               },
               function (callback) {
+                // lamination_default_colors
+                models.sequelize.query(
+                  `
+                  SELECT ldc.id, ldc.url
+                  FROM lamination_default_colors AS ldc
+                  `
+                ).then(function (lamination_default_colors) {
+                  tables.lamination_default_colors = {};
+                  tables.lamination_default_colors.fields = ["id", "url"];
+                  sortQueries(lamination_default_colors[0], function (values) {
+                    tables.lamination_default_colors.rows = values;
+                    callback(null);
+                  });
+                });
+              },
+              function (callback) {
                 /** lamination_types */
                 models.lamination_types
                   .findAll()
