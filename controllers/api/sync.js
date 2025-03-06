@@ -1007,7 +1007,7 @@ module.exports = function (req, res) {
                 // lamination_factory_colors
                 models.sequelize
                   .query(
-                    `SELECT LFC.factory_id, LFC.lamination_type_id, LFC.name, LFC.id
+                    `SELECT LFC.addition_colors_id, LFC.position, LFC.lamination_folders_id, LFC.factory_id, LFC.lamination_type_id, LFC.name, LFC.id
                   FROM lamination_factory_colors AS LFC
                   JOIN users AS U ON U.id = ${userId}
                   JOIN cities AS C ON C.id = U.city_id
@@ -1018,6 +1018,9 @@ module.exports = function (req, res) {
                   .then(function (lamination_factory_colors) {
                     tables.lamination_factory_colors = {};
                     tables.lamination_factory_colors.fields = [
+                      "addition_colors_id",
+                      "position",
+                      "lamination_folders_id",
                       "factory_id",
                       "lamination_type_id",
                       "name",
@@ -1031,6 +1034,38 @@ module.exports = function (req, res) {
                       }
                     );
                   });
+              },
+              function (callback) {
+                // lamination_folders
+                models.sequelize.query(
+                  `
+                  SELECT lf.id, lf.name, lf.position
+                  FROM lamination_folders AS lf
+                  WHERE lf.factory_id = ${factory_id}`
+                ).then(function (lamination_folders) {
+                  tables.lamination_folders = {};
+                  tables.lamination_folders.fields = ["id", "name", "position"];
+                  sortQueries(lamination_folders[0], function (values) {
+                    tables.lamination_folders.rows = values;
+                    callback(null);
+                  });
+                });
+              },
+              function (callback) {
+                // lamination_default_colors
+                models.sequelize.query(
+                  `
+                  SELECT ldc.id, ldc.url
+                  FROM lamination_default_colors AS ldc
+                  `
+                ).then(function (lamination_default_colors) {
+                  tables.lamination_default_colors = {};
+                  tables.lamination_default_colors.fields = ["id", "url"];
+                  sortQueries(lamination_default_colors[0], function (values) {
+                    tables.lamination_default_colors.rows = values;
+                    callback(null);
+                  });
+                });
               },
               function (callback) {
                 /** lamination_types */
