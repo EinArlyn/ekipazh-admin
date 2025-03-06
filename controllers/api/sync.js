@@ -1013,7 +1013,8 @@ module.exports = function (req, res) {
                   JOIN cities AS C ON C.id = U.city_id
                   JOIN regions AS R ON R.id = C.region_id
                   JOIN compliance_lamination_colors AS CLC ON CLC.country_id = R.country_id
-                  WHERE (LFC.factory_id = ${factory_id} OR LFC.factory_id = 0) AND LFC.id = CLC.lamination_factory_colors_id`
+                  WHERE (LFC.factory_id = ${factory_id} AND LFC.id = CLC.lamination_factory_colors_id) OR LFC.factory_id = 0
+                  GROUP BY LFC.id`
                   )
                   .then(function (lamination_factory_colors) {
                     tables.lamination_factory_colors = {};
