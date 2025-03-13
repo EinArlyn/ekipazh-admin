@@ -539,5 +539,16 @@
 	"Confirm action": "Подтвердите действие",
 	"Send order to factory for invoicing?": "Отправить заказ на завод для выставления счёта?",
 	"Attention! Unchecking this box does not cancel the processing of the previously sent order by the factory. Uncheck the box?": "Внимание! Снятие данной отметки не отменяет обработку заводом отправленного ранее заказа. Снять отметку?",
-	"Glasses Folders": "Glasses Folders"
+	"Glasses Folders": "Glasses Folders",
+	"Copying set properties": "Копирование свойств набора",
+	"Select the set to copy its properties and composition": "Выберите набор для копирования его свойств и состава",
+	"Copy": "Копировать",
+	"x": "x",
+	"Thermal_conductivity": "Thermal_conductivity",
+	"Height to handle": "Height to handle",
+	"Color of decors": "Color of decors",
+	"Client flat": "Client flat",
+	"Client floor": "Client floor",
+	"Frame type": "Frame type",
+	"Frame with aluminum threshold": "Frame with aluminum threshold"
 }

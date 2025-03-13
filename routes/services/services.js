@@ -51,13 +51,21 @@ function getLocation(req, res) {
     where: {region_id: regionId},
     order: 'name'
   }).then(function(cities) {
-    models.regions.findAll({
-      where: {country_id: countryId}
-    }).then(function(regions) {
-      res.send({status: true, regions: regions, cities: cities});
-    }).catch(function(err) {
-      console.log(err);
-      res.send({status: false});
+    models.areas.findAll({}).then(function(areas){
+      cities.forEach(city=> {
+        let findArea = areas.find(area => area.id === city.area_id);
+        if(findArea) {
+          city.name = city.name + " / " + findArea.name;
+        }
+      });
+      models.regions.findAll({
+        where: {country_id: countryId}
+      }).then(function(regions) {
+        res.send({status: true, regions: regions, cities: cities});
+      }).catch(function(err) {
+        console.log(err);
+        res.send({status: false});
+      });
     });
   }).catch(function(err) {
     console.log(err);
@@ -72,7 +80,16 @@ function getCities(req, res) {
     where: {region_id: regionId},
     order: 'name'
   }).then(function(cities) {
-    res.send({status: true, cities: cities});
+    models.areas.findAll({}).then(function(areas) {
+      cities.forEach(city=> {
+        let findArea = areas.find(area => area.id === city.area_id);
+        if(findArea) {
+          city.name = city.name + " / " + findArea.name;
+        }
+      })
+      // console.log('city',cities)
+      res.send({status: true, cities: cities});
+    })
   }).catch(function(err) {
     console.log(err);
     res.send({status: false});
