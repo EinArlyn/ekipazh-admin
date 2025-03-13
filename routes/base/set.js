@@ -25,6 +25,80 @@ router.post('/saveBeedWidths/:id', isAuthenticated, saveBeedWidths);
 router.post('/save-additional-folder/:id', isAuthenticated, saveAddtionalFolder);
 router.post('/save-additional-color/:id', isAuthenticated, saveAddtionalColor);
 router.get('/is-push/:id/:groupId', isAuthenticated, checkListAvalabilityAsPush);
+router.get('/getElementsGroup/:id', isAuthenticated, getElementsGroup);
+router.post('/save-copy-group/:oldId/:newId', isAuthenticated, saveCopyGroup);
+
+function getElementsGroup(req, res) {
+  var listId = req.params.id;
+  models.lists.findOne({
+    where: {id: listId}
+  }).then(function(result){
+    models.lists.findAll({
+      where: {list_group_id: result.list_group_id}
+    }).then(function(allElems){
+      var arrElemesType = [];
+      allElems.forEach(elem => {
+        let obj = {
+          name: elem.name,
+          list_group_id: elem.list_group_id,
+          id: elem.id
+        };
+        arrElemesType.push(obj);
+      })
+      res.send(arrElemesType);
+    })
+  })
+}
+
+function saveCopyGroup(req, res) {
+  const oldId = req.params.oldId;
+  const newId = req.params.newId;
+
+    models.sequelize.query(`
+        UPDATE lists
+        SET 
+            list_group_id = source.list_group_id,
+            list_type_id = source.list_type_id,
+            a = source.a,
+            b = source.b,
+            c = source.c,
+            d = source.d,
+            position = source.position,
+            add_color_id = source.add_color_id,
+            modified = source.modified,
+            addition_folder_id = source.addition_folder_id,
+            amendment_pruning = source.amendment_pruning,
+            waste = source.waste,
+            cameras = source.cameras,
+            link = source.link,
+            description = source.description,
+            img = source.img,
+            beed_lamination_id = source.beed_lamination_id,
+            in_door = source.in_door,
+            doorstep_type = source.doorstep_type,
+            glass_type = source.glass_type,
+            glass_image = source.glass_image,
+            is_push = source.is_push,
+            glass_color = source.glass_color,
+            e = source.e,
+            size = source.size
+        FROM lists AS source
+        WHERE source.id = :oldId AND lists.id = :newId;
+
+        INSERT INTO list_contents (parent_list_id, child_id, child_type, value, rules_type_id, direction_id, window_hardware_color_id, lamination_type_id, modified, rounding_type, rounding_value)
+        SELECT :newId, child_id, child_type, value, rules_type_id, direction_id, window_hardware_color_id, lamination_type_id, modified, rounding_type, rounding_value
+        FROM list_contents
+        WHERE parent_list_id = :oldId;
+    `, {
+        replacements: { oldId, newId }, // Подставляем параметры через безопасные переменные
+        type: models.sequelize.QueryTypes.UPDATE
+    }).then(() => {
+      res.json({ success: true, message: "Группа успешно сохранена!" });
+        console.log("Обновление и копирование выполнено успешно!");
+    }).catch(err => {
+        console.error("Ошибка SQL:", err);
+    });
+}
 
 function getSet (req, res) {
   var id = req.params.id;

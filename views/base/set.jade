@@ -26,6 +26,8 @@ block content
       input.hidden#referrer(type="text" name="last_location" value="")
       .content-wrap
         .header
+          .copy-settings-list(data=list.id) 
+            =i18n.__('Copying set properties')
           .header-id
             | id: 
             =list.id
@@ -450,6 +452,7 @@ block content
         include ./includes/set/add-item.jade
         include ./includes/set/edit-child-item.jade
         include ./includes/alert-remove-popup.jade
+        include ./includes/alert-copy-list.jade
         .footer
           .footer-end
             a(href="#", id="saveSet" data-set=list.id)

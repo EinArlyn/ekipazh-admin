@@ -1,0 +1,9 @@
+.alert-copy-list-popup
+  span.pop-up-header
+    | 
+  .alert-name-pop-up
+    =i18n.__('Select the set to copy its properties and composition')
+  select#element-type(class="select-copy-type") 
+  .btns-align
+    input.pop-up-submit-btn(id="submit-copy", href="#", type="button" value=i18n.__('Copy'))
+    input.pop-up-deny-btn(id="deny-remove", href="#", type="button" value=i18n.__('Cancel'))

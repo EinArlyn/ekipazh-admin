@@ -442,5 +442,8 @@
 	"x": "x",
 	"thermal conductivity": "thermal conductivity",
 	"Hardware by default": "Hardware by default",
-	"Edit hardware types": "Edit hardware types"
+	"Edit hardware types": "Edit hardware types",
+	"Copying set properties":  "Copying set properties",
+	"Select the set to copy its properties and composition": "Select the set to copy its properties and composition",
+	"Copy": "Copy"
 }

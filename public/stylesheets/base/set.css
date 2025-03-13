@@ -62,6 +62,18 @@ main .main-content {
       margin: 5px;
     }
 
+    .copy-settings-list {
+      position: absolute;
+      right: 0px;
+      top: -32px;
+      padding: 3px 10px;
+      /* border: 3px solid yellow; */
+      background-color: #4f9e2e;
+      color: white;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
     .header-content {
       float: left;
       width: 335px;
@@ -754,6 +766,15 @@ main .main-content {
 /**
  * Popup
  */
+
+ .alert-copy-list-popup {
+  display: none;
+  background-color: #e4e4e4;
+  padding: 20px;
+  select {
+    margin: 10px 0px;
+  }
+ }
  .edit-child-item-pop-up {
   display: none;
   width: 440px;

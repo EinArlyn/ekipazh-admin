@@ -83,6 +83,41 @@ $(function () {
     });
   });
 
+
+  // for copy form element
+  $('.copy-settings-list').click(function(e){
+    e.preventDefault();
+    var idElem = $('.copy-settings-list').attr('data');
+    $('.alert-copy-list-popup').popup('show');
+
+    $.get('/base/set/getElementsGroup/' + idElem, function (data) {
+      if (data) {
+        for (var i = 0; i < data.length; i++){
+          $('.select-copy-type').append("<option value='" + data[i].id + "'>" + data[i].name + " / " + data[i].id + "</option>")
+        }
+      }
+    });
+  });
+
+  $('#submit-copy').click(function(e){
+    e.preventDefault();
+    const idElem = $('.copy-settings-list').attr('data');
+    const copyForm = $('.select-copy-type').val();
+
+    $.post('/base/set/save-copy-group/' + copyForm + '/' + idElem, function(copy) {
+      window.location.reload();      
+    })
+            
+  })
+
+  $('.pop-up-deny-btn, .pop-up-close').click(function (e) {
+    e.preventDefault();
+    $('.alert-copy-list-popup').popup('hide');
+  })
+
+
+  // ---
+
     /** Submit editing */
     $('.edit-child-item-save').click(function (e) {
       e.preventDefault();

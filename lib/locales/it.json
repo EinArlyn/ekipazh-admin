@@ -551,5 +551,10 @@
 	"Yes": "Sì",
 	"No": "No",
 	"x": "x",
-	"Decors": "Decors"
+	"Decors": "Decors",
+	"Copying set properties": "Copia delle proprietà del set",
+	"Select the set to copy its properties and composition": "Seleziona il set per copiarne le proprietà e la composizione",
+	"Copy": "Copiare",
+	"For 1 m&#178; of parent": "For 1 m&#178; of parent",
+	"pcs for m&#178; of parent area": "pcs for m&#178; of parent area"
 }

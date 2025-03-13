@@ -535,5 +535,8 @@
     "Send order to factory for invoicing?": "¿Enviar pedido a la fábrica para facturación?",
     "Attention! Unchecking this box does not cancel the processing of the previously sent order by the factory. Uncheck the box?": "¡Atención! Desmarcar esta casilla no cancela el procesamiento del pedido previamente enviado a la fábrica. ¿Desmarcar la casilla?",
     "Yes": "Sí",
-    "No": "No"
+    "No": "No",
+	"Copying set properties":  "Copia de propiedades del conjunto",
+	"Select the set to copy its properties and composition": "Seleccione el conjunto para copiar sus propiedades y composición",
+	"Copy": "Copiar"
 }
