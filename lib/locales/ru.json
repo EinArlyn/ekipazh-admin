@@ -544,11 +544,11 @@
 	"Select the set to copy its properties and composition": "Выберите набор для копирования его свойств и состава",
 	"Copy": "Копировать",
 	"x": "x",
-	"Thermal_conductivity": "Thermal_conductivity",
-	"Height to handle": "Height to handle",
-	"Color of decors": "Color of decors",
-	"Client flat": "Client flat",
-	"Client floor": "Client floor",
-	"Frame type": "Frame type",
-	"Frame with aluminum threshold": "Frame with aluminum threshold"
+	"Thermal_conductivity": "Теплопроводность",
+	"Height to handle": "Высота до ручки",
+	"Color of decors": "Цвет декоров",
+	"Client flat": "кв.",
+	"Client floor": "этаж",
+	"Frame type": "Тип рамы",
+	"Frame with aluminum threshold": "Рама с алюминиевым порогом"
 }
