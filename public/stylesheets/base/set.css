@@ -393,14 +393,15 @@ main .main-content {
     }
 
       .glass-width-content {
-        width: 495px;
+        /* width: 495px; */
         margin: 0 auto;
+        padding: 10px 0;
       }
 
         .beed-profile {
           padding-top: 5px;
           padding-left: 30px;
-          width: 200px;
+          width: 250px;
           display: inline-block;
         }
 

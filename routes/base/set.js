@@ -57,6 +57,7 @@ function saveCopyGroup(req, res) {
   const newId = req.params.newId;
 
     models.sequelize.query(`
+        DELETE FROM beed_profile_systems WHERE list_id = :newId;
         DELETE FROM list_contents WHERE parent_list_id = :newId;
         UPDATE lists
         SET 
@@ -92,6 +93,11 @@ function saveCopyGroup(req, res) {
         SELECT :newId, child_id, child_type, value, rules_type_id, direction_id, window_hardware_color_id, lamination_type_id, modified, rounding_type, rounding_value
         FROM list_contents
         WHERE parent_list_id = :oldId;
+
+        INSERT INTO beed_profile_systems (profile_system_id, list_id, glass_width, modified)
+        SELECT profile_system_id, :newId, glass_width, modified
+        FROM beed_profile_systems
+        WHERE list_id = :oldId;
     `, {
         replacements: { oldId, newId }, 
         type: models.sequelize.QueryTypes.UPDATE
