@@ -44,7 +44,9 @@ function getElementsGroup(req, res) {
           id: elem.id
         };
         arrElemesType.push(obj);
-      })
+      });
+
+      arrElemesType.sort((a, b) => a.name.localeCompare(b.name));
       res.send(arrElemesType);
     })
   })
@@ -55,6 +57,7 @@ function saveCopyGroup(req, res) {
   const newId = req.params.newId;
 
     models.sequelize.query(`
+        DELETE FROM list_contents WHERE parent_list_id = :newId;
         UPDATE lists
         SET 
             list_group_id = source.list_group_id,
@@ -90,7 +93,7 @@ function saveCopyGroup(req, res) {
         FROM list_contents
         WHERE parent_list_id = :oldId;
     `, {
-        replacements: { oldId, newId }, // Подставляем параметры через безопасные переменные
+        replacements: { oldId, newId }, 
         type: models.sequelize.QueryTypes.UPDATE
     }).then(() => {
       res.json({ success: true, message: "Группа успешно сохранена!" });
