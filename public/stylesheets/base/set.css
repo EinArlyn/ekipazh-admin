@@ -774,6 +774,20 @@ main .main-content {
   padding: 20px;
   select {
     margin: 10px 0px;
+    width: 450px;
+  }
+  .search-filter {
+    margin: 5px 0;
+    padding: 5px 0;
+    .search-filter-name {
+      font-size: 13px;
+    }
+    input {
+      width: 442px;
+    }
+    span {
+      margin: 0 2px;
+    }
   }
  }
  .edit-child-item-pop-up {

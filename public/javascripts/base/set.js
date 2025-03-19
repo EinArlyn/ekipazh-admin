@@ -99,6 +99,23 @@ $(function () {
     });
   });
 
+  $('#search-input-copy-list').keyup(function(){
+    const idElem = $('.copy-settings-list').attr('data');
+    const searchField = $('#search-input-copy-list').val().toLowerCase(); 
+    if(searchField.length > 0) {
+      $.get('/base/set/getElementsGroup/' + idElem, function (data) {
+        if (data) {
+          let filteredData = data.filter(item => item.name.toLowerCase().includes(searchField));
+          data = filteredData;
+          $('.select-copy-type').empty();
+          for (var i = 0; i < data.length; i++){
+            $('.select-copy-type').append("<option value='" + data[i].id + "'>" + data[i].name + " / " + data[i].id + "</option>")
+          }
+        }
+      });
+    }
+  })
+
   $('#submit-copy').click(function(e){
     e.preventDefault();
     const idElem = $('.copy-settings-list').attr('data');
