@@ -144,11 +144,11 @@ $(function () {
       if ($(this).prop('checked')) {
         var laminationId = $(this).attr('value');
         var boxId = $(this).attr('id');
-        var laminationName = $('label[for=' + boxId + ']').text();
+        // var laminationName = $('label[for=' + boxId + ']').text();
 
         $.post('/base/options/lamination/save', {
           laminationId: laminationId,
-          laminationName: laminationName
+          // laminationName: laminationName
         }, function (data) {
           window.location.reload();
         });

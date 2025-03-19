@@ -465,20 +465,20 @@ function savePercent(req, res) {
 
 function saveLamination(req, res) {
   var laminationTypeId = req.body.laminationId;
-  var laminationName = req.body.laminationName;
+  // var laminationName = req.body.laminationName;
 
   models.lamination_factory_colors.find({
     where: {factory_id: req.session.user.factory_id, lamination_type_id: laminationTypeId}
   }).then(function (result) {
     if (result) {
       result.updateAttributes({
-        name : laminationName
+        // name : laminationName
       }).then(function(done) {
         res.end();
       });
     } else {
       models.lamination_factory_colors.create({
-        name: laminationName,
+        // name: laminationName,
         lamination_type_id: parseInt(laminationTypeId),
         factory_id: parseInt(req.session.user.factory_id)
       }).then(function (color) {
