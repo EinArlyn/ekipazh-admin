@@ -111,6 +111,16 @@ block content
                   option(value="0" selected)=i18n.__('Not exist')
                   each spillwaysFolder in spillwaysFolders
                     option(value=spillwaysFolder.id selected=(list.addition_folder_id === spillwaysFolder.id ? 'selected' : undefined))=spillwaysFolder.name
+            .additional-holes.hidden.additional-folders
+              span.additional-text-align
+                =i18n.__('Holes groups')
+                | :
+              br
+              span.additional-select-align
+                select.select-default#holes-group(style="width: 225px; margin-top: 5px; margin-bottom: 5px;")
+                  option(value="0" selected)=i18n.__('Not exist')
+                  each holesElemsFolder in holesElemsFolders
+                    option(value=holesElemsFolder.id selected=(list.addition_folder_id === holesElemsFolder.id ? 'selected' : undefined))=holesElemsFolder.name
             .additional-visors.hidden.additional-folders
               span.additional-text-align
                 =i18n.__('Visors group')
