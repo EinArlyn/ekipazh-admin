@@ -252,6 +252,8 @@ $(function () {
       $('.additional-doorhandles').show();
     } else if (group == 18) {
       $('.additional-otherElems').show();
+    } else if (group == 14) {
+      $('.additional-holes').show();
     } else if (group == 16) {
       $('.additional-decors').show();
     }
@@ -704,6 +706,9 @@ $(function () {
       _saveAdditionalFolder(setId, additionalFolderId);
       additionalFolderId = $('#spillway-group-color').val();
       _saveAdditionalColor(setId, additionalFolderId);
+    } else if (groupId == 14) {
+      additionalFolderId = $('#holes-group').val();
+      _saveAdditionalFolder(setId, additionalFolderId);
     } else if (groupId == 21) {
       additionalFolderId = $('#visors-group').val();
       _saveAdditionalFolder(setId, additionalFolderId);

@@ -538,5 +538,7 @@
     "No": "No",
 	"Copying set properties":  "Copia de propiedades del conjunto",
 	"Select the set to copy its properties and composition": "Seleccione el conjunto para copiar sus propiedades y composición",
-	"Copy": "Copiar"
+	"Copy": "Copiar",
+	"Technological holes": "Agujeros tecnológicos",
+	"Holes groups": "Grupos de agujeros"
 }

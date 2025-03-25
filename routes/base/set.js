@@ -164,7 +164,7 @@ function getSet (req, res) {
                   models.addition_folders.findAll({
                     where: {
                       factory_id: req.session.user.factory_id,
-                      addition_type_id: [8, 9, 21, 7, 12, 10, 11]
+                      addition_type_id: [8, 9, 21, 7, 12, 10, 11, 13]
                     }
                   }).then(function(folders) {
 
@@ -175,6 +175,7 @@ function getSet (req, res) {
                     const mosquitosFolders = folders.filter(folder => folder.addition_type_id === 12);
                     const doorhandlesFolders = folders.filter(folder => folder.addition_type_id === 10);
                     const otherElemsFolders = folders.filter(folder => folder.addition_type_id === 11);
+                    const holesElemsFolders = folders.filter(folder => folder.addition_type_id === 13);
                   
                     models.window_hardware_handles.find({
                       where: {list_id: id}
@@ -216,6 +217,7 @@ function getSet (req, res) {
                               mosquitosFolders   : mosquitosFolders,
                               doorhandlesFolders : doorhandlesFolders,
                               otherElemsFolders  : otherElemsFolders,
+                              holesElemsFolders  : holesElemsFolders,
                               handlesColors      : handlesColors,
                               decorsColors       : decorsColors,
                               windowSillsColors  : windowSillsColors,
