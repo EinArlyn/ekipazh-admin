@@ -461,14 +461,6 @@ block content
                       =i18n.__('on constructs')
                     td.header-2-discount-td
                       =i18n.__('on add. elements')
-                  //- tr.content-discount-tr
-                    //- td
-                    //-  =i18n.__('Max. discount')
-                    //-  | :
-                    //- td
-                    //-  input.discount-edit-input#option-discount-max-const(type="text")
-                    //- td
-                    //-  input.discount-edit-input#option-discount-max-add-elem(type="text")
                   tr.content-discount-tr
                     td
                       =i18n.__('Discount by default (base term 10 days)')
@@ -477,6 +469,14 @@ block content
                       input.discount-edit-input#option-discount-default-const(type="text")
                     td
                       input.discount-edit-input#option-discount-default-add-elem(type="text")
+                  tr.content-discount-tr
+                    td
+                     =i18n.__('Default discount')
+                     | :
+                    td
+                     input.discount-edit-input#option-discount-max-const(type="text")
+                    td
+                     input.discount-edit-input#option-discount-max-add-elem(type="text")
                   //- tr.content-discount-tr
                     td
                       =i18n.__('Set aside the order of 1 week of baseline')

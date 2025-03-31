@@ -994,7 +994,9 @@ console.error(data.error ?? data.error_1);
                 if (parseInt(USER_TABLE, 10) !== data.user.id && parseInt(PARENT_ID, 10) !== parseInt(USER_TABLE, 10)) {
                   $('#change-avatar').click(function(e) { e.preventDefault(); });
                   $('#delete-user').click(function(e) { e.preventDefault(); });
-                  $('#save-discount').click(function(e) { e.preventDefault(); });
+                  // $('#save-discount').click(function(e) { e.preventDefault(); });
+                  $('#save-discount').click(saveUserDiscounts);
+
                 } else {
                   $('#change-avatar').click(changeAvatar);
                   $('#avatar-input').change(avatarSelectHandler);
@@ -1006,13 +1008,13 @@ console.error(data.error ?? data.error_1);
                   $('#option-user-mob-phone').prop('disabled', false);
                 }
 
-                if (parseInt(USER_TABLE, 10) !== parseInt(PARENT_ID, 10)) {
-                  $('.discount-edit-input').prop('disabled', true);
-                }
+                // if (parseInt(USER_TABLE, 10) !== parseInt(PARENT_ID, 10)) {
+                //   $('.discount-edit-input').prop('disabled', true);
+                // }
 
-                if (parseInt(USER_TABLE, 10) === data.user.id && data.user.user_type === 7) {
-                  $('.discount-edit-input').prop('disabled', false);
-                }
+                // if (parseInt(USER_TABLE, 10) === data.user.id && data.user.user_type === 7) {
+                //   $('.discount-edit-input').prop('disabled', false);
+                // }
 
                 if (parseInt(USER_TABLE, 10) === parseInt(data.user.id, 10) && $('table#users-table').attr('data-user-type') == 7 || parseInt(USER_TABLE, 10) === parseInt(PARENT_ID, 10) && $('table#users-table').attr('data-user-type') == 7) {
                   $('.lighter-r.pro_lighter').css('display', 'inline-block');
@@ -1093,8 +1095,10 @@ console.error(data.error ?? data.error_1);
                   disabled = true;
                 }
 
-                $('#option-discount-max-const').val(userDiscounts.discounts.max_construct).prop('disabled', disabled);
-                $('#option-discount-max-add-elem').val(userDiscounts.discounts.max_add_elem).prop('disabled', disabled);
+                // $('#option-discount-max-const').val(userDiscounts.discounts.max_construct).prop('disabled', disabled);
+                // $('#option-discount-max-add-elem').val(userDiscounts.discounts.max_add_elem).prop('disabled', disabled);
+                $('#option-discount-max-const').val(userDiscounts.discounts.max_construct);
+                $('#option-discount-max-add-elem').val(userDiscounts.discounts.max_add_elem);
                 $('#option-discount-default-const').val(userDiscounts.discounts.default_construct);
                 $('#option-discount-default-add-elem').val(userDiscounts.discounts.default_add_elem);
                 $('#option-discount-week1-const').val(userDiscounts.discounts.week_1_construct);

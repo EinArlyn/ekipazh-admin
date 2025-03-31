@@ -191,6 +191,7 @@
 	"on constructs": "на конструкции",
 	"on add. elements": "на доп. элементы",
 	"Max. discount": "Максимальная скидка",
+	"Default discount": "Скидка по умолчанию (%)",
 	"Discount by default (base term 10 days)": "Величина наценки (%)",
 	"Mounting": "Монтаж",
 	"Markup for installation": "Наценка на монтаж",
