@@ -13,8 +13,8 @@ module.exports = function (req, res) {
       var oldRow = JSON.stringify(userDiscounts.dataValues);
 
       userDiscounts.updateAttributes({
-        //max_construct: parseFloat(req.body.maxConst),
-        //max_add_elem: parseFloat(req.body.maxAddEl),
+        max_construct: parseFloat(req.body.maxConst),
+        max_add_elem: parseFloat(req.body.maxAddEl),
         default_construct: parseFloat(req.body.defaultConst),
         default_add_elem: parseFloat(req.body.defaultAddEl),
         // week_1_construct: parseFloat(req.body.week1Const),
@@ -62,8 +62,8 @@ module.exports = function (req, res) {
       },
       attributes: ['max_construct', 'max_add_elem']
     }).then(function(parentDiscounts) {
-      if (parseFloat(maxConst) > parseFloat(parentDiscounts.max_construct)) return cb(false, parentDiscounts.max_construct);
-      if (parseFloat(maxAddEl) > parseFloat(parentDiscounts.max_add_elem)) return cb(false, parentDiscounts.max_add_elem);
+      // if (parseFloat(maxConst) > parseFloat(parentDiscounts.max_construct)) return cb(false, parentDiscounts.max_construct);
+      // if (parseFloat(maxAddEl) > parseFloat(parentDiscounts.max_add_elem)) return cb(false, parentDiscounts.max_add_elem);
 
       cb(true);
     }).catch(function(err) {

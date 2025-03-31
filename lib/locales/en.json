@@ -195,6 +195,7 @@
 	"on constructs": "on constructs",
 	"on add. elements": "on add. elements",
 	"Max. discount": "Max. discount",
+	"Default discount": "Default discount (%)",
 	"Discount by default (base term 10 days)": "Markup amount (%)",
 	"Mounting": "Mounting",
 	"Markup for installation": "Markup for installation",
