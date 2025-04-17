@@ -97,7 +97,7 @@ main {
         max-height: 0;
         overflow: hidden;
         &.open {
-          max-height: 2000px;
+          max-height: 5000px;
           /* overflow: auto; */
         }
       }

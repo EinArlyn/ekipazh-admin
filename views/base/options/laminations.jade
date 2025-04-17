@@ -125,7 +125,7 @@ block content
                           //-     else 
                           //-       option(data-lamination=laminationFactory.id value=lamination_folder.id)=lamination_folder.name 
                           br
-                          .lamination-settings-edit(data-lamination=laminationFactory.id) 
+                          .lamination-settings-edit(data-lamination=laminationFactory.id, data-color=laminationFactory.lamination_type_id) 
                           img(src=laminationFactory.lamination_default_color.url, class="b-img-radius" width="200" height="160")
                           .country-check-lamination
                             each country in countries 

@@ -1,6 +1,7 @@
 .pop-up.lamination-settings-edit-pop-up
   form#lamination-settings-edit-form(method="POST" action="/base/options/lamination/save-edit-lamination" enctype="multipart/form-data")
     input.hidden#lamination-settings-edit-input-id(type="text" name="color_id" value="")
+    input.hidden#edit-lamination-color-input-id(type="text" name="color_idimg" value="")
     .pop-up-close-wrap
       a(class="pop-up-close", href="#")
     span.pop-up-header
@@ -19,6 +20,11 @@
             label(for="")
               =i18n.__('Decors')
             select.select-default(id="lamination-decor-input" name="change_decor" style="width: 200px;")
+
+            .content-block-image
+              input.hidden(id="select-edit-lamination-color-image" type="file" name="folder_img")
+              a.group-img(href="#" type="button" id="lamination-color-img" style="margin-left: 10px;")
+              img.group-image(id="lamination-color-image" style="height: 64px; width: 124px; margin-left: 20px;" src="/local_storage/default.png")
 
     .submit-row
       input.btn-submit#submit-lamination-settings-edit(type="button" data-folder="" value=i18n.__('Save'))

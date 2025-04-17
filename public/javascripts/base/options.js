@@ -363,6 +363,7 @@ $(function () {
       $('.edit-lamination-color-pop-up').popup('show');
   
       
+
     });
 
     $('#edit-lamination-color-form').on('submit', function (e) {
@@ -492,6 +493,11 @@ $(function () {
 
   $('.lamination-settings-edit').click(function (e) {
     e.preventDefault();
+
+    var colorId = $(this).attr('data-color');
+    $('.edit-lamination-color-submit').attr('colorIdimg', colorId);
+    $('#edit-lamination-color-input-id').val(colorId);
+
     var laminationId = $(this).attr('data-lamination');
     editLaminationSettings(laminationId);
 

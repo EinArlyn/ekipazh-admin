@@ -241,6 +241,19 @@ function saveEditLamination(req, res) {
             lamination_folders_id: fields.change_group,
             addition_colors_id: fields.change_decor
           });
+          
+          if (files.folder_img.name) {
+            var url = '/local_storage/lamination_colors/' + Math.floor(Math.random()*1000000) + files.folder_img.name;
+            loadImage(files.folder_img.path, url);
+    
+            models.lamination_default_colors.findOne({
+              where: {id: parseInt(fields.color_idimg)}
+            }).then(function(laminationColor) {
+              laminationColor.updateAttributes({
+                url: url
+              });
+            });
+          }
         });
       
       res.send({status: true});
