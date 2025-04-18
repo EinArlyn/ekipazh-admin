@@ -14,6 +14,7 @@ module.exports = function (req, res) {
     }).then(function (color) {
       color.updateAttributes({
         name: fields.name,
+        lamination_factory_colors_id: fields.change_lamination_id,
         modified: new Date(),
       }).then(function(editColor) {
         if (!files.color_img.name) return res.send({ status: true });

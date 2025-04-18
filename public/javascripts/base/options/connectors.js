@@ -187,6 +187,21 @@ $(function() {
         $('.popup-edit-color input[name="name"]').val(data.color.name);
         $('.popup-edit-color img.color-image').attr('src', data.color.img);
         $('.popup-edit-color').popup('show');
+
+        $('#laminations-colors').find('option').remove();
+        for (var i = 0, len = data.laminations.length; i < len; i++) {
+          if (data.laminations[i].id === data.color.id) {
+            $('#laminations-colors').append('<option ' +
+              'value="' + data.lamination.id + '"' + 'selected' + '>' +
+              data.laminations[i].name +
+              '</option>');
+          } else {
+            $('#laminations-colors').append('<option ' +
+              'value="' + data.laminations[i].id + '">' +
+              data.laminations[i].name +
+              '</option>');
+          }
+        }
       }
     })
   }
