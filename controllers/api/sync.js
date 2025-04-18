@@ -33,7 +33,7 @@ module.exports = function (req, res) {
                 /** addition_colors */
                 models.addition_colors
                   .findAll({
-                    attributes: ["img", "lists_type_id", "name", "id"],
+                    attributes: ["img", "lists_type_id", "name", "id", "lamination_factory_colors_id"],
                   })
                   .then(function (addition_colors) {
                     var values = [];
@@ -43,6 +43,7 @@ module.exports = function (req, res) {
                       "lists_type_id",
                       "name",
                       "id",
+                      "lamination_factory_colors_id",
                     ];
                     sortValues(addition_colors, function (values) {
                       tables.addition_colors.rows = values;
