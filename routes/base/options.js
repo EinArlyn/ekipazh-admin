@@ -2118,31 +2118,41 @@ function getConnectors (req, res) {
 
         }).then(function(compliance_addition_folders){
 
-          const countryMap = {};
-          compliance_addition_folders.forEach(country => {
-            const { addition_folders_id, country_id } = country.dataValues;
-            if (!countryMap[addition_folders_id]) {
-              countryMap[addition_folders_id] = [];
-            }
-            countryMap[addition_folders_id].push(country_id);
-          });
-          connectorsFolders.forEach(folder => {
-              folder.country_ids = countryMap[folder.id] || [];
-          });
-        
-          res.render('base/options/connectors', {
-            i18n: i18n,
-            title: i18n.__('Connectors'),
-            connectorsFolders      : connectorsFolders,
-            connectorsColorsFolders: connectorsColorsFolders,
-            countries              : countries,
-            folderTypeId           : folderTypeId,
-            colorTypeId            : colorTypeId,
-            cssSrcs                : ['/assets/stylesheets/base/options/templates.css'],
-            scriptSrcs             : ['/assets/javascripts/vendor/localizer/i18next-1.10.1.min.js',
-                                      '/assets/javascripts/base/options/index.js',
-                                      '/assets/javascripts/base/options/connectors.js']
-          });
+            models.lamination_factory_colors.findAll({}).then(function(laminations){
+              connectorsColorsFolders.forEach(color => {
+                let findLamin = laminations.find(lamin => lamin.id == color.lamination_factory_colors_id);
+                if (findLamin) {
+                  color.laminationName = findLamin.name;
+                }
+              })
+            
+
+              const countryMap = {};
+              compliance_addition_folders.forEach(country => {
+                const { addition_folders_id, country_id } = country.dataValues;
+                if (!countryMap[addition_folders_id]) {
+                  countryMap[addition_folders_id] = [];
+                }
+                countryMap[addition_folders_id].push(country_id);
+              });
+              connectorsFolders.forEach(folder => {
+                  folder.country_ids = countryMap[folder.id] || [];
+              });
+            
+              res.render('base/options/connectors', {
+                i18n: i18n,
+                title: i18n.__('Connectors'),
+                connectorsFolders      : connectorsFolders,
+                connectorsColorsFolders: connectorsColorsFolders,
+                countries              : countries,
+                folderTypeId           : folderTypeId,
+                colorTypeId            : colorTypeId,
+                cssSrcs                : ['/assets/stylesheets/base/options/templates.css'],
+                scriptSrcs             : ['/assets/javascripts/vendor/localizer/i18next-1.10.1.min.js',
+                                          '/assets/javascripts/base/options/index.js',
+                                          '/assets/javascripts/base/options/connectors.js']
+              });
+          })
         })
       })
     }
