@@ -192,7 +192,7 @@ $(function() {
         for (var i = 0, len = data.laminations.length; i < len; i++) {
           if (data.laminations[i].id === data.color.lamination_factory_colors_id) {
             $('#laminations-colors').append('<option ' +
-              'value="' + data.laminations.id + '"' + 'selected' + '>' +
+              'value="' + data.laminations[i].id + '"' + 'selected' + '>' +
               data.laminations[i].name +
               '</option>');
           } else {

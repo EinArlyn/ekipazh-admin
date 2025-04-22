@@ -97,6 +97,9 @@ table.folders-table {
         width: 395px;
         padding: 5px;
         text-align: left;
+        .lamination-info-wrapper {
+          font-size: 13px;
+        }
       }
 
         .description-wraper {
@@ -115,6 +118,9 @@ table.folders-table {
         .edit-wrap {
           display: inline-block;
           width: 355px;
+          &.margin-top {
+            margin-top: 75px;
+          }
         }
 
         .btn-delete-folder,
@@ -177,7 +183,7 @@ table.folders-table {
 .popup-add-color,
 .popup-edit-color {
   width: 350px;
-  height: 200px;
+  height: 220px;
   border: 1px solid #e5e5e5;
   border-radius: 5px;
   background-color: #e4e4e4;
