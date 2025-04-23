@@ -28,6 +28,7 @@ $(function() {
       window.location = "/base/set/" + setId;
     }
   });
+  
 
   /*
     select operation for sets (edit / delete)
