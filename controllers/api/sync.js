@@ -1125,6 +1125,8 @@ module.exports = function (req, res) {
                       "is_push",
                       "glass_color",
                       "size",
+                      "lamination_size_1",
+                      "lamination_size_2",
                     ];
                     sortQueries(lists[0], function (values) {
                       var listIds = [];

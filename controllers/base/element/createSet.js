@@ -29,7 +29,9 @@ module.exports = function (req, res) {
     glass_type        : 1,
     glass_image       : 1,
     is_push           : 0,
-    glass_color       : 1
+    glass_color       : 1,
+    lamination_size_1 : 0,
+    lamination_size_2 : 0
   }).then(function (result) {
     models.lists.findOne({
       where: {id: result.id}

@@ -194,7 +194,9 @@ module.exports = function (req, res) {
       amendment_pruning: parseFloat(list.amendment_pruning) || 0.00,
       waste: parseFloat(list.waste) || 0.00,
       cameras: parseInt(list.cameras) || 1,
-      sills_group: parseInt(list.sills_group)
+      sills_group: parseInt(list.sills_group),
+      lamination_size_1: parseInt(list.lamination_size_1),
+      lamination_size_2: parseInt(list.lamination_size_2)
     }).then(function (result) {
       var newListId = result.id.toString();
 
