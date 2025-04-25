@@ -560,5 +560,7 @@
 	"Select the set to copy its properties and composition": "Виберіть набір для копіювання його властивостей і складу",
 	"Copy": "Копіювати",
 	"Technological holes": "Технологічні отвори",
-	"Holes groups": "Групи отворів"
+	"Holes groups": "Групи отворів",
+	"side": "Сторона",
+	"for_lamination": "Для ламінціі"
 }

@@ -127,6 +127,50 @@ $(function () {
             
   })
 
+  // sendvich lamin deps
+  $('.btn-show-sendvich-check').click(function(e) {
+    e.preventDefault();
+    $('.sendvich-check-lamination').removeClass('hidden');
+  });
+
+  $('.btn-close-sendvich-check').click(function(e) {
+    e.preventDefault();
+    $('.sendvich-check-lamination').addClass('hidden');
+  });
+
+  $('div.lamination-item input').click(function() {
+    laminationId = $(this).attr('value');
+    lamination_status = $(this).is(":checked");
+    var CheckLamination ={};
+    if (lamination_status)
+    {
+       CheckLamination[laminationId] = 1;
+    }
+    else
+    {
+       CheckLamination[laminationId] = 0;
+    }
+   setSendvichLamination($(this).attr('data-sendvich-id'), CheckLamination);
+  });
+
+  function setSendvichLamination(SendvichId, CheckLamination) {
+    $.post('/base/set/getSendvichLamination/' + SendvichId, CheckLamination
+    , function(data) {
+      if (!CheckLamination)
+      {
+        $("[name='checkLamination']").each(function() {
+            if (data[$(this).attr('value')]){
+              $(this).prop('checked', true);
+            }
+            else{
+              $(this).prop('checked', false);
+            }
+        });
+      }
+    });
+  }
+
+
   $('.pop-up-deny-btn, .pop-up-close').click(function (e) {
     e.preventDefault();
     $('.alert-copy-list-popup').popup('hide');

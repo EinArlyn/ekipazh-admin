@@ -48,6 +48,9 @@ main .main-content {
     box-shadow: inset 0 0 8px #bababa;
     margin-top: 5px;
   }
+  .content-wrap {
+    position: relative;
+  }
 
   #main-form {
     display: block;
@@ -458,6 +461,44 @@ main .main-content {
 
     .glass-content {
       padding: 5px 20px;
+    }
+
+    .btn-show-sendvich-check {
+      position: relative;
+      float: right;
+      background-color: #4f9e2e;
+      color: white;
+      padding: 3px 10px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .sendvich-check-lamination {
+      position: absolute;
+      top: 30px;
+      right: -7px;
+      display: flex;
+      flex-wrap: wrap;
+      align-content: flex-start;
+      background-color: white;
+      padding: 30px 10px;
+      width: 920px;
+      max-height: 450px;
+      overflow-y: auto;
+      border: 3px solid #c6c6c6;
+      z-index: 10;
+      .btn-close-sendvich-check {
+        position: absolute;
+        top: 5px;
+        right: 5px;
+        background-color: #4f9e2e;
+        border-radius: 5px;
+        padding: 3px 10px;
+        color: white;
+        cursor: pointer;
+      }
+      .lamination-item {
+        width: 300px;
+      }
     }
 
     .glass-header {

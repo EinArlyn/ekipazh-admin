@@ -910,6 +910,23 @@ module.exports = function (req, res) {
                   });
               },
               function (callback) {
+                /** compliance_lists_lamination_colors */
+                models.compliance_lists_lamination_colors
+                  .findAll()
+                  .then(function (compliance_lists_lamination_colors) {
+                    tables.compliance_lists_lamination_colors = {};
+                    tables.compliance_lists_lamination_colors.fields = [
+                      "lists_id",
+                      "lamination_factory_colors_id",
+                      "id",
+                    ];
+                    sortValues(compliance_lists_lamination_colors, function (values) {
+                      tables.compliance_lists_lamination_colors.rows = values;
+                      callback(null);
+                    });
+                  });
+              },
+              function (callback) {
                 /** elements_profile_systems */
                 models.sequelize
                   .query(
@@ -1158,8 +1175,6 @@ module.exports = function (req, res) {
                       "is_push",
                       "glass_color",
                       "size",
-                      "lamination_size_1",
-                      "lamination_size_2",
                     ];
                     sortQueries(lists[0], function (values) {
                       var listIds = [];
