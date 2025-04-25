@@ -541,5 +541,7 @@
 	"Select the set to copy its properties and composition": "Seleccione el conjunto para copiar sus propiedades y composición",
 	"Copy": "Copiar",
 	"Technological holes": "Agujeros tecnológicos",
-	"Holes groups": "Grupos de agujeros"
+	"Holes groups": "Grupos de agujeros",
+	"side": "Lado",
+	"for_lamination": "Para laminación"
 }

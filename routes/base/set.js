@@ -28,6 +28,9 @@ router.get('/is-push/:id/:groupId', isAuthenticated, checkListAvalabilityAsPush)
 router.get('/getElementsGroup/:id', isAuthenticated, getElementsGroup);
 router.post('/save-copy-group/:oldId/:newId', isAuthenticated, saveCopyGroup);
 
+router.post('/getSendvichLamination/:id', isAuthenticated, getSendvichLamination);
+
+
 function getElementsGroup(req, res) {
   var listId = req.params.id;
   models.lists.findOne({
@@ -185,6 +188,8 @@ function getSet (req, res) {
                           factory_id: req.session.user.factory_id
                         }
                       }).then(function(factoryLaminations) {
+                          factoryLaminations.sort((a, b) => a.name.localeCompare(b.name));
+
                           models.addition_colors.findAll({
                             where: {
                               lists_type_id: [24, 32, 33, 27, 20, 29, 25, 18]
@@ -200,42 +205,50 @@ function getSet (req, res) {
                             const visorsColors = colors.filter(color => color.lists_type_id === 29);
                             const otherElemsColors = colors.filter(color => color.lists_type_id === 18);
 
-                            res.render('base/set', {
-                              i18n               : i18n,
-                              title              : i18n.__('Edit set'),
-                              list               : list,
-                              parent_element     : parent_element,
-                              lists_groups       : lists_groups,
-                              lists_types        : lists_types,
-                              elementsChilds     : elementsChilds,
-                              listsChilds        : listsChilds,
-                              windowSillsFolders : windowSillsFolders,
-                              spillwaysFolders   : spillwaysFolders,
-                              visorsFolders      : visorsFolders,
-                              connectorsFolders  : connectorsFolders,
-                              size               : list.size,
-                              mosquitosFolders   : mosquitosFolders,
-                              doorhandlesFolders : doorhandlesFolders,
-                              otherElemsFolders  : otherElemsFolders,
-                              holesElemsFolders  : holesElemsFolders,
-                              handlesColors      : handlesColors,
-                              decorsColors       : decorsColors,
-                              windowSillsColors  : windowSillsColors,
-                              spillwaysColors    : spillwaysColors,
-                              connectorsColors   : connectorsColors,
-                              mosquitosColors    : mosquitosColors,
-                              visorsColors       : visorsColors,
-                              otherElemsColors   : otherElemsColors,
-                              hardwareHandles    : hardwareHandles,
-                              factoryLaminations : factoryLaminations,
-                              thisPageLink       : '/base/set/',
-                              cssSrcs            : ['/assets/stylesheets/base/set.css'],
-                              scriptSrcs         : ['/assets/javascripts/vendor/localizer/i18next-1.10.1.min.js', '/assets/javascripts/vendor/imagePicker/image-picker.min.js', '/assets/javascripts/base/set.js']
-                            });
-                    
-                        }).catch(function(error) {
-                          console.log(error);
-                          res.send('Internal sever error.');
+                            models.compliance_lists_lamination_colors.findAll({
+                              where: {lists_id: id}
+                            }).then(function(sendvichLamins){
+                            
+
+                              res.render('base/set', {
+                                i18n               : i18n,
+                                title              : i18n.__('Edit set'),
+                                list               : list,
+                                parent_element     : parent_element,
+                                lists_groups       : lists_groups,
+                                lists_types        : lists_types,
+                                elementsChilds     : elementsChilds,
+                                listsChilds        : listsChilds,
+                                windowSillsFolders : windowSillsFolders,
+                                spillwaysFolders   : spillwaysFolders,
+                                visorsFolders      : visorsFolders,
+                                connectorsFolders  : connectorsFolders,
+                                size               : list.size,
+                                mosquitosFolders   : mosquitosFolders,
+                                doorhandlesFolders : doorhandlesFolders,
+                                otherElemsFolders  : otherElemsFolders,
+                                holesElemsFolders  : holesElemsFolders,
+                                handlesColors      : handlesColors,
+                                decorsColors       : decorsColors,
+                                windowSillsColors  : windowSillsColors,
+                                spillwaysColors    : spillwaysColors,
+                                connectorsColors   : connectorsColors,
+                                mosquitosColors    : mosquitosColors,
+                                visorsColors       : visorsColors,
+                                otherElemsColors   : otherElemsColors,
+                                hardwareHandles    : hardwareHandles,
+                                factoryLaminations : factoryLaminations,
+                                sendvichLamins     : sendvichLamins,
+                                isCheckedSendvich  : isCheckedSendvich,
+                                thisPageLink       : '/base/set/',
+                                cssSrcs            : ['/assets/stylesheets/base/set.css'],
+                                scriptSrcs         : ['/assets/javascripts/vendor/localizer/i18next-1.10.1.min.js', '/assets/javascripts/vendor/imagePicker/image-picker.min.js', '/assets/javascripts/base/set.js']
+                              });
+                      
+                          }).catch(function(error) {
+                            console.log(error);
+                            res.send('Internal sever error.');
+                          });
                         });
                       });
                     });
@@ -285,7 +298,7 @@ function saveSet(req, res) {
         glass_type          : parseInt(fields.glass_type, 10) || 1,
         glass_image         : parseInt(fields.glass_image, 10) || 1,
         is_push             : isPush,
-        glass_color         : parseInt(fields.glass_color, 10)
+        glass_color         : parseInt(fields.glass_color, 10)        
       }).then(function (result) {
         if (lastLocation.length) {
           res.redirect(lastLocation);
@@ -578,6 +591,67 @@ function checkListAvalabilityAsPush (req, res) {
     console.log(error);
     res.send({ status: false, error: error });
   });
+}
+
+function getSendvichLamination (req, res) {
+  var groupId	= parseInt(req.params.id);
+  var obj = Object.assign({},req.body);
+  for (const property in obj) {
+    if (obj[property] == 1)
+    {
+       _saveSendvichSystem(groupId, property);
+    }
+    else
+    {
+       _destroySendvichSystem(groupId, property);
+    }
+  }  
+  models.sequelize.query("SELECT CLC.lists_id, CLC.lamination_factory_colors_id " +
+                         "FROM compliance_lists_lamination_colors CLC " +
+  "").then(function (compliance_lists_lamination_colors) {
+      var rows =  compliance_lists_lamination_colors[0];
+      var whps =  {};
+      for (var i = 0, len = rows.length; i < len; i++) {
+    whps[rows[i].lamination_factory_colors_id]=rows[i].lists_id;
+      };
+    console.log(whps);
+    res.send(whps);
+  });
+}
+
+function _saveSendvichSystem (sendvichId, laminationId) {
+  models.compliance_lists_lamination_colors.findOne({
+    where: {
+      lamination_factory_colors_id: laminationId,
+      lists_id: sendvichId
+    }
+  }).then(function (result) {
+    if (result) return;
+    models.compliance_lists_lamination_colors.create({
+      lamination_factory_colors_id: parseInt(laminationId, 10),
+      lists_id: parseInt(sendvichId, 10)
+    }).then(function (result) {
+      return;
+    });
+  });
+}
+
+function _destroySendvichSystem(sendvichId, laminationId) {
+  models.compliance_lists_lamination_colors.findOne({
+    where: {
+      lamination_factory_colors_id: laminationId,
+      lists_id: sendvichId
+    }
+  }).then(function (result) {
+    if (!result) return;
+    result.destroy().then(function () {
+      return;
+    });
+  });
+}
+
+function isCheckedSendvich(sendvichArr, list_id, lamination_id) {
+  return sendvichArr.find(sendvich => sendvich.lists_id == list_id && sendvich.lamination_factory_colors_id == lamination_id);
 }
 
 // function addAccessoryToList (req, res) {
