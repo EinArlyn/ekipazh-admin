@@ -29,6 +29,10 @@
     .sendvich-check-lamination.hidden
       .btn-close-sendvich-check 
         =i18n.__('Close')
+      .lamination-item
+        input(type="checkbox" id="lamination-checkbox" + 1 + list.id, name="checkLamination", data-sendvich-id=list.id, value=1, checked=isCheckedSendvich(sendvichLamins, list.id, 1))
+        label(for="lamination-checkbox" + 1 + list.id) 
+          =i18n.__('White')
       each lamination in factoryLaminations 
         //- - var isChecked = sendvichLamins.find(sendvich => sendvich.lists_id == list.id && sendvich.lamination_factory_colors_id == lamination.id)
         .lamination-item
