@@ -883,9 +883,9 @@ module.exports = function (req, res) {
                   .then(function (compliance_lists_lamination_colors) {
                     tables.compliance_lists_lamination_colors = {};
                     tables.compliance_lists_lamination_colors.fields = [
-                      "lists_id",
-                      "lamination_factory_colors_id",
                       "id",
+                      "lamination_factory_colors_id",
+                      "lists_id",
                     ];
                     sortValues(compliance_lists_lamination_colors, function (values) {
                       tables.compliance_lists_lamination_colors.rows = values;
