@@ -294,6 +294,7 @@ function getHardwareColors (req, res) {
   models.lamination_factory_colors.findAll({
     where: {factory_id: req.session.user.factory_id}
   }).then(function function_name (colors) {
+    colors = colors.sort((a, b) => a.name.localeCompare(b.name));
     res.send(colors);
   });
 }
