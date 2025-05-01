@@ -196,14 +196,14 @@ function getSet (req, res) {
                             }
                           }).then(function(colors) {
 
-                            const handlesColors = colors.filter(color => color.lists_type_id === 24);
-                            const decorsColors = colors.filter(color => color.lists_type_id === 25);
-                            const windowSillsColors = colors.filter(color => color.lists_type_id === 32);
-                            const spillwaysColors = colors.filter(color => color.lists_type_id === 33);
-                            const connectorsColors = colors.filter(color => color.lists_type_id === 27);
-                            const mosquitosColors = colors.filter(color => color.lists_type_id === 20);
-                            const visorsColors = colors.filter(color => color.lists_type_id === 29);
-                            const otherElemsColors = colors.filter(color => color.lists_type_id === 18);
+                            const handlesColors = colors.filter(color => color.lists_type_id === 24).sort((a, b) => a.name.localeCompare(b.name));
+                            const decorsColors = colors.filter(color => color.lists_type_id === 25).sort((a, b) => a.name.localeCompare(b.name));
+                            const windowSillsColors = colors.filter(color => color.lists_type_id === 32).sort((a, b) => a.name.localeCompare(b.name));
+                            const spillwaysColors = colors.filter(color => color.lists_type_id === 33).sort((a, b) => a.name.localeCompare(b.name));
+                            const connectorsColors = colors.filter(color => color.lists_type_id === 27).sort((a, b) => a.name.localeCompare(b.name));
+                            const mosquitosColors = colors.filter(color => color.lists_type_id === 20).sort((a, b) => a.name.localeCompare(b.name));
+                            const visorsColors = colors.filter(color => color.lists_type_id === 29).sort((a, b) => a.name.localeCompare(b.name));
+                            const otherElemsColors = colors.filter(color => color.lists_type_id === 18).sort((a, b) => a.name.localeCompare(b.name));
 
                             models.compliance_lists_lamination_colors.findAll({
                               where: {lists_id: id}
