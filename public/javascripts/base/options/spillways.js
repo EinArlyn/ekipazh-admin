@@ -52,6 +52,9 @@ $(function () {
     } else if (selectedOption == 16) {
       $('.checked-option').addClass('disabled');
       window.location.href = '/base/options/otherelems';
+    } else if (selectedOption == 18) {
+      $('.checked-option').addClass('disabled');
+      window.location.href = '/base/options/presets';
     }
   });
 

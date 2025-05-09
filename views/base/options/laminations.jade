@@ -29,6 +29,7 @@ block content
       option(value="15")=i18n.__('Decors')
       option(value="17")=i18n.__('Technological holes')
       option(value="16")=i18n.__('Others')
+      option(value="18")=i18n.__('Presets')
   form(method='post' action='/base/option/save' id="main-form")
     .lamination-option.checked-option
       .main-content
@@ -49,42 +50,6 @@ block content
                 =i18n.__('White')
               br
               img(src="/assets/images/lamination_colors/white.jpg" class="b-img-radius" width="200" height="70")
-
-            //- if (laminationsFactory)
-            //-   - var defaults = []
-            //-   each laminationFactory in laminationsFactory
-            //-     - defaults.push(laminationFactory.lamination_default_color.id)
-            //-     .lamination-color
-            //-       input.laminations-cb(id="checkbox" + laminationFactory.id, type="checkbox", data-delete-lamin=laminationFactory.id, value=laminationFactory.lamination_default_color.id, checked)
-            //-       label(for="checkbox" + laminationFactory.id)
-            //-         .editable-lamination
-            //-           =laminationFactory.name
-            //-       select.lamination-folders.select-default(name="new-lamination-folder")
-            //-         each lamination_folder in lamination_folders 
-            //-           if (lamination_folder.id == laminationFactory.lamination_folders_id)
-            //-             option(data-lamination=laminationFactory.id value=lamination_folder.id selected)=lamination_folder.name
-            //-           else 
-            //-             option(data-lamination=laminationFactory.id value=lamination_folder.id)=lamination_folder.name 
-            //-       br
-            //-       img(src=laminationFactory.lamination_default_color.url, class="b-img-radius" width="200" height="160")
-            //-       .country-check-lamination
-            //-         each country in countries 
-            //-           .country-item
-            //-             input(type="checkbox" id="country-checkbox" + country.id + laminationFactory.id, name="checkLamination", data-lamination-id=laminationFactory.id, value=country.id, checked=laminationFactory.country_ids.includes(country.id)?true:false)
-            //-             label(for="country-checkbox" + country.id + laminationFactory.id) 
-            //-               =country.name
-
-
-            //- each laminationColor in laminationsDefault
-            //-   if (defaults.indexOf(laminationColor.id) < 0)
-            //-     if (laminationColor.id !== 1)
-            //-       .lamination-color
-            //-         input.laminations-cb(id="checkbox00" + laminationColor.id, type="checkbox", value=laminationColor.id)
-            //-         label(for="checkbox00" + laminationColor.id)
-            //-           .editable-lamination
-            //-             =laminationColor.name
-            //-         br
-            //-         img(src=laminationColor.url, class="b-img-radius" width="200" height="160")
 
             each lamination_folder, index in lamination_folders
               .lamination-folder(class= (index === lamination_folders.length - 1 ? "last-folder" : "")) 

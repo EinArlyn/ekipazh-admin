@@ -103,6 +103,8 @@ router.get('/otherelems', isAuthenticated, otherElems);
 router.get('/holes', isAuthenticated, holesElems);
 /** getDecors */
 router.get('/decors', isAuthenticated, getDecors);
+/** getPresets */
+router.get('/presets', isAuthenticated, getPresets);
 
 /** Get aviable laminations for factory */
 function getLaminations (req, res) {
@@ -2377,6 +2379,28 @@ function getDecors (req, res) {
   });  
 }
 
+
+function getPresets (req, res) {
+  models.sets.findAll({}).then(function(sets){
+    models.set_data.findAll({}).then(function(set_data){
+      models.categories_sets.findAll({}).then(function(categories_sets){
+
+        
+
+
+
+
+        res.render('base/options/presets', {
+          i18n               : i18n,
+          title              : i18n.__('Options'),
+          thisPageLink       : '/base/options/',
+          cssSrcs            : ['/assets/stylesheets/base/options.css'],
+          scriptSrcs         : ['/assets/javascripts/vendor/localizer/i18next-1.10.1.min.js', '/assets/javascripts/base/options.js']
+        });
+      })
+    })
+  })
+}
 // function getWindowSills(req, res) {
 //   models.addition_folders.findAll({
 //     where: {factory_id: req.session.user.factory_id, addition_type_id: 8}
