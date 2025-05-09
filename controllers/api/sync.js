@@ -2111,7 +2111,7 @@ module.exports = function (req, res) {
                   .findAll()
                   .then(function (categories_sets) {
                     tables.categories_sets = {};
-                    tables.categories_sets.fields = ["id", "title"];
+                    tables.categories_sets.fields = ["id", "title", "position"];
                     sortValues(categories_sets, function (values) {
                       tables.categories_sets.rows = values;
                       callback(null);
@@ -2129,6 +2129,7 @@ module.exports = function (req, res) {
                     "is_visible",
                     "img",
                     "description",
+                    "position",
                   ];
                   sortValues(sets, function (values) {
                     tables.sets.rows = values;
