@@ -2701,7 +2701,7 @@ function getPresets (req, res) {
             models.window_hardware_groups.findAll({
               where: {is_in_calculation: 1}
             }).then(function(hardwares){
-              console.log('>>>>>>>>', categories_sets);
+              
               set_data.forEach(set => {
                 let findProfile = profiles.find(prof => prof.id == set.profile_systems_id);
                 let findHardware = hardwares.find(hard => hard.id == set.window_hardware_groups_id);
@@ -2710,6 +2710,9 @@ function getPresets (req, res) {
                 set.hardware_name = findHardware ? findHardware.name : 'nema';
                 set.glass_name = findGlass ? findGlass.name : 'nema';
               })
+
+              categories_sets = categories_sets.sort((a, b) => {return a.position - b.position});
+              sets = sets.sort((a, b) => {return a.position - b.position});
 
 
               res.render('base/options/presets', {

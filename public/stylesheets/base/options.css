@@ -87,6 +87,10 @@ main {
           .name-folder {
             font-size: 20px;
             padding-bottom: 10px;
+            span {
+              text-transform: lowercase;
+              font-size: 14px;
+            }
           }
 
           .edit-folder-wrap {
@@ -124,12 +128,14 @@ main {
                 span {
                   color: black;
                   background-color: #e8e8e8;
-                  font-weight: bold;
                   height: 10px;
                   &.name2 {
                     flex: 0.4;
                   }
                 }
+              }
+              span.preset-set-name {
+                font-size: 14px;
               }
               span {
                 display: flex;
@@ -151,6 +157,7 @@ main {
                 position: absolute;
                 top: -25px;
                 left: 0;
+                font-size: 10px;
               }
               .btns-wrap {
                 position: absolute;
