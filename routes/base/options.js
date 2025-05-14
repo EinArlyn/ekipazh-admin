@@ -463,7 +463,7 @@ function editPresetSet(req, res) {
                 var url = '/local_storage/profiles/' + Math.floor(Math.random()*1000000) + files.preset_img.name;
                 loadImage(files.preset_img.path, url);
                 currSet.updateAttributes({
-                  title: fields.name,
+                  name: fields.name,
                   categories_sets_id: fields.group,
                   description: fields.description,
                   position: fields.position,
@@ -471,7 +471,7 @@ function editPresetSet(req, res) {
                 })
               } else {
                 currSet.updateAttributes({
-                  title: fields.name,
+                  name: fields.name,
                   categories_sets_id: fields.group,
                   description: fields.description,
                   position: fields.position
@@ -565,7 +565,7 @@ function createPresetSet(req, res) {
 
          models.sets.create({
           categories_sets_id: parseInt(fields.group),
-          title: fields.name,
+          name: fields.name,
           position: parseInt(fields.position),
           description: fields.description,
           is_visible: 1
@@ -602,7 +602,7 @@ function addPresetFolder(req,res) {
       form.parse(req, function (err, fields, files) {
         
         models.categories_sets.create({
-          title: fields.name,
+          name: fields.name,
           position: parseInt(fields.position)
         }).then(function(result){
 
@@ -617,7 +617,7 @@ function getPresetsFolder(req, res) {
     where: {id: parseInt(folderId)}
   }).then(function(folder) {
     res.send({status: true, 
-              name      : folder.title,
+              name      : folder.name,
               position  : parseInt(folder.position)
             });
 
@@ -635,7 +635,7 @@ function editPresetFolder(req, res) {
           where: {id: parseInt(fields.folder_id)}
         }).then(function(folder) {
           folder.updateAttributes({
-            title: fields.name,
+            name: fields.name,
             position: parseInt(fields.position)
           })
         })

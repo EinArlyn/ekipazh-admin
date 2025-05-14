@@ -606,12 +606,12 @@ $(function () {
           if (data.preset && data.groups[i].id === data.preset.categories_sets_id) {
             $('#preset-group-input').append('<option ' +
               'value="' + data.preset.categories_sets_id + '"' + 'selected' + '>' +
-              data.groups[i].title +
+              data.groups[i].name +
               '</option>');
           } else {
             $('#preset-group-input').append('<option ' +
               'value="' + data.groups[i].id + '">' +
-              data.groups[i].title +
+              data.groups[i].name +
               '</option>');
           }
         }
@@ -674,7 +674,7 @@ $(function () {
 
         $('#description').val(data.preset.description);
 
-        $('#preset-name-popup').val(data.preset.title);
+        $('#preset-name-popup').val(data.preset.name);
         $('#preset-position-popup').val(data.preset.position);
         $('.edit-preset-set-submit').data_set
        
@@ -843,12 +843,12 @@ $(function () {
           if (data.groups[i].id == folderId) {
             $('#add-preset-group-input').append('<option ' +
               'value="' + folderId + '"' + 'selected' + '>' +
-              data.groups[i].title +
+              data.groups[i].name +
               '</option>');
           } else {
             $('#add-preset-group-input').append('<option ' +
               'value="' + data.groups[i].id + '">' +
-              data.groups[i].title +
+              data.groups[i].name +
               '</option>');
           }
         }

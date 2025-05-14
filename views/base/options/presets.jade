@@ -36,7 +36,7 @@ block content
         each presetsFolder in presetsFolders
           .preset-folder
             .name-folder 
-              =presetsFolder.title
+              =presetsFolder.name
             .edit-folder-wrap 
               .edit-presets-folder-btn(data-set-folder=presetsFolder.id) 
                 =i18n.__('Edit')
@@ -61,7 +61,7 @@ block content
                   - var findConfig = presetsConfig.find(function(config){return config.sets_id == presetsSet.id})
                   .preset-set
                     span.preset-set-name 
-                      =presetsSet.title
+                      =presetsSet.name
                     span.preset-set-position 
                       =presetsSet.position 
                     span.preset-set-profile
