@@ -37,6 +37,9 @@ block content
           .preset-folder
             .name-folder 
               =presetsFolder.name
+              span
+                = ' (' + i18n.__('Position')
+                = ' ' + presetsFolder.position  + ') '
             .edit-folder-wrap 
               .edit-presets-folder-btn(data-set-folder=presetsFolder.id) 
                 =i18n.__('Edit')
