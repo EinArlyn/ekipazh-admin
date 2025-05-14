@@ -31,13 +31,67 @@ block content
       option(value="16")=i18n.__('Others')
       option(value="18" selected)=i18n.__('Presets')
   form(method='post' action='/base/option/save' id="main-form")
-    
-        
-  include includes/lamination-add-group.jade
-  include includes/lamination-settings-edit.jade
-  include includes/lamination-edit-color.jade
-  include includes/lamination-add-color.jade
-  include includes/lamination-edit-gropu.jade
-  include includes/alert-delete-lamination-folder.jade
+    .presets-container 
+      .presets-folders
+        each presetsFolder in presetsFolders
+          .preset-folder
+            .name-folder 
+              =presetsFolder.title
+            .edit-folder-wrap 
+              .edit-presets-folder-btn(data-set-folder=presetsFolder.id) 
+                =i18n.__('Edit')
+              .delete-presets-folder-btn(data-set-folder=presetsFolder.id) 
+                =i18n.__('Remove')
+            .preset-set-container
+              .preset-set.header
+                span
+                  =i18n.__('Name')
+                span.name2
+                  =i18n.__('Position')
+                span
+                  =i18n.__('Profile')
+                span
+                  =i18n.__('Hardware')
+                span
+                  =i18n.__('Glass')
+                span
+                  =i18n.__('Description')
+              each presetsSet in presetsSets
+                if (presetsFolder.id === presetsSet.categories_sets_id)
+                  - var findConfig = presetsConfig.find(function(config){return config.sets_id == presetsSet.id})
+                  .preset-set
+                    span.preset-set-name 
+                      =presetsSet.title
+                    span.preset-set-position 
+                      =presetsSet.position 
+                    span.preset-set-profile
+                      =findConfig ? findConfig.profile_name : i18n.__('Not exist')
+                    span.preset-set-hardware
+                      =findConfig ? findConfig.hardware_name : i18n.__('Not exist')
+                    span.preset-set-glass
+                      =findConfig ? findConfig.glass_name : i18n.__('Not exist')
+                    span.preset-set-description
+                      =presetsSet.description
+                    .is-visible
+                      input(type="checkbox" id="presets-checkbox" + presetsSet.id, name="checkPreset", value=presetsSet.id, checked=(presetsSet.is_visible == 1) ? true : false)
+                      label(for="presets-checkbox" + presetsSet.id) 
+                        =i18n.__('Active')
+                    .btns-wrap
+                      .edit-set(data-set-data-id=findConfig?findConfig.id:0, data-set=presetsSet.id, data-categories-id=presetsFolder.id) 
+                        =i18n.__('Edit')
+                      .delete-set(data-set-data-id=findConfig?findConfig:0, data-set=presetsSet.id, data-categories-id=presetsFolder.id)
+                        =i18n.__('Remove')
+            .add-preset-wrap 
+              .add-preset-btn(data-set-folder=presetsFolder.id)  
+                =i18n.__('Add set')
+      .add-group-presets-wrap 
+        .add-group-presets-btn
+          =i18n.__('Add group +')
+  include includes/presets-edit-sets.jade
+  include includes/presets-edit-folder.jade
+  include includes/presets-add-set.jade
+  include includes/presets-add-folder.jade
+  include includes/presets-delete-sets.jade
+  include includes/presets-delete-folder.jade
 
 

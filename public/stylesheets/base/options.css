@@ -74,6 +74,138 @@ main {
       display: none;
     }
 
+    .presets-container {
+      border: 1px solid black;
+      margin-bottom: 10px;
+      .presets-folders {
+        overflow-y: auto;
+        height: 490px;
+        .preset-folder {
+          border: 1px solid black;
+          padding: 10px;
+          position: relative;
+          .name-folder {
+            font-size: 20px;
+            padding-bottom: 10px;
+          }
+
+          .edit-folder-wrap {
+            position: absolute;
+            top: 10px;
+            right: 20px;
+            display: flex;
+            gap: 10px;
+            font-size: 13px;
+            .edit-presets-folder-btn {
+              background-color: #4f9e2e;
+              color: white;
+              padding: 5px 10px;
+              border-radius: 5px;
+              cursor: pointer;
+            }
+            .delete-presets-folder-btn {
+              background-color: #cf2c2f;
+              color: white;
+              padding: 5px 10px;
+              border-radius: 5px;
+              cursor: pointer;
+            }
+          }
+
+          .preset-set-container  {
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+            padding: 10px;
+            .preset-set {
+              position: relative;
+              display: flex;
+              &.header {
+                span {
+                  color: black;
+                  background-color: #e8e8e8;
+                  font-weight: bold;
+                  height: 10px;
+                  &.name2 {
+                    flex: 0.4;
+                  }
+                }
+              }
+              span {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                height: 80px;
+                flex: 1;
+                font-size: 12px;
+                padding: 5px;
+                background: #c6c6c6;
+                color: black;
+                border: 1px solid white;
+                overflow: hidden;
+                &.preset-set-position {
+                  flex: 0.4;
+                }
+              }
+              .is-visible {
+                position: absolute;
+                top: -25px;
+                left: 0;
+              }
+              .btns-wrap {
+                position: absolute;
+                top: -25px;
+                display: flex;
+                gap: 10px;
+                right: 0;
+                .edit-set {
+                  font-size: 12px;
+                  padding: 5px 10px;
+                  background-color: #4f9e2e;
+                  color: white;
+                  border-radius: 5px;
+                  cursor: pointer;
+                }
+                .delete-set {
+                  font-size: 12px;
+                  padding: 5px 10px;
+                  background-color: #cf2c2f;
+                  color: white;
+                  border-radius: 5px;
+                  cursor: pointer;
+                }
+              }
+            }
+          }
+          .add-preset-wrap {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            .add-preset-btn {
+              background-color: #4f9e2e;
+              color: white;
+              padding: 5px 20px;
+              border-radius: 5px;
+              cursor: pointer;
+            }
+          }
+        }
+      }
+      .add-group-presets-wrap {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 10px;
+        .add-group-presets-btn {
+          background-color: #4f9e2e;
+          color: white;
+          border-radius: 5px;
+          padding: 5px 20px;
+          cursor: pointer;
+        }
+      }
+    }
+
     .lamination-folder {
       position: relative;
       transition: 0.5s;
@@ -932,6 +1064,60 @@ table.sill-folders-table {
       margin-bottom: 20px;
       input, select {
         margin-bottom: 5px;
+      }
+    }
+  }
+  .add-presets-folder-pop-up,
+  .edit-presets-folder-pop-up {
+    width: 400px;
+    height: 120px;
+    border: 1px solid #e5e5e5;
+    border-radius: 5px;
+    background-color: #e4e4e4;
+    padding: 20px;
+    font-size: 12px;
+    #add-presets-folder-form,
+    #edit-presets-folder-form {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+    .wrapp-btn {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 10px;
+    }
+  }
+
+  .edit-preset-set-pop-up,
+  .add-preset-set-pop-up {
+    width: 400px;
+    height: 500px;
+    border: 1px solid #e5e5e5;
+    border-radius: 5px;
+    background-color: #e4e4e4;
+    padding: 20px;
+    font-size: 12px;
+    #edit-preset-set-form,
+    #add-preset-set-form,
+    #add-presets-folder-form {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+    .wrapp-btn {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 10px;
+      .edit-preset-set-submit {
+        background-color: #4f9e2e;
+        color: white;
+        padding: 5px 10px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
       }
     }
   }

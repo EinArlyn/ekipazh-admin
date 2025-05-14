@@ -480,5 +480,6 @@
 	"Rounding": "Rounding",
 	"Divisible higher": "Divisible higher",
 	"Divisible lower": "Divisible lower",
-	"Divisible rule": "Divisible rule"
+	"Divisible rule": "Divisible rule",
+	"delete_message": "To delete, you need to move existing sets to another group or delete them"
 }

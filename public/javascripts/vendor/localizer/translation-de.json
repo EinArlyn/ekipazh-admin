@@ -55,6 +55,8 @@
   "Elements not exist": "Elemente nicht vorhanden",
   "The minimum term can not exceed the standard": "Die Mindestlaufzeit darf den Standard nicht überschreiten.",
   "Fill the name of group": "Bitte den Gruppennamen eingeben",
+  "delete_message": "Zum Löschen müssen die vorhandenen Sets in eine andere Gruppe verschoben oder gelöscht werden",
+  "Active": "Aktiv",
   "Profile has been activated": "Profil wurde aktiviert.",
   "Profile has been deactivated": "Profil wurde deaktiviert.",
   "Set of elements has been removed": "Satz von Elementen wurde entfernt.",

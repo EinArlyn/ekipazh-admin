@@ -88,6 +88,20 @@ router.get('/application/get-template/:id', isAuthenticated, getTemplate);
 router.post('/application/edit-template', isAuthenticated, editTemplate);
 router.post('/application/remove-template', isAuthenticated, removeTemplate);
 
+/** Presets */
+router.get('/presets', isAuthenticated, getPresets);
+router.get('/presets/getPresetsList/', isAuthenticated, getPresetsList);
+router.get('/presets/getPresetsForm', isAuthenticated, getPresetForm);
+router.get('/presets/getPresetsSettings/:id', isAuthenticated, getPresetsSettings);
+router.post('/presets/editPresetSet', isAuthenticated, editPresetSet);
+router.post('/presets/isVisiblePreset', isAuthenticated, isVisiblePreset);
+router.post('/presets/createPresetSet', isAuthenticated, createPresetSet);
+router.post('/presets/removeSet', isAuthenticated, removeSet);
+router.post('/presets/addPresetFolder', isAuthenticated, addPresetFolder);
+router.get('/presets/getPresetsFolder/:id', isAuthenticated, getPresetsFolder);
+router.post('/presets/editPresetFolder', isAuthenticated, editPresetFolder);
+router.post('/presets/removePresetsFolder', isAuthenticated, removePresetsFolder);
+
 // for all checkboxes country in addElems 
 router.post('/getAddElemsCountry/:id', isAuthenticated, getAddElemsCountry);
 
@@ -103,8 +117,6 @@ router.get('/otherelems', isAuthenticated, otherElems);
 router.get('/holes', isAuthenticated, holesElems);
 /** getDecors */
 router.get('/decors', isAuthenticated, getDecors);
-/** getPresets */
-router.get('/presets', isAuthenticated, getPresets);
 
 /** Get aviable laminations for factory */
 function getLaminations (req, res) {
@@ -366,7 +378,303 @@ function getLaminationSettings(req, res) {
     res.send({status: false});
   });
 }
+// -----------------------------------------------------------------------------
+// Presets 
 
+function getPresetsSettings(req, res) {
+  var presetId = req.params.id;
+  models.sets.findOne({
+    where: {id: presetId}
+  }).then(function(preset) {
+    models.set_data.findOne({
+      where: {sets_id: presetId}
+    }).then(function (data_set) {
+      models.lists.findAll({
+        where: {list_group_id: 6}
+      }).then(function(glasses){
+        models.profile_systems.findAll({
+          where: {is_editable: 1}
+        }).then(function(profiles){
+          models.window_hardware_groups.findAll({
+            where: {is_in_calculation: 1}
+          }).then(function(hardwares){
+            models.categories_sets.findAll({}).then(function(groups){
+              const glassArr = glasses.map(glas => glas.parent_element_id)
+              models.elements_profile_systems.findAll({
+                where: {
+                  element_id: glassArr
+                }
+              }).then(function(elements_profile_system){
+                models.window_hardware_profile_systems.findAll({}).then(function(profile_hardware){
+
+                  
+                  res.send({status: true, 
+                    preset           : preset,
+                    data_set         : data_set,
+                    glasses          : glasses,
+                    profiles         : profiles,
+                    hardwares        : hardwares,
+                    groups           : groups,
+                    profileGlasDeps  : elements_profile_system,
+                    profile_hardware : profile_hardware
+                  });
+                  
+                })
+              })
+            })
+          })
+        })
+      })
+    })
+  }).catch(function(err) {
+    console.log(err);
+    res.send({status: false});
+  });
+}
+
+function getPresetsList(req, res) {
+  const folderId = req.query.folderId;
+  models.sets.findOne({
+    where: {categories_sets_id: parseFloat(folderId)}
+  }).then(function(setsByFolder) {
+    if (setsByFolder) {
+      res.send({status: true});
+    } else {
+      res.send({status: false});
+    }
+  })
+}
+
+function editPresetSet(req, res) {
+  var form = new formidable.IncomingForm();
+  form.keepExtensions = true;
+  form.parse(req, function (err, fields, files) {
+        
+        models.sets.findOne({
+          where: {id: parseInt(fields.set_id)}
+        }).then(function (currSet) {
+          models.set_data.findOne({
+            where: {
+              sets_id: fields.set_id
+            }
+          }).then(function (currSetData) {
+            
+              if (files.preset_img.name) {
+                var url = '/local_storage/profiles/' + Math.floor(Math.random()*1000000) + files.preset_img.name;
+                loadImage(files.preset_img.path, url);
+                currSet.updateAttributes({
+                  title: fields.name,
+                  categories_sets_id: fields.group,
+                  description: fields.description,
+                  position: fields.position,
+                  img: url
+                })
+              } else {
+                currSet.updateAttributes({
+                  title: fields.name,
+                  categories_sets_id: fields.group,
+                  description: fields.description,
+                  position: fields.position
+                })
+              }
+
+              if (currSetData) {
+                currSetData.updateAttributes({
+                  profile_systems_id: fields.profile,
+                  window_hardware_groups_id: fields.hardware,
+                  list_id: fields.glass
+                })
+              } else {
+                models.set_data.create({
+                  sets_id: fields.set_id,
+                  id: fields.set_id,
+                  profile_systems_id: fields.profile,
+                  window_hardware_groups_id: fields.hardware,
+                  list_id: fields.glass
+                }).then(function(result){})
+              }
+
+          })
+        })
+
+      
+      res.send({status: true});
+  });
+}
+
+function removeSet(req, res) {
+  var setId = req.body.setId;
+
+  models.sets.findOne({
+    where: {id: setId}
+  }).then(function(sets) {
+    if (sets) {
+      sets.destroy().then(function() {
+        res.send({status: true});
+      });
+    }
+  }).catch(function(err) {
+    console.log(err);
+    res.send({status: false});
+  });
+}
+
+function getPresetForm(req, res) {
+  models.lists.findAll({
+      where: {list_group_id: 6}
+    }).then(function(glasses){
+      models.profile_systems.findAll({
+        where: {is_editable: 1}
+      }).then(function(profiles){
+        models.window_hardware_groups.findAll({
+          where: {is_in_calculation: 1}
+        }).then(function(hardwares){
+          models.categories_sets.findAll({}).then(function(groups){
+            const glassArr = glasses.map(glas => glas.parent_element_id)
+            models.elements_profile_systems.findAll({
+              where: {
+                element_id: glassArr
+              }
+            }).then(function(elements_profile_system){
+              models.window_hardware_profile_systems.findAll({}).then(function(profile_hardware){
+
+                res.send({status: true, 
+                  glasses          : glasses,
+                  profiles         : profiles,
+                  hardwares        : hardwares,
+                  groups           : groups,
+                  profileGlasDeps  : elements_profile_system,
+                  profile_hardware : profile_hardware
+                });
+                
+              })
+            })
+          })
+        })
+      })
+    }).catch(function(err) {
+      console.log(err);
+      res.send({status: false});
+  });
+}
+
+function createPresetSet(req, res) {
+    var form = new formidable.IncomingForm();
+      form.keepExtensions = true;
+      form.parse(req, function (err, fields, files) {
+
+         models.sets.create({
+          categories_sets_id: parseInt(fields.group),
+          title: fields.name,
+          position: parseInt(fields.position),
+          description: fields.description,
+          is_visible: 1
+         }).then(function(result){
+            models.set_data.create({
+              sets_id: parseInt(result.id),
+              profile_systems_id: parseInt(fields.profile),
+              list_id: parseInt(fields.glass),
+              window_hardware_groups_id: parseInt(fields.hardware)
+            }).then(function(newSetData){
+
+              if (files.add_preset_img.name) {
+                var url = '/local_storage/profiles/' + Math.floor(Math.random()*1000000) + files.add_preset_img.name;
+                loadImage(files.add_preset_img.path, url);
+                models.sets.findOne({
+                  where: {id: parseInt(result.id)}
+                }).then(function(newSet){
+                  newSet.updateAttributes({
+                    img: url
+                  });
+                });
+              }   
+            })
+         });
+
+        res.send({status: true});
+      });
+}
+
+
+function addPresetFolder(req,res) {
+  var form = new formidable.IncomingForm();
+      form.keepExtensions = true;
+      form.parse(req, function (err, fields, files) {
+        
+        models.categories_sets.create({
+          title: fields.name,
+          position: parseInt(fields.position)
+        }).then(function(result){
+
+          res.send({status: true});
+        })
+      });
+}
+
+function getPresetsFolder(req, res) {
+  var folderId = req.params.id;
+  models.categories_sets.findOne({
+    where: {id: parseInt(folderId)}
+  }).then(function(folder) {
+    res.send({status: true, 
+              name      : folder.title,
+              position  : parseInt(folder.position)
+            });
+
+  }).catch(function(err) {
+      console.log(err);
+      res.send({status: false});
+  });
+}
+
+function editPresetFolder(req, res) {
+  var form = new formidable.IncomingForm();
+      form.keepExtensions = true;
+      form.parse(req, function (err, fields, files) {
+        models.categories_sets.findOne({
+          where: {id: parseInt(fields.folder_id)}
+        }).then(function(folder) {
+          folder.updateAttributes({
+            title: fields.name,
+            position: parseInt(fields.position)
+          })
+        })
+
+        res.send({status: true});
+      });
+}
+
+function removePresetsFolder(req, res) {
+  var folderId = req.body.folderId;
+  models.categories_sets.findOne({
+    where: {id: parseInt(folderId)}
+  }).then(function(folder){
+    if (folder) {
+
+      folder.destroy().then(function() {
+        res.send({status: true});
+      });
+    }
+  }).catch(function(err) {
+    console.log(err);
+    res.send({status: false});
+  });
+}
+
+function isVisiblePreset(req, res) {
+  
+  const checkBoxInfo = req.body.checkBoxInfo;
+  const presetId = req.body.presetId;
+
+  models.sets.findOne({
+    where: {id: parseInt(presetId)}
+  }).then(function(curSet) {
+    curSet.updateAttributes({
+      is_visible: parseInt(checkBoxInfo)
+    });
+    res.send({status: true});
+  })
+}
 // -----------------------------------------------------------------------------
 
 /** Get aviable discounts for factory */
@@ -2384,19 +2692,40 @@ function getPresets (req, res) {
   models.sets.findAll({}).then(function(sets){
     models.set_data.findAll({}).then(function(set_data){
       models.categories_sets.findAll({}).then(function(categories_sets){
+        models.lists.findAll({
+          where: {list_group_id: 6}
+        }).then(function(glasses){
+          models.profile_systems.findAll({
+            where: {is_editable: 1}
+          }).then(function(profiles){
+            models.window_hardware_groups.findAll({
+              where: {is_in_calculation: 1}
+            }).then(function(hardwares){
+              console.log('>>>>>>>>', categories_sets);
+              set_data.forEach(set => {
+                let findProfile = profiles.find(prof => prof.id == set.profile_systems_id);
+                let findHardware = hardwares.find(hard => hard.id == set.window_hardware_groups_id);
+                let findGlass = glasses.find(glass => glass.id == set.list_id);
+                set.profile_name = findProfile ? findProfile.name : 'nema';
+                set.hardware_name = findHardware ? findHardware.name : 'nema';
+                set.glass_name = findGlass ? findGlass.name : 'nema';
+              })
 
-        
 
+              res.render('base/options/presets', {
+                i18n               : i18n,
+                title              : i18n.__('Options'),
+                presetsFolders     : categories_sets,
+                presetsSets        : sets,
+                presetsConfig      : set_data,
+                thisPageLink       : '/base/options/',
+                cssSrcs            : ['/assets/stylesheets/base/options.css'],
+                scriptSrcs         : ['/assets/javascripts/vendor/localizer/i18next-1.10.1.min.js', '/assets/javascripts/base/options.js']
+              });
 
-
-
-        res.render('base/options/presets', {
-          i18n               : i18n,
-          title              : i18n.__('Options'),
-          thisPageLink       : '/base/options/',
-          cssSrcs            : ['/assets/stylesheets/base/options.css'],
-          scriptSrcs         : ['/assets/javascripts/vendor/localizer/i18next-1.10.1.min.js', '/assets/javascripts/base/options.js']
-        });
+            })
+          })
+        })
       })
     })
   })

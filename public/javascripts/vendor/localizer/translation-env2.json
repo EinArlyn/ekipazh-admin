@@ -52,6 +52,8 @@
   "Elements not exist": "Elements not exist",
   "The minimum term can not exceed the standart": "The minimum term can not exceed the standart",
   "Fill the name of group": "Fill the name of group",
+  "delete_message": "To delete, you need to move existing sets to another group or delete them",
+  "Active": "Active",
   "Profile has been activated": "Profile has been activated.",
   "Profile has been deactivated": "Profile has been deactivated.",
   "Set of elements has been removed": "Set of elements has been removed",

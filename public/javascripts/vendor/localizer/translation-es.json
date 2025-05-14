@@ -55,6 +55,8 @@
     "Elements not exist": "Elementos no existen",
     "The minimum term can not exceed the standart": "El término mínimo no puede exceder el estándar.",
     "Fill the name of group": "Rellene el nombre del grupo",
+    "delete_message": "Para eliminar, es necesario mover los conjuntos existentes a otro grupo o eliminarlos",
+    "Active": "Activo",
     "Profile has been activated": "Perfil activado.",
     "Profile has been deactivated": "Perfil desactivado.",
     "Set of elements has been removed": "Conjunto de elementos ha sido eliminado.",

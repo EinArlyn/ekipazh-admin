@@ -1,0 +1,15 @@
+.pop-up.add-presets-folder-pop-up
+  form#add-presets-folder-form(method="POST" action="/base/options/presets/addPresetFolder" enctype="multipart/form-data")
+    input.hidden#add-presets-folder-input-id(type="text" name="folder_id" value="")
+    .pop-up-close-wrap
+      a(class="pop-up-close", href="#")
+
+    label(for="")
+            =i18n.__('Name')
+    input.input-default.input-margin-popup#add-preset-folder-name-popup(type="text" name="name" value="" style="width: 166px;")
+    label(for="")
+        =i18n.__('Position')
+    input.input-default.input-margin-popup#add-preset-folder-position-popup(type="text" name="position" value="0" style="width: 30px;")
+
+    .wrapp-btn
+      input.btn-submit#submit-add-presets-folder(type="button" data-folder="" value=i18n.__('Save'))

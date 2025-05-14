@@ -558,5 +558,6 @@
 	"for_lamination": "Для ламинации",
 	"Perimeter frame": "Perimeter frame",
 	"Discount on constructions": "Discount on constructions",
-	"Cost of constructions with discount": "Cost of constructions with discount"
+	"Cost of constructions with discount": "Cost of constructions with discount",
+	"delete_message": "Для удаления необходимо переместить имеющиеся комплекты в другую группу или удалить их"
 }

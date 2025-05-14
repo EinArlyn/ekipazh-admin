@@ -550,5 +550,6 @@
 	"Frame type": "Frame type",
 	"Frame with aluminum threshold": "Frame with aluminum threshold",
 	"Client flat": "Client flat",
-	"Client floor": "Client floor"
+	"Client floor": "Client floor",
+	"delete_message": "Para eliminar, es necesario mover los conjuntos existentes a otro grupo o eliminarlos"
 }
