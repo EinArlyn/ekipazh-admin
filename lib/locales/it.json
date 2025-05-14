@@ -561,5 +561,6 @@
 	"Technological holes": "Aperture tecnologiche",
 	"Holes groups": "Gruppi di fori",
 	"side": "Lato",
-	"for_lamination": "Per laminazione"
+	"for_lamination": "Per laminazione",
+	"delete_message": "Per eliminare, è necessario spostare i set esistenti in un altro gruppo o eliminarli"
 }

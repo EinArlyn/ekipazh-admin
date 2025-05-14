@@ -581,6 +581,597 @@ $(function () {
     });
   });
 
+// Presets
+
+  $('.edit-set').click(function (e) {
+    e.preventDefault();
+
+    var dataSetId = $(this).attr('data-set-data-id');
+    var setId = $(this).attr('data-set');
+    var categoriesId = $(this).attr('data-categories-id');
+    $('.edit-preset-set-submit').attr('setId', setId);
+    $('#edit-preset-set-input-id').val(setId);
+
+    editSetSettings(setId);
+
+  })
+
+  // Edit Set
+  function editSetSettings (setId) {
+    $.get('/base/options/presets/getPresetsSettings/' + setId, function (data) {
+      if (data.status) {
+
+        $('#preset-group-input').find('option').remove();
+        for (var i = 0, len = data.groups.length; i < len; i++) {
+          if (data.preset && data.groups[i].id === data.preset.categories_sets_id) {
+            $('#preset-group-input').append('<option ' +
+              'value="' + data.preset.categories_sets_id + '"' + 'selected' + '>' +
+              data.groups[i].title +
+              '</option>');
+          } else {
+            $('#preset-group-input').append('<option ' +
+              'value="' + data.groups[i].id + '">' +
+              data.groups[i].title +
+              '</option>');
+          }
+        }
+
+        $('#preset-profile-input').find('option').remove();
+        for (var i = 0, len = data.profiles.length; i < len; i++) {
+          if (data.data_set && data.profiles[i].id === data.data_set.profile_systems_id) {
+            $('#preset-profile-input').append('<option ' +
+              'value="' + data.data_set.profile_systems_id + '"' + 'selected' + '>' +
+              data.profiles[i].name +
+              '</option>');
+          } else {
+            $('#preset-profile-input').append('<option ' +
+              'value="' + data.profiles[i].id + '">' +
+              data.profiles[i].name +
+              '</option>');
+          }
+        }
+
+        const profileSelect = $('#preset-profile-input option:selected').val();
+        data.profile_hardware = data.profile_hardware.filter(hardware => hardware.profile_system_id == profileSelect);
+        
+        $('#preset-hardware-input').find('option').remove();
+        for (var i = 0, len = data.hardwares.length; i < len; i++) {
+          let checkHardware = data.profile_hardware.find(hardware => hardware.window_hardware_group_id == data.hardwares[i].id);
+          if (checkHardware) {
+            if (data.data_set && data.hardwares[i].id === data.data_set.window_hardware_groups_id) {
+              $('#preset-hardware-input').append('<option ' +
+                'value="' + data.data_set.window_hardware_groups_id + '"' + 'selected' + '>' +
+                data.hardwares[i].name +
+                '</option>');
+              } else {
+              $('#preset-hardware-input').append('<option ' +
+                'value="' + data.hardwares[i].id + '">' +
+                data.hardwares[i].name +
+                '</option>');
+              }
+            }
+          }
+          
+        data.profileGlasDeps = data.profileGlasDeps.filter(glas => glas.profile_system_id == profileSelect);
+
+        $('#preset-glass-input').find('option').remove();
+        for (var i = 0, len = data.glasses.length; i < len; i++) {
+          let checkGlas = data.profileGlasDeps.find(glas => glas.element_id == data.glasses[i].parent_element_id);
+          if (checkGlas) {
+            if (data.data_set && data.glasses[i].id === data.data_set.list_id) {
+              $('#preset-glass-input').append('<option ' +
+                'value="' + data.data_set.list_id + '"' + 'selected' + '>' +
+                data.glasses[i].name +
+                '</option>');
+            } else {
+              $('#preset-glass-input').append('<option ' +
+                'value="' + data.glasses[i].id + '">' +
+                data.glasses[i].name +
+                '</option>');
+            }
+          }
+        }
+
+        $('#description').val(data.preset.description);
+
+        $('#preset-name-popup').val(data.preset.title);
+        $('#preset-position-popup').val(data.preset.position);
+        $('.edit-preset-set-submit').data_set
+       
+        $('.edit-preset-set-pop-up').popup('show');
+        $('#edit-preset-set-input-id').val(setId)
+      }
+    })
+  }
+
+  $("#preset-profile-input").change(function() {
+      changePresetProfile();
+    });
+
+  // filter glass list by profile 
+  function changePresetProfile() {
+    const setId =  $('#edit-preset-set-input-id').val();
+
+    $.get('/base/options/presets/getPresetsSettings/' + setId, function (data) {
+        const profileSelect = $('#preset-profile-input option:selected').val();
+        data.profile_hardware = data.profile_hardware.filter(hardware => hardware.profile_system_id == profileSelect);
+        
+        $('#preset-hardware-input').find('option').remove();
+        for (var i = 0, len = data.hardwares.length; i < len; i++) {
+          let checkHardware = data.profile_hardware.find(hardware => hardware.window_hardware_group_id == data.hardwares[i].id);
+          if (checkHardware) {
+            if (data.data_set && data.hardwares[i].id === data.data_set.window_hardware_groups_id) {
+              $('#preset-hardware-input').append('<option ' +
+                'value="' + data.data_set.window_hardware_groups_id + '"' + 'selected' + '>' +
+                data.hardwares[i].name +
+                '</option>');
+              } else {
+              $('#preset-hardware-input').append('<option ' +
+                'value="' + data.hardwares[i].id + '">' +
+                data.hardwares[i].name +
+                '</option>');
+              }
+            }
+          }
+          
+        data.profileGlasDeps = data.profileGlasDeps.filter(glas => glas.profile_system_id == profileSelect);
+
+        $('#preset-glass-input').find('option').remove();
+        for (var i = 0, len = data.glasses.length; i < len; i++) {
+          let checkGlas = data.profileGlasDeps.find(glas => glas.element_id == data.glasses[i].parent_element_id);
+          if (checkGlas) {
+            if (data.data_set && data.glasses[i].id === data.data_set.list_id) {
+              $('#preset-glass-input').append('<option ' +
+                'value="' + data.data_set.list_id + '"' + 'selected' + '>' +
+                data.glasses[i].name +
+                '</option>');
+            } else {
+              $('#preset-glass-input').append('<option ' +
+                'value="' + data.glasses[i].id + '">' +
+                data.glasses[i].name +
+                '</option>');
+            }
+          }
+        }
+    })
+  }
+  
+  $('.edit-preset-set-submit').click(function(e) {
+    e.preventDefault();  
+    $('#edit-preset-set-form').submit();
+  });
+
+  $('#edit-preset-set-form').on('submit', function (e) {
+    e.preventDefault();
+
+    var formData = new FormData(this);
+
+    $.ajax({
+      type:'POST',
+      url: $(this).attr('action'),
+      data: formData,
+      cache: false,
+      contentType: false,
+      processData: false,
+      success: function(data) {
+        if (data.status) {
+          setTimeout(function() {
+            $('.pop-up').popup('hide');
+            window.location.reload();
+          }, 300);
+        }
+      },
+      error: function(data){
+        console.log("error");
+        console.log(data);
+      }
+    });
+  });
+
+  $('#preset-set-img').click(function() {
+      $('#select-edit-preset-set-image').trigger('click');
+    });
+
+    /** On image change */
+    $('#select-edit-preset-set-image').change(function (evt) {
+      var files = evt.target.files;
+      for (var i = 0, f; f = files[i]; i++) {
+        // Only process image files.
+        if (!f.type.match('image.*')) {
+          continue;
+        }
+        var reader = new FileReader();
+        // Closure to capture the file information.
+        reader.onload = (function(theFile) {
+          return function(e) {
+            $('#preset-set-image').attr('src', e.target.result);
+          };
+        })(f);
+        reader.readAsDataURL(f);
+      }
+    });
+
+
+  // Preset remove
+  $('.delete-set').click(function(e) {
+    e.preventDefault();
+
+    var setId = $(this).attr('data-set');
+    $('#delete-preset-set-submit').attr('data-set', setId);
+    $('.delete-alert.delete-preset-set-alert').popup('show');
+  });
+
+    /** Submit removing folder */
+    $('#delete-preset-set-submit').click(function(e) {
+      e.preventDefault();
+      showLoader();
+      var setId = $(this).attr('data-set');
+      $.post('/base/options/presets/removeSet', {
+        setId: setId
+      }, function(data) {
+        if (data.status) {
+          $('.delete-preset-set-alert').popup('hide');
+          window.location.reload();
+        }
+      });
+    });
+    /** Deny removing folder */
+    $('#delete-preset-set-deny').click(function(e) {
+      e.preventDefault();
+
+      $('.delete-preset-set-alert').popup('hide');
+    });
+
+  $('.pop-up-close-wrap').click(function(e) {
+    e.preventDefault();
+
+    $('.pop-up').popup('hide');
+    $('.pop-up-default').popup('hide');
+  });
+
+
+  // add Preset Set
+  $('.add-preset-btn').click(function(e) {
+    e.preventDefault();
+    const folderId = $(this).attr('data-set-folder');
+    $('#add-preset-set-input-id').val(folderId);
+
+    $.get('/base/options/presets/getPresetsForm/', function (data) {
+      if (data.status) {
+        $('#add-preset-group-input').find('option').remove();
+        for (var i = 0, len = data.groups.length; i < len; i++) {
+          if (data.groups[i].id == folderId) {
+            $('#add-preset-group-input').append('<option ' +
+              'value="' + folderId + '"' + 'selected' + '>' +
+              data.groups[i].title +
+              '</option>');
+          } else {
+            $('#add-preset-group-input').append('<option ' +
+              'value="' + data.groups[i].id + '">' +
+              data.groups[i].title +
+              '</option>');
+          }
+        }
+
+        $('#add-preset-profile-input').find('option').remove();
+        for (var i = 0, len = data.profiles.length; i < len; i++) {
+          if (i === 0 ) {
+            $('#add-preset-profile-input').append('<option ' +
+              'value="' + data.profiles[i].id + '"' + 'selected' + '>' +
+              data.profiles[i].name +
+              '</option>');
+          } else {
+            $('#add-preset-profile-input').append('<option ' +
+              'value="' + data.profiles[i].id + '">' +
+              data.profiles[i].name +
+              '</option>');
+          }
+        }
+
+        const profileSelect = $('#add-preset-profile-input option:selected').val();
+        data.profile_hardware = data.profile_hardware.filter(hardware => hardware.profile_system_id == profileSelect);
+        
+        $('#add-preset-hardware-input').find('option').remove();
+        for (var i = 0, len = data.hardwares.length; i < len; i++) {
+          let checkHardware = data.profile_hardware.find(hardware => hardware.window_hardware_group_id == data.hardwares[i].id);
+          if (checkHardware) {
+            if (i === 0) {
+              $('#add-preset-hardware-input').append('<option ' +
+                'value="' + data.hardwares[i].id + '"' + 'selected' + '>' +
+                data.hardwares[i].name +
+                '</option>');
+              } else {
+              $('#add-preset-hardware-input').append('<option ' +
+                'value="' + data.hardwares[i].id + '">' +
+                data.hardwares[i].name +
+                '</option>');
+              }
+            }
+          }
+          
+        data.profileGlasDeps = data.profileGlasDeps.filter(glas => glas.profile_system_id == profileSelect);
+
+        $('#add-preset-glass-input').find('option').remove();
+        for (var i = 0, len = data.glasses.length; i < len; i++) {
+          let checkGlas = data.profileGlasDeps.find(glas => glas.element_id == data.glasses[i].parent_element_id);
+          if (checkGlas) {
+            if (i === 0) {
+              $('#add-preset-glass-input').append('<option ' +
+                'value="' + data.glasses[i].id + '"' + 'selected' + '>' +
+                data.glasses[i].name +
+                '</option>');
+            } else {
+              $('#add-preset-glass-input').append('<option ' +
+                'value="' + data.glasses[i].id + '">' +
+                data.glasses[i].name +
+                '</option>');
+            }
+          }
+        }
+
+        $('#add-description').val('');
+
+        $('#add-preset-name-popup').val('');
+        $('#add-preset-position-popup').val(0);
+       
+        $('.add-preset-set-pop-up').popup('show');
+      }
+    })
+
+  });
+
+  $('#add-preset-set-img').click(function() {
+      $('#select-add-preset-set-image').trigger('click');
+    });
+
+    /** On image change */
+    $('#select-add-preset-set-image').change(function (evt) {
+      var files = evt.target.files;
+      for (var i = 0, f; f = files[i]; i++) {
+        // Only process image files.
+        if (!f.type.match('image.*')) {
+          continue;
+        }
+        var reader = new FileReader();
+        // Closure to capture the file information.
+        reader.onload = (function(theFile) {
+          return function(e) {
+            $('#add-preset-set-image').attr('src', e.target.result);
+          };
+        })(f);
+        reader.readAsDataURL(f);
+      }
+    });
+
+  $("#add-preset-profile-input").change(function() {
+      changeAddPresetProfile();
+    });
+
+    // filter glass list by profile 
+  function changeAddPresetProfile() {
+
+    $.get('/base/options/presets/getPresetsForm/', function (data) {
+        const profileSelect = $('#add-preset-profile-input option:selected').val();
+        data.profile_hardware = data.profile_hardware.filter(hardware => hardware.profile_system_id == profileSelect);
+        
+        $('#add-preset-hardware-input').find('option').remove();
+        for (var i = 0, len = data.hardwares.length; i < len; i++) {
+          let checkHardware = data.profile_hardware.find(hardware => hardware.window_hardware_group_id == data.hardwares[i].id);
+          if (checkHardware) {
+            if (i === 0) {
+              $('#add-preset-hardware-input').append('<option ' +
+                'value="' + data.hardwares[i].id + '"' + 'selected' + '>' +
+                data.hardwares[i].name +
+                '</option>');
+              } else {
+              $('#add-preset-hardware-input').append('<option ' +
+                'value="' + data.hardwares[i].id + '">' +
+                data.hardwares[i].name +
+                '</option>');
+              }
+            }
+          }
+          
+        data.profileGlasDeps = data.profileGlasDeps.filter(glas => glas.profile_system_id == profileSelect);
+
+        $('#add-preset-glass-input').find('option').remove();
+        for (var i = 0, len = data.glasses.length; i < len; i++) {
+          let checkGlas = data.profileGlasDeps.find(glas => glas.element_id == data.glasses[i].parent_element_id);
+          if (checkGlas) {
+            if (i === 0) {
+              $('#add-preset-glass-input').append('<option ' +
+                'value="' + data.glasses[i].id + '"' + 'selected' + '>' +
+                data.glasses[i].name +
+                '</option>');
+            } else {
+              $('#add-preset-glass-input').append('<option ' +
+                'value="' + data.glasses[i].id + '">' +
+                data.glasses[i].name +
+                '</option>');
+            }
+          }
+        }
+    })
+  }
+
+  
+  $('.add-preset-set-submit').click(function(e) {
+    e.preventDefault();  
+    $('#add-preset-set-form').submit();
+  });
+
+  $('#add-preset-set-form').on('submit', function (e) {
+    e.preventDefault();
+
+    var formData = new FormData(this);
+
+    $.ajax({
+      type:'POST',
+      url: $(this).attr('action'),
+      data: formData,
+      cache: false,
+      contentType: false,
+      processData: false,
+      success: function(data) {
+        if (data.status) {
+          setTimeout(function() {
+            $('.pop-up').popup('hide');
+            window.location.reload();
+          }, 300);
+        }
+      },
+      error: function(data){
+        console.log("error");
+        console.log(data);
+      }
+    });
+  });
+
+  // add Preset Folder
+  $('.add-group-presets-btn').click(function(e) {
+    e.preventDefault();
+    $('.add-presets-folder-pop-up').popup('show');
+  });
+
+  $('#submit-add-presets-folder').click(function(e) {
+    e.preventDefault();  
+    $('#add-presets-folder-form').submit();
+  });
+  
+  $('#add-presets-folder-form').on('submit', function (e) {
+    e.preventDefault();
+
+    var formData = new FormData(this);
+
+    $.ajax({
+      type:'POST',
+      url: $(this).attr('action'),
+      data: formData,
+      cache: false,
+      contentType: false,
+      processData: false,
+      success: function(data) {
+        if (data.status) {
+          setTimeout(function() {
+            $('.pop-up').popup('hide');
+            window.location.reload();
+          }, 300);
+        }
+      },
+      error: function(data){
+        console.log("error");
+        console.log(data);
+      }
+    });
+  });
+
+  // remove Preset Folder
+  $('.delete-presets-folder-btn').click(function(e) {
+    e.preventDefault();
+    const folderId = $(this).attr('data-set-folder');
+    $.get('/base/options/presets/getPresetsList', {
+      folderId: folderId
+    }, function(result) {
+      if (result.status) {
+        showToaster(i18n.t('delete_message'), true);
+      } else {
+        $('#delete-preset-folder-submit').attr('data-folder', folderId);
+        $('.delete-alert.delete-preset-folder-alert').popup('show');
+      }
+    })
+
+  });
+
+  
+
+    /** Submit removing folder */
+    $('#delete-preset-folder-submit').click(function(e) {
+      e.preventDefault();
+      showLoader();
+      var folderId = $(this).attr('data-folder');
+      $.post('/base/options/presets/removePresetsFolder', {
+        folderId: folderId
+      }, function(data) {
+        if (data.status) {
+          $('.delete-preset-folder-alert').popup('hide');
+          window.location.reload();
+        }
+      });
+    });
+    /** Deny removing folder */
+    $('#delete-preset-folder-deny').click(function(e) {
+      e.preventDefault();
+
+      $('.delete-preset-folder-alert').popup('hide');
+    });
+
+  $('.pop-up-close-wrap').click(function(e) {
+    e.preventDefault();
+
+    $('.pop-up').popup('hide');
+    $('.pop-up-default').popup('hide');
+  });
+
+  // edit Preset Folder
+  $('.edit-presets-folder-btn').click(function(e) {
+    e.preventDefault();
+    const folderId = $(this).attr('data-set-folder');
+    
+    $.get('/base/options/presets/getPresetsFolder/' + folderId, function (data) {
+      if (data.status) {
+        $('#edit-preset-folder-name-popup').val(data.name);
+        $('#edit-preset-folder-position-popup').val(data.position);
+
+        $('#edit-presets-folder-input-id').val(folderId);
+        $('.edit-presets-folder-pop-up').popup('show');
+      }
+    })
+  });
+
+  $('#submit-edit-presets-folder').click(function(e){
+    e.preventDefault();
+    $('#edit-presets-folder-form').submit();
+  })
+
+  $('#edit-presets-folder-form').on('submit', function (e) {
+    e.preventDefault();
+
+    var formData = new FormData(this);
+
+    $.ajax({
+      type:'POST',
+      url: $(this).attr('action'),
+      data: formData,
+      cache: false,
+      contentType: false,
+      processData: false,
+      success: function(data) {
+        if (data.status) {
+          setTimeout(function() {
+            $('.pop-up').popup('hide');
+            window.location.reload();
+          }, 300);
+        }
+      },
+      error: function(data){
+        console.log("error");
+        console.log(data);
+      }
+    });
+  });
+
+  $("[name='checkPreset']").click(function(e) {
+    // e.preventDefault();
+    const presetId = $(this).attr('value');
+    const checkBoxInfo = ($(this).prop('checked') == true) ? 1 : 0;
+
+    $.post('/base/options/presets/isVisiblePreset', {
+      presetId: presetId,
+      checkBoxInfo: checkBoxInfo
+    }, function(result){})
+    
+  })
+
   // ---------------------------------------------------------------
   // lamination folders end 
   /** Change discounts */

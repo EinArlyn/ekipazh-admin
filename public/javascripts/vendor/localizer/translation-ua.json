@@ -55,6 +55,8 @@
   "Elements not exist": "Елементи відсутні",
   "The minimum term can not exceed the standart": "Мінімальний термін не може перевищувати стандартний.",
   "Fill the name of group": "Заповніть поле імені групи",
+  "delete_message": "Для видалення необхідно перенести наявні комплекти до іншої групи або їх видалити",
+  "Active": "Активний",
   "Profile has been activated": "Профіль активовано.",
   "Profile has been deactivated": "Профіль деактивовано.",
   "Set of elements has been removed": "Набір елементів видалено.",

@@ -1,0 +1,38 @@
+.pop-up.edit-preset-set-pop-up
+    form#edit-preset-set-form(method="POST" action="/base/options/presets/editPresetSet" enctype="multipart/form-data")
+        input.hidden#edit-preset-set-input-id(type="text" name="set_id" value="")
+        .pop-up-close-wrap
+            a.pop-up-close(href="#")
+
+        br
+
+        label(for="")
+            =i18n.__('Name')
+        input.input-default.input-margin-popup#preset-name-popup(type="text" name="name" value="" style="width: 166px;")
+        label(for="")
+            =i18n.__('Position')
+        input.input-default.input-margin-popup#preset-position-popup(type="text" name="position" value="" style="width: 30px;")
+        label(for="")
+            =i18n.__('Group')
+        select.select-default(id="preset-group-input" name="group" style="width: 200px;")
+        label(for="")
+            =i18n.__('Profile')
+        select.select-default(id="preset-profile-input" name="profile" style="width: 200px;")
+        label(for="")
+            =i18n.__('Glass')
+        select.select-default(id="preset-glass-input" name="glass" style="width: 200px;")
+        label(for="")
+            =i18n.__('Hardware')
+        select.select-default(id="preset-hardware-input" name="hardware" style="width: 200px;")
+        label(for="")
+            =i18n.__('Description')
+        textarea.input-default.input-margin(id="description" name="description" style="width: 220px; height: 100px; resize: none;")
+
+        .content-block-image
+            input.hidden(id="select-edit-preset-set-image" type="file" name="preset_img")
+            a.group-img(href="#" type="button" id="preset-set-img" style="margin-left: 10px;")
+            img.group-image(id="preset-set-image" style="height: 64px; width: 124px; margin-left: 20px;" src="/local_storage/default.png")
+
+        .wrapp-btn
+            button.edit-preset-set-submit(data-set="" type="submit") 
+                =i18n.__('Save') 
