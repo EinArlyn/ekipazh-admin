@@ -656,6 +656,70 @@ module.exports = function (req, res) {
                   });
               },
               function (callback) {
+                /** locales_names */
+                models.locales_names
+                  .findAll({
+                    where: {
+                      factory_id: factory_id,
+                      table_name: "categories_sets",
+                    },
+                  })
+                  .then(function (locales_names) {
+                    tables.locales_names_categories_sets = {};
+                    tables.locales_names_categories_sets.fields = [
+                      "id",
+                      "table_name",
+                      "table_id",
+                      "table_attr",
+                      "ru",
+                      "en",
+                      "ua",
+                      "de",
+                      "ro",
+                      "it",
+                      "pl",
+                      "es",
+                      "bg",
+                    ];
+                    sortValues(locales_names, function (values) {
+                      tables.locales_names_categories_sets.rows = values;
+                      callback(null);
+                    });
+                  });
+              },
+              function (callback) {
+                /** locales_names */
+                models.locales_names
+                  .findAll({
+                    where: {
+                      factory_id: factory_id,
+                      table_name: "sets",
+                    },
+                  })
+                  .then(function (locales_names) {
+                    tables.locales_names_sets = {};
+                    tables.locales_names_sets.fields = [
+                      "id",
+                      "table_name",
+                      "table_id",
+                      "table_attr",
+                      "ru",
+                      "en",
+                      "ua",
+                      "de",
+                      "ro",
+                      "it",
+                      "pl",
+                      "es",
+                      "bg",
+                    ];
+                    sortValues(locales_names, function (values) {
+                      tables.locales_names_sets.rows = values;
+                      callback(null);
+                    });
+                  });
+              },
+              function (callback) {
                 /** doors_groups with doors laminations dependencies */
                 models.doors_folders
                   .findAll({
