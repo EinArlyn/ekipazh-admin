@@ -17,3 +17,4 @@ exports.removeOrderProperties = require("./removeOrderProperties");
 exports.getExport = require("./getExport");
 exports.top = require("./top");
 exports.externalCallback = require("./external-callback");
+exports.createAuthToken = require("./create-auth-token");

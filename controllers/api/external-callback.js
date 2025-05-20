@@ -15,10 +15,10 @@ module.exports = async function (req, res) {
         }
 
         const timestamp = Date.now();
-        const postData = { user_id: user.id, timestamp };
+        const data = { user_id: user.id, timestamp };
 
         try {
-            const response = await sendPostRequest(callback_url, postData);
+            const response = await sendPostRequest(callback_url, data);
             res.send({ status: true, message: 'Callback request sent successfully', response });
         } catch (error) {
             console.error('Error sending POST request:', error);

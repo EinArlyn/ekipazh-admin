@@ -21,7 +21,8 @@ module.exports = function (req, res) {
       if (fields.new_password !== fields.new_password_repeat) return res.send({ status: false });
 
       user.updateAttributes({
-        password: md5(fields.new_password)
+        password: md5(fields.new_password),
+        password_updated_at: Date.now()
       }).then(function () {
         res.send({ status: true });
       }).catch(function (error) {
