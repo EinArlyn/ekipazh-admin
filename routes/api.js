@@ -19,5 +19,6 @@ router.post("/remove", api.remove);
 router.post("/remove-order-properties", api.removeOrderProperties);
 router.get("/export", api.getExport);
 router.get("/top", api.top);
+router.post("/external-callback", api.externalCallback);
 
 module.exports = router;

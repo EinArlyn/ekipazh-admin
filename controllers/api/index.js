@@ -16,3 +16,4 @@ exports.remove = require("./remove");
 exports.removeOrderProperties = require("./removeOrderProperties");
 exports.getExport = require("./getExport");
 exports.top = require("./top");
+exports.externalCallback = require("./external-callback");
