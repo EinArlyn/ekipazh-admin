@@ -18,3 +18,4 @@ exports.getExport = require("./getExport");
 exports.top = require("./top");
 exports.externalCallback = require("./external-callback");
 exports.createAuthToken = require("./create-auth-token");
+exports.oneTimeLogin = require("./one-time-login");

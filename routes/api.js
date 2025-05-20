@@ -21,5 +21,6 @@ router.get("/export", api.getExport);
 router.get("/top", api.top);
 router.post("/auth/external-callback", api.externalCallback);
 router.post("/auth/create-auth-token", api.createAuthToken);
+router.post("/auth/one-time-login", api.oneTimeLogin);
 
 module.exports = router;
