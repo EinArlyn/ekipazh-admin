@@ -6,12 +6,12 @@ module.exports = async function (req, res) {
     try {
         const { device_code, callback_url } = req.body;
         if (!device_code || !callback_url) {
-            return res.status(400).send({ status: false, message: 'Missing required fields' });
+            return res.status(400).send({ status: false, message: 'Missing required fields', meta: { device_code, callback_url } });
         }
 
         const user = await getUserByDeviceCode(device_code);
         if (!user) {
-            return res.status(404).send({ status: false, message: 'User not found' });
+            return res.status(404).send({ status: false, message: 'User not found', meta: { device_code, callback_url } });
         }
 
         const timestamp = Date.now();
@@ -19,14 +19,14 @@ module.exports = async function (req, res) {
 
         try {
             const response = await sendPostRequest(callback_url, data);
-            res.send({ status: true, message: 'Callback request sent successfully', response });
+            res.send({ status: true, message: 'Callback request sent successfully', response, meta: { device_code, callback_url } });
         } catch (error) {
             console.error('Error sending POST request:', error);
-            res.status(500).send({ status: false, message: `Failed to send callback request: ${error.message}` });
+            res.status(500).send({ status: false, message: `Failed to send callback request: ${error.message}`, meta: { device_code, callback_url } });
         }
     } catch (error) {
         console.error('Error processing request:', error);
-        res.status(500).send({ status: false, message: 'Internal server error' });
+        res.status(500).send({ status: false, message: 'Internal server error', meta: { device_code, callback_url } });
     }
 };
 
