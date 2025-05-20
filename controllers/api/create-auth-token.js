@@ -1,4 +1,3 @@
-const { message } = require('emailjs');
 const models = require('../../lib/models');
 const crypto = require('crypto');
 
@@ -22,7 +21,7 @@ module.exports = async function (req, res) {
         const timestamps = generateTokenTimestamps();
         await saveTokenToDatabase(token, user_id, timestamps);
 
-        res.send({ status: true, meta: { user_id, timestamp }, token, message: 'Token generated successfully' });
+        res.send({ status: true, meta: { user_id, timestamp }, data: { token }, message: 'Token generated successfully' });
     } catch (error) {
         console.error('Error processing request:', error);
         res.status(500).send({ status: false, message: 'Internal server error', meta: { user_id, timestamp } });
@@ -79,8 +78,8 @@ async function saveTokenToDatabase(token, userId, timestamps) {
         const oneTimeToken = await models.one_time_tokens.create({
             token,
             user_id: userId,
-            created_at: new Date(timestamps.createdAt),
-            expires_at: new Date(timestamps.expiresAt)
+            created_at: timestamps.createdAt,
+            expires_at: timestamps.expiresAt
         });
 
         return oneTimeToken;
