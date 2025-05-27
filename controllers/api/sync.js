@@ -255,6 +255,26 @@ module.exports = function (req, res) {
                   });
               },
               function (callback) {
+                /** glasses_folders */
+                models.sequelize
+                  .query(
+                    "SELECT glass_folders_id, element_id " +
+                      "FROM glasses_folders " +
+                      ""
+                  )
+                  .then(function (glasses_folders) {
+                    tables.glasses_folders = {};
+                    tables.glasses_folders.fields = [
+                      "glass_folders_id",
+                      "element_id",
+                    ];
+                    sortQueries(glasses_folders[0], function (values) {
+                      tables.glasses_folders.rows = values;
+                      callback(null);
+                    });
+                  });
+              },
+              function (callback) {
                 /** locales_names */
                 models.locales_names
                   .findAll({
@@ -439,8 +459,7 @@ module.exports = function (req, res) {
                       "bg",
                     ];
                     sortValues(locales_names, function (values) {
-                      tables.locales_names_addition_colors.rows =
-                        values;
+                      tables.locales_names_addition_colors.rows = values;
                       callback(null);
                     });
                   });
@@ -721,6 +740,13 @@ module.exports = function (req, res) {
                           },
                         },
                         attributes: [
+                          "img",
+                          "description",
+                          "link",
+                          "heat_coeff_value",
+                          "noise_coeff",
+                          "heat_coeff",
+                          "cameras",
                           "rama_sill_list_id",
                           "code_sync_white",
                           "shtulp_list_id",
@@ -744,6 +770,13 @@ module.exports = function (req, res) {
 
                         tables.doors_groups = {};
                         tables.doors_groups.fields = [
+                          "img",
+                          "description",
+                          "link",
+                          "heat_coeff_value",
+                          "noise_coeff",
+                          "heat_coeff",
+                          "cameras",
                           "rama_sill_list_id",
                           "code_sync_white",
                           "shtulp_list_id",
@@ -1156,7 +1189,7 @@ module.exports = function (req, res) {
                   .findAll()
                   .then(function (lamination_types) {
                     tables.lamination_types = {};
-                    tables.lamination_types.fields = ["modified", "name", "id"];
+                    tables.lamination_types.fields = ["code_sync", "modified", "name", "id"];
                     sortValues(lamination_types, function (values) {
                       tables.lamination_types.rows = values;
                       callback(null);
@@ -1425,7 +1458,7 @@ module.exports = function (req, res) {
                 /** profile_systems */
                 models.sequelize
                   .query(
-                    `SELECT S.id, S.name, S.short_name, S.folder_id, S.rama_list_id, S.rama_still_list_id, S.stvorka_list_id, S.impost_list_id, S.impost_in_stvorka_list_id, S.shtulp_list_id, S.is_editable, S.is_default, S.position, S.country, S.modified, S.cameras, S.heat_coeff, S.noise_coeff, S.heat_coeff_value, S.link, S.description, S.img, S.is_push
+                    `SELECT S.id, S.name, S.short_name, S.folder_id, S.rama_list_id, S.rama_still_list_id, S.stvorka_list_id, S.impost_list_id, S.impost_in_stvorka_list_id, S.shtulp_list_id, S.is_editable, S.is_default, S.position, S.country, S.modified, S.cameras, S.heat_coeff, S.noise_coeff, S.heat_coeff_value, S.link, S.description, S.img, S.is_push, S.code_sync
                     FROM profile_systems S
                     JOIN profile_system_folders F ON S.folder_id = F.id
                     JOIN users AS U ON U.id = ${userId}
@@ -1466,6 +1499,7 @@ module.exports = function (req, res) {
                       "description",
                       "img",
                       "is_push",
+                      "code_sync",
                     ];
                     sortQueries(profile_systems[0], function (values) {
                       tables.profile_systems.rows = values;
@@ -1547,6 +1581,35 @@ module.exports = function (req, res) {
                         });
                     });
                   });
+              },
+              function (callback) {
+                /** profile_systems_groups */
+                models.sequelize.query(
+                  `SELECT S.id, S.name, PSG.key
+                  FROM profile_systems S
+                  JOIN profile_system_folders F ON S.folder_id = F.id
+                  JOIN users AS U ON U.id = ${userId}
+                  JOIN cities AS C ON C.id = U.city_id
+                  JOIN regions AS R ON R.id = C.region_id
+                  JOIN compliance_profile_systems AS CPS ON CPS.country_id = R.country_id
+                  JOIN profile_systems_groups_assoc AS PSGA ON PSGA.profile_system_id = S.id
+                  JOIN profile_systems_groups AS PSG ON PSG.id = PSGA.profile_systems_group_id
+                  WHERE F.factory_id = ${factory_id} AND S.is_editable = 1 AND S.id = CPS.profile_system_id`
+                ).then(function (profile_systems_groups) {
+                  tables.profile_systems_groups = {};
+                  tables.profile_systems_groups.fields = [
+                    "id",
+                    "name",
+                    "key",
+                  ];
+                  sortQueries(
+                    profile_systems_groups[0],
+                    function (values) {
+                      tables.profile_systems_groups.rows = values;
+                      callback(null);
+                    }
+                  );
+                });
               },
               function (callback) {
                 /** price_koefficients */
@@ -1841,7 +1904,7 @@ module.exports = function (req, res) {
                 /** window_hardware_groups */
                 models.sequelize
                   .query(
-                    `SELECT G.id, G.name, G.short_name, G.is_editable, G.folder_id, G.is_group, G.is_in_calculation, G.position, G.modified, G.link, G.description, G.img, G.producer, G.country, G.heat_coeff, G.noise_coeff, G.is_default, G.min_height, G.max_height, G.min_width, G.max_width, G.is_push
+                    `SELECT G.id, G.name, G.short_name, G.is_editable, G.folder_id, G.is_group, G.is_in_calculation, G.position, G.modified, G.link, G.description, G.img, G.producer, G.country, G.heat_coeff, G.noise_coeff, G.is_default, G.min_height, G.max_height, G.min_width, G.max_width, G.is_push, G.code_sync
                     FROM window_hardware_groups G
                     JOIN window_hardware_folders F ON G.folder_id = F.id
                     JOIN users AS U ON U.id = ${userId}
@@ -1875,6 +1938,7 @@ module.exports = function (req, res) {
                       "min_width",
                       "max_width",
                       "is_push",
+                      "code_sync"
                     ];
                     sortQueries(window_hardware_groups[0], function (values) {
                       tables.window_hardware_groups.rows = values;
@@ -2152,6 +2216,36 @@ module.exports = function (req, res) {
                     tables.set_data.rows = values;
                     callback(null);
                   });
+                });
+              },
+              function (callback) {
+                /** users_special_discounts */
+                models.sequelize.query(
+                  `SELECT USD.users_directions_id, USD.users_id, USD.profile_systems_code_sync, USD.window_hardware_groups_code_sync, USD.lamination_types_code_sync, USD.non_standart, USD.type_constr, USD.skidka, USD.priority
+                  FROM users_special_discounts AS USD
+                  JOIN users AS U ON U.id = ${userId}
+                  WHERE (USD.users_directions_id = U.direction_id OR USD.users_directions_id = -1) AND (USD.users_id = U.id OR USD.users_id = -1)
+                  ORDER BY USD.priority DESC`
+                ).then(function (users_special_discounts) {
+                  tables.users_special_discounts = {};
+                  tables.users_special_discounts.fields = [
+                    "users_directions_id",
+                    "users_id",
+                    "profile_systems_code_sync",
+                    "window_hardware_groups_code_sync",
+                    "lamination_types_code_sync",
+                    "non_standart",
+                    "type_constr",
+                    "skidka",
+                    "priority",
+                  ];
+                  sortQueries(
+                    users_special_discounts[0],
+                    function (values) {
+                      tables.users_special_discounts.rows = values;
+                      callback(null);
+                    }
+                  );
                 });
               },
             ],

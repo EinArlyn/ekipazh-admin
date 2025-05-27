@@ -33,4 +33,4 @@ jobs:
           password: ${{ secrets.SSH_PASSWORD }}
           script: |
             echo "Connected to server"
-            pm2 restart 12  # Перезапуск процесса с id 12
+            pm2 restart 6  # Перезапуск процесса с id 6
