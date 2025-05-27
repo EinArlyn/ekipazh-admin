@@ -1757,6 +1757,24 @@ module.exports = function (req, res) {
                   });
               },
               function (callback) {
+                /** users_discounts */
+                models.user_margin
+                  .findAll()
+                  .then(function (user_margin) {
+                    tables.user_margin = {};
+                    tables.user_margin.fields = [
+                      "margin_add_elem",
+                      "margin_construct",
+                      "user_id",
+                      "id",
+                    ];
+                    sortValues(user_margin, function (values) {
+                      tables.user_margin.rows = values;
+                      callback(null);
+                    });
+                  });
+              },
+              function (callback) {
                 /** users_markups */
                 models.sequelize
                   .query(
