@@ -199,6 +199,7 @@
 	"on add. elements": "sugli elementi aggiuntivi",
 	"Max. discount": "Sconto massimo",
 	"Default discount": "Sconto predefinito (%)",
+	"markup_for_dealer": "Ricarico per il rivenditore (%)",
 	"Discount by default (base term 10 days)": "Importo del margine (%)",
 	"Mounting": "Installazione",
 	"Markup for installation": "Ricarica per installazione",

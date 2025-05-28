@@ -196,6 +196,7 @@
 	"on add. elements": "on add. elements",
 	"Max. discount": "Max. discount",
 	"Default discount": "Default discount (%)",
+	"markup_for_dealer": "Markup for dealer (%)",
 	"Discount by default (base term 10 days)": "Markup amount (%)",
 	"Mounting": "Mounting",
 	"Markup for installation": "Markup for installation",
