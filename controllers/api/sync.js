@@ -1758,18 +1758,18 @@ module.exports = function (req, res) {
               },
               function (callback) {
                 /** users_discounts */
-                models.user_margin
+                models.user_margins
                   .findAll()
-                  .then(function (user_margin) {
-                    tables.user_margin = {};
-                    tables.user_margin.fields = [
+                  .then(function (user_margins) {
+                    tables.user_margins = {};
+                    tables.user_margins.fields = [
                       "margin_add_elem",
                       "margin_construct",
                       "user_id",
                       "id",
                     ];
-                    sortValues(user_margin, function (values) {
-                      tables.user_margin.rows = values;
+                    sortValues(user_margins, function (values) {
+                      tables.user_margins.rows = values;
                       callback(null);
                     });
                   });

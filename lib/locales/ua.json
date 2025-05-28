@@ -199,6 +199,7 @@
 	"on add. elements": "на дод. елементи",
 	"Max. discount": "Максимальна знижка",
 	"Default discount": "Знижка за замовчуванням (%)",
+	"markup_for_dealer": "Націнка для дилера (%)",
 	"Discount by default (base term 10 days)": "Величина націнки (%)",
 	"Mounting": "Монтаж",
 	"Markup for installation": "Націнка на монтаж",

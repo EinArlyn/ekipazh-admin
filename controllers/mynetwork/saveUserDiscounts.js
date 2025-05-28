@@ -12,35 +12,48 @@ module.exports = function (req, res) {
     }).then(function(userDiscounts) {
       var oldRow = JSON.stringify(userDiscounts.dataValues);
 
-      userDiscounts.updateAttributes({
-        max_construct: parseFloat(req.body.maxConst),
-        max_add_elem: parseFloat(req.body.maxAddEl),
-        default_construct: parseFloat(req.body.defaultConst),
-        default_add_elem: parseFloat(req.body.defaultAddEl),
-        // week_1_construct: parseFloat(req.body.week1Const),
-        // week_1_add_elem: parseFloat(req.body.week1AddEl),
-        // week_2_construct: parseFloat(req.body.week2Const),
-        // week_2_add_elem: parseFloat(req.body.week2AddEl),
-        // week_3_construct: parseFloat(req.body.week3Const),
-        // week_3_add_elem: parseFloat(req.body.week3AddEl),
-        // week_4_construct: parseFloat(req.body.week4Const),
-        // week_4_add_elem: parseFloat(req.body.week4AddEl),
-        // week_5_construct: parseFloat(req.body.week5Const),
-        // week_5_add_elem: parseFloat(req.body.week5AddEl),
-        // week_6_construct: parseFloat(req.body.week6Const),
-        // week_6_add_elem: parseFloat(req.body.week6AddEl),
-        // week_7_construct: parseFloat(req.body.week7Const),
-        // week_7_add_elem: parseFloat(req.body.week7AddEl),
-        // week_8_construct: parseFloat(req.body.week8Const),
-        // week_8_add_elem: parseFloat(req.body.week8AddEl)
-      }).then(function(result) {
-        res.send({status: true});
-        models.users_discounts.findOne({
-          where: {user_id: parseInt(userId)}
-        }).then(function(userDiscounts) {
-          var newRow = JSON.stringify(userDiscounts.dataValues)
-          validateNewRecords(userId, 'discounts', oldRow, newRow, req.session.user.id + ' ' + req.session.user.name);
-        });
+      models.user_margins.findOne({
+        where: {user_id: parseInt(userId)}
+      }).then(function(userMargins) {
+        userMargins.updateAttributes({
+          margin_construct: parseFloat(req.body.marginConstruct),
+          margin_add_elem: parseFloat(req.body.marginAddElem),
+        }).then(function(){
+          
+
+            userDiscounts.updateAttributes({
+              max_construct: parseFloat(req.body.maxConst),
+              max_add_elem: parseFloat(req.body.maxAddEl),
+              default_construct: parseFloat(req.body.defaultConst),
+              default_add_elem: parseFloat(req.body.defaultAddEl),
+              margin_construct: parseFloat(req.body.marginConstruct),
+              margin_add_elem: parseFloat(req.body.marginAddElem),
+              // week_1_construct: parseFloat(req.body.week1Const),
+              // week_1_add_elem: parseFloat(req.body.week1AddEl),
+              // week_2_construct: parseFloat(req.body.week2Const),
+              // week_2_add_elem: parseFloat(req.body.week2AddEl),
+              // week_3_construct: parseFloat(req.body.week3Const),
+              // week_3_add_elem: parseFloat(req.body.week3AddEl),
+              // week_4_construct: parseFloat(req.body.week4Const),
+              // week_4_add_elem: parseFloat(req.body.week4AddEl),
+              // week_5_construct: parseFloat(req.body.week5Const),
+              // week_5_add_elem: parseFloat(req.body.week5AddEl),
+              // week_6_construct: parseFloat(req.body.week6Const),
+              // week_6_add_elem: parseFloat(req.body.week6AddEl),
+              // week_7_construct: parseFloat(req.body.week7Const),
+              // week_7_add_elem: parseFloat(req.body.week7AddEl),
+              // week_8_construct: parseFloat(req.body.week8Const),
+              // week_8_add_elem: parseFloat(req.body.week8AddEl)
+            }).then(function(result) {
+              res.send({status: true});
+              models.users_discounts.findOne({
+                where: {user_id: parseInt(userId)}
+              }).then(function(userDiscounts) {
+                var newRow = JSON.stringify(userDiscounts.dataValues)
+                validateNewRecords(userId, 'discounts', oldRow, newRow, req.session.user.id + ' ' + req.session.user.name);
+              });
+          })
+        })
       }).catch(function(err) {
         console.log(err);
         res.send({status: false, error: err});
