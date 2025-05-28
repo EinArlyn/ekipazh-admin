@@ -36,7 +36,6 @@ module.exports = function (req, res) {
           user_id: parseInt(userId)
         }).then(function() {
           models.user_margins.find({where: {user_id: userId}}).then(function(newUserMargins){
-            userMargins = newUserMargins;
             if (userDiscounts) {
               res.send({status: true, discounts: userDiscounts, userMargins: newUserMargins});
             } else {
