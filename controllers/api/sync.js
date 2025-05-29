@@ -1773,6 +1773,53 @@ module.exports = function (req, res) {
                     });
                   });
               },
+              // function (callback) {
+              //   /** users_discounts */
+              //   models.user_margins
+              //     .findAll()
+              //     .then(function (user_margins) {
+              //       tables.user_margins = {};
+              //       tables.user_margins.fields = [
+              //         "margin_add_elem",
+              //         "margin_construct",
+              //         "user_id",
+              //       ];
+              //       sortValues(user_margins, function (values) {
+              //         tables.user_margins.rows = values;
+              //         callback(null);
+              //       });
+              //     });
+              // },
+              function (callback) {
+                /** user_margins */
+                models.sequelize
+                  .query(
+                   "WITH RECURSIVE parent_users AS (" +
+                    "SELECT id, parent_id, 0 AS depth FROM users WHERE id = " + parseInt(userId) + " " +
+                    "UNION ALL " +
+                    "SELECT u.id, u.parent_id, p.depth - 1 " +
+                    "FROM users u " +
+                    "JOIN parent_users p ON p.parent_id = u.id" +
+                  ") " +
+                  "SELECT pu.id AS user_id, um.margin_construct, um.margin_add_elem " +
+                  "FROM parent_users pu " +
+                  "JOIN user_margins um ON pu.id = um.user_id " +
+                  "WHERE NOT (um.margin_construct = 0 AND um.margin_add_elem = 0) " +
+                  "ORDER BY pu.depth ASC"
+                  )
+                  .then(function (user_margins) {
+                    tables.user_margins = {};
+                    tables.user_margins.fields = [
+                      "margin_add_elem",
+                      "margin_construct",
+                      "user_id",
+                    ];
+                    sortQueries(user_margins[0], function (values) {
+                      tables.user_margins.rows = values;
+                      callback(null);
+                    });
+                  });
+              },
               function (callback) {
                 /** users_markups */
                 models.sequelize
