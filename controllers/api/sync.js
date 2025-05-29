@@ -1793,9 +1793,9 @@ module.exports = function (req, res) {
                   .then(function (user_margins) {
                     tables.user_margins = {};
                     tables.user_margins.fields = [
-                      "margin_add_elem",
-                      "margin_construct",
                       "user_id",
+                      "margin_construct",
+                      "margin_add_elem",
                     ];
                     sortQueries(user_margins[0], function (values) {
                       tables.user_margins.rows = values;
