@@ -552,5 +552,8 @@
 	"Frame with aluminum threshold": "Frame with aluminum threshold",
 	"Client flat": "Client flat",
 	"Client floor": "Client floor",
-	"delete_message": "Para eliminar, es necesario mover los conjuntos existentes a otro grupo o eliminarlos"
+	"delete_message": "Para eliminar, es necesario mover los conjuntos existentes a otro grupo o eliminarlos",
+	"Perimeter frame": "Perimeter frame",
+	"Discount on constructions": "Discount on constructions",
+	"Cost of constructions with discount": "Cost of constructions with discount"
 }
