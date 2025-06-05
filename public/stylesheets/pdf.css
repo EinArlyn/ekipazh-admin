@@ -490,6 +490,7 @@ hr {
   padding: 10px 0;
   line-height: 16px;
   .users-info {
+    display: none;
     opacity: 0;
     max-width: 45%;
     margin-left: 20px;
@@ -519,6 +520,31 @@ hr {
       .location {}
       .address {}
       .phone {}
+    }
+  }
+  .test-qr-block {
+    all: unset;
+    width: 45%;
+    margin-left: 20px;
+    background-color: lightgray;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    img.img-qr {
+      width: 30%;
+    }
+    .text-qr-block {
+      width: 70%;
+      padding: 20px;
+      .text-qr {
+        background-color: white;
+        padding: 10px;
+        border-radius: 20px;
+        text-align: center;
+        font-weight: bold;
+        text-transform: uppercase;
+      }
     }
   }
 
