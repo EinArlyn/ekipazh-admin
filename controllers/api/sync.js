@@ -1020,7 +1020,7 @@ module.exports = function (req, res) {
                 /** lists_profile_systems */
                 models.sequelize
                   .query(
-                    "SELECT PS.id, PS.profile_system_id, PS.list_id, PS.modified" +
+                    "SELECT PS.id, PS.profile_system_id, PS.list_id, PS.modified " +
                       "FROM lists_profile_systems PS " +
                       "JOIN lists E ON PS.list_id = E.id " +
                       "JOIN elements EL ON E.parent_element_id = EL.id " + 
