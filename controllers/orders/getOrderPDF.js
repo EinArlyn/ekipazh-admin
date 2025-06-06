@@ -4,6 +4,7 @@ var _ = require('lodash');
 
 var models = require('../../lib/models');
 var formContent = require('../../lib/services/PDFKit').formContent;
+var qr = require('qr-image');
 
 /**
  * Get order PDF by order and user Ids
@@ -97,6 +98,10 @@ module.exports = function (req, res) {
         }
 
         function getUrlQr(bank, name, okpo, price, order_num) {
+          if (!bank || !name || !okpo || !price || !order_num) {
+            return null
+          }
+
           const qrData = 
             'BCD\n' +
             '002\n' +
@@ -152,7 +157,14 @@ module.exports = function (req, res) {
               }
 
               var url = getUrlQr(user.bank_acc_no, user.legal_name, user.okpo, order.sale_price, order.order.order_hz);
-              
+              var qrBase64 = null;
+              if (url) {
+                var svgString = qr.imageSync(url, { type: 'svg' }).toString('utf8');
+                var buffer = new Buffer(svgString, 'utf8');
+                qrBase64 = buffer.toString('base64');
+                qrBase64 = `data:image/svg+xml;base64,${qrBase64}`
+              }
+                            
               res.render('orderPDF', {
                 i18n: i18n,
                 user: user,
@@ -172,7 +184,8 @@ module.exports = function (req, res) {
                 mounting: order.mounting,
                 addServicePrice: addServicePrice,
                 total: order.sale_price,
-                lang: lang
+                lang: lang,
+                svg_qr: qrBase64
               });
             });}).catch(function (err) {
               console.log(err);
