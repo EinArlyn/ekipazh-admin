@@ -740,6 +740,9 @@ $(function () {
     var groupId = $('#group-name').val();
     var additionalFolderId = 0;
 
+    var checkedProfiles = [];
+    var uncheckedProfiles = [];
+
     if (groupId == 8) {
       additionalFolderId = $('#sills-group').val();
       _saveAdditionalFolder(setId, additionalFolderId);
@@ -780,6 +783,19 @@ $(function () {
       additionalFolderId = $('#decors-group-color').val();
       _saveAdditionalColor(setId, additionalFolderId);
     }
+
+    $("input[name='foo']").each(function() {
+      if ($(this).prop('checked')) {
+        checkedProfiles.push($(this).val());
+      } else {
+        uncheckedProfiles.push($(this).val());
+      }
+    });
+    $.post('/base/set/setListProfileSystems/' + setId, {
+      checked: checkedProfiles.join(','),
+      unchecked: uncheckedProfiles.join(',')
+    }, function(data) {        
+    });
 
     $('.beed_width').each(function() {
       var profileSystemId = $(this).attr('data-beed');

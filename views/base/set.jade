@@ -362,29 +362,45 @@ block content
           =i18n.__('Position')
           | : 
           input.input-default(type="text" name="position" value=list.position style="width: 30px;")
-        .set-description
-          .row.set-is-push
-            .col-md-6
-              input#is-push(type="checkbox" name="is_push" value="1" checked=(list.is_push ? "checked" : undefined))
-              label(for="is-push")
-                =i18n.__('Usable as a Push message')
-          .description-content
-            .description-content-block
-              span.description-text-align
-                =i18n.__('Link')
+        .wrapper-lists
+          .set-description
+            .row.set-is-push
+              .col-md-6
+                input#is-push(type="checkbox" name="is_push" value="1" checked=(list.is_push ? "checked" : undefined))
+                label(for="is-push")
+                  =i18n.__('Usable as a Push message')
+            .description-content
+              .description-content-block
+                span.description-text-align
+                  =i18n.__('Link')
+                  | :
+                | 
+                input.input-default.input-description(type="text" name="link" value=list.link)
+              .description-content-block-textarea
+                span.description-text-align
+                  =i18n.__('Description')
+                  | : 
+                | 
+                textarea.input-default(name="description" form="main-form")=list.description
+              .description-content-block-image
+                input(id="select-set-image" type="file" name="set_img" class="hidden")
+                a(href="#" type="button" id="set-img" style="margin-left: 100px;")
+                img(id="set-image" style="height: 64px; width: 124px; margin-left: 20px;" src=(list.img ? list.img : "/local_storage/default.png"))
+          .profile-systems
+            .profile-systems-content
+              .profile-systems-content-text
+                =i18n.__('Belonging to the profile systems')
                 | :
-              | 
-              input.input-default.input-description(type="text" name="link" value=list.link)
-            .description-content-block-textarea
-              span.description-text-align
-                =i18n.__('Description')
-                | : 
-              | 
-              textarea.input-default(name="description" form="main-form")=list.description
-            .description-content-block-image
-              input(id="select-set-image" type="file" name="set_img" class="hidden")
-              a(href="#" type="button" id="set-img" style="margin-left: 100px;")
-              img(id="set-image" style="height: 64px; width: 124px; margin-left: 20px;" src=(list.img ? list.img : "/local_storage/default.png"))
+              span#all-profiles
+                  input(type="checkbox", id="select-all-profiles")
+                  label(for="select-all-profiles")
+                    =i18n.__('Select all')
+            .profile-systems-box
+              each profile_system in profile_systems
+                .profile_item                  
+                  input(id="profile-checkbox" + profile_system.id, type='checkbox', name='foo', value=profile_system.id, checked=(filteredByProfiles.indexOf(profile_system.id) !== -1 ? 'checked': undefined))
+                  label(for="profile-checkbox" + profile_system.id)
+                    =profile_system.name
         .items-list
           .list
             each element in elementsChilds
