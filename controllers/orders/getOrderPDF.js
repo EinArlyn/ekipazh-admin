@@ -164,6 +164,7 @@ module.exports = function (req, res) {
                 qrBase64 = buffer.toString('base64');
                 qrBase64 = `data:image/svg+xml;base64,${qrBase64}`
               }
+
                             
               res.render('orderPDF', {
                 i18n: i18n,
@@ -185,7 +186,8 @@ module.exports = function (req, res) {
                 addServicePrice: addServicePrice,
                 total: order.sale_price,
                 lang: lang,
-                svg_qr: qrBase64
+                svg_qr: qrBase64,
+                url: url 
               });
             });}).catch(function (err) {
               console.log(err);
