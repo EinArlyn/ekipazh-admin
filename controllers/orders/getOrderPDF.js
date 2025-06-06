@@ -96,6 +96,26 @@ module.exports = function (req, res) {
           __formPDF();
         }
 
+        function getUrlQr(bank, name, okpo, price, order_num) {
+          const qrData = 
+            'BCD\n' +
+            '002\n' +
+            '2\n' +
+            'UCT\n\n' +
+            `${name}\n` +
+            `${bank}\n` +
+            `UAH${price}\n` +
+            `${okpo}\n\n\n` +
+            `${order_num}\n`;
+
+          var buffer = new Buffer(qrData, 'utf8');
+          var base64 = buffer.toString('base64');
+          var base64url = base64.replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
+          var url = `https://bank.gov.ua/qr/${base64url}`
+            
+          return url;
+        }
+
         function __formPDF () {
           formContent(order, factory, userDiscounts, userId ,additionalProductsIds, function (result) {
             models.currencies.find({
@@ -131,6 +151,8 @@ module.exports = function (req, res) {
                 addServicePrice = order.order.sale_price;
               }
 
+              var url = getUrlQr(user.bank_acc_no, user.legal_name, user.okpo, order.sale_price, order.order.order_hz);
+              
               res.render('orderPDF', {
                 i18n: i18n,
                 user: user,
