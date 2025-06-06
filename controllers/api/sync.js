@@ -1017,6 +1017,32 @@ module.exports = function (req, res) {
                   });
               },
               function (callback) {
+                /** lists_profile_systems */
+                models.sequelize
+                  .query(
+                    "SELECT PS.id, PS.profile_system_id, PS.list_id, PS.modified " +
+                      "FROM lists_profile_systems PS " +
+                      "JOIN lists E " +
+                      "ON PS.list_id = E.id " +
+                      "WHERE E.factory_id = " +
+                      parseInt(factory_id) +
+                      ""
+                  )
+                  .then(function (lists_profile_systems) {
+                    tables.lists_profile_systems = {};
+                    tables.lists_profile_systems.fields = [
+                      "id",
+                      "profile_system_id",
+                      "list_id",
+                      "modified",
+                    ];
+                    sortQueries(lists_profile_systems[0], function (values) {
+                      tables.lists_profile_systems.rows = values;
+                      callback(null);
+                    });
+                  });
+              },
+              function (callback) {
                 /** window_hardware_profile_systems */
                 models.sequelize
                   .query(
