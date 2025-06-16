@@ -1756,23 +1756,6 @@ module.exports = function (req, res) {
                     });
                   });
               },
-              // function (callback) {
-              //   /** user_margins */
-              //   models.user_margins
-              //     .findAll()
-              //     .then(function (user_margins) {
-              //       tables.user_margins = {};
-              //       tables.user_margins.fields = [
-              //         "margin_add_elem",
-              //         "margin_construct",
-              //         "user_id",
-              //       ];
-              //       sortValues(user_margins, function (values) {
-              //         tables.user_margins.rows = values;
-              //         callback(null);
-              //       });
-              //     });
-              // },
               function (callback) {
                 /** user_margins */
                 models.sequelize

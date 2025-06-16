@@ -21,7 +21,9 @@
         option(value="1" selected=(list.glass_color === 1 ? 'selected' : undefined))=i18n.__('Transparence')
         option(value="2" selected=(list.glass_color === 2 ? 'selected' : undefined))=i18n.__('Translucency')
         option(value="3" selected=(list.glass_color === 3 ? 'selected' : undefined))=i18n.__('White')
-        option(value="4" selected=(list.glass_color === 4 ? 'selected' : undefined))=i18n.__('Brown')
+        option(value="4" selected=(list.glass_color === 4 ? 'selected' : undefined))=i18n.__('Two-sided')
+        option(value="5" selected=(list.glass_color === 5 ? 'selected' : undefined))=i18n.__('Inner')
+        option(value="6" selected=(list.glass_color === 6 ? 'selected' : undefined))=i18n.__('Outer')
     if list.glass_type === 4
       .btn-show-sendvich-check 
         =i18n.__('for_lamination')
