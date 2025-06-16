@@ -204,6 +204,11 @@ html
                 =user.city_phone || '-------'
                 | ; 
                 =user.email || ''
+          a.test-qr-block(href="https://bank.gov.ua/qr/QkNEDQowMDINCjINClVDVA0KDQrQpNCe0J8g0J_QsNCy0LvQtdC90LrQviDQm9GO0LTQvNC40LvQsCDQkNC90YLQvtC90ZbQstC90LANClVBODQzMDUyOTkwMDAwMDI2MDAyMDUwMjcxNTkwDQpVQUg1OTEzNQ0KMTkwNDgyNDM4NA0KDQoNCtCe0L_Qu9Cw0YLQsCDQt9CwINC30LDQvNC-0LLQu9C10L3QvdGPIOKEliBEVDI1LzE1NS0xMjMwMTUg0LLRltC0IDA0LjA2LjIwMjUNCg" target="_blank") 
+            img.img-qr(src='/assets/images/qr-code.png')
+            .text-qr-block 
+              .text-qr 
+                =i18n.__('Payment')
           .price-info
             .row1-price
               .price-constructions-name 

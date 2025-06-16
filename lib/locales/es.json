@@ -20,6 +20,7 @@
 	"My profile": "Mi perfil",
 	"Window calculation": "Cálculo de ventana",
 	"Payment by installments": "Crédito",
+	"Payment": "Pago",
 	"My network": "Mi red",
 	"Mail": "mail",
 	"Documents": "Documentos",
@@ -224,6 +225,7 @@
 	"Belonging to the profile systems": "Perteneciente al sistema de perfiles",
 	"Select all": "Elegir todos",
 	"Glazed window type": "Tipo de unidad de vidrio",
+	"NO_HANDLE": "Sin manija",
 	"Width (mm)": "Anchura (mm)",
 	"Height (mm)": "Altura (mm)",
 	"square (m": "superficie (m",
@@ -552,5 +554,8 @@
 	"Frame with aluminum threshold": "Frame with aluminum threshold",
 	"Client flat": "Client flat",
 	"Client floor": "Client floor",
-	"delete_message": "Para eliminar, es necesario mover los conjuntos existentes a otro grupo o eliminarlos"
+	"delete_message": "Para eliminar, es necesario mover los conjuntos existentes a otro grupo o eliminarlos",
+	"Perimeter frame": "Perimeter frame",
+	"Discount on constructions": "Discount on constructions",
+	"Cost of constructions with discount": "Cost of constructions with discount"
 }
