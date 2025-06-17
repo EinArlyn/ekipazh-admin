@@ -243,8 +243,8 @@ table.groups-table {
   }
 
     input.show-lock-set {
-      width: 120px;
-      background-size: 120px 25px;
+      width: 150px;
+      background-size: 150px 25px;
     }
 
   .lock-set-select-container {

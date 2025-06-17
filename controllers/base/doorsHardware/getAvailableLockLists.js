@@ -12,7 +12,7 @@ module.exports = function (req, res) {
       'JOIN elements E ' +
       'ON L.parent_element_id = E.id ' +
     'WHERE E.factory_id=' + parseInt(req.session.user.factory_id) + ' ' +
-      'AND L.list_type_id IN (35, 36, 24)' +
+      'AND L.list_type_id IN (35, 36, 24, 26)' +
   '').then(function (availableLockLists) {
     res.send({ status: true, availableLockLists: availableLockLists[0] });
   }).catch(function (error) {
