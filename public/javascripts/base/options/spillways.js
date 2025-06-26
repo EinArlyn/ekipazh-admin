@@ -55,6 +55,9 @@ $(function () {
     } else if (selectedOption == 18) {
       $('.checked-option').addClass('disabled');
       window.location.href = '/base/options/presets';
+    } else if (selectedOption == 19) {
+      $('.checked-option').addClass('disabled');
+      window.location.href = '/base/options/reinforcement';
     }
   });
 

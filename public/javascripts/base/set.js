@@ -38,13 +38,30 @@ $(function () {
   /** Init image picker */
   $('#glass-picker').imagepicker();
 
+
+
   /** Edit child item button */
   $('.edit-btn').click(function (e) {
     e.preventDefault();
     var itemId = $(this).attr('data');
     var itemName = $(this).attr('data-item-name');
+    var setId = $(this).attr('data-set-id') || 0; 
     $('.rule-1, .rule-2').hide();
-    $.get('/base/set/item/get/' + itemId, function (data) {
+    $.get('/base/set/item/get/' + itemId + '/' + setId, function (data) {
+      console.log(data, setId)
+
+      if (setId !== 0 && data.set_item.list_group_id === 7) {
+        $("#edit-item-reinforcement-type").find('option').remove().end();
+        $("#edit-item-reinforcement-type").append("<option value='0'>" + i18n.t('Not exist') + "</option>");
+        for (var i = 0; i < data.armir_types.length; i++) {
+          var selected = (data.armir_types[i].id === data.child.reinforcement_type_id) ? ' selected' : '';
+          $("#edit-item-reinforcement-type").append("<option value='" + data.armir_types[i].id + "'" + selected + ">" + data.armir_types[i].name + "</option>");
+        }
+        $(".child-item-reinforcement").show();
+      } else {
+        $(".child-item-reinforcement").hide();
+      }
+
       $('.edit-child-item-pop-up .child-item-name').text(itemName);
       if (data.child.direction_id === 1) {
         $('#edit-popup-direction-none').prop('checked', true);
@@ -196,6 +213,7 @@ $(function () {
       var directionId = $('input[name="direction-edit"]:checked').val();
       var roundingType = $('#edit-item-rounding-type').val();
       var roundingValue = $('#edit-item-rounding-value').val();
+      var reinforcementType = $('select[name="edit_item_reinforcement_type"]').val() || 0;
       $.post('/base/set/item/edit', {
         childId: childId,
         value: value,
@@ -204,7 +222,8 @@ $(function () {
         hardwareColorId: hardwareColorId,
         directionId: directionId,
         roundingType: roundingType,
-        roundingValue: roundingValue
+        roundingValue: roundingValue,
+        reinforcementType: reinforcementType
       }, function (data) {
         if (data.status) {
           $('.edit-child-item-pop-up').popup('hide');
@@ -540,11 +559,18 @@ $(function () {
       $(".header-add-item").text(i18n.t('Add set'));
       $("#group-item").text(i18n.t('Set group'));
       $("#item-name").text(i18n.t('Set'));
-      $.get("/base/set/item/get_set_group?groups=" + allowedGroups.join(), function (sets_group) {
+      $.get("/base/set/item/get_set_group?groups=" + allowedGroups.join(), function (data_group) {
         $("#add-item-select-group").find('option').remove().end();
-        for (var i = 0; i < sets_group.length; i++) {
-          $("#add-item-select-group").append("<option value='" + sets_group[i].id + "'>" + sets_group[i].name + "</option>");
+        for (var i = 0; i < data_group.lists_groups.length; i++) {
+          $("#add-item-select-group").append("<option value='" + data_group.lists_groups[i].id + "'>" + data_group.lists_groups[i].name + "</option>");
         }
+
+        $("#add-item-select-reinforcement").find('option').remove().end();
+        $("#add-item-select-reinforcement").append("<option value='0'>" + i18n.t('Not exist') + "</option>");
+        for (var i = 0; i < data_group.armir_types.length; i++) {
+          $("#add-item-select-reinforcement").append("<option value='" + data_group.armir_types[i].id + "'>" + data_group.armir_types[i].name + "</option>");
+        }
+
         $(".add-item-block").show(200).addClass("add-item-click");
         $("#add-item-select-group").trigger("change"); // get all elements of selected group
         stopLoader();
@@ -576,6 +602,12 @@ $(function () {
       $('input[name="item_rule_value"]').trigger('keyup');
       var itemGroup = $("#add-item-select-group option:selected").val();
       var setGroup = $("#group-name option:selected").val();
+
+      if (parseFloat(itemGroup) === 7) {
+        $(".add-reinforcement-type").show();
+      } else {
+        $(".add-reinforcement-type").hide();
+      }
 
       if (addElement) {
         console.log('add element = true');
@@ -650,6 +682,7 @@ $(function () {
     var hardwareColorId = $('#add-item-color-furniture option:selected').val();
     var item_rounding_type = $('select[name="item_rounding_type"]').val();
     var item_rounding_value = $('input[name="item_rounding_value"]').val() || 0.00;
+    var reinforcementType = $('#add-item-select-reinforcement option:selected').val() || 0;
 
     $.post('/base/set/item/add_new/' + setId, {
       child_id: itemId,
@@ -660,7 +693,8 @@ $(function () {
       window_hardware_color_id: hardwareColorId,
       lamination_type_id: laminationId,
       item_rounding_type: item_rounding_type,
-      item_rounding_value: item_rounding_value
+      item_rounding_value: item_rounding_value,
+      reinforcement_type: reinforcementType
     }, function() {
       window.location = '/base/set/' + setId;
     });

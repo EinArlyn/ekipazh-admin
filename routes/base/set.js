@@ -19,7 +19,7 @@ router.post('/item/add_new/:id', isAuthenticated, addNewItemToSet) // add new it
 router.get('/item/get_hardware_colors', isAuthenticated, getHardwareColors); // get all window hardware colors [ajax]
 router.get('/item/get_lamination_types', isAuthenticated, getLaminationTypes); // get all lamination types [ajax]
 router.post('/contents/removeItem', isAuthenticated, removeItem);
-router.get('/item/get/:id', isAuthenticated, getItem);
+router.get('/item/get/:id/:setId', isAuthenticated, getItem);
 router.post('/item/edit', isAuthenticated, editItem);
 router.post('/saveBeedWidths/:id', isAuthenticated, saveBeedWidths);
 router.post('/save-additional-folder/:id', isAuthenticated, saveAddtionalFolder);
@@ -92,8 +92,8 @@ function saveCopyGroup(req, res) {
         FROM lists AS source
         WHERE source.id = :oldId AND lists.id = :newId;
 
-        INSERT INTO list_contents (parent_list_id, child_id, child_type, value, rules_type_id, direction_id, window_hardware_color_id, lamination_type_id, modified, rounding_type, rounding_value)
-        SELECT :newId, child_id, child_type, value, rules_type_id, direction_id, window_hardware_color_id, lamination_type_id, modified, rounding_type, rounding_value
+        INSERT INTO list_contents (parent_list_id, child_id, child_type, value, rules_type_id, direction_id, window_hardware_color_id, lamination_type_id, modified, rounding_type, rounding_value, reinforcement_type_id)
+        SELECT :newId, child_id, child_type, value, rules_type_id, direction_id, window_hardware_color_id, lamination_type_id, modified, rounding_type, rounding_value, reinforcement_type_id
         FROM list_contents
         WHERE parent_list_id = :oldId;
 
@@ -373,7 +373,9 @@ function getSetGroups(req, res) {
     where: {id: {in: groupsArr}},
     order: 'name'
   }).then(function (lists_groups) {
-    res.send(lists_groups);
+    models.reinforcement_types.findAll({}).then(function (armir_types) {
+      res.send({lists_groups:lists_groups, armir_types: armir_types});
+    })
   });
 }
 
@@ -422,7 +424,8 @@ function addNewItemToSet(req, res) {
     lamination_type_id : parseInt(req.body.lamination_type_id),
     modified : new Date(),
     rounding_type: parseInt(req.body.item_rounding_type, 10),
-    rounding_value: parseFloat(req.body.item_rounding_value)
+    rounding_value: parseFloat(req.body.item_rounding_value),
+    reinforcement_type_id: parseFloat(req.body.reinforcement_type)
   }).then(function() {
     res.send(setId);
   });
@@ -463,21 +466,41 @@ function removeItem(req, res) {
 /** get child item from list_contents */
 function getItem (req, res) {
   var itemId = req.params.id;
+  var setId = req.params.setId || 0;
 
   models.window_hardware_colors.findAll().then(function (windowHardwareColors) {
     models.lamination_types.findAll().then(function (laminationTypes) {
       models.list_contents.findOne({
         where: {id: itemId},
-        attributes: ['id', 'value', 'rules_type_id', 'direction_id', 'window_hardware_color_id', 'lamination_type_id', 'rounding_type', 'rounding_value']
+        attributes: ['id', 'value', 'rules_type_id', 'direction_id', 'window_hardware_color_id', 'lamination_type_id', 'rounding_type', 'rounding_value', 'reinforcement_type_id']
       }).then(function (child) {
-        res.send({
-          child: child,
-          windowHardwareColors: windowHardwareColors,
-          laminationTypes: laminationTypes
-        });
-      }).catch(function (error) {
-        console.log(error);
-      });
+        models.reinforcement_types.findAll({}).then(function (armir_types) {
+          if (parseFloat(setId) !== 0) {
+            models.lists.findOne({
+              where: {id: setId}
+            }).then(function (set_item) {
+              res.send({
+                child: child,
+                windowHardwareColors: windowHardwareColors,
+                laminationTypes: laminationTypes,
+                armir_types: armir_types,
+                set_item: set_item
+              });
+            }).catch(function (error) {
+              console.log(error);
+            });
+          } else {
+            res.send({
+              child: child,
+              windowHardwareColors: windowHardwareColors,
+              laminationTypes: laminationTypes,
+              armir_types: armir_types
+            });
+          }
+        }).catch(function (error) {
+              console.log(error);
+          });
+      })
     });
   });
 }
@@ -496,7 +519,8 @@ function editItem (req, res) {
       window_hardware_color_id: parseInt(req.body.hardwareColorId),
       lamination_type_id: parseInt(req.body.profileColorId),
       rounding_type: parseInt(req.body.roundingType, 10),
-      rounding_value: parseFloat(req.body.roundingValue)
+      rounding_value: parseFloat(req.body.roundingValue),
+      reinforcement_type_id: parseFloat(req.body.reinforcementType)
     }).then(function (result) {
       res.send({status: true});
     });

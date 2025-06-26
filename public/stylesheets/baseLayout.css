@@ -38,6 +38,18 @@ body {
         left: 5px;
       }
 
+      .user-name-header {
+        position: relative;
+        top: 15px;
+        left: 200px;
+        font-family: Tahoma, Verdana, Segoe, sans-serif;
+        font-size: 14px;
+        color: #d3d3d3;
+        font-weight: bold;
+        padding: 2px 5px;
+        border-bottom: 2px solid #ff7700;
+      }
+
       .nav-logout {
         float: right;
         color: #d3d3d3;

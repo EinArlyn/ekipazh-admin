@@ -1,7 +1,7 @@
 extends layout
 
 block content
-  .main-nav
+  //- .main-nav
     .profile
       .profile-avatar
         img(src=userAvatar, alt="avatar")
@@ -27,7 +27,7 @@ block content
       .btn#mynetwork(class=(accesses.indexOf(3) >= 0 ? '' : 'disabled') data-id=userToken)
         img(src="/assets/images/dashboard_icons/users.png")
         .btn-text
-          =i18n.__('My network')
+          =i18n.__('settingsAndNetwork')
       .btn(class=(accesses.indexOf(4) >= 0 ? '' : 'disabled'))
         img(src="/assets/images/dashboard_icons/mail.png")
         .btn-text

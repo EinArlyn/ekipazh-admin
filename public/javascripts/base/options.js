@@ -58,6 +58,9 @@ $(function () {
     } else if (selectedOption == 18) {
       $('.checked-option').addClass('disabled');
       window.location.href = '/base/options/presets';
+    } else if (selectedOption == 19) {
+      $('.checked-option').addClass('disabled');
+      window.location.href = '/base/options/reinforcement';
     }
   });
   // work with color for window sill
@@ -123,6 +126,74 @@ $(function () {
     });
   });
 
+  // armir parametr
+  $('.parametr').editable('/base/options/reinforcement/save-parametr', {
+    id: 'id',
+    name: 'value',
+    submitdata: function () {
+      return {
+        profile_id: $(this).attr('profile_id'),
+        type: $(this).attr('type'),
+        rule: $(this).attr('rule')
+      };
+    },
+    indicator: 'Сохранение..',
+    tooltip: 'Нажмите для редактирования',
+    submit: 'Ок',
+    cssclass : 'edit-input',
+    height: '12px',
+    width: '50px',
+    onsubmit: function (settings, original) {
+      const $input = $('input', this);
+      if ($input.val().trim() === '') {
+        $input.val('0');
+      }
+    },
+    callback: function() {
+      showLoader();
+    }
+  });
+
+  $('.armir-name').editable('/base/options/reinforcement/save-armir-name', {
+    id: 'id',
+    name: 'value',
+    indicator: 'Сохранение..',
+    tooltip: 'Нажмите для редактирования',
+    submit: 'Ок',
+    cssclass : 'edit-input',
+    height: '12px',
+    width: '50px',
+    onsubmit: function (settings, original) {
+      const $input = $('input', this);
+      if ($input.val().trim() === '') {
+        $input.val('0');
+      }
+    },
+    callback: function() {
+      showLoader();
+    }
+  });
+
+  $('.armir-priority').editable('/base/options/reinforcement/save-armir-priority', {
+    id: 'id',
+    name: 'value',
+    indicator: 'Сохранение..',
+    tooltip: 'Нажмите для редактирования',
+    submit: 'Ок',
+    cssclass : 'edit-input',
+    height: '12px',
+    width: '50px',
+    onsubmit: function (settings, original) {
+      const $input = $('input', this);
+      if ($input.val().trim() === '') {
+        $input.val('0');
+      }
+    },
+    callback: function() {
+      showLoader();
+    }
+  });
+  
   /* Laminations */
   /*
     Editable laminations
@@ -2014,4 +2085,57 @@ $(function () {
       }
     });
   }
+
+  // ARmir
+
+  /** Add new reinforcement */
+  $('.add-armir').click(function(e) {
+    e.preventDefault();
+
+    $('.add-new-reinforcement-pop-up').popup('show');
+    setTimeout(function() {
+      $('#new-reinforcement-name').focus();
+    }, 200);
+  });
+
+  $('#submit-add-new-reinforcement').click(function(e) {
+      e.preventDefault();
+
+      $('#add-new-reinforcement-form').submit();
+      $('.add-new-reinforcement-pop-up').popup('hide');
+    });
+
+
+
+  $('.btn-remove').click(function(e) {
+    e.preventDefault();
+
+    var reinforcementId = $(this).attr('data-reinforcement');
+    $('#delete-reinforcement-submit').attr('data-reinforcement', reinforcementId);
+    $('.delete-reinforcement-alert').popup('show');    
+  });
+
+    /** Submit removing reinforcement */
+    $('#delete-reinforcement-submit').click(function(e) {
+      e.preventDefault();
+
+      var reinforcementId = $(this).attr('data-reinforcement');
+      $.post('/base/options/reinforcement/remove', {
+        reinforcementId: reinforcementId
+      }, function(data) {
+        if (data.status) {
+          $('.delete-reinforcement-alert').popup('hide');
+          $('.armir-item[data-reinforcement=' + reinforcementId + ']').remove();
+          $('.armir-parametr[data-armir-id=' + reinforcementId + ']').remove();
+        }
+      });
+    });
+    /** Deny removing reinforcement */
+    $('#delete-reinforcement-deny').click(function(e) {
+      e.preventDefault();
+      $('.delete-reinforcement-alert').popup('hide');
+    });
+
+
+
 });

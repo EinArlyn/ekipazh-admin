@@ -965,6 +965,120 @@ table.sill-folders-table {
           cursor: pointer;
         }
 
+  /* Armir */
+
+  .main-content-armir {
+    border: 1px solid #c6c6c6;
+    padding: 10px;
+  }
+  .armir-countainer {
+    margin: 10px 0;
+    border: 1px solid #c6c6c6;
+    width: 50%;
+    padding: 5px;
+    .armir-container-title {
+      font-size: 16px;
+      padding-bottom: 5px;
+      margin-bottom: 5px;
+      border-bottom: 1px solid #c6c6c6;
+      span.armir-title {
+      }
+      span.armir-subtitle {
+        padding-left: 90px;
+      }
+    }
+    .armir-item {
+      display: flex;
+      justify-content: space-between;
+      font-size: 14px;
+      margin: 5px 0;
+      .armir-name {
+        width: 200px;
+      }
+      .armir-priority {
+        width: 150px;
+      }
+      
+      .btn-remove {
+        width: 20px;
+        height: 20px;
+        background-color: black;
+        border-radius: 15px;
+        color: white;
+        text-align: center;
+        font-size: 15px;
+        transform: rotate(45deg);
+        cursor: pointer;
+      }
+    }
+    .add-armir {
+      display: flex;
+      justify-content: center;
+      background-color: #c6c6c6;
+      padding: 3px;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+  }
+
+  .profile-system-coutainer {
+    margin: 10px 0;
+    font-size: 14px;
+    .profile-item-block {
+      border: 1px solid #c6c6c6;
+      padding: 5px;
+      margin: 5px 0;
+      display: flex;
+      .title-block {
+        width: 250px;
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+        .info-header {
+          padding-left: 10px;
+        }
+        .info {
+          text-wrap: nowrap;
+          overflow-x: hidden;
+          padding-left: 20px;
+        }
+        .profile-system-name {
+          padding-bottom: 5px;
+        }
+      }
+      .armir-parametr {
+        width: 150px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        border-left: 1px solid #c6c6c6;
+        gap: 5px;
+        .name-armir {
+          padding-bottom: 5px;
+          text-wrap: nowrap;
+        }
+        .parametr {
+        }
+        input {
+          width: 50px;
+          text-align: center;
+        }
+      }
+    }
+  }
+
+  .add-new-reinforcement-pop-up {
+    width: 260px;
+    height: 115px;
+    border: 1px solid #e5e5e5;
+    border-radius: 5px;
+    background-color: #e4e4e4;
+    padding: 0 30px;
+    font-size: 12px;
+  }
+
+
+
   /** popups */
   .pop-up {
     display: none;

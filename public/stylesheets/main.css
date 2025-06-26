@@ -12,7 +12,7 @@
   }
 
   .nav-link #nav-text {
-    color: #4f9e2e;
+    /* color: #4f9e2e; */
   }
 
 .main-select-option {
@@ -533,9 +533,9 @@ input.btn-submit {
   }
 
 input.btn-reset {
-  width: 252px;
+  width: 325px;
   height: 22px;
-  background-color: #FF6633;
+  background-color: black;
   text-shadow: 0px 1px 0px #45822b;
   color: #fff;
   font-family: Tahoma, Verdana, Segoe, sans-serif;

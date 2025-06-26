@@ -557,7 +557,7 @@ main .main-content {
         * Add item block
       */
       .add-item-block {
-        height: 265px;
+        height: 300px;
         width: 100%;
         background-image: url('/assets/images/background-glass.png');
         margin: 0;
@@ -570,13 +570,13 @@ main .main-content {
           height: 220px;
           margin: auto;
         }
-          .set-group-text {
+          .set-group-text, .add-reinforcement-type-text {
             float: left;
             width: 100px;
             text-align: right;
           }
 
-          .set-group-input, .add-item-rules {
+          .set-group-input, .add-item-rules, .add-reinforcement-type-content {
             float: right;
             width: 380px;
             text-align: left;
@@ -890,7 +890,8 @@ main .main-content {
   .child-item-rule-text,
   .child-item-profile-color-text,
   .child-item-hardware-color-text,
-  .child-item-direction-text {
+  .child-item-direction-text,
+  .child-item-reinforcement-text {
     width: 150px;
     display: inline-block;
     text-align: right;
@@ -899,7 +900,8 @@ main .main-content {
   .child-item-rule-content,
   .child-item-profile-color-content,
   .child-item-hardware-color-content,
-  .child-item-direction-content {
+  .child-item-direction-content,
+  .child-item-reinforcement-content {
     height: 28px;
     display: inline-block;
     margin-left: 5px;
