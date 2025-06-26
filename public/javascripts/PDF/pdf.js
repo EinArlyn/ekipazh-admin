@@ -1024,7 +1024,7 @@ $(function() {
                         }
                       }
                     } else if (d.points[1].fi > 45 && d.points[1].fi < 135) {
-                      return 'url(#handleU)';
+                      return `url(#handleU${buildId})`;
                     } else if(d.points[1].fi > 135 && d.points[1].fi < 225) {
                       if(template.details[i].sashType !== 4){
                         if (handle_type == 36) {
@@ -1037,7 +1037,7 @@ $(function() {
                         // return `url(#handleL_${buildId})`;
                       }
                     } else if (d.points[1].fi > 225 && d.points[1].fi < 315) {
-                      return 'url(#handleD)';
+                      return `url(#handleD${buildId})`;
                     }
                   } else if(dirQty === 2) {
                     if(d.points[1].fi < 45 || d.points[1].fi > 315) {
@@ -1112,7 +1112,12 @@ $(function() {
             pathHandle = "M4.5,0C2.015,0,0,2.015,0,4.5v6c0,1.56,0.795,2.933,2,3.74V7.5C2,6.119,3.119,5,4.5,5S7,6.119,7,7.5v6.74c1.205-0.807,2-2.18,2-3.74v-6C9,2.015,6.985,0,4.5,0z" +
   "M7,40C7,41.381,5.881,43,4.5,43l0,0C3.119,43,2,41.381,2,40v-35C2,4.119,3.119,3,4.5,3l0,0C5.881,3,7,4.119,7,5.5V40z";
 
-        template.details.forEach(block => {
+        template.details.forEach((block, index) => {
+          if (index == 0 && block.isWithoutHandle) {
+            pathHandle = "M4 5a2 2 0 1 1 0-4a2 2 0 0 1 0 4z" +
+           "M4 12a2 2 0 1 1 0-4a2 2 0 0 1 0 4z" +
+           "M4 19a2 2 0 1 1 0-4a2 2 0 0 1 0 4z";
+          }
           if (block.blockType == "sash" && block.heightHandle && block.heightHandle > 0) {
               // heightSash = (block.center.y*2)/10;
               heightSash = block.sashLinesOut[0].size;
@@ -1142,8 +1147,8 @@ $(function() {
         setMarker(defs, `handleR_window${buildId}`, '0 -1 9 70', -6, 10+currHeightHandle, 0, 69, 89, pathHandle, 'handle-mark');
         setMarker(defs, `handleL_window${buildId}`, '0 -1 9 70', 16, 10+currHeightHandle, 360, 69, 89, pathHandle, 'handle-mark');
         
-        setMarker(defs, 'handleU', '0 -1 9 32', -10, 10, 270, 29, 49, pathHandle, 'handle-mark');
-        setMarker(defs, 'handleD', '0 -1 9 32', 20, 10, 270, 29, 49, pathHandle, 'handle-mark');
+        setMarker(defs, `handleU${buildId}`, '0 -1 9 32', -10, 10, 270, 29, 49, pathHandle, 'handle-mark');
+        setMarker(defs, `handleD${buildId}`, '0 -1 9 32', 20, 10, 270, 29, 49, pathHandle, 'handle-mark');
         
 
         //            console.log('SVG=========dim==', template.dimension);

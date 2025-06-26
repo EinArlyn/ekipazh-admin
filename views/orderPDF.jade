@@ -140,70 +140,77 @@ html
                 //-     | 
                 //-     =currency
         .block-subheader
-          .users-info 
-            .customer-info
-              .name 
-                =i18n.__('Customer_pdf')
-                | : 
-                =order.customer_name
-              //- .location 
-              //-   =i18n.__('City_pdf')
-              //-   | : 
-              //-   =order.customer_location
-              //-   | 
-              .address
-                =i18n.__('Address')
-                | : 
-                =order.customer_city
-                | , 
-                =order.customer_address
-                | ,
-                =order.customer_house
-                | , 
-                =i18n.__('Client flat')
-                =order.customer_flat
-                | , 
-                =i18n.__('Client floor')
-                =order.customer_floor
-              .phone
-                =i18n.__('Mob. phone')
-                | : 
-                =order.customer_phone
-              if (order.comment)
-                .comment 
-                  =i18n.__('Order comment')
+          if (svg_qr)
+            a.test-qr-block(href=url) 
+              img.img-qr(src=svg_qr)
+              .text-qr-block 
+                .text-qr 
+                  =i18n.__('Payment')
+          else 
+            .users-info 
+              .customer-info
+                .name 
+                  =i18n.__('Customer_pdf')
                   | : 
-                  =order.comment
-            .manager-info
-              .name 
-                =i18n.__('Salon_pdf')
-                | : 
-                =user.name
-                | ; 
-              //- .location
-              //-   =i18n.__('City')
-              //-   | :  
-              //-   =user.city.name
-              .address 
-                =i18n.__('Address')
-                | : 
-                =user.city.name || '-------'
-                , 
-                | 
-                =user.address || '-------'
-                //- | (
-                //- =('0' + order.created.getDate()).slice(-2)
-                //- | .
-                //- =('0' + (order.created.getMonth() + 1)).slice(-2)
-                //- | .
-                //- =order.created.getFullYear()
-                //- | )
-              .phone
-                =i18n.__('Phone_u')
-                | : 
-                =user.city_phone || '-------'
-                | ; 
-                =user.email || ''
+                  =order.customer_name
+                //- .location 
+                //-   =i18n.__('City_pdf')
+                //-   | : 
+                //-   =order.customer_location
+                //-   | 
+                .address
+                  =i18n.__('Address')
+                  | : 
+                  =order.customer_city
+                  | , 
+                  =order.customer_address
+                  | ,
+                  =order.customer_house
+                  | , 
+                  =i18n.__('Client flat')
+                  =order.customer_flat
+                  | , 
+                  =i18n.__('Client floor')
+                  =order.customer_floor
+                .phone
+                  =i18n.__('Mob. phone')
+                  | : 
+                  =order.customer_phone
+                if (order.comment)
+                  .comment 
+                    =i18n.__('Order comment')
+                    | : 
+                    =order.comment
+              .manager-info
+                .name 
+                  =i18n.__('Salon_pdf')
+                  | : 
+                  =user.name
+                  | ; 
+                //- .location
+                //-   =i18n.__('City')
+                //-   | :  
+                //-   =user.city.name
+                .address 
+                  =i18n.__('Address')
+                  | : 
+                  =user.city.name || '-------'
+                  , 
+                  | 
+                  =user.address || '-------'
+                  //- | (
+                  //- =('0' + order.created.getDate()).slice(-2)
+                  //- | .
+                  //- =('0' + (order.created.getMonth() + 1)).slice(-2)
+                  //- | .
+                  //- =order.created.getFullYear()
+                  //- | )
+                .phone
+                  =i18n.__('Phone_u')
+                  | : 
+                  =user.city_phone || '-------'
+                  | ; 
+                  =user.email || ''
           .price-info
             .row1-price
               .price-constructions-name 

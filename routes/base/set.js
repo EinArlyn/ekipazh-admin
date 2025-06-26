@@ -11,6 +11,7 @@ var util = require('util');
 
 router.get('/:id', isAuthenticated, getSet);
 router.post('/save/:id', isAuthenticated, saveSet); // save set
+router.post('/setListProfileSystems/:id', isAuthenticated, setListProfileSystems); // save set
 router.get('/item/get_element_group', isAuthenticated, getElementGroups); // get groups of elements [ajax]
 router.get('/item/get_set_group', isAuthenticated, getSetGroups); // get groups of sets [ajax]
 router.get('/item/get_elements/:id', isAuthenticated, getElements); // get elements of selected group [ajax]
@@ -208,46 +209,64 @@ function getSet (req, res) {
                             models.compliance_lists_lamination_colors.findAll({
                               where: {lists_id: id}
                             }).then(function(sendvichLamins){
-                            
 
-                              res.render('base/set', {
-                                i18n               : i18n,
-                                title              : i18n.__('Edit set'),
-                                list               : list,
-                                parent_element     : parent_element,
-                                lists_groups       : lists_groups,
-                                lists_types        : lists_types,
-                                elementsChilds     : elementsChilds,
-                                listsChilds        : listsChilds,
-                                windowSillsFolders : windowSillsFolders,
-                                spillwaysFolders   : spillwaysFolders,
-                                visorsFolders      : visorsFolders,
-                                connectorsFolders  : connectorsFolders,
-                                size               : list.size,
-                                mosquitosFolders   : mosquitosFolders,
-                                doorhandlesFolders : doorhandlesFolders,
-                                otherElemsFolders  : otherElemsFolders,
-                                holesElemsFolders  : holesElemsFolders,
-                                handlesColors      : handlesColors,
-                                decorsColors       : decorsColors,
-                                windowSillsColors  : windowSillsColors,
-                                spillwaysColors    : spillwaysColors,
-                                connectorsColors   : connectorsColors,
-                                mosquitosColors    : mosquitosColors,
-                                visorsColors       : visorsColors,
-                                otherElemsColors   : otherElemsColors,
-                                hardwareHandles    : hardwareHandles,
-                                factoryLaminations : factoryLaminations,
-                                sendvichLamins     : sendvichLamins,
-                                isCheckedSendvich  : isCheckedSendvich,
-                                thisPageLink       : '/base/set/',
-                                cssSrcs            : ['/assets/stylesheets/base/set.css'],
-                                scriptSrcs         : ['/assets/javascripts/vendor/localizer/i18next-1.10.1.min.js', '/assets/javascripts/vendor/imagePicker/image-picker.min.js', '/assets/javascripts/base/set.js']
+                              models.profile_systems.findAll({}).then(function(profile_systems) {
+                                models.lists_profile_systems.findAll({
+                                    where: { list_id: id },
+                                    attributes: ['list_id', 'profile_system_id'],
+                                    order: 'id'
+                                  }).then(function(lists_profile_systems){
+                                    
+                                    var filteredByProfiles = [];
+                                      lists_profile_systems.forEach(function (child) {
+                                        console.log(child.list_id, id)
+                                        if (child.list_id == id) {
+                                          filteredByProfiles.push(child.profile_system_id);
+                                        }
+                                      });                            
+
+                                    res.render('base/set', {
+                                      i18n               : i18n,
+                                      title              : i18n.__('Edit set'),
+                                      list               : list,
+                                      profile_systems    : profile_systems,
+                                      filteredByProfiles : filteredByProfiles,
+                                      parent_element     : parent_element,
+                                      lists_groups       : lists_groups,
+                                      lists_types        : lists_types,
+                                      elementsChilds     : elementsChilds,
+                                      listsChilds        : listsChilds,
+                                      windowSillsFolders : windowSillsFolders,
+                                      spillwaysFolders   : spillwaysFolders,
+                                      visorsFolders      : visorsFolders,
+                                      connectorsFolders  : connectorsFolders,
+                                      size               : list.size,
+                                      mosquitosFolders   : mosquitosFolders,
+                                      doorhandlesFolders : doorhandlesFolders,
+                                      otherElemsFolders  : otherElemsFolders,
+                                      holesElemsFolders  : holesElemsFolders,
+                                      handlesColors      : handlesColors,
+                                      decorsColors       : decorsColors,
+                                      windowSillsColors  : windowSillsColors,
+                                      spillwaysColors    : spillwaysColors,
+                                      connectorsColors   : connectorsColors,
+                                      mosquitosColors    : mosquitosColors,
+                                      visorsColors       : visorsColors,
+                                      otherElemsColors   : otherElemsColors,
+                                      hardwareHandles    : hardwareHandles,
+                                      factoryLaminations : factoryLaminations,
+                                      sendvichLamins     : sendvichLamins,
+                                      isCheckedSendvich  : isCheckedSendvich,
+                                      thisPageLink       : '/base/set/',
+                                      cssSrcs            : ['/assets/stylesheets/base/set.css'],
+                                      scriptSrcs         : ['/assets/javascripts/vendor/localizer/i18next-1.10.1.min.js', '/assets/javascripts/vendor/imagePicker/image-picker.min.js', '/assets/javascripts/base/set.js']
+                                    });
+                          
+                                }).catch(function(error) {
+                                  console.log(error);
+                                  res.send('Internal sever error.');
                               });
-                      
-                          }).catch(function(error) {
-                            console.log(error);
-                            res.send('Internal sever error.');
+                            });
                           });
                         });
                       });
@@ -676,6 +695,67 @@ function _destroySendvichSystem(sendvichId, laminationId) {
 
 function isCheckedSendvich(sendvichArr, list_id, lamination_id) {
   return sendvichArr.find(sendvich => sendvich.lists_id == list_id && sendvich.lamination_factory_colors_id == lamination_id);
+}
+
+// зависимость листов от профилей
+
+function setListProfileSystems (req, res) {
+  var listId = req.params.id;
+  var checked = req.body['checked'].split(',');
+  var unchecked = req.body['unchecked'].split(',');
+  if (checked.length) {
+    for (var i = 0, len = checked.length; i < len; i++) {
+      var profileId = parseInt(checked[i], 10);
+      if (profileId) {
+        _saveProfileSystem(profileId, listId);
+      }
+    }
+  }
+  if (unchecked.length) {
+    for (var k = 0, len2 = unchecked.length; k < len2; k++) {
+      var _profileId = parseInt(unchecked[k], 10);
+      if (_profileId) {
+        _destroyProfileSystem(_profileId, listId);
+      }
+    }
+  }
+  res.end();
+};
+
+function _saveProfileSystem (profileId, listId) {
+  /** set profile system for elements */
+  models.lists_profile_systems.find({
+    where: {
+      profile_system_id: profileId,
+      list_id: listId
+    }
+  }).then(function (result) {
+    if (result) return;
+
+    models.lists_profile_systems.create({
+      profile_system_id: parseInt(profileId, 10),
+      list_id: parseInt(listId, 10),
+      modified: new Date()
+    }).then(function (result) {
+      return;
+    });
+  });
+}
+
+function _destroyProfileSystem(profileId, listId) {
+  models.lists_profile_systems.find({
+    where: {
+      profile_system_id: profileId,
+      list_id: listId
+    }
+  }).then(function (result) {
+    if (!result) return;
+
+    result.destroy().then(function () {
+      return;
+    });
+  });
+  
 }
 
 // function addAccessoryToList (req, res) {

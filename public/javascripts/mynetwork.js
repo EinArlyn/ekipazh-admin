@@ -55,6 +55,8 @@ $(function () {
     var userId = $(this).attr('data-user');
     var maxConst = $('#option-discount-max-const').val();
     var maxAddEl = $('#option-discount-max-add-elem').val();
+    var marginConstruct = $('#option-user-margin-const').val();
+    var marginAddElem = $('#option-user-margin-add-elem').val();
     var defaultConst = $('#option-discount-default-const').val();
     var defaultAddEl = $('#option-discount-default-add-elem').val();
     var week1Const = $('#option-discount-week1-const').val();
@@ -94,7 +96,9 @@ $(function () {
       week7Const: week7Const,
       week7AddEl: week7AddEl,
       week8Const: week8Const,
-      week8AddEl: week8AddEl
+      week8AddEl: week8AddEl,
+      marginConstruct: marginConstruct,
+      marginAddElem: marginAddElem
     }, function(data) {
       if (data.status) {
         setTimeout(function() {
@@ -812,6 +816,8 @@ console.error(data.error ?? data.error_1);
     var userId = $(this).attr('data-user');
     var rowId = $(this).attr('data-row');
     var optionRow = 'tr.user-option[data-row="' + rowId + '"]';
+    var islvl2 = $(this).closest('.user-info').hasClass('lvl-2');
+    var islvl1 = $(this).closest('.user-info').hasClass('lvl-1');
     $(optionRow).append($('#test').html());
     $.get('/services/get-countries', function(dataCountries) {
       if (dataCountries.status) {
@@ -1125,6 +1131,9 @@ console.error(data.error ?? data.error_1);
 
                 // $('#option-discount-max-const').val(userDiscounts.discounts.max_construct).prop('disabled', disabled);
                 // $('#option-discount-max-add-elem').val(userDiscounts.discounts.max_add_elem).prop('disabled', disabled);
+                $('#option-user-margin-const').val(userDiscounts.userMargins.margin_construct);
+                $('#option-user-margin-add-elem').val(userDiscounts.userMargins.margin_add_elem);
+
                 $('#option-discount-max-const').val(userDiscounts.discounts.max_construct);
                 $('#option-discount-max-add-elem').val(userDiscounts.discounts.max_add_elem);
                 $('#option-discount-default-const').val(userDiscounts.discounts.default_construct);
@@ -1149,6 +1158,15 @@ console.error(data.error ?? data.error_1);
                 if (parseInt(USER_TABLE, 10) === parseInt(data.user.id, 10)) {
                   $('#option-discount-default-const').prop('disabled', false);
                   $('#option-discount-default-add-elem').prop('disabled', false);
+                } else {
+                  $('.isShowByParent').hide();
+                }
+
+                if (!islvl2) {
+                  $('.isShowByChild').hide();
+                }
+                if (!islvl1 && !islvl2) {
+                  $('.discount-block').hide();
                 }
               }
             });

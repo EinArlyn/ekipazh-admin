@@ -9,25 +9,56 @@ module.exports = function (req, res) {
   models.users_discounts.find({
     where: {user_id: userId}
   }).then(function(userDiscounts) {
-    if (userDiscounts) {
-      res.send({status: true, discounts: userDiscounts});
-    } else {
-      models.users_discounts.create({
-        user_id: parseInt(userId)
-      }).then(function() {
-        models.users_discounts.find({
-          where: {user_id: userId}
-        }).then(function(userDiscounts) {
-          res.send({status: true, discounts: userDiscounts});
-        }).catch(function(err) {
-          console.log(err);
-          res.send({status: false});
-        });
-      }).catch(function(err) {
-        console.log(err);
-        res.send({status: false});
-      });
-    }
+
+    models.user_margins.find({where: {user_id: userId}}).then(function(user_margins) {
+      if (user_margins) {
+        if (userDiscounts) {
+          res.send({status: true, discounts: userDiscounts, userMargins: user_margins});
+        } else {
+          models.users_discounts.create({
+            user_id: parseInt(userId)
+          }).then(function() {
+            models.users_discounts.find({
+              where: {user_id: userId}
+            }).then(function(userDiscounts) {
+              res.send({status: true, discounts: userDiscounts, userMargins: user_margins});
+            }).catch(function(err) {
+              console.log(err);
+              res.send({status: false});
+            });
+          }).catch(function(err) {
+            console.log(err);
+            res.send({status: false});
+          });
+        }
+      } else {
+        models.user_margins.create({
+          user_id: parseInt(userId)
+        }).then(function() {
+          models.user_margins.find({where: {user_id: userId}}).then(function(newUserMargins){
+            if (userDiscounts) {
+              res.send({status: true, discounts: userDiscounts, userMargins: newUserMargins});
+            } else {
+              models.users_discounts.create({
+                user_id: parseInt(userId)
+              }).then(function() {
+                models.users_discounts.find({
+                  where: {user_id: userId}
+                }).then(function(userDiscounts) {
+                  res.send({status: true, discounts: userDiscounts, userMargins: newUserMargins});
+                }).catch(function(err) {
+                  console.log(err);
+                  res.send({status: false});
+                });
+              }).catch(function(err) {
+                console.log(err);
+                res.send({status: false});
+              });
+            }
+          })
+        })
+      }
+    })
   }).catch(function(err) {
     console.log(err);
     res.send({status: false});

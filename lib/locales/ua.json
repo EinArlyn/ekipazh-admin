@@ -202,6 +202,7 @@
 	"on add. elements": "на дод. елементи",
 	"Max. discount": "Максимальна знижка",
 	"Default discount": "Знижка за замовчуванням (%)",
+	"markup_for_dealer": "Націнка для дилера (%)",
 	"Discount by default (base term 10 days)": "Величина націнки (%)",
 	"Mounting": "Монтаж",
 	"Markup for installation": "Націнка на монтаж",
@@ -234,6 +235,7 @@
 	"Belonging to the profile systems": "Приналежність до систем профілів",
 	"Select all": "Обрати все",
 	"Glazed window type": "Тип склопакету",
+	"NO_HANDLE": "Без ручки",
 	"Width (mm)": "Ширина (мм)",
 	"Height (mm)": "Висота (мм)",
 	"square (m": "площа (м2)",
@@ -576,5 +578,6 @@
 	"week": "тиждень",
 	"month": "місяць",
 	"year": "рік",
-	"priority": "пріоритет"
+	"priority": "пріоритет",
+	"Payment": "Оплата"
 }
