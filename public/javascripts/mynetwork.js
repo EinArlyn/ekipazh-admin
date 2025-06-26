@@ -326,6 +326,12 @@ console.error(data.error ?? data.error_1);
     });
   }
 
+  function showMoreInfo() {
+    $('.more-info').each(function () {
+      $(this).toggle();
+    });
+  }
+
   /** ?? */
   function deleteUser(e) {
     e.preventDefault();
@@ -713,15 +719,35 @@ console.error(data.error ?? data.error_1);
     }, 300);
   }
 
+  function getFormattedDate(date = new Date()) {
+    const dd = String(date.getDate()).padStart(2, '0');
+    const mm = String(date.getMonth() + 1).padStart(2, '0');
+    const yyyy = date.getFullYear();
+    return `${dd}.${mm}.${yyyy}`;
+  }
+
+  function shiftDate(date, type, amount) {
+    const newDate = new Date(date); 
+    if (type === 'week') newDate.setDate(newDate.getDate() - 7 * amount);
+    else if (type === 'month') newDate.setMonth(newDate.getMonth() - amount);
+    else if (type === 'year') newDate.setFullYear(newDate.getFullYear() - amount);
+    return newDate;
+  }
+
   function rerenderWithParams () {
     var lights = [];
     $('.light-filter-btn:checked').each(function() {
       lights.push($(this).val());
     });
-    var from = $('#date-from').val();
-    var to = $('#date-to').val();
+    // var from = $('#date-from').val();
+    // var to = $('#date-to').val();
+    var period = $('#filter-data').val();
+    let today = new Date();
+    var todayFrom = getFormattedDate(shiftDate(today, period, 1))
+    var todayTo = getFormattedDate()
 
-    window.location.href = '/mynetwork?from=' + from + '&to=' + to + '&lights=' + lights.join();
+
+    window.location.href = '/mynetwork?from=' + todayFrom + '&to=' + todayTo + '&lights=' + lights.join();
   }
 
   function handleSaveUser (data) {
@@ -980,6 +1006,8 @@ console.error(data.error ?? data.error_1);
                 //$('.delivery-edit').change(editDelivery);
                 //$('.mounting-active').click(activateMountings);
                 $('.edit-add-params').click(editAdditionalParams);
+
+                $('.show-more-info').click(showMoreInfo);
 
                 if (parseInt(USER_TABLE, 10) === data.user.id) {
                   $('tr.add-mounting').click(addNewMounting);
@@ -1390,6 +1418,10 @@ console.error(data.error ?? data.error_1);
                 }
               }
             });
+
+            $('.more-info').each(function(){
+              $(this).hide();
+            })
             stopLoader();
             getUserHistory(userId);
 
@@ -1431,16 +1463,9 @@ console.error(data.error ?? data.error_1);
               '<div class="user-info_pic1">' +
                 '<img src="' + data.parent.avatar + '" class="user-avatar">' +
               '</div>' +
-              '<span class="user-name">' +
+              '<span class="user-name" style="font-weight: bold">' +
                 data.parent.name +
               '</span>' +
-            '</td>' +
-            '<td class="data">' +
-              '<div class="right_cell">' +
-                '<img src="/assets/images/23.png" alt="" class="user-info_pic2" id="add-user-icon">' +
-                '<img src="/assets/images/22.png" alt="" data-row="1" data-user="' + data.parent.id + '" class="user-info_pic3">' +
-                '<div class="identificator-round r-' + data.parent.identificator + '"></div>' +
-              '</div>' +
             '</td>' +
             '<td class="data">' +
               '<span class="user-day">' +
@@ -1452,6 +1477,13 @@ console.error(data.error ?? data.error_1);
                 + ('0' + new Date(data.parent.updated_at).getHours()).slice(-2) + ':' +
                 + ('0' + (new Date(data.parent.updated_at).getMinutes() + 1)).slice(-2) +
               '</span>' +
+            '</td>' +
+            '<td class="data">' +
+              '<div class="right_cell">' +
+                // '<img src="/assets/images/23.png" alt="" class="user-info_pic2" id="add-user-icon">' +
+                '<img src="/assets/images/22.png" alt="" data-row="1" data-user="' + data.parent.id + '" class="user-info_pic3">' +
+                // '<div class="identificator-round r-' + data.parent.identificator + '"></div>' +
+              '</div>' +
             '</td>' +
         '</tr>' +
         '<tr class="user-option" data-user-id="' + data.parent.id + '" data-row="1">' +
@@ -1471,6 +1503,8 @@ console.error(data.error ?? data.error_1);
         $('#add-user-icon').click(function() {
           window.location.href = '/mynetwork/add_user';
         });
+
+        $('.lvl-1 span.user-expander').trigger('click');
 
         $("#users-table tbody.prefetched-data").show();
         $('tr.users-preload').hide();
@@ -1563,21 +1597,21 @@ console.error(data.error ?? data.error_1);
           '</span>' +
         '</td>' +
         '<td class="data">' +
-          '<div class="right_cell">' +
-            '<img src="/assets/images/22.png" data-row="' + parentRowId + '.' + (+i + 1) + '" data-user="' + user.id + '" alt="" class="user-info_pic3">' +
-            '<div class="identificator-round r-' + user.identificator + '"></div>' +
-          '</div>' +
+        '<span class="user-day">' +
+        + ('0' + new Date(user.updated_at).getDate()).slice(-2) + '.' +
+        + ('0' + (new Date(user.updated_at).getMonth() + 1)).slice(-2) + '.' +
+        + new Date(user.updated_at).getFullYear() +
+        '</span> ' +
+        '<span class="user-time">' +
+        + ('0' + new Date(user.updated_at).getHours()).slice(-2) + ':' +
+        + ('0' + (new Date(user.updated_at).getMinutes() + 1)).slice(-2) +
+        '</span>' +
         '</td>' +
         '<td class="data">' +
-          '<span class="user-day">' +
-            + ('0' + new Date(user.updated_at).getDate()).slice(-2) + '.' +
-            + ('0' + (new Date(user.updated_at).getMonth() + 1)).slice(-2) + '.' +
-            + new Date(user.updated_at).getFullYear() +
-          '</span> ' +
-          '<span class="user-time">' +
-            + ('0' + new Date(user.updated_at).getHours()).slice(-2) + ':' +
-            + ('0' + (new Date(user.updated_at).getMinutes() + 1)).slice(-2) +
-          '</span>' +
+          '<div class="right_cell">' +
+            '<img src="/assets/images/22.png" data-row="' + parentRowId + '.' + (+i + 1) + '" data-user="' + user.id + '" alt="" class="user-info_pic3">' +
+            // '<div class="identificator-round r-' + user.identificator + '"></div>' +
+          '</div>' +
         '</td>' +
     '</tr>' +
     '<tr class="user-option" data-user-id="' + user.id + '" data-row="' + parentRowId + '.' + (+i + 1) + '">' +

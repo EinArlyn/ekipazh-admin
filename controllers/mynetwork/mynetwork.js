@@ -61,6 +61,7 @@ module.exports = function (req, res) {
           to: to,
           lights: lights.split(',').map(function(i) { return parseInt(i, 10); }),
           user: req.session.user,
+          userName: req.session.user.name,
           lightersArray: _.countBy(_.compact(_.flatten(lightersArray)), _.identity),
           factoryIdentificators: factoryIdentificators,
           cssSrcs: ['/assets/stylesheets/mynetwork.css'],

@@ -94,6 +94,11 @@
           option(value="3")=i18n.__('Divisible rule')
         | 
         input(id="edit-item-rounding-value", name="item_rounding_value", type="text", class="input-default input-text", style="width: 40px;", placeholder="0" form="add-new-item-to-set")
+    .child-item-reinforcement
+      .child-item-reinforcement-text 
+        =i18n.__('Reinforcement')
+      .child-item-reinforcement-content 
+        select(id="edit-item-reinforcement-type", name="edit_item_reinforcement_type", class="select-default", style="width: 215px", form="edit-item-form") 
     .child-item-direction
       .child-item-direction-text
         =i18n.__('Direction of opening')

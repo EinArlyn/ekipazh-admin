@@ -158,6 +158,25 @@ module.exports = function (req, res) {
                   });
               },
               function (callback) {
+                /** reinforcement / armir */
+                models.reinforcement_profile_systems
+                  .findAll({})
+                  .then(function (reinforcement_profile_systems) {
+                    tables.reinforcement_profile_systems = {};
+                    tables.reinforcement_profile_systems.fields = [
+                      "range",
+                      "reinforcement_type_id",
+                      "rules_reinforcement_id",
+                      "profile_systems_id",
+                      "id",
+                    ];
+                    sortValues(reinforcement_profile_systems, function (values) {
+                      tables.reinforcement_profile_systems.rows = values;
+                      callback(null);
+                    });
+                  });
+              },
+              function (callback) {
                 /** currencies */
                 models.currencies
                   .findAll({
@@ -1278,6 +1297,7 @@ module.exports = function (req, res) {
                           .findAll({
                             where: { parent_list_id: { in: listIds } },
                             attributes: [
+                              "reinforcement_type_id",
                               "rounding_value",
                               "rounding_type",
                               "modified",
@@ -1295,6 +1315,7 @@ module.exports = function (req, res) {
                           .then(function (list_contents) {
                             tables.list_contents = {};
                             tables.list_contents.fields = [
+                              "reinforcement_type_id",
                               "rounding_value",
                               "rounding_type",
                               "modified",

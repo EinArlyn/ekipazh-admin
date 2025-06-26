@@ -10,6 +10,11 @@ html
             img(src="/assets/images/logo_window.png")
           span#logo-brand
             | Ekipazh Calculator admin panel
+          if (userName)
+            span.user-name-header 
+              =i18n.__('User')
+              | :&nbsp;
+              =userName
           .nav-logout
             span#lang-selector
               a#lang-rus(href="/?lang=ru" class=(lang === 'ru' ? 'selected': ''))

@@ -105,6 +105,12 @@
           option(value="3")=i18n.__('Divisible rule')
         | 
         input(name="item_rounding_value", type="text", class="input-default input-text", style="width: 40px;", placeholder="0" form="add-new-item-to-set")
+    .row.add-reinforcement-type 
+      .add-reinforcement-type-text
+        span.text-style
+          =i18n.__("Reinforcement")
+      .add-reinforcement-type-content
+        select(id="add-item-select-reinforcement", name="item_reinforcement_type", class="select-default input-margin", style="width: 310px;", form="add-new-item-to-set")
     .color-select-text
       span#color-profile
         =i18n.__('Lamination type')

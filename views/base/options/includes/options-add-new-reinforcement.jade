@@ -1,0 +1,13 @@
+.pop-up.add-new-reinforcement-pop-up
+  form#add-new-reinforcement-form(method="POST" action="/base/options/reinforcement/add-new-reinforcement")
+    .pop-up-close-wrap
+      a(class="pop-up-close", href="#")
+    //- span.pop-up-header
+    //-   =i18n.__('Add new reinforcement')
+    .content-block
+      span.field-margin-popup
+        =i18n.__('Name')
+        | :
+      input.input-default.input-margin-popup#new-reinforcement-name(type="text" name="name" value="" style="width: 196px;")
+    .submit-row
+      input.btn-submit#submit-add-new-reinforcement(type="button" value=i18n.__('Add'))

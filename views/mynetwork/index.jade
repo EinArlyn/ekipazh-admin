@@ -9,15 +9,20 @@ block content
         | 
         | ->
         span#nav-text
-          =i18n.__('My network')
+          =i18n.__('settingsAndNetwork')
         img.loader-ico(src="/assets/images/loader_ico.GIF" style="display: inline-block;")
+        .wrapper-action_3
+          .network-action_3
+          a(href="/mynetwork/add_user").network-action
+            | +&nbsp;
+            =i18n.__('Add new user')
     .wrapper-calendar_network
       .date-pickers.date-picker-from
         div(id="calendar-from")
       .date-pickers.date-picker-to
         div(id="calendar-to")
       .calendar-network
-        span.date-select
+        //- span.date-select
           =i18n.__('from')
           | 
           input(id="date-from", type="text", name="date_from", value=("0" + new Date(from).getDate()).slice(-2) + '.' + ("0" + (new Date(from).getMonth() + 1)).slice(-2) + '.' + new Date(from).getFullYear(), class="input-calendar", disabled, style="width: 65px;")
@@ -31,7 +36,21 @@ block content
             a(class="calendar-btn", href="#")
           span.ok-button#ok-date-filter
             input(type="button" value="Ok")
-    .wrapper-action
+
+        .select-filter-data 
+          select#filter-data
+            option(value="week", selected='selected')
+              =i18n.__('week')  
+            option(value="month")  
+              =i18n.__('month')  
+            option(value="year")  
+              =i18n.__('year')  
+          span.ok-button#ok-date-filter
+            input(type="button" value="Ok")
+
+
+
+    //- .wrapper-action
       .action-links
         a(href="#" id="show-all-picker").network-action_1.network-action.disabled
           =i18n.__('Open')
@@ -182,9 +201,9 @@ block content
           tr.title-user_t
             th.title-user.title-user_name
               =i18n.__('User')
-            th.title-user.title-light_filter
             th.title-user.title-user_entry
               =i18n.__('Date of the last entry')
+            th.title-user.title-light_filter
             //- th.title-user
               =i18n.__('Entries')
             //- th.title-user
@@ -206,7 +225,7 @@ block content
             #tab-content1.tab-content
               .edit-block
                 form#edit-user-form(method="POST" action="/" enctype="multipart/form-data")
-                  .save-user.top-save
+                  //- .save-user.top-save
                     input.option-save.user-base-info.form-save(type="button" value=i18n.__('Save') data-user="")
                   .change-av
                     input.hidden#avatar-input(type="file" name="avatar" value="Изменить аватар")
@@ -215,7 +234,7 @@ block content
                     a.user-name.change_n#change-avatar(href="#")
                       =i18n.__('Change avatar')
                   .edit-form
-                    .wrapper-input
+                    //- .wrapper-input
                       .radio-buttons
                         .lighter-r.r-10.default_lighter
                           input.user-base-info.editable-identificator(type="radio" name="identificator" id="color_in_10" value="10")
@@ -265,16 +284,8 @@ block content
                             .red_b
                     .wrapper-input
                       p.user-name_form
-                        =i18n.__('User ID')
-                      input#option-user-id.user-base-info.user_form.user_form_id(type="text" name="short_id" placeholder="11")
-                    .wrapper-input
-                      p.user-name_form
-                        =i18n.__('Name')
+                        =i18n.__('companyName')
                       input#option-user-name.user-base-info.user_form(type="text" name="name" placeholder="Ф.И.О.")
-                    .wrapper-input
-                      p.user-name_form
-                        =i18n.__('Contact name')
-                      input#option-user-contact-name.user-base-info.user_form(type="text" name="contact_name")
                     .wrapper-input
                       p.user-name_form
                         =i18n.__('Login_u_k')
@@ -291,21 +302,8 @@ block content
                       input#option-user-email.user-base-info.user_form(type="text" name="email")
                     .wrapper-input
                       p.user-name_form
-                        =i18n.__('Sync code')
-                      input#option-user-code-sync.user_form(type="text" name="code_sync" disabled)
-                    .wrapper-input
-                      p.user-name_form
-                        =i18n.__('Export folder')
-                      select#option-user-export-folder.user-base-info.user_form.select-default(name="export_folder")
-                        option(value="0")=i18n.__("Not exist")
-                    .wrapper-input
-                      p.user-name_form
                         =i18n.__('Phone_u')
                       input#option-user-city-phone.user-base-info.user_form(type="text" name="city_phone")
-                    .wrapper-input
-                      p.user-name_form
-                        =i18n.__('Fax')
-                      input#option-user-fax.user-base-info.user_form(type="text" name="fax")
                     .wrapper-input
                       p.user-name_form
                         =i18n.__('Country')
@@ -323,37 +321,64 @@ block content
                       p.user-name_form
                         =i18n.__('Address')
                       input#option-user-address.user-base-info.user_form(type="text" name="address")
-                    .wrapper-input
+                    .wrapper-input.more-info
+                      p.user-name_form
+                        =i18n.__('User ID')
+                      input#option-user-id.user-base-info.user_form.user_form_id(type="text" name="short_id" placeholder="11")
+                    .wrapper-input.more-info
+                      p.user-name_form
+                        =i18n.__('Contact name')
+                      input#option-user-contact-name.user-base-info.user_form(type="text" name="contact_name")
+                    .wrapper-input.more-info
+                      p.user-name_form
+                        =i18n.__('Sync code')
+                      input#option-user-code-sync.user_form(type="text" name="code_sync" disabled)
+                    .wrapper-input.more-info
+                      p.user-name_form
+                        =i18n.__('Export folder')
+                      select#option-user-export-folder.user-base-info.user_form.select-default(name="export_folder")
+                        option(value="0")=i18n.__("Not exist")
+                    .wrapper-input.more-info
+                      p.user-name_form
+                        =i18n.__('Fax')
+                      input#option-user-fax.user-base-info.user_form(type="text" name="fax")
+                    .wrapper-input.more-info
                       p.user-name_form
                         =i18n.__('Director')
                       input#option-user-director.user-base-info.user_form(type="text" name="director")
-                    .wrapper-input
-                      p.user-name_form
-                        =i18n.__('Jur./phys. person')
-                      input#option-user-legal-name.user-base-info.user_form(type="text" name="legal_name")
-                    .wrapper-input
+                    .wrapper-input.more-info
                       p.user-name_form
                         =i18n.__('INN')
                       input#option-user-inn.user-base-info.user_form(type="text" name="inn")
-                    .wrapper-input
-                      p.user-name_form
-                        =i18n.__('OKPO')
-                      input#option-user-okpo.user-base-info.user_form(type="text" name="okpo")
-                    .wrapper-input
+                    .wrapper-input.more-info
                       p.user-name_form
                         =i18n.__('MFO')
                       input#option-user-mfo.user-base-info.user_form(type="text" name="mfo")
-                    .wrapper-input
+                    .wrapper-input.more-info
                       p.user-name_form
                         =i18n.__('Bank name')
                       input#option-user-bank.user-base-info.user_form(type="text" name="bank_name")
-                    .wrapper-input.wrapper-input_bottom
+                    .wrapper-input.more-info.whole-width
+                      p.user-name_form
+                        =i18n.__('qrForPayment')
+                    .wrapper-input.more-info
+                      p.user-name_form
+                        =i18n.__('Jur./phys. person')
+                      input#option-user-legal-name.user-base-info.user_form(type="text" name="legal_name")
+                    .wrapper-input.more-info
+                      p.user-name_form
+                        =i18n.__('OKPO')
+                      input#option-user-okpo.user-base-info.user_form(type="text" name="okpo")
+                    .wrapper-input.more-info
                       p.user-name_form
                         =i18n.__('Account number')
                       input#option-user-bank-acc.user-base-info.user_form(type="text" name="bank_acc_no")
+                    .btn-show-more-info 
+                      .show-more-info
+                        =i18n.__("additional")
                     .save-user
                       input#option-move-user-hidder.user-base-info.form-save(hidden type="text" name="parentId")
-                      input.option-save.user-base-info.form-save(type="button" value=i18n.__('Save') data-user="")
+                      input.option-save.user-base-info.form-save(type="button" value=i18n.__('saveChanges') data-user="")
                     .del-user
                       img.save_user_img(src="/assets/images/10.png", alt="")
                       a.delete_user#delete-user(href="#")
@@ -385,7 +410,7 @@ block content
                     li
                       input.lc-rights(id="my-network-cb" data-type="3" type="checkbox" disabled)
                       label(for="my-network-cb")
-                        =i18n.__('My network')
+                        =i18n.__('settingsAndNetwork')
                     li
                       input.lc-rights(id="mail-cb" data-type="4" type="checkbox" disabled)
                       label(for="mail-cb")

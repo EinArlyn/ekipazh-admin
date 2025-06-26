@@ -102,6 +102,14 @@ router.get('/presets/getPresetsFolder/:id', isAuthenticated, getPresetsFolder);
 router.post('/presets/editPresetFolder', isAuthenticated, editPresetFolder);
 router.post('/presets/removePresetsFolder', isAuthenticated, removePresetsFolder);
 
+/** Reinforcement */
+router.get('/reinforcement', isAuthenticated, getReinforcement);
+router.post('/reinforcement/add-new-reinforcement', isAuthenticated, addNewReinforcement);
+router.post('/reinforcement/remove', isAuthenticated, removeReinforcement);
+router.post('/reinforcement/save-parametr', isAuthenticated, saveReinforcementParametr);
+router.post('/reinforcement/save-armir-name', isAuthenticated, saveReinforcementName);
+router.post('/reinforcement/save-armir-priority', isAuthenticated, saveReinforcementPriority);
+
 // for all checkboxes country in addElems 
 router.post('/getAddElemsCountry/:id', isAuthenticated, getAddElemsCountry);
 
@@ -760,6 +768,54 @@ function saveCoef(req, res) {
       res.send(value);
     });
   });
+}
+
+function saveReinforcementParametr(req, res) {
+  const value = req.body.value;
+  const id = req.body.id;
+  const profile_id = req.body.profile_id;
+  const type = req.body.type;
+  const rule = req.body.rule;
+
+  models.reinforcement_profile_systems.findOne({
+    where: {id: id}
+  }).then(function (parametr) {
+    parametr.updateAttributes({
+      range: value
+    }).then(function(){
+      res.send(value);
+    })
+  })
+}
+
+function saveReinforcementName(req, res) {
+  const value = req.body.value;
+  const id = req.body.id;
+
+  models.reinforcement_types.findOne({
+    where: {id: id}
+  }).then(function (type) {
+    type.updateAttributes({
+      name: value
+    }).then(function(){
+      res.send(value);
+    })
+  })
+}
+
+function saveReinforcementPriority(req, res) {
+  const value = req.body.value;
+  const id = req.body.id;
+
+  models.reinforcement_types.findOne({
+    where: {id: id}
+  }).then(function (type) {
+    type.updateAttributes({
+      priority: value
+    }).then(function(){
+      res.send(value);
+    })
+  })
 }
 
 function saveBaseCoef (req, res) {
@@ -2733,6 +2789,82 @@ function getPresets (req, res) {
     })
   })
 }
+
+// armirs
+function getReinforcement (req, res) {
+  models.reinforcement_types.findAll({}).then(function(armir_list){
+    models.profile_systems.findAll({}).then(function(profile_systems){
+      models.rules_reinforcement.findAll({}).then(function(rules_reinforcement){
+        models.reinforcement_profile_systems.findAll({}).then(function(reinforcement_profile_systems){
+
+          armir_list = armir_list.sort((a,b) => a.priority - b.priority);
+          let content = [];
+          profile_systems.forEach(profile => {
+            let item = {};
+            item.profile_name = profile.name;
+            item.rules = rules_reinforcement;
+            item.parametrs = [];
+            item.types = [];
+            armir_list.forEach(type => {
+              let findParamert = reinforcement_profile_systems.filter(parametr => parametr.profile_systems_id === profile.id && parametr.reinforcement_type_id === type.id);
+              if (findParamert.length) {
+                item.parametrs.push(findParamert.sort((a,b) => a.rules_reinforcement_id - b.rules_reinforcement_id));
+                item.types.push(type);
+              }
+            });
+            content.push(item);
+          });
+        
+
+              res.render('base/options/reinforcement', {
+                i18n                  : i18n,
+                title                 : i18n.__('Options'),
+                content               : content,
+                armir_list            : armir_list,
+                profile_systems       : profile_systems,
+                rules_reinforcement   : rules_reinforcement,
+                thisPageLink          : '/base/options/',
+                cssSrcs               : ['/assets/stylesheets/base/options.css'],
+                scriptSrcs            : ['/assets/javascripts/vendor/localizer/i18next-1.10.1.min.js', '/assets/javascripts/base/options.js']
+              });
+        })
+      })
+    })
+  })        
+}
+
+function addNewReinforcement(req, res) {
+  var name = req.body.name;
+  models.reinforcement_types.create({
+    name: name,
+    factory_id: parseInt(req.session.user.factory_id)
+  }).then(function() {
+    res.redirect('/base/options/reinforcement');
+  }).catch(function(err) {
+    console.log(err);
+    res.redirect('/base/options/reinforcement');
+  });
+}
+
+function removeReinforcement(req, res) {
+  var reinforcementId = req.body.reinforcementId;
+
+  models.reinforcement_types.findOne({
+    where: {id: reinforcementId, factory_id: req.session.user.factory_id}
+  }).then(function(armir) {
+    armir.destroy().then(function() {
+      res.send({status: true});
+    }).catch(function(err) {
+      console.log(err);
+      res.send({status: false});
+    });
+  }).catch(function(err) {
+    console.log(err);
+    res.send({status: false});
+  });
+}
+
+
 // function getWindowSills(req, res) {
 //   models.addition_folders.findAll({
 //     where: {factory_id: req.session.user.factory_id, addition_type_id: 8}

@@ -465,7 +465,7 @@ block content
                   =parseFloat(set.list_content.value)
                   | 
                   =i18n.__('m')
-                img(src="/assets/images/edit_btn.png" data=set.list_content.id data-item-name=set.name class="edit-btn")
+                img(src="/assets/images/edit_btn.png" data=set.list_content.id data-item-name=set.name data-set-id=set.id class="edit-btn")
                 img(class="remove-btn remove-item" value=list.id data=set.id data-list=set.list_content.id src="/assets/images/remove_btn.png" alt="Удалить набор" title="Удалить набор")
           .functionality
               a(href="#", id="addElement")
