@@ -184,6 +184,7 @@ module.exports = function (req, res) {
                     tables.reinforcement_types = {};
                     tables.reinforcement_types.fields = [
                       "priority",
+                      "factory_id",
                       "name",
                       "id"
                     ];
