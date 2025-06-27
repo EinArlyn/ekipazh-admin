@@ -177,6 +177,23 @@ module.exports = function (req, res) {
                   });
               },
               function (callback) {
+                /** reinforcement / armir */
+                models.reinforcement_types
+                  .findAll({})
+                  .then(function (reinforcement_types) {
+                    tables.reinforcement_types = {};
+                    tables.reinforcement_types.fields = [
+                      "priority",
+                      "name",
+                      "id"
+                    ];
+                    sortValues(reinforcement_types, function (values) {
+                      tables.reinforcement_types.rows = values;
+                      callback(null);
+                    });
+                  });
+              },
+              function (callback) {
                 /** currencies */
                 models.currencies
                   .findAll({

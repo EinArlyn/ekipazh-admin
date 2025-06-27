@@ -180,7 +180,7 @@
 	"OKPO": "ОКПО",
 	"MFO": "МФО",
 	"Bank name": "Наименование банка",
-	"Account number": "Номер счета",
+	"Account number": "Номер счета (IBAN)",
 	"Delete user": "Удалить пользователя",
 	"Permissions": "Права доступа",
 	"Private cabinet": "Личный кабинет",

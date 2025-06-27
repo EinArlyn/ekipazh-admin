@@ -731,6 +731,9 @@ img#option-user-avatar {
       font-weight: bold;
     }
   }
+  &.more-hight {
+    height: 45px;
+  }
 }
 
 .optional_pic{
