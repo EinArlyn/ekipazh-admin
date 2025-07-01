@@ -12,6 +12,8 @@ var models = require('../../lib/models');
  * @param {timestamp}  dateTo
  */
 module.exports = function (req, res) {
+  var lang = req.getLocale();
+
   if (conf.production && conf.production.specLink.indexOf('ekipazh') > -1) {
     return res.redirect('/');
   }
@@ -62,6 +64,7 @@ module.exports = function (req, res) {
           lights: lights.split(',').map(function(i) { return parseInt(i, 10); }),
           user: req.session.user,
           userName: req.session.user.name,
+          lang: lang,
           lightersArray: _.countBy(_.compact(_.flatten(lightersArray)), _.identity),
           factoryIdentificators: factoryIdentificators,
           cssSrcs: ['/assets/stylesheets/mynetwork.css'],

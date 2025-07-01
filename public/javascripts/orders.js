@@ -595,4 +595,8 @@ $(function () {
       }
     });
   }
+
+  $('.curr-lang').click(function() {
+    $('#lang-selector').toggleClass('show-lange');
+  })
 });
