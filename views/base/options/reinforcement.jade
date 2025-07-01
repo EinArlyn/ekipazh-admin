@@ -70,7 +70,7 @@ block content
                 =item.types[index].name
               each parametr,index2 in parametrs
                 .parametr(id=parametr.id, profile_id=parametr.profile_systems_id, type=parametr.reinforcement_type_id, rule=parametr.rules_reinforcement_id)
-                  =parametr.range 
+                  =(parametr.range == 0 ? 0 : parametr.range-1) 
                 if (index2 + 1) % 4 === 0
                     hr 
   include includes/options-add-new-reinforcement.jade

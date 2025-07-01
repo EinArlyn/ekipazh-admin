@@ -781,7 +781,7 @@ function saveReinforcementParametr(req, res) {
     where: {id: id}
   }).then(function (parametr) {
     parametr.updateAttributes({
-      range: value
+      range: parseFloat(value) == 0 ? 0 : parseFloat(value)+1
     }).then(function(){
       res.send(value);
     })
