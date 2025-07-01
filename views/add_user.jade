@@ -14,18 +14,18 @@ block content
           =i18n.__('Add new user') 
     .edit-form.add_user_width
         form#submit-new-user(action="/mynetwork/add_user/add-new-user" method="POST")
-          .add_user_block
-            img#user-avatar(src="/assets/images/avatar.png", alt="")
-            input(id="user-avatar-input" name="avatar" type="file").hide-input
-            a.add-av#add-user-avatar(href="#")
-              =i18n.__('Add avatar')
+          //- .add_user_block
+          //-   img#user-avatar(src="/assets/images/avatar.png", alt="")
+          //-   input(id="user-avatar-input" name="avatar" type="file").hide-input
+          //-   a.add-av#add-user-avatar(href="#")
+          //-     =i18n.__('Add avatar')
+          //- .wrapper-input
+          //-   p.user-name_form
+          //-     =i18n.__('User ID')
+          //-   input.user_form.user_form_id#user-short-id(type="text" name="shortId" placeholder="--")
           .wrapper-input
             p.user-name_form
-              =i18n.__('User ID')
-            input.user_form.user_form_id#user-short-id(type="text" name="shortId" placeholder="--")
-          .wrapper-input
-            p.user-name_form
-              =i18n.__('Name')
+              =i18n.__('companyName')
               img.optional_pic(src="/assets/images/11.png", alt="")
             input.user_form#user-name(type="text" name="name" placeholder="Ф.И.О.")
           .wrapper-input
@@ -46,10 +46,10 @@ block content
             p.user-name_form
               =i18n.__('Phone_u')
             input.user_form#user-city-phone(type="tel" name="cityPhone" placeholder="")
-          .wrapper-input
-            p.user-name_form
-              =i18n.__('Fax')
-            input.user_form#user-fax(type="text" name="fax")
+          //- .wrapper-input
+          //-   p.user-name_form
+          //-     =i18n.__('Fax')
+          //-   input.user_form#user-fax(type="text" name="fax")
           .wrapper-input
             p.user-name_form
               =i18n.__('Country')

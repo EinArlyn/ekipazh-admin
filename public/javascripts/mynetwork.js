@@ -1505,6 +1505,7 @@ console.error(data.error ?? data.error_1);
         });
 
         $('.lvl-1 span.user-expander').trigger('click');
+        $('.lvl-1 span.user-collapser').hide();
 
         $("#users-table tbody.prefetched-data").show();
         $('tr.users-preload').hide();
@@ -1764,4 +1765,8 @@ console.error(data.error ?? data.error_1);
       });
     }
   }
+
+  $('.curr-lang').click(function() {
+    $('#lang-selector').toggleClass('show-lange');
+  })
 });

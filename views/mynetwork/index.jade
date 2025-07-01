@@ -231,7 +231,7 @@ block content
                     input.hidden#avatar-input(type="file" name="avatar" value="Изменить аватар")
                     .avatar-container
                       img#option-user-avatar(src="", alt="")
-                    a.user-name.change_n#change-avatar(href="#")
+                    a.change_n#change-avatar(href="#")
                       =i18n.__('Change avatar')
                   .edit-form
                     //- .wrapper-input
@@ -282,6 +282,11 @@ block content
                           input.user-base-info(type="radio" name="identificator" id="color_in_14" value="14")
                           label(for="color_in_14")
                             .red_b
+                    .wrapper-input
+                      .img-info
+                        =i18n.__('usedInOffer')
+                      a.download-img(href="https://admin.ekipazh.windowscalculator.net/local_storage/avatars/291225logo_eu.jpg" target="_blank") 
+                        =i18n.__('example')
                     .wrapper-input
                       p.user-name_form
                         =i18n.__('companyName')
@@ -582,7 +587,7 @@ block content
               =i18n.__('Mounting')
             #tab-content4.tab-content
               .mounting-block
-                table#mounting-margin-table(cellspacing="0" cellpadding="0" border="0")
+                //- table#mounting-margin-table(cellspacing="0" cellpadding="0" border="0")
                   //- tr.header-1-mounting-tr
                   //-   td(colspan="7")
                   //-     =i18n.__('Markup for installation')
@@ -683,7 +688,7 @@ block content
                   tbody#history-body
           li.tab-close.tab_m#close-options
             img(src="/assets/images/close.png", alt="")
-            span.tab-close-text
-              =i18n.__('Close')
+            //- span.tab-close-text
+            //-   =i18n.__('Close')
 
   include ./includes/reset-password.jade

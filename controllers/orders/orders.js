@@ -18,6 +18,7 @@ var ITEMS_PER_PAGE = 7;
  *        [default] Present date
  */
 module.exports = function (req, res) {
+  var lang = req.getLocale();
   var rights = (req.session.user.user_type !== 7 && req.session.user.is_all_calcs ? true : false);
 
   models.order_prices.min('modified', {
@@ -91,6 +92,7 @@ module.exports = function (req, res) {
             fromC         : fromC,
             toC           : toC,
             orderBy       : orderBy,
+            lang          : lang,
             currentUser   : {
                               id: currUser.id,
                               isBuch: currUser.is_buch,
