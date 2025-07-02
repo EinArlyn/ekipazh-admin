@@ -585,6 +585,7 @@ td.data {
 }
 .wrapper-table {
   overflow: hidden;
+  -webkit-text-size-adjust: 100%;
   /* background-color: #dfdfdf; */
   /* border-right: 1px solid #d3d3d3; */
   /* border-left: 1px solid #d3d3d3; */
@@ -651,7 +652,7 @@ td.data {
   text-decoration: underline;
 }
 .change-av{
-    height: 80px;
+    height: 110px;
 
 }
 .user-tabs {
@@ -663,8 +664,8 @@ td.data {
   font-size: 12px;
   /* float: left; */
   position: absolute;
-  top: 47px;
-  right: 217px;
+  top: 41px;
+  right: 212px;
   padding: 0 20px;
   text-decoration: none !important;
   background: black;
@@ -681,7 +682,7 @@ td.data {
 .avatar-container {
   height: 70px;
   width: 500px;
-  padding: 10px 10px 0 10px;
+  padding: 35px 10px 0 10px;
   display: inline-block;
   float: left;
   vertical-align: middle;
