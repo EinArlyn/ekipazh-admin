@@ -2270,7 +2270,12 @@ module.exports = function (req, res) {
                   .findAll()
                   .then(function (mount_hole_rules) {
                     tables.mount_hole_rules = {};
-                    tables.mount_hole_rules.fields = ["id", "rule_name", "rule_value"];
+                    tables.mount_hole_rules.fields = [
+                      "rule_value",
+                      "rule_name",
+                      "factory_id",
+                      "id"
+                    ];
                     sortValues(mount_hole_rules, function (values) {
                       tables.mount_hole_rules.rows = values;
                       callback(null);
