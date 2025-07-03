@@ -11,9 +11,9 @@ html
           span#logo-brand
             | Ekipazh Calculator admin panel
           .nav-logout
-            span.curr-lang
+            .curr-lang
               =lang
-            span#lang-selector
+            #lang-selector
               a#lang-rus(href="/?lang=ru" class=(lang === 'ru' ? 'selected': ''))
                 | Ru
               | &nbsp;&nbsp;
@@ -35,9 +35,9 @@ html
               a#lang-de(href="/?lang=de" class=(lang === 'de' ? 'selected': ''))
                 | De
               | &nbsp;&nbsp;&nbsp;
-            span#nav-logout-button
-              img(src='/assets/images/logout.png', alt="Выход")
-              a(class="external-link", href="/logout" id="logout") &nbsp;Exit 
+            #nav-logout-button
+              a(class="external-link", href="/logout" id="logout") 
+                img(src="/assets/images/dashboard_icons/exit-black.png", alt="Выход")
           .nav-search
             input(type="text", name="content", placeholder=" Поиск...", class="search-input")
       .loader-wrapper
