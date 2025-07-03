@@ -474,18 +474,18 @@ block content
                         =i18n.__('All calculations')
           li.tab-3.tab_m
             input(type="radio" name="tabs" id="tab3" )
-            label(for="tab3")=i18n.__('Recomended discounts on the terms of orders')
+            label(for="tab3")=i18n.__('markups')
             #tab-content3.tab-content
               .discount-block
                 table#discount-block-table(cellspacing="0" cellpadding="0" border="0")
                   tr.header-1-discount-tr
                     td(colspan="4")
-                      =i18n.__('Recomended discounts on the terms of orders')
+                      =i18n.__('appliedAdjustments')
                   tr.header-2-discount-tr
                     td(rowspan="2")
                       //- =i18n.__('Term of manufacturing')
                     td(colspan="3").header-1-discount-td
-                      =i18n.__('Recomended discount %')
+                      //- =i18n.__('Recomended discount %')
                   tr.header-2-discount-tr
                     td.header-2-discount-td
                       =i18n.__('on constructs')

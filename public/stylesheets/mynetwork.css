@@ -741,12 +741,12 @@ img#option-user-avatar {
   }
 
   .img-info {
-    font-size: 12px;
+    font-size: 10px;
     float: left;
     padding-left: 15px;
   }
   a.download-img {
-    font-size: 12px;
+    font-size: 10px;
     float: right;
     padding-right: 20px;
   }

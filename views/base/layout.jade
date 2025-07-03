@@ -12,8 +12,8 @@ html
             | Ekipazh Calculator admin panel
           .nav-logout
             span#nav-logout-button
-              img(src='/assets/images/logout.png', alt="Выход")
-              a(class="external-link", href="/logout" id="logout") Выйти
+              a(class="external-link", href="/logout" id="logout")
+                img(src="/assets/images/dashboard_icons/exit-black.png", alt="Выход")
           .nav-search
             form(action=thisPageLink + "0" +'?type=' + type, method="get", id="search-query")
               input(type="text", name="queryName", placeholder="Поиск...", class="search-input", value=(queryName ? queryName : ''))

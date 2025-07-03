@@ -1463,7 +1463,7 @@ console.error(data.error ?? data.error_1);
               '<div class="user-info_pic1">' +
                 '<img src="' + data.parent.avatar + '" class="user-avatar">' +
               '</div>' +
-              '<span class="user-name" style="font-weight: bold">' +
+              '<span class="user-name" id="user-name-setting" data-row="1" data-user="' + data.parent.id + '" style="font-weight: bold; cursor: pointer">' +
                 data.parent.name +
               '</span>' +
             '</td>' +
@@ -1500,6 +1500,7 @@ console.error(data.error ?? data.error_1);
 
         $('span.user-action').click(actionLvl);
         $(".user-info_pic3").click(getUserData);
+        $("#user-name-setting").click(getUserData);
         $('#add-user-icon').click(function() {
           window.location.href = '/mynetwork/add_user';
         });
@@ -1570,6 +1571,7 @@ console.error(data.error ?? data.error_1);
 
     $(networkTRs).insertAfter('tr.user-option[data-user-id="' + parentId + '"]');
     $('tr.user-info[row-id*="' + parentId + '."] .user-info_pic3').click(getUserData);
+    $('tr.user-info[row-id*="' + parentId + '."] #user-name-setting').click(getUserData);
     _updateFilteredDate();
   }
 
@@ -1593,7 +1595,7 @@ console.error(data.error ?? data.error_1);
           '<div class="user-info_pic1">' +
             '<img src="' + user.avatar + '" class="user-avatar">' +
           '</div>' +
-          '<span class="user-name">' +
+          '<span class="user-name" id="user-name-setting" data-row="' + parentRowId + '.' + (+i + 1) + '" data-user="' + user.id + '" style="cursor: pointer">' +
             user.name +
           '</span>' +
         '</td>' +
