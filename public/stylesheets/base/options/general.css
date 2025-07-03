@@ -275,3 +275,46 @@ input.folder-input {
   margin-left: 2px;
   width: 30px;
 }
+
+.hole-title {
+  font-weight: bold;
+  padding: 10px 0;
+}
+
+.hole-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 5px 10px;
+  .rules-holes-value {
+    width: 120px;
+    font-size: 13px;
+    background-color: white;
+    border: 1px solid black;
+    border-radius: 3px;
+    height: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+.edit-input {
+  /* margin-top: -5px; */
+}
+
+.edit-input input {
+  display: inline-block;
+}
+
+.edit-input button {
+  margin-left: 5px;
+  background-color: #59c22d;
+  border: 1px solid #c6c6c6;
+  border-radius: 3px;
+  color: #fff;
+}
+
+.edit-input button:hover {
+  cursor: pointer;
+}

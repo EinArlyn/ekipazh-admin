@@ -2265,6 +2265,19 @@ module.exports = function (req, res) {
                   });
               },
               function (callback) {
+                /** mount_hole_rules */
+                models.mount_hole_rules
+                  .findAll()
+                  .then(function (mount_hole_rules) {
+                    tables.mount_hole_rules = {};
+                    tables.mount_hole_rules.fields = ["id", "rule_name", "rule_value"];
+                    sortValues(mount_hole_rules, function (values) {
+                      tables.mount_hole_rules.rows = values;
+                      callback(null);
+                    });
+                  });
+              },
+              function (callback) {
                 /** categories_sets */
                 models.categories_sets
                   .findAll()

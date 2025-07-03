@@ -1258,6 +1258,24 @@ tr.user-option {
   /* border-top: 1px solid #dedede; */
   font-size: 13px;
   font-family: Tahoma, Verdana, Segoe, sans-serif;
+
+  input[type=radio]:not(old):checked + label{
+    background-position : 0 -48px;
+    border-top: 1px solid black;
+    border-left: 1px solid black;
+    border-right: 1px solid black;
+    position: relative;
+    &::before {
+      position: absolute;
+      content: '';
+      width: 100%;
+      height: 5px;
+      left: 0;
+      bottom: -2px;
+      background-color: white;
+      z-index: 5;
+    }
+  }
 }
 
 tr.user-info:hover {
