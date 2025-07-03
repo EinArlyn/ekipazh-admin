@@ -83,6 +83,21 @@ $(function () {
     $('#submit-identificators').prop('disabled', false);
   });
 
+    // mount_hole_rules 
+  $('.rules-holes-value').editable('/base/options/rules-holes-value/save-value', {
+    id: 'id',
+    name: 'value',
+    indicator: 'Сохранение..',
+    tooltip: 'Нажмите для редактирования',
+    submit: 'Ок',
+    cssclass : 'edit-input',
+    height: '12px',
+    width: '50px',
+    callback: function() {
+      // showLoader();
+    }
+  });
+
   function isValidEmailAddress(email) {
     var pattern = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
     return pattern.test(email);

@@ -80,6 +80,8 @@ router.post('/general/change-option', isAuthenticated, changeOption);
 router.post('/general/identificators', isAuthenticated, updateIdentificators);
 router.post('/general/folder/add', isAuthenticated, addNewOrderFolder);
 router.post('/general/folder/update', isAuthenticated, updateOrderFolder);
+router.post('/rules-holes-value/save-value', isAuthenticated, saveHolesValue);
+
 /** Application options */
 router.get('/application', isAuthenticated, getApplicationOptions);
 router.post('/application/edit-link', isAuthenticated, changeAppLink);
@@ -125,6 +127,7 @@ router.get('/otherelems', isAuthenticated, otherElems);
 router.get('/holes', isAuthenticated, holesElems);
 /** getDecors */
 router.get('/decors', isAuthenticated, getDecors);
+/** rules-holes-value */
 
 /** Get aviable laminations for factory */
 function getLaminations (req, res) {
@@ -812,6 +815,21 @@ function saveReinforcementPriority(req, res) {
   }).then(function (type) {
     type.updateAttributes({
       priority: value
+    }).then(function(){
+      res.send(value);
+    })
+  })
+}
+
+function saveHolesValue(req, res) {
+  const value = req.body.value;
+  const id = req.body.id;
+
+  models.mount_hole_rules.findOne({
+    where: {id: id}
+  }).then(function (rule) {
+    rule.updateAttributes({
+      rule_value: value
     }).then(function(){
       res.send(value);
     })
@@ -2165,15 +2183,23 @@ function getGeneralOptions(req, res) {
         },
         order: ['id']
       }).then(function (factoryOrderFolders) {
-        res.render('base/options/general', {
-          i18n: i18n,
-          title: i18n.__('General options'),
-          factory: factory,
-          factoryIdentificators: factoryIdentificators,
-          factoryOrderFolders: factoryOrderFolders,
-          cssSrcs: ['/assets/stylesheets/base/options/general.css'],
-          scriptSrcs: ['/assets/javascripts/vendor/localizer/i18next-1.10.1.min.js', '/assets/javascripts/base/options/general.js']
-        });
+        models.mount_hole_rules.findAll({}).then(function (mount_hole_rules) {
+
+
+          res.render('base/options/general', {
+            i18n: i18n,
+            title: i18n.__('General options'),
+            factory: factory,
+            factoryIdentificators: factoryIdentificators,
+            factoryOrderFolders: factoryOrderFolders,
+            mount_hole_rules: mount_hole_rules.sort((a,b) => a.id-b.id),
+            cssSrcs: ['/assets/stylesheets/base/options/general.css'],
+            scriptSrcs: ['/assets/javascripts/vendor/localizer/i18next-1.10.1.min.js', '/assets/javascripts/base/options/general.js']
+          });
+        }).catch(function (error) {
+          console.log(error);
+          res.send('Internal server error.');
+        })
       }).catch(function (error) {
         console.log(error);
         res.send('Internal server error.');

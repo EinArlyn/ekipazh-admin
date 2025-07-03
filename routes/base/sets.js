@@ -7,7 +7,7 @@ var isAuthenticated = require('../../lib/services/authentication').isAdminAuth;
 var util = require('util');
 
 var itemsPerPage = 20;
-var allTypesOfLists = [7, 2, 3, 4, 5, 6, 8, 9, 10, 16, 17, 18, 19, 21, 15, 0, 11, 12, 13, 20, 22, 24, 25, 23, 26, 27, 28, 29, 30, 31, 32, 14];
+var allTypesOfLists = [7, 2, 3, 4, 5, 6, 8, 9, 10, 16, 17, 18, 19, 21, 15, 0, 11, 12, 13, 20, 22, 24, 25, 23, 26, 27, 28, 29, 30, 31, 32, 14, 33];
 var listTypes = [{type:0, name:'Все'}, {type:2, name:'Рама'}, {type:3, name:'Створка'},
     {type:4, name:'Импост'}, {type:5, name:'Штапик'}, {type:6, name:'Стеклопакеты'},
     {type:7, name:'Армирование'}, {type:8, name:'Подоконники'}, {type:9, name:'Отливы'},
@@ -18,7 +18,7 @@ var listTypes = [{type:0, name:'Все'}, {type:2, name:'Рама'}, {type:3, na
     {type:25, name:'Шпрос'}, {type:23, name:'Дверная Фурнитура'}, {type: 26, name: 'Жалюзи'},
     {type: 27, name: 'Микропроветривание'}, {type: 28, name: 'Ролеты'}, {type: 29, name: 'Ставни'},
     {type: 30, name: 'Наружный переплет'}, {type: 31, name: 'Наружные откосы'},
-    {type: 32, name: 'Внутренние откосы'}, {type: 14, name: 'Технологические отверстия'}];
+    {type: 32, name: 'Внутренние откосы'}, {type: 14, name: 'Технологические отверстия'}, {type: 33, name: 'Отверстия под крепёж'}];
 
 router.get('/', isAuthenticated, getSetsList);
 router.get('/:page', isAuthenticated, getSetsList);
