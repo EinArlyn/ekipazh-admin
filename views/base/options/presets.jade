@@ -80,6 +80,10 @@ block content
                       input(type="checkbox" id="presets-checkbox" + presetsSet.id, name="checkPreset", value=presetsSet.id, checked=(presetsSet.is_visible == 1) ? true : false)
                       label(for="presets-checkbox" + presetsSet.id) 
                         =i18n.__('Active')
+                    .is-sliding
+                      input(type="checkbox" id="presets-sliding-checkbox" + presetsSet.id, name="checkPresetSliding", value=presetsSet.id, checked=(presetsSet.is_sliding == 1) ? true : false)
+                      label(for="presets-sliding-checkbox" + presetsSet.id) 
+                        ="Раздвижка?"
                     .btns-wrap
                       .edit-set(data-set-data-id=findConfig?findConfig.id:0, data-set=presetsSet.id, data-categories-id=presetsFolder.id) 
                         =i18n.__('Edit')
