@@ -97,6 +97,7 @@ router.get('/presets/getPresetsForm', isAuthenticated, getPresetForm);
 router.get('/presets/getPresetsSettings/:id', isAuthenticated, getPresetsSettings);
 router.post('/presets/editPresetSet', isAuthenticated, editPresetSet);
 router.post('/presets/isVisiblePreset', isAuthenticated, isVisiblePreset);
+router.post('/presets/isSlidingPreset', isAuthenticated, isSlidingPreset);
 router.post('/presets/createPresetSet', isAuthenticated, createPresetSet);
 router.post('/presets/removeSet', isAuthenticated, removeSet);
 router.post('/presets/addPresetFolder', isAuthenticated, addPresetFolder);
@@ -682,6 +683,21 @@ function isVisiblePreset(req, res) {
   }).then(function(curSet) {
     curSet.updateAttributes({
       is_visible: parseInt(checkBoxInfo)
+    });
+    res.send({status: true});
+  })
+}
+
+function isSlidingPreset(req, res) {
+  
+  const checkBoxInfo = req.body.checkBoxInfo;
+  const presetId = req.body.presetId;
+
+  models.sets.findOne({
+    where: {id: parseInt(presetId)}
+  }).then(function(curSet) {
+    curSet.updateAttributes({
+      is_sliding: parseInt(checkBoxInfo)
     });
     res.send({status: true});
   })

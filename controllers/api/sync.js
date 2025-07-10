@@ -1523,7 +1523,7 @@ module.exports = function (req, res) {
                 /** profile_systems */
                 models.sequelize
                   .query(
-                    `SELECT S.id, S.name, S.short_name, S.folder_id, S.rama_list_id, S.rama_still_list_id, S.stvorka_list_id, S.impost_list_id, S.impost_in_stvorka_list_id, S.shtulp_list_id, S.is_editable, S.is_default, S.position, S.country, S.modified, S.cameras, S.heat_coeff, S.noise_coeff, S.heat_coeff_value, S.link, S.description, S.img, S.is_push, S.code_sync
+                    `SELECT S.id, S.name, S.short_name, S.folder_id, S.rama_list_id, S.rama_still_list_id, S.stvorka_list_id, S.impost_list_id, S.impost_in_stvorka_list_id, S.shtulp_list_id, S.is_sliding, S.is_editable, S.is_default, S.position, S.country, S.modified, S.cameras, S.heat_coeff, S.noise_coeff, S.heat_coeff_value, S.link, S.description, S.img, S.is_push, S.code_sync
                     FROM profile_systems S
                     JOIN profile_system_folders F ON S.folder_id = F.id
                     JOIN users AS U ON U.id = ${userId}
@@ -1551,6 +1551,7 @@ module.exports = function (req, res) {
                       "impost_list_id",
                       "impost_in_stvorka_list_id",
                       "shtulp_list_id",
+                      "is_sliding",
                       "is_editable",
                       "is_default",
                       "position",
@@ -2307,6 +2308,7 @@ module.exports = function (req, res) {
                     "img",
                     "description",
                     "position",
+                    "is_sliding"
                   ];
                   sortValues(sets, function (values) {
                     tables.sets.rows = values;

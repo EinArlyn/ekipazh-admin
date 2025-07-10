@@ -1243,6 +1243,18 @@ $(function () {
     
   })
 
+  $("[name='checkPresetSliding']").click(function(e) {
+    // e.preventDefault();
+    const presetId = $(this).attr('value');
+    const checkBoxInfo = ($(this).prop('checked') == true) ? 1 : 0;
+
+    $.post('/base/options/presets/isSlidingPreset', {
+      presetId: presetId,
+      checkBoxInfo: checkBoxInfo
+    }, function(result){})
+    
+  })
+
   // ---------------------------------------------------------------
   // lamination folders end 
   /** Change discounts */
