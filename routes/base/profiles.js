@@ -21,6 +21,7 @@ router.post('/saveProfileGroup', isAuthenticated, saveProfileGroup);
 router.get('/getProfileSystemFolders', isAuthenticated, getProfileSystemFolders);
 router.post('/changeList', isAuthenticated, changeList);
 router.post('/activate', isAuthenticated, activate);
+router.post('/sliding', isAuthenticated, sliding);
 router.get('/laminations/:id', isAuthenticated, getProfileLaminations);
 router.get('/getLaminationDependency', isAuthenticated, getLaminationDependency);
 router.post('/submitLaminationDependency', isAuthenticated, submitLaminationDependency);
@@ -554,6 +555,27 @@ function activate (req, res) {
   }).then(function(profileSystem) {
     profileSystem.updateAttributes({
       is_editable: parseInt(isActivated)
+    }).then(function() {
+      res.send({status: true});
+    }).catch(function(error) {
+      console.log(error);
+      res.send({status: false});
+    });
+  }).catch(function(error) {
+    console.log(error);
+    res.send({status: false});
+  });
+}
+
+function sliding (req, res) {
+  var profileSystemId = req.body.profileSystemId;
+  var isSliding = req.body.isSliding;
+
+  models.profile_systems.find({
+    where: {id: profileSystemId}
+  }).then(function(profileSystem) {
+    profileSystem.updateAttributes({
+      is_sliding: parseInt(isSliding)
     }).then(function() {
       res.send({status: true});
     }).catch(function(error) {

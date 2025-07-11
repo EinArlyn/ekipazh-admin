@@ -7,9 +7,13 @@
       =i18n.__('Edit profile system')
     .pop-up-specs
       span#profile-active
-        input(id="checkbox-profile-active", type="checkbox", name="active" value="1")
+        input.active-btn-profile(id="checkbox-profile-active", type="checkbox", name="active" value="1")
         label(for="checkbox-profile-active")
           =i18n.__("Active")
+      span#profile-sliding(style="margin-left: 30px")
+        input.sliding-btn-profile(id="checkbox-profile-sliding", type="checkbox", name="profile-sliding" value="1")
+        label(for="checkbox-profile-sliding")
+          =i18n.__('sliding')
       span#profile-sync-code
         =i18n.__("Sync code")
         | : 
