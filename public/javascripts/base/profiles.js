@@ -537,6 +537,45 @@ $(function () {
     }
   });
 
+  $('.sliding-btn-profile').click(function() {
+    var profileSystemId = $(this).attr('value');
+    var isChecked = $(this).prop('checked');
+
+    if (isChecked) {
+      $.post('/base/profiles/sliding', {
+        profileSystemId: profileSystemId,
+        isSliding: 1
+      }, function(data) {
+        if (data.status) {
+          $.toast({
+            text : i18n.t('Profile has been activated'),
+            showHideTransition: 'fade',
+            allowToastClose: true,
+            hideAfter: 3000,
+            stack: 5,
+            position: {top: '60px', right: '30px'}
+          });
+        }
+      });
+    } else {
+      $.post('/base/profiles/sliding', {
+        profileSystemId: profileSystemId,
+        isSliding: 0
+      }, function(data) {
+        if (data.status) {
+          $.toast({
+            text : i18n.t('Profile has been deactivated'),
+            showHideTransition: 'fade',
+            allowToastClose: true,
+            hideAfter: 3000,
+            stack: 5,
+            position: {top: '60px', right: '30px'}
+          });
+        }
+      });
+    }
+  });
+
   /** Initialize pop-ups */
   $('.add-group-pop-up').popup({
     type: 'overlay',
@@ -617,10 +656,22 @@ $(function () {
         $('#profile-system-heat-input option[value="' + data.profileSystem.heat_coeff + '"]').attr('selected', 'selected');
         $('#profile-system-noise-input option[value="' + data.profileSystem.noise_coeff + '"]').attr('selected', 'selected');
         $('#profile-edit-system-image').attr('src', img);
+        $('.active-btn-profile').val(profileSystemId);
+        $('.sliding-btn-profile').val(profileSystemId);
         if (parseInt(data.profileSystem.is_default, 10)) {
           $('#checkbox-profile-default').prop('checked', true);
         } else {
           $('#checkbox-profile-default').prop('checked', false);
+        }
+        if (parseInt(data.profileSystem.is_editable, 10)) {
+          $('.active-btn-profile').prop('checked', true);
+        } else {
+          $('.active-btn-profile').prop('checked', false);
+        }
+        if (parseInt(data.profileSystem.is_sliding, 10)) {
+          $('.sliding-btn-profile').prop('checked', true);
+        } else {
+          $('.sliding-btn-profile').prop('checked', false);
         }
 
         if (parseInt(data.profileSystem.is_push, 10)) {
