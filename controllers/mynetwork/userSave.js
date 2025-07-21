@@ -63,8 +63,8 @@ module.exports = function (req, res) {
         mfo: fields.mfo,
         bank_name: fields.bank_name,
         bank_acc_no: fields.bank_acc_no,
-        city_id: parseInt(fields.city_id, 10),
-        identificator: parseInt(fields.identificator, 10)
+        city_id: parseInt(fields.city_id, 10)
+        // identificator: parseInt(fields.identificator, 10)
       }).then(function() {
         if (userId == req.session.user.id) {
           req.session.user.name = fields.name;
