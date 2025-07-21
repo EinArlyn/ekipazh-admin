@@ -564,7 +564,7 @@ td.data {
     font-size: 13px;
     font-family: Tahoma, Verdana, Segoe, sans-serif;
     display: inline-block;
-    width: 160px;
+    width: 185px;
     text-align: left;
     padding-left: 15px;
     margin-right: 8px;
@@ -710,7 +710,7 @@ img#option-user-avatar {
   /* margin-top: 10px; */
 }
 .user_form{
-  width: 325px;
+  width: 300px;
   height: 22px;
   border-radius: 2px;
   -moz-box-sizing: border-box;
@@ -1213,7 +1213,7 @@ img#option-user-avatar {
   width: 500px;
 }
 .add_user_width .user-name_form {
-  width: 135px;
+  width: 175px;
 }
 .add_user_width  .save-user {
     width: 500px;
@@ -1389,7 +1389,7 @@ tr.included-users {
       }
 
     .header-2-discount-tr {
-      height: 25px;
+      /* height: 25px; */
       vertical-align: middle;
       text-align: left;
       background-color: #c6c6c6;

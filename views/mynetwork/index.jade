@@ -484,9 +484,9 @@ block content
                   tr.header-2-discount-tr
                     td(rowspan="2")
                       //- =i18n.__('Term of manufacturing')
-                    td(colspan="3").header-1-discount-td
+                    //- td(colspan="3").header-1-discount-td
                       //- =i18n.__('Recomended discount %')
-                  tr.header-2-discount-tr
+                  tr.header-2-discount-tr(style="height: 25px;")
                     td.header-2-discount-td
                       =i18n.__('on constructs')
                     td.header-2-discount-td
@@ -633,7 +633,7 @@ block content
                         =i18n.__('Types of installation')
                     tr.header-2-mounting-tr
                       td
-                        | 
+                        ="On/Off"
                       td
                         =i18n.__('Title')
                       td
