@@ -49,6 +49,8 @@
   "The element belongs to the profile systems": "Элемент состоит в профильных системах.",
   "Select a hardware group": "Выберите группу фурнитуры.",
   "Ignore": "Не учитывать",
+  "front": "впереди", 
+  "back": "позади",
   "Add a set of elements": "Добавить набор элементов",
   "Not exist": "Отсутствуют",
   "Groups not exist": "Группы отсутствуют.",

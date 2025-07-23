@@ -49,6 +49,8 @@
     "The element belongs to the profile systems": "El elemento pertenece a los sistemas de perfil.",
     "Select a hardware group": "Seleccione un grupo de hardware.",
     "Ignore": "Ignorar",
+    "front": "delante", 
+    "back": "detrás",
     "Add a set of elements": "Agregar un conjunto de elementos",
     "Not exist": "No existe",
     "Groups not exist": "Grupos no existen.",

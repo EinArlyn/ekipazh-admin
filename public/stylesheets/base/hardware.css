@@ -327,7 +327,8 @@ main {
       }
 
       .item-direction,
-      .item-color {
+      .item-color,
+      .item-position {
         max-width: 85px;
         min-width: 85px;
         text-align: center;
@@ -898,7 +899,8 @@ a#hardware-edit-pop-up-btn {
     height: 20px;
   }
 
-    .item-width-pop-up {
+    .item-width-pop-up,
+    .item-height-pop-up {
       display: inline-block;
       width: 160px;
     }
