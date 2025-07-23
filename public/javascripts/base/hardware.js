@@ -296,7 +296,7 @@ $('div.profile_item input').click(function() {
       var length = $('.pop-up #length-input').val();
       var count = $('.pop-up #num-input').val();
       var childId = $('.pop-up #item-name-pop-up-input').val();
-      var position = 0;
+      var position = $('.pop-up #select-position-id').val();;
       var childType;
 
       if (addElementToHardware) {
@@ -555,6 +555,7 @@ $('div.profile_item input').click(function() {
     var minHeight = $('.edit-hardware-item-pop-up #min_height').val();
     var maxHeight = $('.edit-hardware-item-pop-up #max_height').val();
     var directionId = $('.edit-hardware-item-pop-up #select-direction-id').val();
+    var positionId = $('#select-position-id').val();
     var windowHardwareColorId = $('.edit-hardware-item-pop-up #select-lamination-id').val();
     var length = $('.edit-hardware-item-pop-up #length-input').val();
     var count = $('.edit-hardware-item-pop-up #num-input').val();
@@ -571,11 +572,13 @@ $('div.profile_item input').click(function() {
       minHeight: minHeight,
       maxHeight: maxHeight,
       directionId: directionId,
+      positionId: positionId,
       windowHardwareColorId: windowHardwareColorId,
       length: length,
       count: count
     },function (data) {
       $('tr[data="' + hardwareId + '"]').find('.item-direction').text(directionName);
+      $('tr[data="' + hardwareId + '"]').find('.item-position').text(positionId === "1" ? i18n.t('Ignore') : (positionId === "2" ? i18n.t('front') : i18n.t('back')));
       $('tr[data="' + hardwareId + '"]').find('.item-count').text(count);
       $('tr[data="' + hardwareId + '"]').find('.item-width').text(minWidth + '-' + maxWidth);
       $('tr[data="' + hardwareId + '"]').find('.item-height').text(minHeight + '-' + maxHeight);
@@ -974,6 +977,9 @@ $('div.profile_item input').click(function() {
           '<td class="item-height">' +
             '' + featuresElements[n].min_height + '-' + featuresElements[n].max_height +
           '</td>' +
+          '<td class="item-position">' +
+            '' + (featuresElements[n].position === 1 ? i18n.t('Ignore') : (featuresElements[n].position === 2 ? i18n.t('front') : i18n.t('back'))) +
+          '</td>' +
           '<td class="item-direction">' +
             '' + (featuresElements[n].direction.name === '_не учитыв' ? i18n.t('Ignore') : featuresElements[n].direction.name) +
           '</td>' +
@@ -1005,6 +1011,7 @@ $('div.profile_item input').click(function() {
                 $.get('/base/hardware/get-hardware/' + hardwareId, function (data) {
                   if (data.status) {
                     $('.edit-hardware-item-pop-up #select-direction-id option[value="' + data.hardware.direction_id + '"]').attr('selected', 'selected');
+                    $('.edit-hardware-item-pop-up #select-position-id option[value="' + data.hardware.position + '"]').attr('selected', 'selected');
                     $('.edit-hardware-item-pop-up #select-lamination-id option[value="' + data.hardware.window_hardware_color_id + '"]').attr('selected', 'selected');
                     $('.edit-hardware-item-pop-up #length-input').val(data.hardware['length']);
                     $('.edit-hardware-item-pop-up #num-input').val(data.hardware.count);

@@ -684,6 +684,7 @@ function editHardware (req, res) {
       min_height: parseInt(req.body.minHeight),
       max_height: parseInt(req.body.maxHeight),
       direction_id: parseInt(req.body.directionId),
+      position: parseInt(req.body.positionId),
       window_hardware_color_id: parseInt(req.body.windowHardwareColorId),
       length: parseInt(req.body.length),
       count: parseInt(req.body.count)

@@ -49,6 +49,8 @@
   "The element belongs to the profile systems": "The element belongs to the profile systems.",
   "Select a hardware group": "Select a hardware group.",
   "Ignore": "Ignore",
+  "front": "front", 
+  "back": "rear",
   "Add a set of elements": "Add a set of elements",
   "Not exist": "Not exist",
   "Groups not exist": "Groups not exist",

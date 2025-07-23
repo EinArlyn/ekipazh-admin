@@ -17,7 +17,7 @@ module.exports = function (req, res) {
       models.users.create({
         email: fields.email,
         password: pass,
-        short_id: fields.shortId,
+        // short_id: fields.shortId,
         parent_id: parseInt(req.session.user.id, 10),
         factory_id: parseInt(req.session.user.factory_id, 10),
         name: fields.name,
@@ -37,8 +37,8 @@ module.exports = function (req, res) {
         city_phone: fields.cityPhone,
         city_id: parseInt(fields.cityId, 10),
         //legal_name: ,
-        fax: fields.fax,
-        avatar: '/assets/images/avatar.png',
+        // fax: fields.fax,
+        avatar: '/assets/images/default_logo_eu.jpg',
         address: fields.address,
         //birthday: ,
         //sex: ,
@@ -47,22 +47,23 @@ module.exports = function (req, res) {
         created_at: new Date(),
         updated_at: new Date(),
         entries: 1
-      }).then(function (result) {      
-        if (!files.avatar.name) return res.send({ status: true });
+      }).then(function (result) {   
+        // if (!files.avatar.name) return res.send({ status: true });
 
-        var url = '/local_storage/avatars/' + Math.floor(Math.random()*1000000) + files.avatar.name + '.png';
-        loadImage(files.avatar.path, url);
+        // var url = '/local_storage/avatars/' + Math.floor(Math.random()*1000000) + files.avatar.name + '.png';
+        // loadImage(files.avatar.path, url);
 
-        models.users.find({
-          where: {
-            id: result.id
-          }
-        }).then(function (newUser) {
-          newUser.updateAttributes({
-            avatar: url
-          });
-          res.send({ status: true });
-        });
+        // models.users.find({
+        //   where: {
+        //     id: result.id
+        //   }
+        // }).then(function (newUser) {
+        //   newUser.updateAttributes({
+        //     avatar: url
+        //   });
+        //   res.send({ status: true });
+        // });
+        res.send({ status: true });
       }).catch(function (error) {
         console.log(error);
         res.send({ status: false });
