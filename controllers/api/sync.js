@@ -2113,6 +2113,7 @@ module.exports = function (req, res) {
                       "factory_id",
                       "window_hardware_group_id",
                       "modified",
+                      "rules_type",
                     ];
                     sortValues(window_hardwares, function (values) {
                       tables.window_hardwares.rows = values;

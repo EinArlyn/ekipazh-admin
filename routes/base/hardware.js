@@ -367,6 +367,7 @@ function addElement (req, res) {
     position: req.body.position,
     factory_id: parseInt(req.session.user.factory_id),
     window_hardware_group_id: parseInt(req.body.hardwareGroupId),
+    rules_type: parseInt(req.body.item_rules),
     //window_hardware_feature_id: parseInt(req.body.featureId),
     modified: new Date()
   }).then(function () {
@@ -687,6 +688,7 @@ function editHardware (req, res) {
       position: parseInt(req.body.positionId),
       window_hardware_color_id: parseInt(req.body.windowHardwareColorId),
       length: parseInt(req.body.length),
+      rules_type: parseInt(req.body.item_rule),
       count: parseInt(req.body.count)
     }).then(function (result) {
       res.end();

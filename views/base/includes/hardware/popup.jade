@@ -23,9 +23,6 @@
     span.item-lamination-pop-up
       =i18n.__('Inner window color')
       | : 
-    span.item-length-pop-up
-      =i18n.__('Length')
-      | : 
     span.item-num-pop-up
       =i18n.__('Amount')
       | :
@@ -37,10 +34,18 @@
         option(value="3")=i18n.__('Left-hand')
     span.item-lamination-pop-up
       select(class="select-default", id="select-lamination-id", style="width: 125px;")
-    span.item-length-pop-up
-      input(class="input-default", id="length-input", type="text", value="0", style="width: 60px;")
     span.item-num-pop-up
       input(class="input-default", id="num-input", type="text", value="0", style="width: 60px;")
+  .item-length-select
+    span.item-length-pop-up
+      =i18n.__('Length')
+      | : 
+    select(name="item_rule_length", id="item_rule_length", class="select-default input-margin", style="width: 255px;")
+      option(value="21")=i18n.__('Less than the width of the parent')
+      option(value="22")=i18n.__('Less than the height of the parent')
+      option(value="25" selected="selected")=i18n.__('Ignore')
+    span.item-length-pop-up
+      input(class="input-default", id="length-input", type="text", value="0", style="width: 60px;")
   .item-height-width-pop-up-text
     span.item-width-pop-up
       =i18n.__('Width (mm)')
@@ -68,7 +73,8 @@
       select(class="select-default", id="select-position-id", style="width: 120px;")
         option(value="1")=i18n.__('Ignore')
         option(value="2")=i18n.__('front')
-        option(value="3")=i18n.__('back')
+        option(value="3")=i18n.__('middle')
+        option(value="4")=i18n.__('back')
   .item-save
     a.disabled(id="item-save-btn", href="#", type="button")
       span#item-save-btn-text
