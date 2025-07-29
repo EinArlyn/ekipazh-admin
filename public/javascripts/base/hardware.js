@@ -566,7 +566,7 @@ $('div.profile_item input').click(function() {
     var minHeight = $('.edit-hardware-item-pop-up #min_height').val();
     var maxHeight = $('.edit-hardware-item-pop-up #max_height').val();
     var directionId = $('.edit-hardware-item-pop-up #select-direction-id').val();
-    var positionId = $('#select-position-id').val();
+    var positionId = $('#select-position-id-edit').val();
     var windowHardwareColorId = $('.edit-hardware-item-pop-up #select-lamination-id').val();
     var length = $('.edit-hardware-item-pop-up #length-input-edit').val();
     var count = $('.edit-hardware-item-pop-up #num-input').val();
@@ -982,6 +982,15 @@ $('div.profile_item input').click(function() {
               return;
             });
           }
+
+          const positionMap = {
+            "1": i18n.t('Ignore'),
+            "2": i18n.t('front'),
+            "3": i18n.t('middle'),
+            "4": i18n.t('back')
+          };
+          const positionText = positionMap[featuresElements[n].position] || i18n.t('Not exist');
+
           $('#hardware-items-list').append('<tr class="hardware-items-list" data="' + featuresElements[n].id + '">' +
           '<td class="item-input-choose">' +
             '<input class="hardware-checkbox" id="checkbox' + featuresElements[n].id + '" type="checkbox" value="' + featuresElements[n].id + '" name="checkedElements" style="margin-left: 25px;">' +
@@ -1000,7 +1009,7 @@ $('div.profile_item input').click(function() {
             '' + featuresElements[n].min_height + '-' + featuresElements[n].max_height +
           '</td>' +
           '<td class="item-position">' +
-            '' + (featuresElements[n].position === 1 ? i18n.t('Ignore') : (featuresElements[n].position === 2 ? i18n.t('front') : i18n.t('back'))) +
+            '' + positionText +
           '</td>' +
           '<td class="item-direction">' +
             '' + (featuresElements[n].direction.name === '_не учитыв' ? i18n.t('Ignore') : featuresElements[n].direction.name) +
@@ -1021,6 +1030,7 @@ $('div.profile_item input').click(function() {
               $('.edit-hardware-item-pop-up .hardware-name-pop-up').attr('id', hardwareId).text(hardwareName);
               $.get('/base/hardware/get-hardware-colors', function (colors) {
                 $('.edit-hardware-item-pop-up #select-lamination-id').find('option').remove().end();
+                $('.edit-hardware-item-pop-up #select-position-id-edit').find('option').remove().end();
                 $(".edit-hardware-item-pop-up #select-lamination-id").append('<option ' +
                   'value="0" selected>' + i18n.t('Ignore') +
                 '</option>');
@@ -1030,10 +1040,13 @@ $('div.profile_item input').click(function() {
                 for (var j = 0, len = colors.length; j < len; j++) {
                   $('.edit-hardware-item-pop-up #select-lamination-id').append('<option value="' + colors[j].id + '">' + colors[j].name + '</option>');
                 }
+                for (let s in positionMap) {
+                  $('.edit-hardware-item-pop-up #select-position-id-edit').append('<option value="' + s + '">' + positionMap[s] + '</option>');
+                }
                 $.get('/base/hardware/get-hardware/' + hardwareId, function (data) {
                   if (data.status) {
                     $('.edit-hardware-item-pop-up #select-direction-id option[value="' + data.hardware.direction_id + '"]').attr('selected', 'selected');
-                    $('.edit-hardware-item-pop-up #select-position-id option[value="' + data.hardware.position + '"]').attr('selected', 'selected');
+                    $('.edit-hardware-item-pop-up #select-position-id-edit option[value="' + data.hardware.position + '"]').attr('selected', 'selected');
                     $('.edit-hardware-item-pop-up #select-lamination-id option[value="' + data.hardware.window_hardware_color_id + '"]').attr('selected', 'selected');
                     $('.edit-hardware-item-pop-up #length-input-edit').val(data.hardware['length']);
                     $('.edit-hardware-item-pop-up #num-input').val(data.hardware.count);

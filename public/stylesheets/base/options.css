@@ -245,7 +245,7 @@ main {
         max-height: 0;
         overflow: hidden;
         &.open {
-          max-height: 5000px;
+          max-height: 20000px;
           /* overflow: auto; */
         }
       }
