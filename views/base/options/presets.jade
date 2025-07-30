@@ -80,10 +80,20 @@ block content
                       input(type="checkbox" id="presets-checkbox" + presetsSet.id, name="checkPreset", value=presetsSet.id, checked=(presetsSet.is_visible == 1) ? true : false)
                       label(for="presets-checkbox" + presetsSet.id) 
                         =i18n.__('Active')
-                    .is-sliding
-                      input(type="checkbox" id="presets-sliding-checkbox" + presetsSet.id, name="checkPresetSliding", value=presetsSet.id, checked=(presetsSet.is_sliding == 1) ? true : false)
+                    //- .is-sliding
+                    //-   input(type="checkbox" id="presets-sliding-checkbox" + presetsSet.id, name="checkPresetSliding", value=presetsSet.id, checked=(presetsSet.is_sliding) ? true : false)
+                    //-   label(for="presets-sliding-checkbox" + presetsSet.id) 
+                    //-     =i18n.__('sliding')
+                    .is-sliding(data-id=presetsSet.id)
+                      input.sliding_input(type="checkbox", id="presets-sliding-checkbox" + presetsSet.id, value="0", checked=(presetsSet.is_sliding == 0) ? true : false)
+                      label(for="presets-sliding-checkbox" + presetsSet.id)
+                        =i18n.__('NS')
+                      input.sliding_input(type="checkbox", id="presets-sliding-checkbox" + presetsSet.id, value="1", checked=(presetsSet.is_sliding == 1) ? true : false)
                       label(for="presets-sliding-checkbox" + presetsSet.id) 
-                        =i18n.__('sliding')
+                        =i18n.__('S1')
+                      input.sliding_input(type="checkbox", id="presets-sliding-checkbox" + presetsSet.id, value="2", checked=(presetsSet.is_sliding == 2) ? true : false)
+                      label(for="presets-sliding-checkbox" + presetsSet.id) 
+                        =i18n.__('S2')
                     .btns-wrap
                       .edit-set(data-set-data-id=findConfig?findConfig.id:0, data-set=presetsSet.id, data-categories-id=presetsFolder.id) 
                         =i18n.__('Edit')

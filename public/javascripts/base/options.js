@@ -1243,17 +1243,34 @@ $(function () {
     
   })
 
-  $("[name='checkPresetSliding']").click(function(e) {
-    // e.preventDefault();
-    const presetId = $(this).attr('value');
-    const checkBoxInfo = ($(this).prop('checked') == true) ? 1 : 0;
+  // $("[name='checkPresetSliding']").click(function(e) {
+  //   // e.preventDefault();
+  //   const presetId = $(this).attr('value');
+  //   const checkBoxInfo = ($(this).prop('checked') == true) ? 1 : 0;
 
-    $.post('/base/options/presets/isSlidingPreset', {
-      presetId: presetId,
-      checkBoxInfo: checkBoxInfo
-    }, function(result){})
+  //   $.post('/base/options/presets/isSlidingPreset', {
+  //     presetId: presetId,
+  //     checkBoxInfo: checkBoxInfo
+  //   }, function(result){})
     
-  })
+  // })
+  $(document).on('change', '.sliding_input', function () {
+  const $current = $(this);
+  const $group = $current.closest('.is-sliding');
+  const presetId = $group.data('id');
+  const selectedValue = $current.val();
+
+  // Отключаем остальные чекбоксы в той же строке
+  $group.find('.sliding_input').not($current).prop('checked', false);
+
+  // Отправляем выбранное значение на сервер
+  $.post('/base/options/presets/isSlidingPreset', {
+    presetId: presetId,
+    checkBoxInfo: selectedValue
+  }, function (result) {
+    // console.log('Обновлено:', result);
+  });
+});
 
   // ---------------------------------------------------------------
   // lamination folders end 
