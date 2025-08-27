@@ -614,7 +614,7 @@ main .main-content {
             width: 380px;
             text-align: left;
           }
-            .linear-peace, .linear-linear, .linear-weight, .linear-liquid, .surface-linear, .surface-surface, .surface-peace, .peace-peace, .peace-weight, .peace-liquid, .not-exist {
+            .linear-peace, .linear-linear, .linear-weight, .linear-liquid, .surface-linear, .surface-surface, .surface-peace, .peace-peace, .peace-weight, .peace-liquid, .not-exist, .size-parent, .size-square-parent {
               display: none;
             }
 

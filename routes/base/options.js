@@ -697,7 +697,7 @@ function isSlidingPreset(req, res) {
     where: {id: parseInt(presetId)}
   }).then(function(curSet) {
     curSet.updateAttributes({
-      is_sliding: parseInt(checkBoxInfo)
+      is_sliding: checkBoxInfo
     });
     res.send({status: true});
   })
@@ -2811,7 +2811,9 @@ function getPresets (req, res) {
 
               categories_sets = categories_sets.sort((a, b) => {return a.position - b.position});
               sets = sets.sort((a, b) => {return a.position - b.position});
-
+              sets.forEach(set => {
+                set.is_sliding = [JSON.parse(set.is_sliding)];
+              })
 
               res.render('base/options/presets', {
                 i18n               : i18n,

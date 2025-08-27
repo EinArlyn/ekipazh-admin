@@ -1255,22 +1255,36 @@ $(function () {
     
   // })
   $(document).on('change', '.sliding_input', function () {
-  const $current = $(this);
-  const $group = $current.closest('.is-sliding');
-  const presetId = $group.data('id');
-  const selectedValue = $current.val();
+    const $current = $(this);
+    const $group = $current.closest('.is-sliding');
+    const presetId = $group.data('id');
+    const selectedValue = $current.val();
 
-  // Отключаем остальные чекбоксы в той же строке
-  $group.find('.sliding_input').not($current).prop('checked', false);
+    const selectedValues = [];
 
-  // Отправляем выбранное значение на сервер
-  $.post('/base/options/presets/isSlidingPreset', {
-    presetId: presetId,
-    checkBoxInfo: selectedValue
-  }, function (result) {
-    // console.log('Обновлено:', result);
+   
+
+    if (selectedValue === "0") {
+      $group.find('.sliding_input').not($current).prop('checked', false);
+      selectedValues.push(0);
+    } else {
+      $group.find('.sliding_input').filter(function () {
+        return $(this).val() === '0';
+      }).prop('checked', false);
+      $group.find('.sliding_input:checked').each(function () {
+        if ($(this).val() !== "0") {
+          selectedValues.push(Number($(this).val()));
+        }
+      });
+    }
+    
+    // Отправляем выбранное значение на сервер
+    $.post('/base/options/presets/isSlidingPreset', {
+      presetId: presetId,
+      checkBoxInfo: String(selectedValues)
+    }, function (result) {
+    });
   });
-});
 
   // ---------------------------------------------------------------
   // lamination folders end 

@@ -389,7 +389,7 @@ $(function () {
         } else if (surfaceSet.indexOf(parseInt(setGroup)) !== -1) {
           allowedGroups = mouldedElement.concat(surfaceElement, pieceElement);
         } else if (pieceSet.indexOf(parseInt(setGroup)) !== -1) {
-          allowedGroups = weigthElement.concat(liquidElement, pieceElement);
+          allowedGroups = weigthElement.concat(liquidElement, pieceElement, mouldedElement);
         }
         $.get("/base/set/item/get_element_group?groups=" + allowedGroups.join(), function (elements_groups) {
           $("#add-item-select-group").find('option').remove().end();
@@ -406,7 +406,7 @@ $(function () {
         } else if (surfaceSet.indexOf(parseInt(setGroup)) !== -1) {
           allowedGroups = mouldedSet.concat(surfaceSet, pieceSet);
         } else if (pieceSet.indexOf(parseInt(setGroup)) !== -1) {
-          allowedGroups = pieceSet;
+          allowedGroups = pieceSet.concat(mouldedSet);
         }
         $.get("/base/set/item/get_set_group?groups=" + allowedGroups.join(), function (sets_group) {
           $("#add-item-select-group").find('option').remove().end();
@@ -501,7 +501,7 @@ $(function () {
       } else if (surfaceSet.indexOf(parseInt(setGroup)) !== -1) {
         allowedGroups = mouldedElement.concat(surfaceElement, pieceElement);
       } else if (pieceSet.indexOf(parseInt(setGroup)) !== -1) {
-        allowedGroups = weigthElement.concat(liquidElement, pieceElement);
+        allowedGroups = weigthElement.concat(liquidElement, pieceElement, mouldedElement, surfaceElement);
       }
 
       $(".add-item-block").hide();
@@ -549,9 +549,9 @@ $(function () {
       } else if (surfaceSet.indexOf(parseInt(setGroup)) !== -1) {
         allowedGroups = mouldedSet.concat(surfaceSet, pieceSet);
       } else if (pieceSet.indexOf(parseInt(setGroup)) !== -1) {
-        allowedGroups = pieceSet;
+        allowedGroups = pieceSet.concat(mouldedSet, surfaceSet);
       }
-      console.log(allowedGroups);
+
       $(".add-item-block").hide();
       $('.add-item-btn').removeClass('add-item-typed');
       $('.checked-rule input[name="item_rule_value"]').val('')
@@ -653,7 +653,12 @@ $(function () {
         $(".peace-weight").addClass("checked-rule");
       } else if (pieceSet.indexOf(parseInt(setGroup)) !== -1 && liquidItem.indexOf(parseInt(itemGroup)) !== -1) { // Штучный (набор) + Весовой/Жидкий (элемент)
         $(".peace-liquid").addClass("checked-rule");
-      } else {
+      } else if (pieceSet.indexOf(parseInt(setGroup)) !== -1 && mouldedItem.indexOf(parseInt(itemGroup)) !== -1) {
+        $(".size-parent").addClass("checked-rule");
+      } else if (pieceSet.indexOf(parseInt(setGroup)) !== -1 && surfaceItem.indexOf(parseInt(itemGroup)) !== -1) {
+        $(".size-square-parent").addClass("checked-rule");
+      } 
+      else {
         $(".not-exist").addClass("checked-rule");
       }
       console.log(getItemsRoute + itemGroup)
