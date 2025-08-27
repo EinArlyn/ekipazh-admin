@@ -83,6 +83,16 @@
         select(name="item_rule", class="select-default input-margin", style="width: 315px;", form="add-new-item-to-set")
           option(value="24")=i18n.__('kg for one parent')
           option(value="23")=i18n.__('kg for meter of parent')
+      .size-parent
+        input(name="item_rule_value", type="text", class="input-default input-margin input-text", style="width: 40px;", form="add-new-item-to-set")
+        | 
+        select(name="item_rule", class="select-default input-margin", style="width: 315px;", form="add-new-item-to-set")
+          option(value="25")=i18n.__('m for one parent')
+      .size-square-parent
+        input(name="item_rule_value", type="text", class="input-default input-margin input-text", style="width: 40px;", form="add-new-item-to-set")
+        | 
+        select(name="item_rule", class="select-default input-margin", style="width: 315px;", form="add-new-item-to-set")
+          option(value="11")=i18n.__('m2 for parent')
       .peace-liquid
         input(name="item_rule_value", type="text", class="input-default input-margin input-text", style="width: 40px;", form="add-new-item-to-set")
         | 
