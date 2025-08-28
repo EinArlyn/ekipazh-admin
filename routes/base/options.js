@@ -2812,7 +2812,7 @@ function getPresets (req, res) {
               categories_sets = categories_sets.sort((a, b) => {return a.position - b.position});
               sets = sets.sort((a, b) => {return a.position - b.position});
               sets.forEach(set => {
-                set.is_sliding = [JSON.parse(set.is_sliding)];
+                set.is_sliding = set.is_sliding.split(',').map(Number);
               })
 
               res.render('base/options/presets', {
