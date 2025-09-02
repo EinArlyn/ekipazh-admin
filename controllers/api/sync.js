@@ -950,6 +950,7 @@ module.exports = function (req, res) {
                       "lamination_in_id",
                       "lamination_out_id",
                       "reg_coeff",
+                      "code_sync",
                     ],
                   })
                   .then(function (elements) {
@@ -984,6 +985,7 @@ module.exports = function (req, res) {
                       "lamination_in_id",
                       "lamination_out_id",
                       "reg_coeff",
+                      "code_sync",
                     ];
                     sortValues(elements, function (values) {
                       tables.elements.rows = values;
