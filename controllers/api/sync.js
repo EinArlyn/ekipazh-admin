@@ -2107,7 +2107,6 @@ module.exports = function (req, res) {
                       "max_height",
                       "direction_id",
                       "window_hardware_color_id",
-                      "window_hardware_color_out_id",
                       "length",
                       "count",
                       "child_id",
@@ -2117,6 +2116,7 @@ module.exports = function (req, res) {
                       "window_hardware_group_id",
                       "modified",
                       "rules_type",
+                      "window_hardware_color_out_id"
                     ];
                     sortValues(window_hardwares, function (values) {
                       tables.window_hardwares.rows = values;
