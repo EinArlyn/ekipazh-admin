@@ -360,6 +360,7 @@ function addElement (req, res) {
     max_height: parseInt(req.body.maxHeight),
     direction_id: parseInt(req.body.directionId),
     window_hardware_color_id: parseInt(req.body.windowHardwareColorId),
+    window_hardware_color_out_id: parseInt(req.body.windowHardwareColorOutId),
     length: parseInt(req.body.length),
     count: parseInt(req.body.count),
     child_id: parseInt(req.body.childId),
@@ -687,6 +688,7 @@ function editHardware (req, res) {
       direction_id: parseInt(req.body.directionId),
       position: parseInt(req.body.positionId),
       window_hardware_color_id: parseInt(req.body.windowHardwareColorId),
+      window_hardware_color_out_id: parseInt(req.body.windowHardwareColorOutId),
       length: parseInt(req.body.length),
       rules_type: parseInt(req.body.item_rule),
       count: parseInt(req.body.count)

@@ -2107,6 +2107,7 @@ module.exports = function (req, res) {
                       "max_height",
                       "direction_id",
                       "window_hardware_color_id",
+                      "window_hardware_color_out_id",
                       "length",
                       "count",
                       "child_id",
