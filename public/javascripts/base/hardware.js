@@ -138,12 +138,14 @@ $('div.profile_item input').click(function() {
       $.get('/base/hardware/get-hardware-colors', function (colors) {
         $(".pop-up #item-group-pop-up-input").find('option').remove().end();
         $(".pop-up #select-lamination-id").find('option').remove().end();
+        $(".pop-up #select-lamination-out-id").find('option').remove().end();
         for (var i = 0, len = data.length; i < len; i++) {
           $('.pop-up #item-group-pop-up-input').append('<option ' +
             'value="' + data[i].id + '">' + data[i].name +
           '</option>');
         }
         $('.pop-up #item-group-pop-up-input').val('2');
+        // in colors
         $(".pop-up #select-lamination-id").append('<option ' +
           'value="0" selected>' + i18n.t('Ignore') +
         '</option>');
@@ -155,7 +157,20 @@ $('div.profile_item input').click(function() {
             'value="' + colors[j].id + '">' + colors[j].name +
           '</option>');
         }
+        // out colors
+        $(".pop-up #select-lamination-out-id").append('<option ' +
+          'value="0" selected>' + i18n.t('Ignore') +
+        '</option>');
+        $(".pop-up #select-lamination-out-id").append('<option ' +
+          'value="1">' + i18n.t('White') +
+        '</option>');
+        for (var j = 0, len2 = colors.length; j < len2; j++) {
+          $(".pop-up #select-lamination-out-id").append('<option ' +
+            'value="' + colors[j].id + '">' + colors[j].name +
+          '</option>');
+        }
         $('.pop-up #select-lamination-id').val('0');
+        $('.pop-up #select-lamination-out-id').val('0');
         $('.pop-up #length-input').val('0');
         $('.pop-up #item-group-pop-up-input').trigger('change');
         $('.pop-up').popup('show');
@@ -180,12 +195,14 @@ $('div.profile_item input').click(function() {
       $.get('/base/hardware/get-hardware-colors', function (colors) {
         $(".pop-up #item-group-pop-up-input").find('option').remove().end();
         $(".pop-up #select-lamination-id").find('option').remove().end();
+        $(".pop-up #select-lamination-out-id").find('option').remove().end();
         for (var i = 0, len = data.length; i < len; i++) {
           $('.pop-up #item-group-pop-up-input').append('<option ' +
             'value="' + data[i].id + '">' + data[i].name +
           '</option>');
         }
         $('.pop-up #item-group-pop-up-input').val('16');
+        // in colors
         $(".pop-up #select-lamination-id").append('<option ' +
           'value="0" selected>' + i18n.t('Ignore') +
         '</option>');
@@ -197,7 +214,20 @@ $('div.profile_item input').click(function() {
             'value="' + colors[j].id + '">' + colors[j].name +
           '</option>');
         }
+        // out colors
+        $(".pop-up #select-lamination-out-id").append('<option ' +
+          'value="0" selected>' + i18n.t('Ignore') +
+        '</option>');
+        $(".pop-up #select-lamination-out-id").append('<option ' +
+          'value="1">' + i18n.t('White') +
+        '</option>');
+        for (var j = 0, len2 = colors.length; j < len2; j++) {
+          $(".pop-up #select-lamination-out-id").append('<option ' +
+            'value="' + colors[j].id + '">' + colors[j].name +
+          '</option>');
+        }
         $('.pop-up #select-lamination-id').val('0');
+        $('.pop-up #select-lamination-out-id').val('0');
         $('.pop-up #length-input').val('0');
         $('.pop-up #item-group-pop-up-input').trigger('change');
         $('.pop-up').popup('show');
@@ -301,6 +331,7 @@ $('div.profile_item input').click(function() {
       var maxHeight = $('.pop-up #max_height').val();
       var directionId = $('.pop-up #select-direction-id').val();
       var windowHardwareColorId = $('.pop-up #select-lamination-id').val();
+      var windowHardwareColorOutId = $('.pop-up #select-lamination-out-id').val();
       var length = $('.pop-up #length-input').val();
       var count = $('.pop-up #num-input').val();
       var childId = $('.pop-up #item-name-pop-up-input').val();
@@ -319,6 +350,7 @@ $('div.profile_item input').click(function() {
           maxHeight: maxHeight,
           directionId: directionId,
           windowHardwareColorId: windowHardwareColorId,
+          windowHardwareColorOutId: windowHardwareColorOutId,
           length: length,
           count: count,
           childId: childId,
@@ -344,6 +376,7 @@ $('div.profile_item input').click(function() {
           maxHeight: maxHeight,
           directionId: directionId,
           windowHardwareColorId: windowHardwareColorId,
+          windowHardwareColorOutId: windowHardwareColorOutId,
           length: length,
           count: count,
           childId: childId,
@@ -568,6 +601,7 @@ $('div.profile_item input').click(function() {
     var directionId = $('.edit-hardware-item-pop-up #select-direction-id').val();
     var positionId = $('#select-position-id-edit').val();
     var windowHardwareColorId = $('.edit-hardware-item-pop-up #select-lamination-id').val();
+    var windowHardwareColorOutId = $('.edit-hardware-item-pop-up #select-lamination-out-id').val();
     var length = $('.edit-hardware-item-pop-up #length-input-edit').val();
     var count = $('.edit-hardware-item-pop-up #num-input').val();
     var hardwareId = $('.edit-hardware-item-pop-up .hardware-name-pop-up').attr('id');
@@ -576,6 +610,7 @@ $('div.profile_item input').click(function() {
     /** after save - edit in tr */
     var directionName = $('.edit-hardware-item-pop-up #select-direction-id option:selected').text();
     var colorName = $('.edit-hardware-item-pop-up #select-lamination-id option:selected').text();
+    var colorOutName = $('.edit-hardware-item-pop-up #select-lamination-out-id option:selected').text();
 
     $.post('/base/hardware/edit-hardware', {
       hardwareId: hardwareId,
@@ -586,6 +621,7 @@ $('div.profile_item input').click(function() {
       directionId: directionId,
       positionId: positionId,
       windowHardwareColorId: windowHardwareColorId,
+      windowHardwareColorOutId: windowHardwareColorOutId,
       length: length,
       item_rule: item_rule,
       count: count
@@ -605,6 +641,7 @@ $('div.profile_item input').click(function() {
       $('tr[data="' + hardwareId + '"]').find('.item-width').text(minWidth + '-' + maxWidth);
       $('tr[data="' + hardwareId + '"]').find('.item-height').text(minHeight + '-' + maxHeight);
       $('tr[data="' + hardwareId + '"]').find('.item-color').text(colorName);
+      $('tr[data="' + hardwareId + '"]').find('.item-color').text(colorOutName);
       $('tr[data="' + hardwareId + '"]').find('.item-length').text(length);
       $('.edit-hardware-item-pop-up').popup('hide');
     });
@@ -947,136 +984,165 @@ $('div.profile_item input').click(function() {
       var elementsChilds = data.elementsChilds;
       var listsChilds = data.listsChilds;
       initPaginator(data.totalPages, data.currentPage, folderId, windowHardwareTypeId, groupId);
+      $.get('/base/hardware/get-hardware-colors', function (colors) {
+          
+        if (!featuresElements.length) {
+          $('.hardware-items-list').remove();
+          $('#hardware-items-list').append('<tr class="hardware-items-list">' +
+          '<td colspan="8" align="center" height="100" class="empty">' +
+            i18n.t('Elements not exist') +
+          '</td></tr>');
+        } else {
+          var hardwareColor;
+          var hardwareColorOut;
 
-      if (!featuresElements.length) {
-        $('.hardware-items-list').remove();
-        $('#hardware-items-list').append('<tr class="hardware-items-list">' +
-        '<td colspan="8" align="center" height="100" class="empty">' +
-          i18n.t('Elements not exist') +
-        '</td></tr>');
-      } else {
-        var hardwareColor;
+          $('.hardware-items-list').remove();
+          for (var n = 0, len = featuresElements.length, name; n < len; n++) {
+            if (featuresElements[n].lamination_factory_color) {
+              hardwareColor = featuresElements[n].lamination_factory_color.name;
+            } else if (featuresElements[n].window_hardware_color_id === 0) {
+              hardwareColor = i18n.t('Ignore');
+            } else {
+              hardwareColor = i18n.t('White');
+            }
 
-        $('.hardware-items-list').remove();
-        for (var n = 0, len = featuresElements.length, name; n < len; n++) {
-          if (featuresElements[n].lamination_factory_color) {
-            hardwareColor = featuresElements[n].lamination_factory_color.name;
-          } else if (featuresElements[n].window_hardware_color_id === 0) {
-            hardwareColor = i18n.t('Ignore');
-          } else {
-            hardwareColor = i18n.t('White');
-          }
+            const findColorOut = colors.find(color => color.id === featuresElements[n].window_hardware_color_out_id);
 
-          if (featuresElements[n].child_type == 'list') {
-            listsChilds.filter(function (value) {
-              if (value.id == featuresElements[n].child_id) {
-                name = value.name;
-              }
-              return;
-            });
-          } else {
-            elementsChilds.filter(function (value) {
-              if (value.id == featuresElements[n].child_id) {
-                name = value.name;
-              }
-              return;
-            });
-          }
+            if (findColorOut) {
+              hardwareColorOut = findColorOut.name;
+            } else if (featuresElements[n].window_hardware_color_out_id === 0) {
+              hardwareColorOut = i18n.t('Ignore');
+            } else {
+              hardwareColorOut = i18n.t('White');
+            }
 
-          const positionMap = {
-            "1": i18n.t('Ignore'),
-            "2": i18n.t('front'),
-            "3": i18n.t('middle'),
-            "4": i18n.t('back')
-          };
-          const positionText = positionMap[featuresElements[n].position] || i18n.t('Not exist');
-
-          $('#hardware-items-list').append('<tr class="hardware-items-list" data="' + featuresElements[n].id + '">' +
-          '<td class="item-input-choose">' +
-            '<input class="hardware-checkbox" id="checkbox' + featuresElements[n].id + '" type="checkbox" value="' + featuresElements[n].id + '" name="checkedElements" style="margin-left: 25px;">' +
-            '<label for="checkbox' + featuresElements[n].id + '"><span id="hide"></span></label>' +
-          '</td>' +
-          '<td class="item-name">' +
-            '' + name +
-          '</td>' +
-          '<td class="item-count">' +
-            '' + featuresElements[n].count +
-          '</td>' +
-          '<td class="item-width">' +
-            '' + featuresElements[n].min_width + '-' + featuresElements[n].max_width +
-          '</td>' +
-          '<td class="item-height">' +
-            '' + featuresElements[n].min_height + '-' + featuresElements[n].max_height +
-          '</td>' +
-          '<td class="item-position">' +
-            '' + positionText +
-          '</td>' +
-          '<td class="item-direction">' +
-            '' + (featuresElements[n].direction.name === '_не учитыв' ? i18n.t('Ignore') : featuresElements[n].direction.name) +
-          '</td>' +
-          '<td class="item-color">' +
-            '' + hardwareColor +
-          '</td>' +
-          '<td class="item-length">' +
-            '' + featuresElements[n].length +
-          '</td>></tr>');
-          /* Add event listener on hardware edit */
-          $('#hardware-items-list').on('click', '.hardware-items-list', function (e) {
-            if (!$(e.target).is('.hardware-checkbox')) {
-              e.preventDefault();
-              e.stopImmediatePropagation();
-              var hardwareId = $(this).attr('data');
-              var hardwareName = $(this).find('.item-name').text();
-              $('.edit-hardware-item-pop-up .hardware-name-pop-up').attr('id', hardwareId).text(hardwareName);
-              $.get('/base/hardware/get-hardware-colors', function (colors) {
-                $('.edit-hardware-item-pop-up #select-lamination-id').find('option').remove().end();
-                $('.edit-hardware-item-pop-up #select-position-id-edit').find('option').remove().end();
-                $(".edit-hardware-item-pop-up #select-lamination-id").append('<option ' +
-                  'value="0" selected>' + i18n.t('Ignore') +
-                '</option>');
-                $(".edit-hardware-item-pop-up #select-lamination-id").append('<option ' +
-                  'value="1">' + i18n.t('White') +
-                '</option>');
-                for (var j = 0, len = colors.length; j < len; j++) {
-                  $('.edit-hardware-item-pop-up #select-lamination-id').append('<option value="' + colors[j].id + '">' + colors[j].name + '</option>');
+            if (featuresElements[n].child_type == 'list') {
+              listsChilds.filter(function (value) {
+                if (value.id == featuresElements[n].child_id) {
+                  name = value.name;
                 }
-                for (let s in positionMap) {
-                  $('.edit-hardware-item-pop-up #select-position-id-edit').append('<option value="' + s + '">' + positionMap[s] + '</option>');
+                return;
+              });
+            } else {
+              elementsChilds.filter(function (value) {
+                if (value.id == featuresElements[n].child_id) {
+                  name = value.name;
                 }
-                $.get('/base/hardware/get-hardware/' + hardwareId, function (data) {
-                  if (data.status) {
-                    $('.edit-hardware-item-pop-up #select-direction-id option[value="' + data.hardware.direction_id + '"]').attr('selected', 'selected');
-                    $('.edit-hardware-item-pop-up #select-position-id-edit option[value="' + data.hardware.position + '"]').attr('selected', 'selected');
-                    $('.edit-hardware-item-pop-up #select-lamination-id option[value="' + data.hardware.window_hardware_color_id + '"]').attr('selected', 'selected');
-                    $('.edit-hardware-item-pop-up #length-input-edit').val(data.hardware['length']);
-                    $('.edit-hardware-item-pop-up #num-input').val(data.hardware.count);
-                    $('.edit-hardware-item-pop-up #min_width').val(data.hardware.min_width);
-                    $('.edit-hardware-item-pop-up #max_width').val(data.hardware.max_width);
-                    $('.edit-hardware-item-pop-up #min_height').val(data.hardware.min_height);
-                    $('.edit-hardware-item-pop-up #max_height').val(data.hardware.max_height);
-                    $('.edit-hardware-item-pop-up #item_rule_length_edit').val(data.hardware.rules_type);
-                    $('.edit-hardware-item-pop-up').popup('show');
-                    if (data.is_linear) {
-                      $('.edit-hardware-item-pop-up .item-length-pop-up').removeClass('disabled');
-                      $('.edit-hardware-item-pop-up #length-input-edit').prop('disabled', false);
-                      $('.edit-hardware-item-pop-up #item_rule_length_edit').removeClass('disabled');
-                      $('.edit-hardware-item-pop-up #item_rule_length_edit').prop('disabled', false);
-                    } else {
-                      $('.edit-hardware-item-pop-up .item-length-pop-up').addClass('disabled');
-                      $('.edit-hardware-item-pop-up #length-input-edit').prop('disabled', true);
-                      $('.edit-hardware-item-pop-up #item_rule_length_edit').addClass('disabled');
-                      $('.edit-hardware-item-pop-up #item_rule_length_edit').prop('disabled', true);
-                      $('.pop-up #length-input').val('0');
-                    }
-                  } else {
-
-                  }
-                });
+                return;
               });
             }
-          });
+
+            const positionMap = {
+              "1": i18n.t('Ignore'),
+              "2": i18n.t('front'),
+              "3": i18n.t('middle'),
+              "4": i18n.t('back')
+            };
+            const positionText = positionMap[featuresElements[n].position] || i18n.t('Not exist');
+
+            $('#hardware-items-list').append('<tr class="hardware-items-list" data="' + featuresElements[n].id + '">' +
+            '<td class="item-input-choose">' +
+              '<input class="hardware-checkbox" id="checkbox' + featuresElements[n].id + '" type="checkbox" value="' + featuresElements[n].id + '" name="checkedElements" style="margin-left: 25px;">' +
+              '<label for="checkbox' + featuresElements[n].id + '"><span id="hide"></span></label>' +
+            '</td>' +
+            '<td class="item-name">' +
+              '' + name +
+            '</td>' +
+            '<td class="item-count">' +
+              '' + featuresElements[n].count +
+            '</td>' +
+            '<td class="item-width">' +
+              '' + featuresElements[n].min_width + '-' + featuresElements[n].max_width +
+            '</td>' +
+            '<td class="item-height">' +
+              '' + featuresElements[n].min_height + '-' + featuresElements[n].max_height +
+            '</td>' +
+            '<td class="item-position">' +
+              '' + positionText +
+            '</td>' +
+            '<td class="item-direction">' +
+              '' + (featuresElements[n].direction.name === '_не учитыв' ? i18n.t('Ignore') : featuresElements[n].direction.name) +
+            '</td>' +
+            '<td class="item-color">' +
+              '' + hardwareColor +
+            '</td>' +
+            '<td class="item-color test">' +
+              '' + hardwareColorOut +
+            '</td>' +
+            '<td class="item-length">' +
+              '' + featuresElements[n].length +
+            '</td>></tr>');
+            /* Add event listener on hardware edit */
+            $('#hardware-items-list').on('click', '.hardware-items-list', function (e) {
+              if (!$(e.target).is('.hardware-checkbox')) {
+                e.preventDefault();
+                e.stopImmediatePropagation();
+                var hardwareId = $(this).attr('data');
+                var hardwareName = $(this).find('.item-name').text();
+                $('.edit-hardware-item-pop-up .hardware-name-pop-up').attr('id', hardwareId).text(hardwareName);
+                $.get('/base/hardware/get-hardware-colors', function (colors) {
+                  $('.edit-hardware-item-pop-up #select-lamination-id').find('option').remove().end();
+                  $('.edit-hardware-item-pop-up #select-lamination-out-id').find('option').remove().end();
+                  $('.edit-hardware-item-pop-up #select-position-id-edit').find('option').remove().end();
+                  // in colors
+                  $(".edit-hardware-item-pop-up #select-lamination-id").append('<option ' +
+                    'value="0" selected>' + i18n.t('Ignore') +
+                  '</option>');
+                  $(".edit-hardware-item-pop-up #select-lamination-id").append('<option ' +
+                    'value="1">' + i18n.t('White') +
+                  '</option>');
+                  for (var j = 0, len = colors.length; j < len; j++) {
+                    $('.edit-hardware-item-pop-up #select-lamination-id').append('<option value="' + colors[j].id + '">' + colors[j].name + '</option>');
+                  }
+                  // out colors
+                  $(".edit-hardware-item-pop-up #select-lamination-out-id").append('<option ' +
+                    'value="0" selected>' + i18n.t('Ignore') +
+                  '</option>');
+                  $(".edit-hardware-item-pop-up #select-lamination-out-id").append('<option ' +
+                    'value="1">' + i18n.t('White') +
+                  '</option>');
+                  for (var j = 0, len = colors.length; j < len; j++) {
+                    $('.edit-hardware-item-pop-up #select-lamination-out-id').append('<option value="' + colors[j].id + '">' + colors[j].name + '</option>');
+                  }
+                  for (let s in positionMap) {
+                    $('.edit-hardware-item-pop-up #select-position-id-edit').append('<option value="' + s + '">' + positionMap[s] + '</option>');
+                  }
+                  $.get('/base/hardware/get-hardware/' + hardwareId, function (data) {
+                    if (data.status) {
+                      $('.edit-hardware-item-pop-up #select-direction-id option[value="' + data.hardware.direction_id + '"]').attr('selected', 'selected');
+                      $('.edit-hardware-item-pop-up #select-position-id-edit option[value="' + data.hardware.position + '"]').attr('selected', 'selected');
+                      $('.edit-hardware-item-pop-up #select-lamination-id option[value="' + data.hardware.window_hardware_color_id + '"]').attr('selected', 'selected');
+                      $('.edit-hardware-item-pop-up #select-lamination-out-id option[value="' + data.hardware.window_hardware_color_out_id + '"]').attr('selected', 'selected');
+                      $('.edit-hardware-item-pop-up #length-input-edit').val(data.hardware['length']);
+                      $('.edit-hardware-item-pop-up #num-input').val(data.hardware.count);
+                      $('.edit-hardware-item-pop-up #min_width').val(data.hardware.min_width);
+                      $('.edit-hardware-item-pop-up #max_width').val(data.hardware.max_width);
+                      $('.edit-hardware-item-pop-up #min_height').val(data.hardware.min_height);
+                      $('.edit-hardware-item-pop-up #max_height').val(data.hardware.max_height);
+                      $('.edit-hardware-item-pop-up #item_rule_length_edit').val(data.hardware.rules_type);
+                      $('.edit-hardware-item-pop-up').popup('show');
+                      if (data.is_linear) {
+                        $('.edit-hardware-item-pop-up .item-length-pop-up').removeClass('disabled');
+                        $('.edit-hardware-item-pop-up #length-input-edit').prop('disabled', false);
+                        $('.edit-hardware-item-pop-up #item_rule_length_edit').removeClass('disabled');
+                        $('.edit-hardware-item-pop-up #item_rule_length_edit').prop('disabled', false);
+                      } else {
+                        $('.edit-hardware-item-pop-up .item-length-pop-up').addClass('disabled');
+                        $('.edit-hardware-item-pop-up #length-input-edit').prop('disabled', true);
+                        $('.edit-hardware-item-pop-up #item_rule_length_edit').addClass('disabled');
+                        $('.edit-hardware-item-pop-up #item_rule_length_edit').prop('disabled', true);
+                        $('.pop-up #length-input').val('0');
+                      }
+                    } else {
+
+                    }
+                  });
+                });
+              }
+            });
+          }
         }
-      }
+      })
     });
   }
 

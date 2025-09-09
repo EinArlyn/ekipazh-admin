@@ -11,6 +11,9 @@
     span.item-lamination-pop-up
       =i18n.__('Inner window color')
       | :
+    span.item-lamination-pop-up
+      =i18n.__('outerColor')
+      | :
     span.item-num-pop-up
       =i18n.__('Amount')
       | :
@@ -22,6 +25,12 @@
         option(value="3")=i18n.__('Left-hand')
     span.item-lamination-pop-up
       select(class="select-default", id="select-lamination-id", style="width: 125px;")
+        option(value="4")=i18n.__('Ignore')
+        option(value="1")=i18n.__('Inner')
+        option(value="2")=i18n.__('Outer')
+        option(value="3")=i18n.__('Two-sided')
+    span.item-lamination-pop-up
+      select(class="select-default", id="select-lamination-out-id", style="width: 125px;")
         option(value="4")=i18n.__('Ignore')
         option(value="1")=i18n.__('Inner')
         option(value="2")=i18n.__('Outer')
