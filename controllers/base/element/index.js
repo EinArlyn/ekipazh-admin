@@ -7,6 +7,7 @@ exports.setElementProfileSystems = require('./setElementProfileSystems.js');
 exports.setElementGlassesFolders = require('./setElementGlassesFolders.js');
 exports.setGlassPrices = require('./setGlassPrices.js');
 exports.getListContents = require('./getListContents.js');
+exports.getElementConsist = require('./getElementConsist.js');
 exports.createNewElement = require('./createNewElement.js');
 exports.addNewElement = require('./addNewElement.js');
 exports.validateHeaders = require('./validateHeaders.js');

@@ -22,6 +22,11 @@ block content
         | (
         =parent_element.sku
         | )
+    .btn-find-set-consost
+      a(id="set-consist-btn" href="#")
+        =i18n.__('used_in_sets')
+    .set-consist
+      .set-consist-content
     form(method='post', action='/base/set/save/' + list.id, id="main-form" enctype="multipart/form-data")
       input.hidden#referrer(type="text" name="last_location" value="")
       .content-wrap

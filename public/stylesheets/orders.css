@@ -638,7 +638,7 @@ input[type=radio   ]:not(old) + label{
 }
 
 .text-wrapper {
-  white-space: nowrap;
+  /* white-space: nowrap; */
   overflow: hidden;
   text-overflow: ellipsis;
   -o-text-overflow: ellipsis;
