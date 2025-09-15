@@ -23,6 +23,8 @@ block content
             =(element.lists.length === 1 ? i18n.__(' set') : i18n.__(' sets'))
           else
             =i18n.__('Not in set')
+        a(id="element-consist-btn" href="#")
+          =i18n.__('used_in_sets')
       a(href="#", id="add-new-set")
         span.add-new-set-text
           =i18n.__('Create set')
@@ -52,6 +54,8 @@ block content
           li.list-element(data=list.id)
             a(href="/base/set/" + list.id)
                 =list.name
+    .element-consist
+      .element-consist-content
     .content-wrap
       form(method='post', action='/base/element/save/' + element.id, id="main-form", enctype="multipart/form-data")
         input.hidden#referrer(type="text" name="last_location" value="")

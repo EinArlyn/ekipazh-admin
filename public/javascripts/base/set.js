@@ -2,6 +2,7 @@ $(function () {
   var localizerOption = { resGetPath: '/assets/javascripts/vendor/localizer/__ns__-__lng__.json'};
   var setsWithPosition = [23, 26, 21, 27, 19, 9, 8, 13, 24, 12, 6, 25];
   var pushGroups = [32, 26, 21, 27, 20, 31, 19, 9, 8, 28, 24, 6];
+  var consistSetIsOpen = false;
 
   /** Addition component for storing data */
   // TODO: use locale storage
@@ -1007,5 +1008,44 @@ $(function () {
         position: {top: '60px', right: '30px'}
       });
     }
+  }
+
+  $('#set-consist-btn').click(function (e) {
+    e.preventDefault();
+    if (!consistSetIsOpen) {
+      getElementConsist(0, 0, $('.copy-settings-list').attr('data'));
+      $('.set-consist').show();
+      consistSetIsOpen = true;
+    } else {
+      $('.set-consist').hide();
+      consistSetIsOpen = false;
+    }
+  });
+   function getElementConsist(i, len, id) {
+    $.get('/base/element/getElementConsist/' + id, function (data) {
+      
+      $('.set-consist-content').empty();
+      if (data.length) {
+        $('.set-consist-content').append(
+          '<div>' + data.length + ' ' + i18n.t('pcs') + '</div>'
+        );
+        data.forEach((elem) => {
+          $('.set-consist-content').append(
+            '<div>' +
+              '<a href="/base/set/' +
+              elem.id +
+              '">' +
+              elem.name +
+              '</a>' +
+              '</div>'
+          );
+        });
+      } else {
+        $('.set-consist-content').append(
+          '<div>' + i18n.t('Not exist') + '</div>'
+        );
+      }
+     
+    });
   }
 });

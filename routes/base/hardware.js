@@ -14,6 +14,8 @@ var ITEMS_PER_PAGE = 20;
 /** Погонажные изделия */
 var LINEAR_ELEMENT = [3, 5];
 var LINEAR_SET = [7, 22, 4, 21, 10, 19, 9, 8, 2, 13, 12, 25, 5];
+var SQUARE_ELEMENT = [9];
+var SQUARE_SET = [20];
 
 router.get('/', isAuthenticated, getHardwares);
 // router.get('/getFeatures/:id', isAuthenticated, getFeatures);
@@ -642,9 +644,11 @@ function getHardware (req, res) {
         where: {id: parseInt(hardware.child_id)}
       }).then(function(list) {
         if (LINEAR_SET.indexOf(parseInt(list.list_group_id)) >= 0) {
-          res.send({status: true, is_linear: true, hardware: hardware});
+          res.send({status: true, is_linear: true, is_square: false, hardware: hardware});
+        } else if (SQUARE_SET.indexOf(parseInt(list.list_group_id)) >= 0) {
+          res.send({status: true, is_linear: false, is_square: true, hardware: hardware});
         } else {
-          res.send({status: true, is_linear: false, hardware: hardware});
+          res.send({status: true, is_linear: false, is_square: false, hardware: hardware});
         }
       }).catch(function(error) {
         console.log(error);
@@ -655,9 +659,11 @@ function getHardware (req, res) {
         where: {id: parseInt(hardware.child_id)}
       }).then(function(element) {
         if (LINEAR_ELEMENT.indexOf(parseInt(element.element_group_id)) >= 0) {
-          res.send({status: true, is_linear: true, hardware: hardware});
+          res.send({status: true, is_linear: true, is_square: false, hardware: hardware});
+        } else if (SQUARE_ELEMENT.indexOf(parseInt(element.element_group_id)) >= 0) {
+          res.send({status: true, is_linear: false, is_square: true, hardware: hardware});
         } else {
-          res.send({status: true, is_linear: false, hardware: hardware});
+          res.send({status: true, is_linear: false, is_square: false, hardware: hardware});
         }
       }).catch(function(error) {
         console.log(error);

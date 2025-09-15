@@ -5,6 +5,8 @@ $(function () {
   var addElementToHardware = false;
   var linearElement = [3, 5, 1, 19];
   var linearSet = [7, 22, 4, 21, 10, 19, 9, 8, 2, 13, 12, 25, 5];
+  var squareElement = [9];
+  var squareSet = [20];
   /**
    * On click Hardware group button
    */
@@ -258,14 +260,34 @@ $('div.profile_item input').click(function() {
       if (linearElement.indexOf(parseInt(group.val(), 10)) >= 0) {
         $('.item-length-pop-up').removeClass('disabled');
         $('.pop-up #length-input').prop('disabled', false);
+        $('#item_rule_length').show();
         $('#item_rule_length').removeClass('disabled');
         $('#item_rule_length').prop('disabled', false);
+
+        $('#item_rule_square').addClass('disabled');
+        $('#item_rule_square').prop('disabled', true);
+        $('#item_rule_square').hide();
+      } else if (squareElement.indexOf(parseInt(group.val(), 10)) >= 0) {
+        $('.item-length-pop-up').removeClass('disabled');
+        $('.pop-up #length-input').prop('disabled', false);
+        $('#item_rule_square').show();
+        $('#item_rule_square').removeClass('disabled');
+        $('#item_rule_square').prop('disabled', false);
+
+        $('#item_rule_length').addClass('disabled');
+        $('#item_rule_length').prop('disabled', true);
+        $('#item_rule_length').hide();
       } else {
         $('.item-length-pop-up').addClass('disabled');
         $('.pop-up #length-input').prop('disabled', true);
+        $('#item_rule_length').show();
         $('#item_rule_length').addClass('disabled');
         $('#item_rule_length').prop('disabled', true);
         $('.pop-up #length-input').val('0');
+        
+        $('#item_rule_square').addClass('disabled');
+        $('#item_rule_square').prop('disabled', true);
+        $('#item_rule_square').hide();
       }
       $.get('/base/hardware/get-elements-of-group/' + group.val() + '?tquery=' + query, function (data) {
         $(".pop-up #item-name-pop-up-input").find('option').remove().end();
@@ -287,14 +309,34 @@ $('div.profile_item input').click(function() {
       if (linearSet.indexOf(parseInt(group.val(), 10)) >= 0) {
         $('.item-length-pop-up').removeClass('disabled');
         $('.pop-up #length-input').prop('disabled', false);
+        $('#item_rule_length').show();
         $('#item_rule_length').removeClass('disabled');
         $('#item_rule_length').prop('disabled', false);
+
+        $('#item_rule_square').addClass('disabled');
+        $('#item_rule_square').prop('disabled', true);
+        $('#item_rule_square').hide();
+      } else if (squareSet.indexOf(parseInt(group.val(), 10)) >= 0) {
+        $('.item-length-pop-up').removeClass('disabled');
+        $('.pop-up #length-input').prop('disabled', false);
+        $('#item_rule_square').show();
+        $('#item_rule_square').removeClass('disabled');
+        $('#item_rule_square').prop('disabled', false);
+        
+        $('#item_rule_length').addClass('disabled');
+        $('#item_rule_length').prop('disabled', true);
+        $('#item_rule_length').hide();
       } else {
         $('.item-length-pop-up').addClass('disabled');
         $('.pop-up #length-input').prop('disabled', true);
+        $('#item_rule_length').show();
         $('#item_rule_length').addClass('disabled');
         $('#item_rule_length').prop('disabled', true);
         $('.pop-up #length-input').val('0');
+        
+        $('#item_rule_square').addClass('disabled');
+        $('#item_rule_square').prop('disabled', true);
+        $('#item_rule_square').hide();
       }
       $.get('/base/hardware/get-lists-of-group/' + group.val() + '?tquery=' + query, function (data) {
         $(".pop-up #item-name-pop-up-input").find('option').remove().end();
@@ -1120,17 +1162,34 @@ $('div.profile_item input').click(function() {
                       $('.edit-hardware-item-pop-up #min_height').val(data.hardware.min_height);
                       $('.edit-hardware-item-pop-up #max_height').val(data.hardware.max_height);
                       $('.edit-hardware-item-pop-up #item_rule_length_edit').val(data.hardware.rules_type);
+                      $('.edit-hardware-item-pop-up #item_rule_square_edit').val(data.hardware.rules_type);
                       $('.edit-hardware-item-pop-up').popup('show');
                       if (data.is_linear) {
                         $('.edit-hardware-item-pop-up .item-length-pop-up').removeClass('disabled');
                         $('.edit-hardware-item-pop-up #length-input-edit').prop('disabled', false);
+                        $('.edit-hardware-item-pop-up #item_rule_length_edit').show();
                         $('.edit-hardware-item-pop-up #item_rule_length_edit').removeClass('disabled');
                         $('.edit-hardware-item-pop-up #item_rule_length_edit').prop('disabled', false);
+
+                        $('.edit-hardware-item-pop-up #item_rule_square_edit').hide();
+                        // $('.edit-hardware-item-pop-up #item_rule_square_edit').prop('disabled', true);
+                      } else if (data.is_square) {
+                        $('.edit-hardware-item-pop-up .item-length-pop-up').removeClass('disabled');
+                        $('.edit-hardware-item-pop-up #length-input-edit').prop('disabled', false);
+                        $('.edit-hardware-item-pop-up #item_rule_square_edit').show();
+                        $('.edit-hardware-item-pop-up #item_rule_square_edit').removeClass('disabled');
+                        $('.edit-hardware-item-pop-up #item_rule_square_edit').prop('disabled', false);
+
+                        $('.edit-hardware-item-pop-up #item_rule_length_edit').hide();
+                        // $('.edit-hardware-item-pop-up #item_rule_length_edit').prop('disabled', true);
                       } else {
                         $('.edit-hardware-item-pop-up .item-length-pop-up').addClass('disabled');
                         $('.edit-hardware-item-pop-up #length-input-edit').prop('disabled', true);
+                        $('.edit-hardware-item-pop-up #item_rule_length_edit').show();
                         $('.edit-hardware-item-pop-up #item_rule_length_edit').addClass('disabled');
                         $('.edit-hardware-item-pop-up #item_rule_length_edit').prop('disabled', true);
+                        $('.edit-hardware-item-pop-up #item_rule_square_edit').hide();
+                        // $('.edit-hardware-item-pop-up #item_rule_square_edit').prop('disabled', true);
                         $('.pop-up #length-input').val('0');
                       }
                     } else {

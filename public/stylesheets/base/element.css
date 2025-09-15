@@ -40,10 +40,40 @@ main .main-content {
 			font-size: 14px;
 			color: #434343;
 		}
+		#element-consist-btn {
+			margin-left: 50px;
+			display: inline-block;
+			font-size: 14px;
+			color: #434343;
+		}
 
 		#element-lists-btn:hover {
 			color: #ff7a4b;
 		}
+
+	.element-consist {
+		display: none;
+		background-image: url('/assets/images/background-glass.png');
+		box-shadow: inset 0 0 6px #bababa;
+		font-size: 12px;
+		padding: 10px;
+		.element-consist-content {
+			display: flex;
+			flex-wrap: wrap;      
+			gap: 10px; 
+			div {
+				flex: 1 1 calc(50% - 10px);
+  				box-sizing: border-box;
+			}
+			a {
+				all: unset;         
+				cursor: pointer;    
+				&:hover {
+					color: #ff7a4b;
+				}
+			}
+		}
+	}
 
 	.element-lists-content {
 		display: none;
