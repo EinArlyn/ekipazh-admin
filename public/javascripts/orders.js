@@ -151,7 +151,8 @@ $(function () {
         $('#pop-up-acount-price-order-wrap').hide();
         $('.pop-up-bill').hide();
       }
-      console.log(data)
+      
+      const currency_value = parseFloat(data.order.order.currency_value).toFixed(2)
       $('#pop-up-created').html(("0" + created.getDate()).slice(-2) + '.' + ("0" + (created.getMonth() + 1)).slice(-2) + '.' + created.getFullYear() + ' <span class="order-time">' + ("0" + created.getHours()).slice(-2) + ':' + ("0" + created.getMinutes()).slice(-2) + '</span>');
       $('#pop-up-number').text(data.order.order.order_number);
       $('#pop-up-furniture').text(hardwares);
@@ -163,8 +164,8 @@ $(function () {
       $('#pop-up-customer-phone').text(data.order.order.customer_phone);
       $('#pop-up-customer-phone-city').text(data.order.order.customer_phone_city);
       $('#pop-up-customer-email').text(data.order.order.customer_email);
-      $('#pop-up-base-price').text(parseFloat(data.order.base_price).toFixed(2));
-      $('#pop-up-margin').text(data.order.margin_price);
+      $('#pop-up-base-price').text(parseFloat(data.order.base_price/currency_value).toFixed(2));
+      $('#pop-up-margin').text(data.order.margin_price/currency_value);
       $('#pop-up-bill').text(data.order.order.bill || '---');
       // $('#pop-up-payment').text(parseFloat(data.order.order.additional_payment).toFixed(2));
       $('#pop-up-payment').text('---');
@@ -178,8 +179,8 @@ $(function () {
       $('#pop-up-seller-phone').text(data.order.user.phone);
       $('#pop-up-seller-phone-city').text(data.order.user.city_phone);
       $('#pop-up-seller-email').text(data.order.user.name);
-      $('#pop-up-purchase-price').text(parseFloat(data.order.purchase_price).toFixed(2));
-      $('#pop-up-sale-price').text(parseFloat(data.order.sale_price).toFixed(2));
+      $('#pop-up-purchase-price').text(parseFloat(data.order.purchase_price/currency_value).toFixed(2));
+      $('#pop-up-sale-price').text(parseFloat(data.order.sale_price/currency_value).toFixed(2));
       $('.pop-up').popup('show');
       stopLoader();
     });
