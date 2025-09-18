@@ -92,14 +92,15 @@ block content
                 .text-wrapper
                   =order.order.customer_city
               .order-costs
-                =parseFloat(order.purchase_price).toFixed(2)
+                =parseFloat(order.purchase_price / parseFloat(order.order.currency_value)).toFixed(2)
+                =order.user.currency_icon
                 br
                 if (parseFloat(order.margin_price) > 0)
                   span.text-filter
-                    =parseFloat(order.margin_price).toFixed(2)
+                    =parseFloat(order.margin_price / parseFloat(order.order.currency_value)).toFixed(2)
                 else
                   span.text-filter-danger
-                    =parseFloat(order.margin_price).toFixed(2)
+                    =parseFloat(order.margin_price / parseFloat(order.order.currency_value)).toFixed(2)
               .order-count
                 if (order.order.order_products.length)
                   - var totalAmount = 0;

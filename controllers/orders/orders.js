@@ -80,6 +80,17 @@ module.exports = function (req, res) {
             id: req.session.user.id
           }
         }).then(function (currUser) {
+
+          result.rows.forEach(row => {
+            if (row.user.currencies_id === 684) {
+              row.user.currency_icon = ' €';
+            } else if (row.user.currencies_id === 685) {
+              row.user.currency_icon = ' $';
+            } else {
+              row.user.currency_icon = ' ₴';
+            }
+          }) 
+          
           res.render('orders', {
             i18n          : i18n,
             title         : i18n.__('Orders history'),
