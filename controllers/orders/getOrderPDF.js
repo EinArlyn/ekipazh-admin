@@ -135,21 +135,21 @@ module.exports = function (req, res) {
                   id: user.currencies_id
                 }
               }).then(userInfo=>{
-                if(userInfo[0].id === 102) {
+                if(order.user.currencies_id === 102) {
                   currency.name = '₴';
                   order.sale_price = order.sale_price/order.order.currency_value;
                 }
-                if(userInfo[0].id === 685) {
+                if(order.user.currencies_id === 685) {
                   currency.name = '$';
                   order.sale_price = order.sale_price/order.order.currency_value;
                 }
-                if(userInfo[0].id === 684) {
+                if(order.user.currencies_id === 684) {
                   currency.name = '€';
                   order.sale_price = order.sale_price/order.order.currency_value;
                 }              
-              
+
               // console.log('should render with result:', result);
-              console.log(order.order)
+              
               var addServicePrice;
               if(+userId !== +order.dataValues.seller_id) {
                 addServicePrice = 0.00;

@@ -165,7 +165,7 @@ $(function () {
       $('#pop-up-customer-phone-city').text(data.order.order.customer_phone_city);
       $('#pop-up-customer-email').text(data.order.order.customer_email);
       $('#pop-up-base-price').text(parseFloat(data.order.base_price/currency_value).toFixed(2));
-      $('#pop-up-margin').text(data.order.margin_price/currency_value);
+      $('#pop-up-margin').text((data.order.margin_price/currency_value).toFixed(2));
       $('#pop-up-bill').text(data.order.order.bill || '---');
       // $('#pop-up-payment').text(parseFloat(data.order.order.additional_payment).toFixed(2));
       $('#pop-up-payment').text('---');

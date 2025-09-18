@@ -151,6 +151,11 @@ function _setPrices(orderRow, user, factory, childPurchase, seller) {
         userMarginPrice = (userMarginPrice - userMountingPrice - userDeliveryPrice - orderSalePrice).toFixed(2);
       }
 
+      if (parseFloat(user.id) !== parseFloat(seller.id)) {
+        constructDiscount = 0;
+        addElemDiscount = 0;
+      }
+
       models.order_prices.create({
         order_id: orderRow.id,
         user_id: parseInt(user.id, 10),
