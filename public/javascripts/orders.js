@@ -151,7 +151,7 @@ $(function () {
         $('#pop-up-acount-price-order-wrap').hide();
         $('.pop-up-bill').hide();
       }
-
+      console.log(data)
       $('#pop-up-created').html(("0" + created.getDate()).slice(-2) + '.' + ("0" + (created.getMonth() + 1)).slice(-2) + '.' + created.getFullYear() + ' <span class="order-time">' + ("0" + created.getHours()).slice(-2) + ':' + ("0" + created.getMinutes()).slice(-2) + '</span>');
       $('#pop-up-number').text(data.order.order.order_number);
       $('#pop-up-furniture').text(hardwares);
