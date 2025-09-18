@@ -99,6 +99,7 @@ function _setPrices(orderRow, user, factory, childPurchase, seller) {
       var userMarginPrice = 0.00;
       var constructDiscount = 0;
       var addElemDiscount = 0;
+      var orderSalePrice = 0;
       // var userPurchasePrice = parseFloat(parseFloat(orderRow.order_price) - (parseFloat(orderRow.templates_price * (userDiscounts.max_construct / 100)) + parseFloat(orderRow.addelems_price * (userDiscounts.max_add_elem / 100)))).toFixed(2);
       var userPurchasePrice = (+orderRow.order_price) - ((+orderRow.templates_price - (+orderRow.templates_price / ((+userDiscounts.default_construct + 100) / 100))) + (+orderRow.addelems_price - (+orderRow.addelems_price / ((+userDiscounts.default_add_elem + 100) / 100)))).toFixed(2);
       
@@ -144,9 +145,10 @@ function _setPrices(orderRow, user, factory, childPurchase, seller) {
       }
 
       userMarginPrice = (userSalePrice - userPurchasePrice).toFixed(2);
+      orderSalePrice = +parseFloat(orderRow.sale_price).toFixed(2);
 
       if (parseInt(user.id, 10) !== parseInt(factory.id, 10)) {
-        userMarginPrice = (userMarginPrice - userMountingPrice - userDeliveryPrice).toFixed(2);
+        userMarginPrice = (userMarginPrice - userMountingPrice - userDeliveryPrice - orderSalePrice).toFixed(2);
       }
 
       models.order_prices.create({

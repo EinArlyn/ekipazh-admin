@@ -137,18 +137,19 @@ module.exports = function (req, res) {
               }).then(userInfo=>{
                 if(userInfo[0].id === 102) {
                   currency.name = '₴';
-                  order.sale_price = order.sale_price;
+                  order.sale_price = order.sale_price/order.order.currency_value;
                 }
                 if(userInfo[0].id === 685) {
                   currency.name = '$';
-                  order.sale_price = order.sale_price/userInfo[0].value;
+                  order.sale_price = order.sale_price/order.order.currency_value;
                 }
                 if(userInfo[0].id === 684) {
                   currency.name = '€';
-                  order.sale_price = order.sale_price/userInfo[0].value;
+                  order.sale_price = order.sale_price/order.order.currency_value;
                 }              
               
               // console.log('should render with result:', result);
+              console.log(order.order)
               var addServicePrice;
               if(+userId !== +order.dataValues.seller_id) {
                 addServicePrice = 0.00;
