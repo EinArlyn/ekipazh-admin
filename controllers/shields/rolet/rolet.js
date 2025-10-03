@@ -31,7 +31,8 @@ module.exports = function (req, res) {
     }).then(function(rol_groups) {
       if (rol_groups.length) {
         console.log('rol_groups>>>> ',rol_groups)
-        groupSystems = rol_groups;
+
+        groupSystems = rol_groups.sort((a, b) => a.position - b.position);;
       } 
     
       res.render('base/shields/rolet/rolet', {
