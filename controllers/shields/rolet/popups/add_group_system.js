@@ -9,7 +9,15 @@ module.exports = function (req, res) {
   parseForm(req, function (err, fields, files) {
     console.log('>>>>>>>>>>>>>>>>>>>>>Add group system');
     console.log(fields);
-    res.send({ status: true, name: fields.name });
+
+    models.rol_groups.create({
+      factory_id: parseInt(req.session.user.factory_id, 10),
+      name: fields.name,
+      position: parseInt(fields.position, 10),
+      description: fields.description
+    }).then(function(newGroup) {
+      res.send({ status: true});
+    })
     // models.addition_colors.create({
     //   name: fields.name,
     //   lists_type_id: fields.type_id,
