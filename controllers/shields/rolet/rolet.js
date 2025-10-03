@@ -4,7 +4,7 @@ var i18n = require('i18n');
 var models = require('../../../lib/models');
 
 module.exports = function (req, res) {
-  const groupSystems = []
+  let groupSystems = [];
     // models.rol_lamels_end_lists.findAll().then(function(data) {
     // console.log('rol_lamels_end_lists>>>> ',data)
     // })
