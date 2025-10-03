@@ -60,6 +60,10 @@ block content
         img(src="/assets/images/dashboard_icons/base.png")
         .btn-text
           =i18n.__('Base of elements')
+      .btn.base-access#shields(class=(accesses.indexOf(10) >= 0 ? '' : 'disabled'))
+        img(src="/assets/images/dashboard_icons/base.png")
+        .btn-text
+          ='Защита от солнца'
       .base-field
         ul
           li
@@ -80,6 +84,16 @@ block content
             a.base-btn(class="external-link" href='/base/mosquito')=i18n.__('Mosquito nets')
           li
             a.base-btn(class="external-link" href='/base/options/laminations')=i18n.__('Options')
+      .base-shields
+        ul
+          li
+            a.base-btn(class="external-link" href='/base/shields/rolet/rolet')='Rolet'
+          li
+            a.base-btn(class="external-link" href='#')='Поляница'
+          li
+            a.base-btn(class="external-link" href='#')='Фламинго'
+          li
+            a.base-btn(class="external-link" href='#')='Шахеды'
   form#stats-submit(method="GET" action='/analytics/')
     input(type="hidden" name="userdata" value=urlKey)
   form#analitycs-submit(method="POST" action=analitycsUrl target="_blank")
