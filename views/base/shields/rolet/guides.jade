@@ -1,0 +1,39 @@
+extends ../../layout
+
+block content
+  .main-nav
+    .nav-link
+      a(href="/")= i18n.__('Dashboard') 
+      | 
+      | -> 
+      a(href="/base/shields/rolet/rolet")=' -> Rolet'
+      | 
+      | -> 
+      span#nav-text
+        =' Guides '
+      a(href="/base/shields/rolet/endLists")=' -> End Lists'
+      a(href="/base/shields/rolet/lamels")=' -> Lamels'
+      img.loader-ico(src="/assets/images/loader_ico.GIF")
+  .main-content    
+    .titel-page 
+      ='Guides :'  
+    .block-systems.block-guides
+      if (guidesList && guidesList.length > 0)
+        each guide in guidesList
+          .rolet-system-item
+            .system-img
+            .system-name
+              =guide.name
+            .btns-block-item
+              .btn-active-system.btn-active(data-guide=guide.id) 
+              .btn-edit-system.btn-system(data-guide=guide.id)
+              .btn-delete-system.btn-system(data-guide=guide.id)
+      .rolet-system-item.btn-add-system
+        div
+          ='+'
+        .btn-add-text 
+          ='Добавить'
+  include popups/add-new-guide.jade
+  include popups/edit-guide.jade
+  include popups/delete-guide.jade
+  

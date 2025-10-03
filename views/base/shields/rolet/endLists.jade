@@ -1,0 +1,41 @@
+extends ../../layout
+
+block content
+  .main-nav
+    .nav-link
+      a(href="/")= i18n.__('Dashboard') 
+      | 
+      | -> 
+      a(href="/base/shields/rolet/rolet")=' -> Rolet'
+      | 
+      | -> 
+      a(href="/base/shields/rolet/guides")=' -> Guides'
+      | 
+      | -> 
+      span#nav-text
+        ='End Lists'
+      a(href="/base/shields/rolet/lamels")=' -> Lamels'
+      img.loader-ico(src="/assets/images/loader_ico.GIF")
+  .main-content    
+    .titel-page 
+      ='End lists :'  
+    .block-systems.block-end-lists
+      if (endLists && endLists.length > 0)
+        each list in endLists
+          .rolet-system-item
+            .system-img
+            .system-name
+              =list.name
+            .btns-block-item
+              .btn-active-system.btn-active(data-end_list=list.id) 
+              .btn-edit-system.btn-system(data-end_list=list.id)
+              .btn-delete-system.btn-system(data-end_list=list.id)
+      .rolet-system-item.btn-add-system
+        div
+          ='+'
+        .btn-add-text 
+          ='Добавить'
+  include popups/add-new-end-list.jade
+  include popups/edit-end-list.jade
+  include popups/delete-end-list.jade
+  

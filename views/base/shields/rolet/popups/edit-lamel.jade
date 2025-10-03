@@ -1,0 +1,134 @@
+.pop-up.pop-up-rolet#popup-edit-lamel-rolet
+  form#edit-lamel-rolet-form(method="POST" action="/base/shields/rolet/lamels/lamel/edit" enctype="multipart/form-data")
+    input(type="hidden" name="lamel_id" value='' required)
+    .pop-up-close-wrap
+      a(class="pop-up-close", href="#")
+    span.pop-up-header
+      ='Edit lamel'
+    .row
+      .col-md-6
+        img.color-image(src="/local_storage/default.png")
+      .col-md-6
+        input.hidden.color-image-file(type="file" name="color_img")
+        input.add-image-btn(type="button")
+    .pop-up-rolet-rows 
+      .row-name.rolet-row 
+        .title-name.title
+          =i18n.__('Name')
+          | :
+        input.input-default.text-name(type="text" value="" name="name" required)
+      .row-height.rolet-row 
+        .title-height.title
+          =i18n.__('Height')
+          | :
+        input.input-default.text-height(type="text" value="" name="height" required)
+      .row-thickness.rolet-row 
+        .title-thickness.title
+          ='Thickness'
+          | :
+        .thickness-list
+          label.thickness-option
+            input(type="radio" name="thickness" value="18")
+            span 18
+          label.thickness-option 
+            input(type="radio" name="thickness" value="25")
+            span 25
+          label.thickness-option 
+            input(type="radio" name="thickness" value="32")
+            span 32
+          label.thickness-option 
+            input(type="radio" name="thickness" value="40")
+            span 40
+      .row-end-list.rolet-row 
+        .title-end-list.title
+          ='With end list'
+          | :
+        .end-lists
+          label.end-list-option
+            input(type="hidden" name="end_1" value="0")
+            input(type="checkbox" name="end_1" value="1")
+            span end_1
+          label.end-list-option
+            input(type="hidden" name="end_2" value="0")
+            input(type="checkbox" name="end_2" value="1")
+            span end_2
+          label.end-list-option
+            input(type="hidden" name="end_3" value="0")
+            input(type="checkbox" name="end_3" value="1")
+            span end_3
+          label.end-list-option
+            input(type="hidden" name="end_4" value="0")
+            input(type="checkbox" name="end_4" value="1")
+            span end_4
+      .row-guide 
+        .title-guide.title
+          ='With guides'
+          | :
+        .guide-lists
+          .title-guide-text 
+            .guide-name 
+              ='. '
+            .guide-max-width.title
+              ='Max width, mm'
+            .guide-max-squear.title
+              ='Max square, m2'
+          .guide-size-settings 
+            .guide-title 
+              ='PP 1'
+            .guide-max-width-input
+              input.input-default.guide-box(type="text" value="" name="guide_1_max_width")
+            .guide-max-squear-input
+              input.input-default.guide-box(type="text" value="" name="guide_1_max_squear")
+          .guide-size-settings 
+            .guide-title 
+              ='PP 2'
+            .guide-max-width-input
+              input.input-default.guide-box(type="text" value="" name="guide_2_max_width")
+            .guide-max-squear-input
+              input.input-default.guide-box(type="text" value="" name="guide_2_max_squear")
+          .guide-size-settings 
+            .guide-title 
+              ='PP 3'
+            .guide-max-width-input
+              input.input-default.guide-box(type="text" value="" name="guide_3_max_width")
+            .guide-max-squear-input
+              input.input-default.guide-box(type="text" value="" name="guide_3_max_squear")         
+          .guide-size-settings 
+            .guide-title 
+              ='PP 4'
+            .guide-max-width-input
+              input.input-default.guide-box(type="text" value="" name="guide_4_max_width")
+            .guide-max-squear-input
+              input.input-default.guide-box(type="text" value="" name="guide_4_max_squear")         
+          
+      .row-is-settings.rolet-row
+        .title-is-lamination.title
+          ='Is color'
+          | :
+        label.checkbox-label
+          input(type="hidden" name="Is_color" value="0")
+          input.input-default.checkbox-rolet-popup(type="checkbox" name="Is_color" value="1")
+          span.checkbox-custom
+      //- .row-is-settings.rolet-row
+      //-   .title-is-lamination.title
+      //-     ='Is color out'
+      //-     | :
+      //-   label.checkbox-label
+      //-     input(type="hidden" name="is_color_out" value="0")
+      //-     input.input-default.checkbox-rolet-popup(type="checkbox" name="is_color_out" value="1")
+      //-     span.checkbox-custom
+      //- .row-is-settings.rolet-row
+      //-   .title-is-lamination.title
+      //-     ='Is color both'
+      //-     | :
+      //-   label.checkbox-label
+      //-     input(type="hidden" name="is_color_both" value="0")
+      //-     input.input-default.checkbox-rolet-popup(type="checkbox" name="is_color_both" value="1")
+      //-     span.checkbox-custom          
+    .row-description
+      .title-description
+        =i18n.__('Description')
+        | :
+      textarea.input-default.text-description(name="description")  
+    .row.block-center.text-center
+      input.btn-submit(type="submit" value=i18n.__('Save'))

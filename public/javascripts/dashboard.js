@@ -9,7 +9,14 @@ $(function () {
   /** Element base on click */
   $("#base").click(function () {
     if (!$(this).hasClass('disabled')) {
-      $(".base-field").addClass("base-menu");
+      $(".base-field").toggleClass("base-menu");
+      $(".base-shields").removeClass("shields-menu");
+    }
+  });
+  $("#shields").click(function () {
+    if (!$(this).hasClass('disabled')) {
+      $(".base-shields").toggleClass("shields-menu");
+      $(".base-field").removeClass("base-menu");
     }
   });
 

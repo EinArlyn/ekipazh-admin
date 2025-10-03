@@ -1,0 +1,53 @@
+.pop-up.pop-up-rolet#popup-edit-guide-rolet
+  form#edit-guide-rolet-form(method="POST" action="/base/shields/rolet/guides/guide/edit" enctype="multipart/form-data")
+    input(type="hidden" name="guide_id" value='' required)
+    .pop-up-close-wrap
+      a(class="pop-up-close", href="#")
+    span.pop-up-header
+      ='Edit guide'
+    .row
+      .col-md-6
+        img.color-image(src="/local_storage/default.png")
+      .col-md-6
+        input.hidden.color-image-file(type="file" name="color_img")
+        input.add-image-btn(type="button")
+    .pop-up-rolet-rows 
+      .row-name.rolet-row 
+        .title-name.title
+          =i18n.__('Name')
+          | :
+        input.input-default.text-name(type="text" value="" name="name" required)
+      .row-height.rolet-row 
+        .title-height.title
+          =i18n.__('Height')
+          | :
+        input.input-default.text-height(type="text" value="" name="height" required)
+      .row-size-by-lamel.rolet-row 
+        .title-size-by-lamel.title
+          ='Thickness'
+          | :
+        input.input-default.text-size-by-lamel(type="text" value="" name="thickness" required)
+      .row-is-settings.rolet-row
+        .title-is-lamination.title
+          ='Is color'
+          | :
+        label.checkbox-label
+          input(type="hidden" name="is_color" value="0")
+          input.input-default.checkbox-rolet-popup(type="checkbox" name="is_color" value="1")
+          span.checkbox-custom
+      .row-is-settings.rolet-row
+        .title-is-grid-guide.title
+          ='Is grid guide'
+          | :
+        label.checkbox-label
+          input(type="hidden" name="is_grid_guide" value="0")
+          input.input-default.checkbox-rolet-popup(type="checkbox" name="is_grid_guide" value="1")
+          span.checkbox-custom
+          
+    .row-description
+      .title-description
+        =i18n.__('Description')
+        | :
+      textarea.input-default.text-description(name="description")  
+    .row.block-center.text-center
+      input.btn-submit(type="submit" value=i18n.__('Save'))

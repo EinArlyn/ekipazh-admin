@@ -79,4 +79,8 @@ module.exports = function(app) {
   app.use('/services', require('./services/services'));
   app.use('/analytics', require('./analytics'));
   app.use('/database', require('./services/database'));
+  app.use('/base/shields/rolet/rolet', require('./base/shields/rolet/rolet'));
+  app.use('/base/shields/rolet/guides', require('./base/shields/rolet/guides'));
+  app.use('/base/shields/rolet/endLists', require('./base/shields/rolet/endLists'));
+  app.use('/base/shields/rolet/lamels', require('./base/shields/rolet/lamels'));
 };
