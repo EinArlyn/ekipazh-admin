@@ -26,12 +26,12 @@ module.exports = function (req, res) {
     // models.rol_lamels.findAll().then(function(rol_lamels) {
     //   console.log('rol_lamels>>>> ',rol_lamels)
     // })
-    models.rol_grups.findAll({
+    models.rol_groups.findAll({
       where: {factory_id: req.session.user.factory_id},
-    }).then(function(rol_grups) {
-      if (rol_grups.length) {
-        console.log('rol_grups>>>> ',rol_grups)
-        groupSystems = rol_grups;
+    }).then(function(rol_groups) {
+      if (rol_groups.length) {
+        console.log('rol_groups>>>> ',rol_groups)
+        groupSystems = rol_groups;
       } 
     
       res.render('base/shields/rolet/rolet', {
