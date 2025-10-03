@@ -49,8 +49,10 @@ $(function () {
     // systems
   $('.btn-add-system').click(function(e) {
     e.preventDefault();
-    $('#popup-add-system-rolet input:not([type="submit"]').val('')
+    const groupId = $(this).data('group')
+    $('#popup-add-system-rolet input:not([type="submit"])').val('')
     $('#popup-add-system-rolet input[type="checkbox"]').prop('checked', false);
+    $('#popup-add-system-rolet input[type="hidden"]').val(groupId);
     $('#popup-add-system-rolet').popup('show');
   })
 
@@ -116,10 +118,10 @@ $(function () {
         $('.pop-up').popup('hide');
         $('.block-groups').append('<div class="group-rolet-system-item">' + data.name + '</div>');
         console.log('success');
-        // setTimeout(function() {
-        //   $('.pop-up').popup('hide');
-        //   window.location.reload();
-        // }, 300);
+        setTimeout(function() {
+          $('.pop-up').popup('hide');
+          window.location.reload();
+        }, 300);
       } else {
         console.log('error');
       }
@@ -138,10 +140,10 @@ $(function () {
       if (data.status) {
         $('.pop-up').popup('hide');
         console.log('Delete');
-        // setTimeout(function() {
-        //   $('.pop-up').popup('hide');
-        //   window.location.reload();
-        // }, 300);
+        setTimeout(function() {
+          $('.pop-up').popup('hide');
+          window.location.reload();
+        }, 300);
       } else {
         console.log('error');
       }
@@ -160,10 +162,10 @@ $(function () {
       if (data.status) {
         $('.pop-up').popup('hide');
         console.log('addSystem');
-        // setTimeout(function() {
-        //   $('.pop-up').popup('hide');
-        //   window.location.reload();
-        // }, 300);
+        setTimeout(function() {
+          $('.pop-up').popup('hide');
+          window.location.reload();
+        }, 300);
       } else {
         console.log('error');
       }
@@ -182,10 +184,10 @@ $(function () {
       if (data.status) {
         $('.pop-up').popup('hide');
         console.log('editSystem');
-        // setTimeout(function() {
-        //   $('.pop-up').popup('hide');
-        //   window.location.reload();
-        // }, 300);
+        setTimeout(function() {
+          $('.pop-up').popup('hide');
+          window.location.reload();
+        }, 300);
       } else {
         console.log('error');
       }
@@ -204,10 +206,10 @@ $(function () {
       if (data.status) {
         $('.pop-up').popup('hide');
         console.log('deleteSystem');
-        // setTimeout(function() {
-        //   $('.pop-up').popup('hide');
-        //   window.location.reload();
-        // }, 300);
+        setTimeout(function() {
+          $('.pop-up').popup('hide');
+          window.location.reload();
+        }, 300);
       } else {
         console.log('error');
       }

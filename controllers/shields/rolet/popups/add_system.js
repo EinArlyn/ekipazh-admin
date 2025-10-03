@@ -9,7 +9,26 @@ module.exports = function (req, res) {
   parseForm(req, function (err, fields, files) {
     console.log('>>>>>>>>>>>>>>>>>>>>>Add system');
     console.log(fields);
-    res.send({ status: true, name: fields.name });
+    models.rol_boxes.create({
+      name: fields.name,
+      rol_group_id: parseInt(fields.group_id, 10),
+      is_activ: 1,
+      position: parseInt(fields.position, 10) || 0,
+      is_color: parseInt(fields.is_color, 10) || 0,
+      is_split: parseInt(fields.is_split, 10) || 0,
+      is_grid: parseInt(fields.is_grid, 10) || 0,
+      is_security: parseInt(fields.is_security, 10) || 0,
+      is_revision: parseInt(fields.is_revision, 10) || 0,
+      is_engine: parseInt(fields.is_engine, 10) || 0,
+      description: fields.description,
+      img: fields.img
+    }).then(function (newSystem) {
+      console.log(newSystem);
+      // models.rol_box_sizes.create({
+      //   id_rol_box: 
+      // })
+      res.send({ status: true, name: fields.name });
+    })
     // models.addition_colors.create({
     //   name: fields.name,
     //   lists_type_id: fields.type_id,
