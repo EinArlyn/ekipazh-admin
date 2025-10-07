@@ -21,36 +21,43 @@ module.exports = function (req, res) {
       is_revision: parseInt(fields.is_revision, 10) || 0,
       is_engine: parseInt(fields.is_engine, 10) || 0,
       description: fields.description,
-      img: fields.img
+      img: '/local_storage/default.png'
     }).then(function (newSystem) {
-      console.log(newSystem);
-      // models.rol_box_sizes.create({
-      //   id_rol_box: 
-      // })
-      res.send({ status: true, name: fields.name });
+      let heights = Object.keys(fields)          
+        .filter(key => key.startsWith('height_'))
+        .map(key => fields[key])                    
+        .map(Number);  
+      let width = Object.keys(fields)          
+        .filter(key => key.startsWith('width_'))
+        .map(key => fields[key])                    
+        .map(Number);  
+
+      heights.forEach((height, index) => {
+        if (parseInt(height, 10) > 0) {
+          models.rol_box_sizes.create({
+            id_rol_box: newSystem.id,
+            height: height,
+            width: width[index]
+          })
+        }
+      })
+
+      if (!files.rolet_img.name) return res.send({ status: true });
+
+      var imageUrl = '/local_storage/rollets/' + Math.floor(Math.random() * 1000000) + files.rolet_img.name;
+      loadImage(files.rolet_img.path, imageUrl);
+
+      newSystem.updateAttributes({
+        img: imageUrl
+      }).then(function (newSystem) {
+        res.send({ status: true });
+      }).catch(function (error) {
+        console.log(error);
+        res.send({ status: false });
+      });
+      
+      
     })
-    // models.addition_colors.create({
-    //   name: fields.name,
-    //   lists_type_id: fields.type_id,
-    //   modified: new Date(),
-    //   img: '/local_storage/default.png',
-    // }).then(function(newColor) {      
-    //   if (!files.color_img.name) return res.send({ status: true });
-
-    //   var imageUrl = '/local_storage/addition_colors/' + Math.floor(Math.random() * 1000000) + files.color_img.name;
-    //   loadImage(files.color_img.path, imageUrl);
-
-    //   newColor.updateAttributes({
-    //     img: imageUrl
-    //   }).then(function (newColor) {
-    //     res.send({ status: true });
-    //   }).catch(function (error) {
-    //     console.log(error);
-    //     res.send({ status: false });
-    //   });
-    // }).catch(function (err) {
-    //   console.log(err);
-    //   res.send({ status: false });
-    // });
+    
   });
 };

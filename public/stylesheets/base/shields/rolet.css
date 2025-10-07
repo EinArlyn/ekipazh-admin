@@ -202,7 +202,36 @@ main {
         }
       }
 
-
+      .row-height-width {
+        .title-height-width {
+          font-size: 12px;
+          width: 175px;
+        }
+        .title-height-width-wrap {
+          display: flex;
+          flex-direction: column;
+          gap: 10px;
+          margin-right: 10px;
+          font-size: 10px;
+          color: #888;
+          .height-box-title,
+          .width-box-title {
+            text-wrap: nowrap;
+          }
+        }
+        .height-width-box {
+          display: flex;
+          gap: 10px;
+          .field-height-width {
+            display: flex;
+            flex-direction: column;
+            input {
+              width: 30px;
+              height: 18px;
+            }
+          }
+        }
+      }
       .heights-box {
         display: flex;
         flex-wrap: wrap;
@@ -260,9 +289,10 @@ main {
       background-position: center;
       background-size: cover;
       cursor: pointer;
+      opacity: 0.7;
       &:hover {
-        background-color: #434343;
         color: white;
+        opacity: 1;
       }
     }
     .btn-delete-group {
@@ -273,9 +303,10 @@ main {
       background-position: center;
       background-size: cover;
       cursor: pointer;
+      opacity: 0.7;
       &:hover {
-        background-color: #434343;
         color: white;
+        opacity: 1;
       }
     }
   }

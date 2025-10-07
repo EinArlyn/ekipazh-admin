@@ -23,7 +23,7 @@ block content
             .group-name
               =groupSystem.name
             .btns-block
-              .btn-active-group.btn-active(data-group=groupSystem.id)
+              .btn-active-group.btn-active(data-group=groupSystem.id class=!groupSystem.is_activ ? 'btn-unactive' : 'btn-active')
               .btn-edit-group(data-group=groupSystem.id)
               .btn-delete-group(data-group=groupSystem.id)
           .block-systems
@@ -34,7 +34,7 @@ block content
                   .system-name
                     =system.name
                   .btns-block-item
-                    .btn-active-system.btn-active(data-system=system.id) 
+                    .btn-active-system.btn-active(data-system=system.id class=!system.is_activ ? 'btn-unactive' : 'btn-active') 
                     .btn-edit-system.btn-system(data-system=system.id)
                     .btn-delete-system.btn-system(data-system=system.id)
             .rolet-system-item.btn-add-system(data-group=groupSystem.id)

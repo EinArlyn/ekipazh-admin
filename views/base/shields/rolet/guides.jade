@@ -24,7 +24,7 @@ block content
             .system-name
               =guide.name
             .btns-block-item
-              .btn-active-system.btn-active(data-guide=guide.id) 
+              .btn-active-system.btn-active(data-guide=guide.id data-system=guide.id class=!guide.is_activ ? 'btn-unactive' : 'btn-active') 
               .btn-edit-system.btn-system(data-guide=guide.id)
               .btn-delete-system.btn-system(data-guide=guide.id)
       .rolet-system-item.btn-add-system
