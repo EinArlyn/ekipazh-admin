@@ -15,5 +15,7 @@ module.exports = function (req, res) {
           cssSrcs: ['/assets/stylesheets/base/shields/rolet.css'],
           scriptSrcs: ['/assets/javascripts/vendor/localizer/i18next-1.10.1.min.js', '/assets/javascripts/base/shields/rolet/guides.js']
         });
+  }).catch(function(err){
+    res.send({status: false})
   })
 };

@@ -33,7 +33,27 @@ $(function () {
     e.preventDefault();
     const endListsId = $(this).data('end_list');
     $('#popup-edit-end-list-rolet input[name="end_list_id"]').val(endListsId);
-    $('#popup-edit-end-list-rolet').popup('show');
+    $.get('/base/shields/rolet/endLists/endList/getEndList/' + endListsId, function(data) {
+      if (data) {
+        $('#popup-edit-end-list-rolet input[name="name"]').val(data.end_list.name);
+        $('#popup-edit-end-list-rolet input[name="description"]').val(data.end_list.description);
+        if (data.end_list.is_color) {
+          $('#popup-edit-end-list-rolet input[name="is_color"]').prop('checked', true);
+        } else {
+          $('#popup-edit-end-list-rolet input[name="is_color"]').prop('checked', false);
+        }
+        if (data.end_list.is_key) {
+          $('#popup-edit-end-list-rolet input[name="is_key"]').prop('checked', true);
+        } else {
+          $('#popup-edit-end-list-rolet input[name="is_key"]').prop('checked', false);
+        }
+
+        $('#popup-edit-end-list-rolet input[name="is_color"]').val(data.end_list.is_color);
+        $('#popup-edit-end-list-rolet input[name="is_key"]').val(data.end_list.is_key);
+
+        $('#popup-edit-end-list-rolet').popup('show');
+      }
+    })
   })
 
   $('.btn-delete-system').click(function(e) {

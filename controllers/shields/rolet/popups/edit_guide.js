@@ -9,7 +9,40 @@ module.exports = function (req, res) {
   parseForm(req, function (err, fields, files) {
     console.log('>>>>>>>>>>>>>>>>>>>>>Edit guide');
     console.log(fields);
-    res.send({ status: true, name: fields.name });
+    models.rol_guides.findOne({
+      where: {id: fields.guide_id}
+    }).then(function(guide) {
+      if (guide) {
+        guide.updateAttributes({
+          name: fields.name,
+          height: parseInt(fields.height, 10),
+          thickness: parseInt(fields.thickness, 10),
+          is_color: parseInt(fields.is_color, 10),
+          is_grid: parseInt(fields.is_grid, 10),
+          description: fields.description
+        }).then(function(newGuide) {
+          if (!files.rolet_img.name) return res.send({ status: true });
+
+          var imageUrl = '/local_storage/rollets/' + Math.floor(Math.random() * 1000000) + files.rolet_img.name;
+          loadImage(files.rolet_img.path, imageUrl);
+
+          newGuide.updateAttributes({
+            img: imageUrl
+          }).then(function (newGuide) {
+            res.send({ status: true });
+          }).catch(function (error) {
+            console.log(error);
+            res.send({ status: false });
+          });
+        }).catch(function (error) {
+          console.log(error);
+          res.send({ status: false });
+        });
+      }
+    }).catch(function (error) {
+      console.log(error);
+      res.send({ status: false });
+    });
     // models.addition_colors.create({
     //   name: fields.name,
     //   lists_type_id: fields.type_id,

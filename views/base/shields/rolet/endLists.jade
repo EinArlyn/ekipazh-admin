@@ -25,7 +25,7 @@ block content
             .system-name
               =list.name
             .btns-block-item
-              .btn-active-system.btn-active(data-end_list=list.id) 
+              .btn-active-system.btn-active(data-end_list=list.id class=!list.is_activ ? 'btn-unactive' : 'btn-active') 
               .btn-edit-system.btn-system(data-end_list=list.id)
               .btn-delete-system.btn-system(data-end_list=list.id)
       .rolet-system-item.btn-add-system
