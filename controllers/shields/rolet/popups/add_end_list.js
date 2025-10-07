@@ -9,6 +9,7 @@ module.exports = function (req, res) {
   parseForm(req, function (err, fields, files) {
     console.log('>>>>>>>>>>>>>>>>>>>>>Add end list');
     console.log(fields);
+    
     res.send({ status: true, name: fields.name });
     // models.addition_colors.create({
     //   name: fields.name,

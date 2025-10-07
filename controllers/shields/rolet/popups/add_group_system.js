@@ -16,7 +16,7 @@ module.exports = function (req, res) {
       is_activ: 1,
       position: parseInt(fields.position, 10),
       description: fields.description,
-      img: '/local_storage/default.png',
+      img: '/local_storage/default.png'
     }).then(function(newGroup) {
 
       if (!files.rolet_img.name) return res.send({ status: true });
