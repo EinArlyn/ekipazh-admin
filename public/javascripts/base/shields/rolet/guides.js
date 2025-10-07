@@ -82,10 +82,10 @@ $(function () {
       if (data.status) {
         $('.pop-up').popup('hide');
         console.log('ADD GUIDE');
-        // setTimeout(function() {
-        //   $('.pop-up').popup('hide');
-        //   window.location.reload();
-        // }, 300);
+        setTimeout(function() {
+          $('.pop-up').popup('hide');
+          window.location.reload();
+        }, 300);
       } else {
         console.log('error');
       }

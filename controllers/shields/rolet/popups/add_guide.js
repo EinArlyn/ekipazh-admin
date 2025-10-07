@@ -9,7 +9,22 @@ module.exports = function (req, res) {
   parseForm(req, function (err, fields, files) {
     console.log('>>>>>>>>>>>>>>>>>>>>>Add guide');
     console.log(fields);
-    res.send({ status: true, name: fields.name });
+
+    models.rol_guides.create({
+      factory_id: parseInt(req.session.user.factory_id, 10),
+      name: fields.name,
+      is_activ: 1,
+      height: parseInt(fields.height, 10) || 0,
+      thickness: parseInt(fields.thickness, 10) || 0,
+      is_color: parseInt(fields.is_color, 10) || 0,
+      is_grid_guide: parseInt(fields.is_grid_guide, 10) || 0,
+      description: fields.description,
+      img: fields.img
+    }).then(function(){
+      res.send({ status: true });
+    }).catch(function(err) {
+      res.send({status: false})
+    })
     // models.addition_colors.create({
     //   name: fields.name,
     //   lists_type_id: fields.type_id,

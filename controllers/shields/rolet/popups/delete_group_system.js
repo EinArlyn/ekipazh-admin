@@ -12,13 +12,12 @@ module.exports = function (req, res) {
       where: {rol_group_id: fields.group_id}
     }).then(function(group) {
       if (group.length) {
-        console.log('Nizya!!')
+        res.send({ status: false });
       } else {
         models.rol_groups.destroy({
           where: {id: fields.group_id}
         }).then(function() {
     
-        console.log('Mozhno!!')
         res.send({ status: true });
         // models.addition_colors.create({
         //   name: fields.name,
