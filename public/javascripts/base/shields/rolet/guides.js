@@ -42,6 +42,7 @@ $(function () {
         $('#popup-edit-guide-rolet input[name="height"]').val(data.guide.height);
         $('#popup-edit-guide-rolet input[name="thickness"]').val(data.guide.thickness);
         $('#popup-edit-guide-rolet input[name="description"]').val(data.guide.description);
+        $('#popup-edit-guide-rolet img.rolet-image').attr('src', data.guide.img);
         if (data.guide.is_color) {
           $('#popup-edit-guide-rolet input[name="is_color"]').prop('checked', true);
         } else {
