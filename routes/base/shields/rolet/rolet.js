@@ -41,7 +41,6 @@ function activeGroup(req, res) {
 }
 
 
-
 function getSystem(req,res) {
     const box_id = req.params.id;
     models.rol_boxes.findOne({

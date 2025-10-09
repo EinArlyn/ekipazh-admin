@@ -15,10 +15,10 @@ module.exports = function (req, res) {
       if (guide) {
         guide.updateAttributes({
           name: fields.name,
-          height: parseInt(fields.height, 10),
-          thickness: parseInt(fields.thickness, 10),
-          is_color: parseInt(fields.is_color, 10),
-          is_grid: parseInt(fields.is_grid, 10),
+          height: parseInt(fields.height, 10) || 0,
+          thickness: parseInt(fields.thickness, 10) || 0,
+          is_color: parseInt(fields.is_color, 10) || 0,
+          is_grid: parseInt(fields.is_grid, 10) || 0,
           description: fields.description
         }).then(function(newGuide) {
           if (!files.rolet_img.name) return res.send({ status: true });

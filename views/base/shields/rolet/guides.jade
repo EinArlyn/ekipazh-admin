@@ -4,14 +4,11 @@ block content
   .main-nav
     .nav-link
       a(href="/")= i18n.__('Dashboard') 
-      | 
-      a(href="/base/shields/rolet/rolet")=' -> Rolet'
-      | 
-      | -> 
+      a(href="/base/shields/rolet/rolet")='Rolet'
       span#nav-text
         =' Guides '
-      a(href="/base/shields/rolet/endLists")=' -> End Lists'
-      a(href="/base/shields/rolet/lamels")=' -> Lamels'
+      a(href="/base/shields/rolet/endLists")='End Lists'
+      a(href="/base/shields/rolet/lamels")='Lamels'
       img.loader-ico(src="/assets/images/loader_ico.GIF")
   .main-content    
     .titel-page 
@@ -21,6 +18,7 @@ block content
         each guide in guidesList
           .rolet-system-item
             .system-img
+              img(src=(guide.img ? guide.img : '/local_storage/default.png'), alt="")
             .system-name
               =guide.name
             .btns-block-item

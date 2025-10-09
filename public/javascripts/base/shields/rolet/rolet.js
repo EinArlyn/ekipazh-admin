@@ -49,7 +49,8 @@ $(function () {
       $('#popup-edit-group-rolet input[name="position"]').val(data.group.position);
       $('#popup-edit-group-rolet input[name="description"]').val(data.group.description);
       $('#popup-edit-group-rolet input[name="group_id"]').val(groupId);
-
+      $('#popup-edit-group-rolet img.rolet-image').attr('src', data.group.img);
+      
       $('#popup-edit-group-rolet').popup('show');
     })
   })
@@ -82,6 +83,7 @@ $(function () {
         $('#popup-edit-system-rolet input[name="name"]').val(system.box.name)
         $('#popup-edit-system-rolet input[name="position"]').val(system.box.position)
         $('#popup-edit-system-rolet input[name="description"]').val(system.box.description)
+        $('#popup-edit-system-rolet img.rolet-image').attr('src', system.box.img);
         if (system.box.is_color) {
           $('#popup-edit-system-rolet input[name="is_color"]').prop('checked', true);
         } else {
