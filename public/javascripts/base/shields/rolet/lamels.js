@@ -25,7 +25,7 @@ $(function () {
   $('.btn-add-system').click(function (e) {
     e.preventDefault();
     $(
-      '#popup-add-lamel-rolet input:not([type="submit"]):not([type="hidden"])'
+      '#popup-add-lamel-rolet input:not([type="submit"]):not([type="hidden"]):not([type="button"])'
     ).val('');
     $('#popup-add-lamel-rolet input[type="checkbox"]').prop('checked', false);
     $('#popup-add-lamel-rolet label.thickness-option').remove();
@@ -101,7 +101,7 @@ $(function () {
     const lamelId = $(this).data('lamel');
     $('#popup-edit-lamel-rolet input[name="lamel_id"]').val(lamelId);
     $(
-      '#popup-edit-lamel-rolet input:not([type="submit"]):not([type="hidden"])'
+      '#popup-edit-lamel-rolet input:not([type="submit"]):not([type="hidden"]):not([type="button"])'
     ).val('');
     $('#popup-edit-lamel-rolet input[type="checkbox"]').prop('checked', false);
     $('#popup-edit-lamel-rolet label.thickness-option').remove();

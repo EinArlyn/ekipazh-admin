@@ -57,14 +57,14 @@ $(function () {
   
   $('.btn-add-group').click(function(e) {
     e.preventDefault();
-    $('input.input-default').val('');
+    $('#popup-add-group-rolet input.input-default').val('');
     $('#popup-add-group-rolet').popup('show');
   })
     // systems
   $('.btn-add-system').click(function(e) {
     e.preventDefault();
     const groupId = $(this).data('group')
-    $('#popup-add-system-rolet input:not([type="submit"])').val('')
+    $('#popup-add-system-rolet input:not([type="submit"]):not([type="button"])').val('')
     $('#popup-add-system-rolet input[type="checkbox"]').prop('checked', false);
     $('#popup-add-system-rolet input[type="hidden"]').val(groupId);
     $('#popup-add-system-rolet').popup('show');
@@ -73,7 +73,7 @@ $(function () {
   $('.btn-edit-system').click(function(e) {
     e.preventDefault();
     const systemId = $(this).data('system');
-    $('#popup-edit-system-rolet input:not([type="submit"]:not([type="hidden"]))').val('');
+    $('#popup-edit-system-rolet input:not([type="submit"]):not([type="hidden"]):not([type="button"])').val('');
     
     $('#popup-edit-system-rolet input[name="system_id"]').val(systemId);
     if (systemId) {
