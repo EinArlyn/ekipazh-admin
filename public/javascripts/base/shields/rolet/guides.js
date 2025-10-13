@@ -27,7 +27,7 @@ $(function () {
     // systems
   $('.btn-add-system').click(function(e) {
     e.preventDefault();
-    $('#popup-add-guide-rolet input:not([type="submit"])').val('')
+    $('#popup-add-guide-rolet input:not([type="submit"]):not([type="button"])').val('')
     $('#popup-add-guide-rolet input[type="checkbox"]').prop('checked', false);
     $('#popup-add-guide-rolet').popup('show');
   })

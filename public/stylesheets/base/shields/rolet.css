@@ -65,6 +65,15 @@ main {
       object-position: center;
       display: block;
     }
+    .add-image-btn {
+      background-image: none;
+      width: 200px;
+      height: 25px;
+      align-items: center;
+      background-color: black;
+      color: white;
+      left: -5px;
+    }
     .pop-up-rolet-rows {
       input {
         width: 45%;
@@ -433,7 +442,8 @@ main {
   }
 
   .block-guides,
-  .block-end-lists {
+  .block-end-lists,
+  .block-lamels {
     padding: 10px;
   }
   .btn-add-group {
