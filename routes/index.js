@@ -83,4 +83,5 @@ module.exports = function(app) {
   app.use('/base/shields/rolet/guides', require('./base/shields/rolet/guides'));
   app.use('/base/shields/rolet/endLists', require('./base/shields/rolet/endLists'));
   app.use('/base/shields/rolet/lamels', require('./base/shields/rolet/lamels'));
+  app.use('/base/shields/rolet/roletPrice', require('./base/shields/rolet/roletPrice'));
 };
