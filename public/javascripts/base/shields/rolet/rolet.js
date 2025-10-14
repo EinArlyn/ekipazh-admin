@@ -67,6 +67,18 @@ $(function () {
     $('#popup-add-system-rolet input:not([type="submit"]):not([type="button"])').val('')
     $('#popup-add-system-rolet input[type="checkbox"]').prop('checked', false);
     $('#popup-add-system-rolet input[type="hidden"]').val(groupId);
+
+    $('#popup-add-system-rolet .field-height-width').remove();
+    const countRowsSizes = 6;
+    for (let i = 0; i < countRowsSizes; i++) {
+        $('#popup-add-system-rolet .height-width-box').append(
+          `<div class="field-height-width">
+            <input class="input-default height-box" type="text" name="height" value="">
+            <input class="input-default width-box" type="text" name="width" value="">
+          </div>`
+        )
+    }
+    initSizes();
     $('#popup-add-system-rolet').popup('show');
   })
 
@@ -74,7 +86,7 @@ $(function () {
     e.preventDefault();
     const systemId = $(this).data('system');
     $('#popup-edit-system-rolet input:not([type="submit"]):not([type="hidden"]):not([type="button"])').val('');
-    
+    $('#popup-edit-system-rolet .field-height-width').remove();
     $('#popup-edit-system-rolet input[name="system_id"]').val(systemId);
     if (systemId) {
       $.get('/base/shields/rolet/rolet/system/getSystem/' + systemId, {
@@ -122,16 +134,27 @@ $(function () {
         $('#popup-edit-system-rolet input[name="is_engine"]').val(system.box.is_engine)
         $('#popup-edit-system-rolet input[name="is_split"]').val(system.box.is_revision)
 
-        let height = $('#popup-edit-system-rolet input.height-box');
-        let width = $('#popup-edit-system-rolet input.width-box');
-        height.each((index,field) => {
-         if (system.sizes[index]) {
-            $(field).val(system.sizes[index].height);
-            $(field).attr('size_id', system.sizes[index].id);
-            $(width[index]).val(system.sizes[index].width);
-            $(width[index]).attr('size_id', system.sizes[index].id);
-          }
-        })
+        // let height = $('#popup-edit-system-rolet input.height-box');
+        // let width = $('#popup-edit-system-rolet input.width-box');
+        // height.each((index,field) => {
+        //  if (system.sizes[index]) {
+        //     $(field).val(system.sizes[index].height);
+        //     $(field).attr('size_id', system.sizes[index].id);
+        //     $(width[index]).val(system.sizes[index].width);
+        //     $(width[index]).attr('size_id', system.sizes[index].id);
+        //   }
+        // })
+
+        const countRowsSizes = 6;
+        for (let i = 0; i < countRowsSizes; i++) {
+            $('#popup-edit-system-rolet .height-width-box').append(
+              `<div class="field-height-width" data-size-id=${system.sizes[i] ? system.sizes[i].id : ''}>
+                <input class="input-default height-box" type="text" name="height" value=${system.sizes[i] ? system.sizes[i].height : ''}>
+                <input class="input-default width-box" type="text" name="width" value=${system.sizes[i] ? system.sizes[i].width : ''}>
+              </div>`
+            )
+        }
+        initSizes();
 
 
         $('#popup-edit-system-rolet #rolet-proup').find('option').remove();
@@ -199,13 +222,15 @@ $(function () {
     }
   })
 
-  $('#popup-add-system-rolet input.height-box, #popup-edit-system-rolet input.height-box').on('change', function () {
-    const currentHeight = $(this).val();
-    const nextWidth = $(this).nextAll('input.width-box').first();
-    if (!nextWidth.val()) {
-      nextWidth.val(currentHeight);
-    }
-  })
+  function initSizes(){
+    $('#popup-add-system-rolet input.height-box, #popup-edit-system-rolet input.height-box').on('change', function () {
+      const currentHeight = $(this).val();
+      const nextWidth = $(this).nextAll('input.width-box').first();
+      if (!nextWidth.val()) {
+        nextWidth.val(currentHeight);
+      }
+    })
+  }
 
   function submitAddNewGroupSystem(e) {
     e.preventDefault();
@@ -255,9 +280,22 @@ $(function () {
   function submitAddNewSystem(e) {
     e.preventDefault();
 
+    const size_list = [];
+    $('#popup-add-system-rolet .field-height-width').each(function () {
+      const height = $(this).find('input[name="height"]').val();
+      const width = $(this).find('input[name="width"]').val();
+      
+      const sizeObj = {};
+      if (height && width) {
+        sizeObj.height = height;
+        sizeObj.width = width;
+        size_list.push(sizeObj);
+      }
+    });
     var formData = new FormData(this);
     var formAction = $(this).attr('action');
 
+    formData.append('size_list', JSON.stringify(size_list));
     submitForm({ action: formAction, data: formData }, onResponse);
 
     function onResponse (data) {
@@ -303,16 +341,23 @@ $(function () {
     var formData = new FormData(this);
     var formAction = $(this).attr('action');
 
-    const size_ids = $('#popup-edit-system-rolet input.height-box')
-      .map(function() {
-        const id = parseInt($(this).attr('size_id'), 10);
-        return id > 0 ? id : null; 
-      })
-      .get()
-      .filter(id => id !== null); 
+    const size_list = [];
+    $('#popup-edit-system-rolet .field-height-width').each(function () {
+  
+      const id = $(this).data('size-id');
+      const height = $(this).find('input[name="height"]').val();
+      const width = $(this).find('input[name="width"]').val();
       
-    formData.append('size_ids', size_ids);
-
+      const sizeObj = {};
+      if (height && width) {
+        sizeObj.id = id || 0;
+        sizeObj.height = height;
+        sizeObj.width = width;
+        size_list.push(sizeObj);
+      }
+    });
+    
+    formData.append('size_list', JSON.stringify(size_list));  
     submitForm({ action: formAction, data: formData }, onResponse);
 
     function onResponse (data) {

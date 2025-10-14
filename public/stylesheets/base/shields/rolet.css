@@ -459,4 +459,66 @@ main {
       background-color: #434343;
     }
   }
+
+    /* ----------------------------------- */
+  .price-table {
+    display: flex;
+    flex-direction: column;
+    .lamels-box {
+      display: flex;
+      .header-box {
+        width: 210px;
+        background-color: green;
+        border: 1px solid lightgray;
+      }
+      .lamel-row {
+        box-sizing: border-box;
+        text-align: center;
+        border: 1px solid lightgray;
+        width: 100px;
+      }
+    }
+
+    .groups-box {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      .group-wrap {
+        .group-box-name {
+          height: 25px;
+          border: 1px solid lightgray;
+          text-align: center;
+          box-sizing: border-box;
+          background-color: #c6c6c6;
+          text-align: start;
+          padding-left: 10px;
+        }
+        .boxes-box {
+          display: flex;
+          flex-direction: column;
+          .box-box {
+            display: flex;
+            box-sizing: border-box;
+            border: 1px solid lightgray;
+            height: 25px;
+            padding-left: 10px;
+            .box-name {
+              width: 200px;
+            }
+            .price-field {
+              box-sizing: border-box;
+              width: 100px;
+              border-left: 1px solid lightgray;
+              border-right: 1px solid lightgray;
+              input {
+                width: 90px;
+                border: none;
+                text-align: center;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
 }

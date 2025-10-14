@@ -21,3 +21,6 @@ exports.addNewLamel = require('./popups/add_lamel');
 exports.editLamel = require('./popups/edit_lamel');
 exports.deleteLamel = require('./popups/delete_lamel');
 
+exports.roletPrice = require('./roletPrice');
+
+
