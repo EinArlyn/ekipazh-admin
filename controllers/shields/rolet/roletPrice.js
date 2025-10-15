@@ -23,11 +23,7 @@ module.exports = function (req, res) {
               boxes: boxByGr
             }
             groups.push(objGr);
-          })
-
-          // console.log('GR>>>',groups[0].boxes)
-          // console.log('LAM>>>',dataLamels)
-      
+          })      
     
         res.render('base/shields/rolet/roletPrice', {
               i18n: i18n,

@@ -91,7 +91,6 @@ $(function () {
     if (systemId) {
       $.get('/base/shields/rolet/rolet/system/getSystem/' + systemId, {
       }, function(system) {
-        console.log(system)
         $('#popup-edit-system-rolet input[name="name"]').val(system.box.name)
         $('#popup-edit-system-rolet input[name="position"]').val(system.box.position)
         $('#popup-edit-system-rolet input[name="description"]').val(system.box.description)
@@ -161,7 +160,6 @@ $(function () {
         $.get('/base/shields/rolet/rolet/group/getGroups',  {
           
         }, function(data) {
-          console.log(data)
           if (data.status) {
             for (var i = 0, len = data.groups.length; i < len; i++) {
               const group = data.groups[i];
@@ -193,8 +191,7 @@ $(function () {
     $(this).toggleClass('btn-unactive');
     const groupId = $(this).data('group');
     const systemId = $(this).data('system');
-    console.log(groupId)
-    console.log(systemId)
+    
     if (groupId) {
       $.post('/base/shields/rolet/rolet/group/active/' + groupId, {
         

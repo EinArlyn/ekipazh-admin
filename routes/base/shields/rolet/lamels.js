@@ -10,16 +10,12 @@ router.get('/lamel/getEndLists', isAuthenticated, getEndLists);
 router.post('/lamel/add', isAuthenticated, rolet.addNewLamel);
 router.post('/lamel/edit', isAuthenticated, rolet.editLamel);
 router.post('/lamel/delete', isAuthenticated, rolet.deleteLamel);
-// router.post('/system/add', isAuthenticated, rolet.addNewSystem);
-// router.post('/system/edit', isAuthenticated, rolet.editSystem);
-// router.post('/system/delete', isAuthenticated, rolet.deleteSystem);
 
-// router.post('/group/active/:id', isAuthenticated, activeGroup);
 router.post('/lamel/active/:id', isAuthenticated, activeLamel);
 router.get('/lamel/getEditLamelInfo/:id', isAuthenticated, getEditLamelInfo);
 
 function activeLamel(req, res) {
-    console.log('lamel>>',req.params);
+    // console.log('lamel>>',req.params);
     models.rol_lamels.findOne({
         where: {id: req.params.id}
     }).then(function(lamel) {
@@ -109,9 +105,6 @@ function getEditLamelInfo(req, res) {
     });
 }
 
-// function activeGroup(req, res) {
-//     console.log('group>>',req.params);
-// }
 
 
 module.exports = router;

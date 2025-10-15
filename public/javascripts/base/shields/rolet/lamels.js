@@ -87,9 +87,6 @@ $(function () {
             }
           });
 
-          console.log(guidesThicknesses);
-          console.log(guidesData);
-          console.log(endListsData);
           $('#popup-add-lamel-rolet').popup('show');
         }
       );
@@ -112,7 +109,6 @@ $(function () {
     let endListsBlock = $('#popup-edit-lamel-rolet .end-lists');
     let guidesBlock = $('#popup-edit-lamel-rolet .guide-lists');
     $.get('/base/shields/rolet/lamels/lamel/getEditLamelInfo/' + lamelId, function (editLamelInfo) {
-      console.log(editLamelInfo)
       $('#popup-edit-lamel-rolet input[name="name"]').val(editLamelInfo.lamel.name);
       $('#popup-edit-lamel-rolet input[name="height"]').val(editLamelInfo.lamel.height);
       $('#popup-edit-lamel-rolet input[name="description"]').val(editLamelInfo.lamel.description);
@@ -187,7 +183,6 @@ $(function () {
     e.preventDefault();
     $(this).toggleClass('btn-unactive');
     const lamelId = $(this).data('lamel');
-    console.log(lamelId);
     if (lamelId) {
       $.post(
         '/base/shields/rolet/lamels/lamel/active/' + lamelId,

@@ -68,7 +68,6 @@ $(function () {
     e.preventDefault();
     $(this).toggleClass('btn-unactive');
     const endListsId = $(this).data('end_list');
-    console.log(endListsId)
     if (endListsId) {
       $.post('/base/shields/rolet/endLists/endList/active/' + endListsId, {
         
