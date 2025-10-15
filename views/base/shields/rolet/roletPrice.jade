@@ -34,6 +34,6 @@ block content
                     =box.name
                   each lam in lamels 
                     .price-field(data-lamel-id=lam.id data-box-id=box.id)
-                      input.input-default.rolet-price-input(type="text" value="" name="")         
+                      input.input-default.rolet-price-input(type="number" data-lamel-id=lam.id data-box-id=box.id value="" name="")         
                       
     

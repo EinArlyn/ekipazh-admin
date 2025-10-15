@@ -2,81 +2,10 @@ var models = require('../../../../lib/models/index.js');
 var parseForm = require('../../../../lib/services/formParser.js').parseForm;
 var loadImage = require('../../../../lib/services/imageLoader.js').loadImage;
 
-/**
- * Add additional color
- */
 module.exports = function (req, res) {
   parseForm(req, function (err, fields, files) {
     console.log('>>>>>>>>>>>>>>>>>>>>>Edit lamel');
     console.log(fields);
-
-    // models.rol_lamels.findOne({
-    //   where: {id: fields.lamel_id}
-    // }).then(function(lamel){
-    //   const end_list  = JSON.parse(fields.end_list  || '[]');
-    //   const size_list = JSON.parse(fields.size_list || '[]');
-
-    //   lamel.updateAttributes({
-    //     name: fields.name,
-    //     height: parseInt(fields.height, 10) || 0,
-    //     is_color: parseInt(fields.is_color, 10) || 0,
-    //     description: fields.description
-    //   }).then(function(){
-        
-    //     let endAddPromises = [];
-    //     let endDelPromises = [];
-    //     let sizeAddPromises = [];
-    //     let sizeDelPromises = [];
-    //     models.rol_lamels_end_lists.findAll({
-    //       where: {rol_lamel_id: fields.lamel_id}
-    //     }).then(function(lamelEndLists) {
-
-    //       endAddPromises = end_list.map(function (listId) {
-    //         if (!lamelEndLists.some(obj => obj.rol_end_list_id === listId)) {
-    //           return models.rol_lamels_end_lists.create({
-    //             rol_lamel_id: fields.lamel_id,
-    //             rol_end_list_id: listId
-    //           })
-    //         }
-    //       });
-
-    //       endDelPromises = lamelEndLists.map(function (row) {
-    //         if (!end_list.some(obj => obj.rol_end_list_id === row.rol_end_list_id)) {
-    //           return models.rol_lamels_end_lists.destroy({
-    //             where: {id: row.id}
-    //           })
-    //         }
-    //       })
-
-    //     })
-
-    //     models.rol_lamels_guides.findAll({
-    //       where: {rol_lamel_id: fields.lamel_id}
-    //     }).then(function(lamelGuides) {
-
-    //       sizeAddPromises = size_list.map(size => {
-    //         if (!lamelGuides.some(obj => obj.rol_guide_id === size.id)) {
-    //           return models.rol_lamels_guides.create({
-    //             rol_lamel_id: fields.lamel_id,
-    //             rol_guide_id: size.id,
-    //             max_width: size.width,
-    //             max_square: size.square
-    //           })
-    //         }
-    //       })
-
-    //       sizeDelPromises = lamelGuides.map(row => {
-    //         if (!size_list.some(obj => obj.rol_guide_id === row.rol_guide_id)) {
-    //           return models.rol_lamels_guides.destroy({
-    //             where: {id: row.id}
-    //           })
-    //         }
-    //       })
-    //     })
-        
-    //   })
-
-    // })
 
     models.rol_lamels.findOne({
       where: { id: fields.lamel_id }
@@ -86,8 +15,8 @@ module.exports = function (req, res) {
         return res.send({ status: false, error: 'lamel not found' });
       }
 
-      const end_list  = JSON.parse(fields.end_list  || '[]');   // [1,2,3]
-      const size_list = JSON.parse(fields.size_list || '[]');   // [{id,width,square}, ...]
+      const end_list  = JSON.parse(fields.end_list  || '[]'); 
+      const size_list = JSON.parse(fields.size_list || '[]'); 
 
       return lamel.updateAttributes({
         name: fields.name,
@@ -204,28 +133,5 @@ module.exports = function (req, res) {
       res.send({ status: false });
     });
 
-    // models.addition_colors.create({
-    //   name: fields.name,
-    //   lists_type_id: fields.type_id,
-    //   modified: new Date(),
-    //   img: '/local_storage/default.png',
-    // }).then(function(newColor) {      
-    //   if (!files.color_img.name) return res.send({ status: true });
-
-    //   var imageUrl = '/local_storage/addition_colors/' + Math.floor(Math.random() * 1000000) + files.color_img.name;
-    //   loadImage(files.color_img.path, imageUrl);
-
-    //   newColor.updateAttributes({
-    //     img: imageUrl
-    //   }).then(function (newColor) {
-    //     res.send({ status: true });
-    //   }).catch(function (error) {
-    //     console.log(error);
-    //     res.send({ status: false });
-    //   });
-    // }).catch(function (err) {
-    //   console.log(err);
-    //   res.send({ status: false });
-    // });
   });
 };

@@ -8,15 +8,10 @@ router.get('/endList/getEndList/:id', isAuthenticated, getEndList);
 router.post('/endList/add', isAuthenticated, rolet.addNewEndList);
 router.post('/endList/edit', isAuthenticated, rolet.editEndList);
 router.post('/endList/delete', isAuthenticated, rolet.deleteEndList);
-// router.post('/system/add', isAuthenticated, rolet.addNewSystem);
-// router.post('/system/edit', isAuthenticated, rolet.editSystem);
-// router.post('/system/delete', isAuthenticated, rolet.deleteSystem);
-
-// router.post('/group/active/:id', isAuthenticated, activeGroup);
 router.post('/endList/active/:id', isAuthenticated, activeEndList);
 
 function activeEndList(req, res) {
-    console.log('end list>>',req.params);
+    // console.log('end list>>',req.params);
     models.rol_end_lists.findOne({
         where: {id: req.params.id}
     }).then(function(end_list) {

@@ -74,7 +74,6 @@ $(function () {
     e.preventDefault();
     $(this).toggleClass('btn-unactive');
     const guideId = $(this).data('guide');
-    console.log(guideId)
     if (guideId) {
       $.post('/base/shields/rolet/guides/guide/active/' + guideId, {
         
