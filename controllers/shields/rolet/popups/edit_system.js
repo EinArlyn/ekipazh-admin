@@ -55,9 +55,10 @@ module.exports = function (req, res) {
 
               const h = Number(match.height) || 0;
               const w = Number(match.width) || 0;
+              const p = Number(match.box_price) || 0;
 
-              if (Number(row.height) !== h || Number(row.width) !== w) {
-                return row.update({ height: h, width: w });
+              if (Number(row.height) !== h || Number(row.width) !== w || Number(row.box_price) !== p) {
+                return row.update({ height: h, width: w, box_price: p });
               }
 
               return null; // совпадает — не трогаем
@@ -76,7 +77,8 @@ module.exports = function (req, res) {
                   models.rol_box_sizes.create({
                     id_rol_box: fields.system_id,
                     height: Number(size.height) || 0,
-                    width: Number(size.width) || 0
+                    width: Number(size.width) || 0,
+                    box_price: Number(size.box_price) || 0
                   })
                 );
               }

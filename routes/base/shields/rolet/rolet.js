@@ -58,16 +58,28 @@ function getSystem(req,res) {
         res.send({status: false});
     })
 }
- function getGroup(req,res) {
-    const group_id = req.params.id
-    models.rol_groups.findOne({
-        where: {id: group_id}
-    }).then(function(group) {
-        res.send({status: true, group: group})
-    }).catch(function(err){
-        res.send({status:false})
+ function getGroup(req, res) {
+  const groupId = parseInt(req.params.id, 10);
+  if (!Number.isFinite(groupId)) return res.send({ status: false, error: 'bad id' });
+
+  models.rol_groups.findOne({ where: { id: groupId } })
+    .then(function (group) {
+      if (!group) return res.send({ status: false, error: 'not found' });
+      return models.compliance_rol_groups.findAll({ where: { rol_group_id: groupId } })
+        .then(function (countries) {
+            let country_ids = [];
+            if (countries) {
+                country_ids = countries.map(c => c.country_id);
+            }
+          res.send({ status: true, group: group, country_ids: country_ids });
+        });
     })
- }
+    .catch(function (err) {
+      console.error('getGroup error:', err);
+      res.send({ status: false });
+    });
+}
+
  function getGroups(req,res) {
     models.rol_groups.findAll({}).then(function(groups) {
         res.send({status: true, groups: groups});

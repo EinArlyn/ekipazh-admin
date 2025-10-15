@@ -50,6 +50,17 @@ $(function () {
       $('#popup-edit-group-rolet input[name="description"]').val(data.group.description);
       $('#popup-edit-group-rolet input[name="group_id"]').val(groupId);
       $('#popup-edit-group-rolet img.rolet-image').attr('src', data.group.img);
+      $('#popup-edit-group-rolet input[type="checkbox"]').val('');
+      $('#popup-edit-group-rolet input[type="checkbox"]').prop('checked', false);
+      
+      $('#popup-edit-group-rolet input[type="checkbox"]').each(function(){
+        const country_id = $(this).data('countryId');
+        const checkCountry = data.country_ids.includes(country_id);
+        if (checkCountry) {
+          $(this).val(1);
+          $(this).prop('checked', true);
+        }
+      });
       
       $('#popup-edit-group-rolet').popup('show');
     })
@@ -75,6 +86,7 @@ $(function () {
           `<div class="field-height-width">
             <input class="input-default height-box" type="text" name="height" value="">
             <input class="input-default width-box" type="text" name="width" value="">
+            <input class="input-default box-price" type="text" name="box_price" value="">
           </div>`
         )
     }
@@ -133,23 +145,13 @@ $(function () {
         $('#popup-edit-system-rolet input[name="is_engine"]').val(system.box.is_engine)
         $('#popup-edit-system-rolet input[name="is_split"]').val(system.box.is_revision)
 
-        // let height = $('#popup-edit-system-rolet input.height-box');
-        // let width = $('#popup-edit-system-rolet input.width-box');
-        // height.each((index,field) => {
-        //  if (system.sizes[index]) {
-        //     $(field).val(system.sizes[index].height);
-        //     $(field).attr('size_id', system.sizes[index].id);
-        //     $(width[index]).val(system.sizes[index].width);
-        //     $(width[index]).attr('size_id', system.sizes[index].id);
-        //   }
-        // })
-
         const countRowsSizes = 6;
         for (let i = 0; i < countRowsSizes; i++) {
             $('#popup-edit-system-rolet .height-width-box').append(
               `<div class="field-height-width" data-size-id=${system.sizes[i] ? system.sizes[i].id : ''}>
                 <input class="input-default height-box" type="text" name="height" value=${system.sizes[i] ? system.sizes[i].height : ''}>
                 <input class="input-default width-box" type="text" name="width" value=${system.sizes[i] ? system.sizes[i].width : ''}>
+                <input class="input-default box-price" type="text" name="box_price" value=${system.sizes[i] ? (system.sizes[i].box_price || 0) : ''}>
               </div>`
             )
         }
@@ -232,9 +234,23 @@ $(function () {
   function submitAddNewGroupSystem(e) {
     e.preventDefault();
 
+    const country_list = [];
     var formData = new FormData(this);
     var formAction = $(this).attr('action');
 
+    $('#popup-add-group-rolet input[name="checkGroup"]').each(function(){
+      const is_check = $(this).val();
+      const country_id = $(this).data('countryId');
+      if (is_check) {
+        const resObj = {
+          is_check: is_check,
+          country_id: country_id
+        };
+        country_list.push(resObj);
+      }
+    })
+
+    formData.append('country_list', JSON.stringify(country_list));
     submitForm({ action: formAction, data: formData }, onResponse);
 
     function onResponse (data) {
@@ -281,11 +297,13 @@ $(function () {
     $('#popup-add-system-rolet .field-height-width').each(function () {
       const height = $(this).find('input[name="height"]').val();
       const width = $(this).find('input[name="width"]').val();
-      
+      const box_price = $(this).find('input[name="box_price"]').val();
+
       const sizeObj = {};
       if (height && width) {
         sizeObj.height = height;
         sizeObj.width = width;
+        sizeObj.box_price = box_price || 0;
         size_list.push(sizeObj);
       }
     });
@@ -312,8 +330,24 @@ $(function () {
   function submitEditGroup(e) {
     e.preventDefault();
 
+    const country_list = [];
+
     var formData = new FormData(this);
     var formAction = $(this).attr('action');
+
+    $('#popup-edit-group-rolet input[name="checkGroup"]').each(function(){
+      const is_check = $(this).val();
+      const country_id = $(this).data('countryId');
+      if (is_check > 0) {
+        const resObj = {
+          is_check: is_check,
+          country_id: country_id
+        };
+        country_list.push(resObj);
+      }
+    })
+
+    formData.append('country_list', JSON.stringify(country_list));
 
     submitForm({ action: formAction, data: formData }, onResponse);
 
@@ -344,12 +378,13 @@ $(function () {
       const id = $(this).data('size-id');
       const height = $(this).find('input[name="height"]').val();
       const width = $(this).find('input[name="width"]').val();
-      
+      const box_price = $(this).find('input[name="box_price"]').val();
       const sizeObj = {};
       if (height && width) {
         sizeObj.id = id || 0;
         sizeObj.height = height;
         sizeObj.width = width;
+        sizeObj.box_price = box_price;
         size_list.push(sizeObj);
       }
     });
