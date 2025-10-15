@@ -33,7 +33,8 @@ module.exports = function (req, res) {
         return models.rol_box_sizes.create({
           id_rol_box: newSystem.id,
           height: size.height,
-          width: size.width
+          width: size.width,
+          box_price: size.box_price
         });
       });
 
