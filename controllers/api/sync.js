@@ -2367,6 +2367,307 @@ module.exports = function (req, res) {
                   );
                 });
               },
+              // Rolet start..
+              function (callback) {
+                /** rol_groups: только группы, разрешённые для страны пользователя */
+                models.sequelize
+                  .query(
+                    `SELECT G.id, G.factory_id, G.name, G.is_activ, G.position, G.description, G.img
+                    FROM rol_groups AS G
+                    JOIN users   AS U ON U.id = ${userId}
+                    JOIN cities  AS C ON C.id = U.city_id
+                    JOIN regions AS R ON R.id = C.region_id
+                    JOIN compliance_rol_groups AS CG ON CG.rol_group_id = G.id AND CG.country_id = R.country_id
+                    WHERE G.factory_id = ${factory_id}`
+                  )
+                  .then(function (rows) {
+                    tables.rol_groups = {};
+                    tables.rol_groups.fields = ["id","factory_id","name","is_activ","position","description","img"];
+                    sortQueries(rows[0], function (values) {
+                      tables.rol_groups.rows = values;
+                      callback(null);
+                    });
+                  });
+              },
+              function (callback) {
+                /** rol_boxes: только боксы групп, разрешённых для страны */
+                models.sequelize
+                  .query(
+                    `SELECT B.id, B.name, B.rol_group_id, B.is_activ, B.position, B.is_color, B.is_split,
+                            B.is_grid, B.is_security, B.is_revision, B.is_engine, B.description, B.img
+                    FROM rol_boxes AS B
+                    JOIN rol_groups AS G ON G.id = B.rol_group_id AND G.factory_id = ${factory_id}
+                    JOIN users   AS U ON U.id = ${userId}
+                    JOIN cities  AS C ON C.id = U.city_id
+                    JOIN regions AS R ON R.id = C.region_id
+                    JOIN compliance_rol_groups AS CG ON CG.rol_group_id = G.id AND CG.country_id = R.country_id`
+                  )
+                  .then(function (rows) {
+                    tables.rol_boxes = {};
+                    tables.rol_boxes.fields = ["id","name","rol_group_id","is_activ","position","is_color","is_split","is_grid","is_security","is_revision","is_engine","description","img"];
+                    sortQueries(rows[0], function (values) {
+                      tables.rol_boxes.rows = values;
+                      callback(null);
+                    });
+                  });
+              },
+              function (callback) {
+                /** rol_box_sizes: только размеры боксов разрешённых групп */
+                models.sequelize
+                  .query(
+                    `SELECT S.id, S.id_rol_box, S.height, S.width, S.box_price
+                    FROM rol_box_sizes AS S
+                    JOIN rol_boxes  AS B ON B.id = S.id_rol_box
+                    JOIN rol_groups AS G ON G.id = B.rol_group_id AND G.factory_id = ${factory_id}
+                    JOIN users   AS U ON U.id = ${userId}
+                    JOIN cities  AS C ON C.id = U.city_id
+                    JOIN regions AS R ON R.id = C.region_id
+                    JOIN compliance_rol_groups AS CG ON CG.rol_group_id = G.id AND CG.country_id = R.country_id`
+                  )
+                  .then(function (rows) {
+                    tables.rol_box_sizes = {};
+                    tables.rol_box_sizes.fields = ["id","id_rol_box","height","width","box_price"];
+                    sortQueries(rows[0], function (values) {
+                      tables.rol_box_sizes.rows = values;
+                      callback(null);
+                    });
+                  });
+              },
+              function (callback) {
+                /** compliance_rol_groups: только записи по стране пользователя */
+                models.sequelize
+                  .query(
+                    `SELECT CG.id, CG.rol_group_id, CG.country_id
+                    FROM compliance_rol_groups AS CG
+                    JOIN users   AS U ON U.id = ${userId}
+                    JOIN cities  AS C ON C.id = U.city_id
+                    JOIN regions AS R ON R.id = C.region_id
+                    WHERE CG.country_id = R.country_id`
+                  )
+                  .then(function (rows) {
+                    tables.compliance_rol_groups = {};
+                    tables.compliance_rol_groups.fields = ["id","rol_group_id","country_id"];
+                    sortQueries(rows[0], function (values) {
+                      tables.compliance_rol_groups.rows = values;
+                      callback(null);
+                    });
+                  });
+              },
+              function (callback) {
+                /** rol_prices: цены только для боксов разрешённых групп */
+                models.sequelize
+                  .query(
+                    `SELECT P.id, P.rol_lamel_id, P.id_rol_box, P.price
+                    FROM rol_prices AS P
+                    JOIN rol_boxes  AS B ON B.id = P.id_rol_box
+                    JOIN rol_groups AS G ON G.id = B.rol_group_id AND G.factory_id = ${factory_id}
+                    JOIN users   AS U ON U.id = ${userId}
+                    JOIN cities  AS C ON C.id = U.city_id
+                    JOIN regions AS R ON R.id = C.region_id
+                    JOIN compliance_rol_groups AS CG ON CG.rol_group_id = G.id AND CG.country_id = R.country_id`
+                  )
+                  .then(function (rows) {
+                    tables.rol_prices = {};
+                    tables.rol_prices.fields = ["id","rol_lamel_id","id_rol_box","price"];
+                    sortQueries(rows[0], function (values) {
+                      tables.rol_prices.rows = values;
+                      callback(null);
+                    });
+                  });
+              },
+              function (callback) {
+                /** rol_lamels: только те, что фигурируют в ценах для разрешённых групп */
+                models.sequelize
+                  .query(
+                    `WITH allowed_groups AS (
+                      SELECT G.id
+                      FROM rol_groups AS G
+                      JOIN users   AS U ON U.id = ${userId}
+                      JOIN cities  AS C ON C.id = U.city_id
+                      JOIN regions AS R ON R.id = C.region_id
+                      JOIN compliance_rol_groups AS CG ON CG.rol_group_id = G.id AND CG.country_id = R.country_id
+                      WHERE G.factory_id = ${factory_id}
+                    ),
+                    allowed_boxes AS (
+                      SELECT B.id
+                      FROM rol_boxes AS B
+                      JOIN allowed_groups AG ON AG.id = B.rol_group_id
+                    ),
+                    allowed_lamels AS (
+                      SELECT DISTINCT P.rol_lamel_id
+                      FROM rol_prices AS P
+                      JOIN allowed_boxes AB ON AB.id = P.id_rol_box
+                    )
+                    SELECT L.id, L.factory_id, L.name, L.height, L.rol_guide_id, L.is_activ, L.is_color, L.description, L.img
+                    FROM rol_lamels AS L
+                    JOIN allowed_lamels AL ON AL.rol_lamel_id = L.id
+                    WHERE L.factory_id = ${factory_id}`
+                  )
+                  .then(function (rows) {
+                    tables.rol_lamels = {};
+                    tables.rol_lamels.fields = ["id","factory_id","name","height","rol_guide_id","is_activ","is_color","description","img"];
+                    sortQueries(rows[0], function (values) {
+                      tables.rol_lamels.rows = values;
+                      callback(null);
+                    });
+                  });
+              },
+              function (callback) {
+                /** rol_guides: только те, что связаны с допустимыми ламелями */
+                models.sequelize
+                  .query(
+                    `WITH allowed_groups AS (
+                      SELECT G.id
+                      FROM rol_groups AS G
+                      JOIN users   AS U ON U.id = ${userId}
+                      JOIN cities  AS C ON C.id = U.city_id
+                      JOIN regions AS R ON R.id = C.region_id
+                      JOIN compliance_rol_groups AS CG ON CG.rol_group_id = G.id AND CG.country_id = R.country_id
+                      WHERE G.factory_id = ${factory_id}
+                    ),
+                    allowed_boxes AS (
+                      SELECT B.id
+                      FROM rol_boxes AS B
+                      JOIN allowed_groups AG ON AG.id = B.rol_group_id
+                    ),
+                    allowed_lamels AS (
+                      SELECT DISTINCT P.rol_lamel_id
+                      FROM rol_prices AS P
+                      JOIN allowed_boxes AB ON AB.id = P.id_rol_box
+                    ),
+                    allowed_guides AS (
+                      SELECT DISTINCT REL.rol_guide_id
+                      FROM rol_lamels_guides AS REL
+                      JOIN allowed_lamels AL ON AL.rol_lamel_id = REL.rol_lamel_id
+                    )
+                    SELECT G2.id, G2.factory_id, G2.name, G2.height, G2.thickness, G2.is_activ, G2.is_grid, G2.is_color, G2.description, G2.img
+                    FROM rol_guides AS G2
+                    JOIN allowed_guides AG2 ON AG2.rol_guide_id = G2.id
+                    WHERE G2.factory_id = ${factory_id}`
+                  )
+                  .then(function (rows) {
+                    tables.rol_guides = {};
+                    tables.rol_guides.fields = ["id","factory_id","name","height","thickness","is_activ","is_grid","is_color","description","img"];
+                    sortQueries(rows[0], function (values) {
+                      tables.rol_guides.rows = values;
+                      callback(null);
+                    });
+                  });
+              },
+              function (callback) {
+                /** rol_end_lists: только те, что связаны с допустимыми ламелями */
+                models.sequelize
+                  .query(
+                    `WITH allowed_groups AS (
+                      SELECT G.id
+                      FROM rol_groups AS G
+                      JOIN users   AS U ON U.id = ${userId}
+                      JOIN cities  AS C ON C.id = U.city_id
+                      JOIN regions AS R ON R.id = C.region_id
+                      JOIN compliance_rol_groups AS CG ON CG.rol_group_id = G.id AND CG.country_id = R.country_id
+                      WHERE G.factory_id = ${factory_id}
+                    ),
+                    allowed_boxes AS (
+                      SELECT B.id
+                      FROM rol_boxes AS B
+                      JOIN allowed_groups AG ON AG.id = B.rol_group_id
+                    ),
+                    allowed_lamels AS (
+                      SELECT DISTINCT P.rol_lamel_id
+                      FROM rol_prices AS P
+                      JOIN allowed_boxes AB ON AB.id = P.id_rol_box
+                    ),
+                    allowed_endlists AS (
+                      SELECT DISTINCT REL.rol_end_list_id
+                      FROM rol_lamels_end_lists AS REL
+                      JOIN allowed_lamels AL ON AL.rol_lamel_id = REL.rol_lamel_id
+                    )
+                    SELECT E.id, E.factory_id, E.name, E.height, E.is_activ, E.is_key, E.is_color, E.description, E.img
+                    FROM rol_end_lists AS E
+                    JOIN allowed_endlists AE ON AE.rol_end_list_id = E.id
+                    WHERE E.factory_id = ${factory_id}`
+                  )
+                  .then(function (rows) {
+                    tables.rol_end_lists = {};
+                    tables.rol_end_lists.fields = ["id","factory_id","name","height","is_activ","is_key","is_color","description","img"];
+                    sortQueries(rows[0], function (values) {
+                      tables.rol_end_lists.rows = values;
+                      callback(null);
+                    });
+                  });
+              },
+              function (callback) {
+                /** rol_lamels_guides: только строки по допустимым ламелям */
+                models.sequelize
+                  .query(
+                    `WITH allowed_groups AS (
+                      SELECT G.id
+                      FROM rol_groups AS G
+                      JOIN users   AS U ON U.id = ${userId}
+                      JOIN cities  AS C ON C.id = U.city_id
+                      JOIN regions AS R ON R.id = C.region_id
+                      JOIN compliance_rol_groups AS CG ON CG.rol_group_id = G.id AND CG.country_id = R.country_id
+                      WHERE G.factory_id = ${factory_id}
+                    ),
+                    allowed_boxes AS (
+                      SELECT B.id
+                      FROM rol_boxes AS B
+                      JOIN allowed_groups AG ON AG.id = B.rol_group_id
+                    ),
+                    allowed_lamels AS (
+                      SELECT DISTINCT P.rol_lamel_id
+                      FROM rol_prices AS P
+                      JOIN allowed_boxes AB ON AB.id = P.id_rol_box
+                    )
+                    SELECT REL.id, REL.rol_lamel_id, REL.rol_guide_id, REL.max_width, REL.max_square
+                    FROM rol_lamels_guides AS REL
+                    JOIN allowed_lamels AL ON AL.rol_lamel_id = REL.rol_lamel_id`
+                  )
+                  .then(function (rows) {
+                    tables.rol_lamels_guides = {};
+                    tables.rol_lamels_guides.fields = ["id","rol_lamel_id","rol_guide_id","max_width","max_square"];
+                    sortQueries(rows[0], function (values) {
+                      tables.rol_lamels_guides.rows = values;
+                      callback(null);
+                    });
+                  });
+              },
+              function (callback) {
+                /** rol_lamels_end_lists: только строки по допустимым ламелям */
+                models.sequelize
+                  .query(
+                    `WITH allowed_groups AS (
+                      SELECT G.id
+                      FROM rol_groups AS G
+                      JOIN users   AS U ON U.id = ${userId}
+                      JOIN cities  AS C ON C.id = U.city_id
+                      JOIN regions AS R ON R.id = C.region_id
+                      JOIN compliance_rol_groups AS CG ON CG.rol_group_id = G.id AND CG.country_id = R.country_id
+                      WHERE G.factory_id = ${factory_id}
+                    ),
+                    allowed_boxes AS (
+                      SELECT B.id
+                      FROM rol_boxes AS B
+                      JOIN allowed_groups AG ON AG.id = B.rol_group_id
+                    ),
+                    allowed_lamels AS (
+                      SELECT DISTINCT P.rol_lamel_id
+                      FROM rol_prices AS P
+                      JOIN allowed_boxes AB ON AB.id = P.id_rol_box
+                    )
+                    SELECT REL.id, REL.rol_lamel_id, REL.rol_end_list_id
+                    FROM rol_lamels_end_lists AS REL
+                    JOIN allowed_lamels AL ON AL.rol_lamel_id = REL.rol_lamel_id`
+                  )
+                  .then(function (rows) {
+                    tables.rol_lamels_end_lists = {};
+                    tables.rol_lamels_end_lists.fields = ["id","rol_lamel_id","rol_end_list_id"];
+                    sortQueries(rows[0], function (values) {
+                      tables.rol_lamels_end_lists.rows = values;
+                      callback(null);
+                    });
+                  });
+              },
             ],
             function (err, results) {
               if (err) {
