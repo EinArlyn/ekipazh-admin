@@ -7,6 +7,9 @@ $(function () {
   $('#edit-end-list-rolet-form').on('submit', submitEditEndList);
   $('#delete-end-list-rolet-form').on('submit', submitDeleteEndList);
 
+  $('#add-end-list-rolet-form input.add-image-btn').click(addImgEndList);
+  $('#edit-end-list-rolet-form input.add-image-btn').click(editImgEndList);
+
 
   /** Init popups */
   $(
@@ -155,6 +158,16 @@ $(function () {
         console.log('error');
       }
     }
+  }
+
+  function addImgEndList (e) {
+    selectImageRolet('#popup-add-end-list-rolet');
+  }
+  function editImgEndList (e) {
+    selectImageRolet('#popup-edit-end-list-rolet');
+  }
+  function selectImageRolet (popup) {
+    $(popup + ' input.rolet-image-file').trigger('click');
   }
 
   
