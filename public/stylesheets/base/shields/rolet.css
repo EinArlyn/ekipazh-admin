@@ -477,7 +477,7 @@ main {
     .lamels-box {
       display: flex;
       .header-box {
-        width: 210px;
+        width: 260px;
         background-color: green;
         border: 1px solid lightgray;
       }
@@ -513,7 +513,7 @@ main {
             height: 25px;
             padding-left: 10px;
             .box-name {
-              width: 200px;
+              width: 250px;
             }
             .price-field {
               box-sizing: border-box;

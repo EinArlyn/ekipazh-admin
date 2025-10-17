@@ -8,6 +8,9 @@ $(function () {
   $('#edit-lamel-rolet-form').on('submit', submitEditLamel);
   $('#delete-lamel-rolet-form').on('submit', submitDeleteLamel);
 
+  $('#add-lamel-rolet-form input.add-image-btn').click(addImgEndLamel);
+  $('#edit-lamel-rolet-form input.add-image-btn').click(editImgEndLamel);
+
   /** Init popups */
   $(
     '#popup-add-lamel-rolet',
@@ -320,5 +323,15 @@ $(function () {
         console.log('error');
       }
     }
+  }
+
+  function addImgEndLamel (e) {
+    selectImageRolet('#popup-add-lamel-rolet');
+  }
+  function editImgEndLamel (e) {
+    selectImageRolet('#popup-edit-lamel-rolet');
+  }
+  function selectImageRolet (popup) {
+    $(popup + ' input.rolet-image-file').trigger('click');
   }
 });
