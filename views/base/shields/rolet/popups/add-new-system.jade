@@ -44,12 +44,17 @@
           input.input-default.checkbox-rolet-popup(type="checkbox" name="is_grid" value="1")
           span.checkbox-custom
       .row-is-settings.rolet-row
-        .title-is-several.title
+        .title-is-split.title
           ='Is split'
           | :
-        label.checkbox-label
-          input.input-default.checkbox-rolet-popup(type="checkbox" name="is_split" value="1")
-          span.checkbox-custom
+        label.is-split-label
+          span
+            ='Частей: '
+          input.input-default.is-split-rolet-popup(type="number" name="is_split" value="1" min="0" max="4")
+        label.is-split-price-label
+          span
+            ='Стоимость деления: '
+          input.input-default.split-price-rolet-popup(type="number" name="split_price" value="1")
       .row-is-settings.rolet-row
         .title-is-defense.title
           ='Is security'

@@ -1,0 +1,53 @@
+extends ../../layout
+
+block content
+  .main-nav
+    .nav-link
+      a(href="/")= i18n.__('Dashboard') 
+      a(href="/base/shields/rolet/rolet")='Rolet'
+      a(href="/base/shields/rolet/Guides")='Guides'
+      a(href="/base/shields/rolet/endLists")='End Lists'
+      a(href="/base/shields/rolet/lamels")='Lamels'
+      a(href="/base/shields/rolet/roletPrice")='roletPrice'
+      span#nav-text
+        =' RoletBoxHeight '
+      img.loader-ico(src="/assets/images/loader_ico.GIF")
+  .main-content    
+    .titel-page 
+      ='RoletBoxHeight :'  
+    .box-height-table 
+      .lamels-box 
+        .header-box
+        each lamel in lamels
+          .lamel-row(data-id=lamel.id)
+            .lamel-name 
+              =lamel.name
+            .types
+              .type-not
+                ='not grid'
+              .type-is
+                ='is grid'
+      .groups-box 
+        each group in groups
+          .group-wrap 
+            .group-box-name
+              span 
+                =group.group.name
+            .boxes-box
+              each box in group.boxes
+                .box-box(data-box-id=box.id)
+                  .box-name 
+                    =box.name 
+                  each box_size in box.sizes
+                    .box-size 
+                      .box-size-name
+                        =box_size.height
+                        =' / '
+                        =box_size.width
+                      each lam in lamels 
+                        .field-type-not 
+                          input.input-default.rolet-height-input(type="number" data-lamel-id=lam.id data-box-id=box.id data-size-id=box_size.id value="" name="")         
+                        .field-type-is 
+                          input.input-default.rolet-height-input(type="number" data-lamel-id=lam.id data-box-id=box.id data-size-id=box_size.id value="" name="")                 
+                      
+    

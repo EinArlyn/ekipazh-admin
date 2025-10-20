@@ -18,7 +18,7 @@ module.exports = function (req, res) {
       is_activ: 1,
       position: parseInt(fields.position, 10) || 0,
       is_color: parseInt(fields.is_color, 10) || 0,
-      is_split: parseInt(fields.is_split, 10) || 0,
+      is_split: parseInt(fields.is_split, 10) || 1,
       is_grid: parseInt(fields.is_grid, 10) || 0,
       is_security: parseInt(fields.is_security, 10) || 0,
       is_revision: parseInt(fields.is_revision, 10) || 0,
@@ -27,19 +27,30 @@ module.exports = function (req, res) {
       img: '/local_storage/default.png'
     })
     .then(function (newSystem) {
-      const size_list = JSON.parse(fields.size_list || '[]');
 
-      const sizePromises = size_list.map(function (size) {
+      var size_list = [];
+      try { size_list = JSON.parse(fields.size_list || '[]') || []; } catch (e) {}
+
+      var sizePromises = size_list.map(function (size) {
         return models.rol_box_sizes.create({
           id_rol_box: newSystem.id,
-          height: size.height,
-          width: size.width,
-          box_price: size.box_price
+          height: Number(size.height) || 0,
+          width:  Number(size.width)  || 0,
+          box_price: Number(size.box_price) || 0
         });
       });
 
-      // ждем все размеры (даже если массив пустой)
-      return Promise.all(sizePromises)
+      var splitPricePromise = (Number(newSystem.is_split) > 1)
+        ? models.rol_box_prices.create({
+            id_rol_box: newSystem.id,
+            split_price: Number(fields.split_price) || 0
+          })
+        : Promise.resolve(null);
+
+      var tasks = sizePromises.slice();
+      tasks.push(splitPricePromise);
+
+      return Promise.all(tasks)
         .then(function () {
           // если файла нет — на этом всё
           if (!(files && files.rolet_img && files.rolet_img.name)) {
