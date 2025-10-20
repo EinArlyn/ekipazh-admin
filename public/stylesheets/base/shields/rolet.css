@@ -85,6 +85,17 @@ main {
           width: 250px;
         }
       }
+      .is-split-label,
+      .is-split-price-label {
+        display: flex;
+        flex-direction: column;
+        font-size: 12px;
+        width: 125px;
+        color: #888;
+        inpit {
+          width: 50px;
+        }
+      }
       .row-guide {
         margin: 10px 0;
         .title {
@@ -294,10 +305,6 @@ main {
     }
   }
 }
-#popup-add-group-rolet {
-  /* background-color: lightgray;
-  border-radius: 5px; */
-}
 
 .main-content {
   padding: 10px 0 20px 0;
@@ -393,9 +400,13 @@ main {
       flex-direction: column;
       align-items: center;
       justify-content: space-between;
+      .system-name {
+        text-align: center;
+        width: 140px;
+      }
       .system-img {
-        width: 120px;
-        height: 150px;
+        width: 140px;
+        height: 140px;
         background-color: lightgray;
         overflow: hidden; 
 
@@ -472,12 +483,101 @@ main {
 
     /* ----------------------------------- */
   .price-table {
+    max-height: 75vh;
+    overflow: auto;
+    display: flex;
+    flex-direction: column;
+
+    .lamels-box {
+      position: sticky; 
+      top: 0;
+      z-index: 2;
+      display: flex; 
+      flex-wrap: nowrap;
+      background: #fff;
+      min-width: max-content;
+
+      .header-box {
+        box-sizing: border-box;
+        flex: 0 0 260px;
+        width: 260px;
+        padding-left: 10px;
+        border: 1px solid lightgray;
+        background-color: green;
+      }
+      .lamel-row {
+        box-sizing: border-box;
+        flex: 0 0 100px;
+        width: 100px;
+        border: 1px solid lightgray;
+        text-align: center;
+      }
+    }
+
+    .groups-box {
+      display: flex; flex-direction: column;
+      min-width: max-content;
+      .group-box-name {
+        background-color: #ccc;
+        padding-left: 10px;
+        font-weight: bold;
+      }
+
+      .box-box {
+        display: flex; flex-wrap: nowrap;
+        height: 25px;
+        border: 1px solid lightgray;
+        box-sizing: border-box;
+
+        .box-name {
+          position: sticky; 
+          top: 0;
+          left: 0;
+          z-index: 1;
+          box-sizing: border-box;
+          flex: 0 0 260px;         
+          width: 260px;
+          padding-left: 10px;       
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+        }
+        .price-field {
+          box-sizing: border-box;
+          flex: 0 0 100px;          
+          width: 100px;
+          border-left: 1px solid lightgray;
+          border-right: 1px solid lightgray;
+
+          input {
+            width: 90%;
+            border: none;
+            text-align: center;
+          }
+        }
+      }
+    }
+  }
+
+
+
+  .box-height-table {
+    max-height: 75vh;
+    overflow: auto;
     display: flex;
     flex-direction: column;
     .lamels-box {
-      display: flex;
+      position: sticky; 
+      top: 0; 
+      z-index: 2;
+      display: flex; 
+      flex-wrap: nowrap;
+      background: #fff;
+      min-width: max-content;
       .header-box {
-        width: 260px;
+        box-sizing: border-box;
+        width: 100px;
+        flex: 0 0 100px;
         background-color: green;
         border: 1px solid lightgray;
       }
@@ -485,14 +585,37 @@ main {
         box-sizing: border-box;
         text-align: center;
         border: 1px solid lightgray;
-        width: 100px;
+        width: 140px;
+        flex: 0 0 140px;
+        .lamel-name {
+          box-sizing: border-box;
+          border-bottom: 1px solid lightgray;
+        }
+        .types {
+          display: flex;
+          .type-not {
+            box-sizing: border-box;
+            text-align: center;
+            width: 70px;
+            flex: 0 0 70px;           
+            font-size: 12px;
+            border-right: 1px solid lightgray;            
+          }
+          .type-is {
+            box-sizing: border-box;
+            text-align: center;
+            flex: 0 0 70px;
+            width: 70px;
+            font-size: 12px;            
+          }
+        }
       }
     }
 
     .groups-box {
       display: flex;
       flex-direction: column;
-      width: 100%;
+      min-width: max-content;
       .group-wrap {
         .group-box-name {
           height: 25px;
@@ -502,28 +625,50 @@ main {
           background-color: #c6c6c6;
           text-align: start;
           padding-left: 10px;
+          font-weight: bold;
         }
         .boxes-box {
           display: flex;
           flex-direction: column;
           .box-box {
             display: flex;
+            flex-direction: column;
             box-sizing: border-box;
-            border: 1px solid lightgray;
-            height: 25px;
-            padding-left: 10px;
+            /* border-top: 1px solid gray; */
+            border-bottom: 2px solid gray;
+            /* height: 25px; */
+            /* padding-left: 10px; */
             .box-name {
-              width: 250px;
+              padding-left: 15px;
+              background-color: #dadada;
             }
-            .price-field {
+            .box-size {
+              display: flex;
               box-sizing: border-box;
-              width: 100px;
-              border-left: 1px solid lightgray;
-              border-right: 1px solid lightgray;
-              input {
-                width: 90px;
-                border: none;
+              border-top: 1px solid lightgray;
+              .box-size-name {
+                position: sticky; 
+                top: 0;
+                left: 0;
+                z-index: 1;
+                width: 100px;
+                flex: 0 0 100px;
+                box-sizing: border-box;
                 text-align: center;
+                border-left: 1px solid lightgray;
+                border-right: 1px solid lightgray;
+              }
+              .field-type-not,
+              .field-type-is {
+                width: 70px;
+                flex: 0 0 70px;
+                box-sizing: border-box;
+                border-left: 1px solid lightgray;
+                border-right: 1px solid lightgray;
+                input {
+                  width: 90%;
+                  border: none;
+                }
               }
             }
           }

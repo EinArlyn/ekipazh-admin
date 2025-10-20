@@ -133,9 +133,14 @@ $(function () {
           $('#popup-edit-system-rolet input[name="is_engine"]').prop('checked', false);
         }
         if (system.box.is_split) {
-          $('#popup-edit-system-rolet input[name="is_split"]').prop('checked', true);
+          $('#popup-edit-system-rolet input[name="is_split"]').val(system.box.is_split);
         } else {
-          $('#popup-edit-system-rolet input[name="is_split"]').prop('checked', false);
+          $('#popup-edit-system-rolet input[name="is_split"]').val(1);
+        }
+        if (system.prices.split_price) {
+          $('#popup-edit-system-rolet input[name="split_price"]').val(system.prices.split_price);
+        } else {
+          $('#popup-edit-system-rolet input[name="split_price"]').val(0);
         }
 
         $('#popup-edit-system-rolet input[name="is_color"]').val(system.box.is_color)
@@ -143,7 +148,6 @@ $(function () {
         $('#popup-edit-system-rolet input[name="is_security"]').val(system.box.is_security)
         $('#popup-edit-system-rolet input[name="is_revision"]').val(system.box.is_revision)
         $('#popup-edit-system-rolet input[name="is_engine"]').val(system.box.is_engine)
-        $('#popup-edit-system-rolet input[name="is_split"]').val(system.box.is_revision)
 
         const countRowsSizes = 6;
         for (let i = 0; i < countRowsSizes; i++) {
