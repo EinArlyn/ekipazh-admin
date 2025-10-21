@@ -2476,6 +2476,29 @@ module.exports = function (req, res) {
                   });
               },
               function (callback) {
+                /** rol_box_prices: цены-сплиты только для боксов разрешённых групп */
+                models.sequelize
+                  .query(
+                    `SELECT BP.id, BP.id_rol_box, BP.split_price
+                    FROM rol_box_prices AS BP
+                    JOIN rol_boxes  AS B ON B.id = BP.id_rol_box
+                    JOIN rol_groups AS G ON G.id = B.rol_group_id AND G.factory_id = ${factory_id}
+                    JOIN users   AS U ON U.id = ${userId}
+                    JOIN cities  AS C ON C.id = U.city_id
+                    JOIN regions AS R ON R.id = C.region_id
+                    JOIN compliance_rol_groups AS CG ON CG.rol_group_id = G.id AND CG.country_id = R.country_id`
+                  )
+                  .then(function (rows) {
+                    tables.rol_box_prices = {};
+                    tables.rol_box_prices.fields = ["id","id_rol_box","split_price"];
+                    sortQueries(rows[0], function (values) {
+                      tables.rol_box_prices.rows = values;
+                      callback(null);
+                    });
+                  })
+                  .catch(callback);
+              },
+              function (callback) {
                 /** rol_lamels: только те, что фигурируют в ценах для разрешённых групп */
                 models.sequelize
                   .query(
