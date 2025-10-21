@@ -2499,6 +2499,38 @@ module.exports = function (req, res) {
                   .catch(callback);
               },
               function (callback) {
+                /** rol_box_lamel_heights: высоты ламели по боксам, только для разрешённых групп */
+                models.sequelize
+                  .query(
+                    `SELECT H.id, H.rol_lamel_id, H.id_rol_box, H.rol_box_size_id, 
+                    H.height_is_grid, H.height_not_grid
+                    FROM rol_box_lamel_heights AS H
+                    JOIN rol_boxes  AS B ON B.id = H.id_rol_box
+                    JOIN rol_groups AS G ON G.id = B.rol_group_id AND G.factory_id = ${factory_id}
+                    JOIN users   AS U ON U.id = ${userId}
+                    JOIN cities  AS C ON C.id = U.city_id
+                    JOIN regions AS R ON R.id = C.region_id
+                    JOIN compliance_rol_groups AS CG 
+                    ON CG.rol_group_id = G.id AND CG.country_id = R.country_id`
+                  )
+                  .then(function (rows) {
+                    tables.rol_box_lamel_heights = {};
+                    tables.rol_box_lamel_heights.fields = [
+                      "id",
+                      "rol_lamel_id",
+                      "id_rol_box",
+                      "rol_box_size_id",
+                      "height_is_grid",
+                      "height_not_grid"
+                    ];
+                    sortQueries(rows[0], function (values) {
+                      tables.rol_box_lamel_heights.rows = values;
+                      callback(null);
+                    });
+                  })
+                  .catch(callback);
+              },
+              function (callback) {
                 /** rol_lamels: только те, что фигурируют в ценах для разрешённых групп */
                 models.sequelize
                   .query(
