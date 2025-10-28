@@ -1,0 +1,49 @@
+extends ../../layout
+
+block content
+  .main-nav
+    .nav-link
+      a(href="/")= i18n.__('Dashboard') 
+      a(href="/base/shields/rolet/rolet")='Boxes'
+      a(href="/base/shields/rolet/guides")='Guides'
+      a(href="/base/shields/rolet/endLists")='End Lists'
+      a(href="/base/shields/rolet/lamels")='Lamels'
+      span#nav-text
+        ='Colors'
+      a(href="/base/shields/rolet/roletPrice")='RoletPrice'
+      a(href="/base/shields/rolet/roletBoxHeight")='RoletBoxHeight'
+      img.loader-ico(src="/assets/images/loader_ico.GIF")
+  .main-content
+    .nav-sub-link
+      a(href="/base/shields/rolet/roletColorsGroups")='Groups and Colors'
+      a(href="/base/shields/rolet/roletBoxColors")='Box Colors'
+      a(href="/base/shields/rolet/roletGuideColors")='Guide Colors'
+      span#nav-sub-text='End List Colors'
+      a(href="/base/shields/rolet/roletLamelColors")='Lamel Colors'
+    .block-end-list-colors
+      .end-lists
+        .header-end-list 
+        .end-list-content 
+          if (endLists.length > 0)
+            each list in endLists
+              .end-list-item(data-end-list-id=list.id)
+                =list.name
+      .colors 
+        if (colorsList.length > 0)
+          each color in colorsList
+            .color-row
+              .color-item(data-color-id=color.id)
+                .color-name 
+                  =color.name
+                .color-img
+              .color-end-list-rows 
+                if (endLists.length > 0)
+                  each list in endLists
+                    .color-end-list-item(data-end-list-id=list.id data-color-id=color.id)
+                      select(id="color-end-list-select", name="", class="select-default color-end-list-select")
+                        each groupColor in groupsColors
+                          option(value=groupColor.id)= groupColor.name
+                          
+                
+                    
+                        

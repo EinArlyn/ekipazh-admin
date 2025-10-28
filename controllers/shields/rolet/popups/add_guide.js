@@ -15,6 +15,7 @@ module.exports = function (req, res) {
       thickness: parseInt(fields.thickness, 10) || 0,
       is_color: parseInt(fields.is_color, 10) || 0,
       is_grid: parseInt(fields.is_grid, 10) || 0,
+      price: parseInt(fields.price, 10) || 0,
       description: fields.description,
       img: '/local_storage/default.png'
     }).then(function(newGuide){

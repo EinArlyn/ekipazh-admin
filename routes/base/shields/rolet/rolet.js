@@ -49,14 +49,8 @@ function getSystem(req,res) {
         models.rol_box_sizes.findAll({
             where: {id_rol_box: box_id}
         }).then(function(sizes) {
-            models.rol_box_prices.findOne({
-                where: {id_rol_box: req.params.id}
-            }).then(function(split_price){
-                sizes.sort((a,b) => a.height - b.height);
-                res.send({status: true, box: box, sizes: sizes, prices: split_price || 0});
-            }).catch(function(err){
-                res.send({status: false});
-            })
+            sizes.sort((a,b) => a.height - b.height);
+            res.send({status: true, box: box, sizes: sizes});
         }).catch(function(err){
             res.send({status: false});
         })

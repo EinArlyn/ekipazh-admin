@@ -1,0 +1,37 @@
+.pop-up.pop-up-rolet#popup-edit-group-rolet
+  form#edit-group-rolet-form(method="POST" action="/base/shields/rolet/rolet/group/edit" enctype="multipart/form-data")
+    input(type="hidden" name="group_id" value='' required)
+    .pop-up-close-wrap
+      a(class="pop-up-close", href="#")
+    span.pop-up-header
+      =i18n.__('Edit')
+    //- .row
+    //-   .col-md-6
+    //-     img.rolet-image(src="/local_storage/default.png")
+    //-   .col-md-6
+    //-     input.hidden.rolet-image-file(type="file" name="rolet_img")
+    //-     input.add-image-btn(type="button" value="Изменить фото")
+    //- .pop-up-rolet-rows 
+    //-   .row-name.rolet-row 
+    //-     .title-name.title
+    //-       =i18n.__('Group name')
+    //-       | :
+    //-     input.input-default.text-name(type="text" value="" name="name" required)
+    //-   .row-position.rolet-row 
+    //-     .title-position.title
+    //-       =i18n.__('Position')
+    //-       | :
+    //-     input.input-default.text-position(type="text" value="" name="position" required)
+    //- .row-description
+    //-   .title-description
+    //-     =i18n.__('Description')
+    //-     | :
+    //-   textarea.input-default.text-description(name="description")
+    //- .row-countries 
+    //-   each country in countries
+    //-     .country-item
+    //-       input(type="checkbox" id="country-checkbox" + country.id data-country-id=country.id name="checkGroup" value='')
+    //-       label(for="country-checkbox" + country.id) 
+    //-         =country.name
+    .row.block-center.text-center
+      input.btn-submit(type="submit" value=i18n.__('Save'))

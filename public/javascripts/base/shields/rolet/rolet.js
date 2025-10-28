@@ -137,8 +137,8 @@ $(function () {
         } else {
           $('#popup-edit-system-rolet input[name="is_split"]').val(1);
         }
-        if (system.prices.split_price) {
-          $('#popup-edit-system-rolet input[name="split_price"]').val(system.prices.split_price);
+        if (system.box.split_price) {
+          $('#popup-edit-system-rolet input[name="split_price"]').val(system.box.split_price);
         } else {
           $('#popup-edit-system-rolet input[name="split_price"]').val(0);
         }

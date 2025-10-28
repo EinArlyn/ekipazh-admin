@@ -24,4 +24,13 @@ exports.deleteLamel = require('./popups/delete_lamel');
 exports.roletPrice = require('./roletPrice');
 exports.roletBoxHeight = require('./roletBoxHeight');
 
+exports.roletColorsGroups = require('./roletColorsGroups');
+
+exports.roletBoxColors = require('./roletBoxColors');
+
+exports.roletLamelColors = require('./roletLamelColors');
+
+exports.roletGuideColors = require('./roletGuideColors');
+
+exports.roletEndListColors = require('./roletEndListColors');
 

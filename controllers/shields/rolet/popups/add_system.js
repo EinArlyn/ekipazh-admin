@@ -23,6 +23,7 @@ module.exports = function (req, res) {
       is_security: parseInt(fields.is_security, 10) || 0,
       is_revision: parseInt(fields.is_revision, 10) || 0,
       is_engine: parseInt(fields.is_engine, 10) || 0,
+      split_price: parseInt(fields.split_price, 10) || 0,
       description: fields.description,
       img: '/local_storage/default.png'
     })
@@ -40,15 +41,7 @@ module.exports = function (req, res) {
         });
       });
 
-      var splitPricePromise = (Number(newSystem.is_split) > 1)
-        ? models.rol_box_prices.create({
-            id_rol_box: newSystem.id,
-            split_price: Number(fields.split_price) || 0
-          })
-        : Promise.resolve(null);
-
       var tasks = sizePromises.slice();
-      tasks.push(splitPricePromise);
 
       return Promise.all(tasks)
         .then(function () {
