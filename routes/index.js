@@ -85,4 +85,9 @@ module.exports = function(app) {
   app.use('/base/shields/rolet/lamels', require('./base/shields/rolet/lamels'));
   app.use('/base/shields/rolet/roletPrice', require('./base/shields/rolet/roletPrice'));
   app.use('/base/shields/rolet/roletBoxHeight', require('./base/shields/rolet/roletBoxHeight'));
+  app.use('/base/shields/rolet/roletColorsGroups', require('./base/shields/rolet/roletColorsGroups'));
+  app.use('/base/shields/rolet/roletBoxColors', require('./base/shields/rolet/roletBoxColors'));
+  app.use('/base/shields/rolet/roletLamelColors', require('./base/shields/rolet/roletLamelColors'));
+  app.use('/base/shields/rolet/roletGuideColors', require('./base/shields/rolet/roletGuideColors'));
+  app.use('/base/shields/rolet/roletEndListColors', require('./base/shields/rolet/roletEndListColors'));
 };

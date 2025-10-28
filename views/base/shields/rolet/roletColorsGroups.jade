@@ -1,0 +1,57 @@
+extends ../../layout
+
+block content
+  .main-nav
+    .nav-link
+      a(href="/")= i18n.__('Dashboard') 
+      a(href="/base/shields/rolet/rolet")='Boxes'
+      a(href="/base/shields/rolet/guides")='Guides'
+      a(href="/base/shields/rolet/endLists")='End Lists'
+      a(href="/base/shields/rolet/lamels")='Lamels'
+      span#nav-text
+        ='Colors'
+      a(href="/base/shields/rolet/roletPrice")='RoletPrice'
+      a(href="/base/shields/rolet/roletBoxHeight")='RoletBoxHeight'
+      img.loader-ico(src="/assets/images/loader_ico.GIF")
+  .main-content
+    .nav-sub-link
+      span#nav-sub-text='Groups and Colors'
+      a(href="/base/shields/rolet/roletBoxColors")='Box Colors'
+      a(href="/base/shields/rolet/roletGuideColors")='Guide Colors'
+      a(href="/base/shields/rolet/roletEndListColors")='End List Colors'
+      a(href="/base/shields/rolet/roletLamelColors")='Lamel Colors'
+    .block-colors-groups
+      .groups-content
+        if (groupsColors.length > 0)
+          each groupColors in groupsColors
+            .group-rolet-colors-item
+              .group-name
+                =groupColors.name
+              .btns-block
+                .btn-active-group.btn-active(data-group=groupColors.id class=!groupColors.is_activ ? 'btn-unactive' : 'btn-active')
+                .btn-edit-group-colors(data-group=groupColors.id)
+                .btn-delete-group-colors(data-group=groupColors.id)
+      .btn-add-group
+        ='Добавить группу Цветов'
+    .block-colors
+      .colors-content
+        if (colorsList && colorsList.length > 0)
+          each color in colorsList
+            .rolet-color-item
+              .color-img
+                img(src=(color.img ? color.img : '/local_storage/default.png'), alt="")
+              .color-name
+                =color.name
+              .btns-block
+                .btn-active-color.btn-active(data-color=color.id class=!color.is_activ ? 'btn-unactive' : 'btn-active') 
+                .btn-edit-color.btn-color(data-color=color.id)
+                .btn-delete-color.btn-color(data-color=color.id)
+      .btn-add-color
+        ='Добавить Цвет'
+  include popups/add-group-colors.jade
+  include popups/edit-group-colors.jade
+  include popups/delete-group-colors.jade
+  include popups/add-new-color.jade
+  include popups/edit-color.jade
+  include popups/delete-color.jade
+  

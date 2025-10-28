@@ -13,6 +13,7 @@ module.exports = function (req, res) {
       if (endList) {
         endList.updateAttributes({
           name: fields.name,
+          price: parseInt(fields.price, 10) || 0,
           is_color: parseInt(fields.is_color, 10) || 0,
           is_key: parseInt(fields.is_key, 10) || 0,
           description: fields.description

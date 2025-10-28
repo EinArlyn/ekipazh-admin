@@ -28,6 +28,7 @@ module.exports = function (req, res) {
           is_security: parseInt(fields.is_security, 10) || 0,
           is_revision: parseInt(fields.is_revision, 10) || 0,
           is_engine: parseInt(fields.is_engine, 10) || 0,
+          split_price: parseInt(fields.split_price, 10) || 0,
           description: fields.description
         })
         .then(function () {
@@ -84,20 +85,10 @@ module.exports = function (req, res) {
               }
             });
 
-            // --- split price: update или create, и ОБЯЗАТЕЛЬНО вернуть промис ---
-            const sp = Number(fields.split_price) || 0;
-            const splitPromise = models.rol_box_prices
-              .findOne({ where: { id_rol_box: fields.system_id } })
-              .then(function (row) {
-                if (row) return row.update({ split_price: sp });
-                return models.rol_box_prices.create({
-                  id_rol_box: fields.system_id,
-                  split_price: sp
-                });
-              });
+           
 
             // ждём всё разом
-            return Promise.all(ops1.concat(ops2, [splitPromise]));
+            return Promise.all(ops1.concat(ops2));
           })
           .then(function () {
             // 3️⃣ если есть новый файл — обновляем картинку

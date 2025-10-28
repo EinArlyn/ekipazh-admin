@@ -1,0 +1,9 @@
+.pop-up.pop-up-rolet#popup-delete-system-rolet
+  form#delete-system-rolet-form(method="POST" action="/base/shields/rolet/rolet/system/delete" enctype="multipart/form-data")
+    input(type="hidden" name="system_id" value='' required)
+    .pop-up-close-wrap
+      a(class="pop-up-close", href="#")
+    span.pop-up-header
+      ='Delete?'
+    .row.block-center.text-center
+      input.btn-submit(type="submit" value=i18n.__('Remove'))
