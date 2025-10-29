@@ -5,7 +5,6 @@ var isAuthenticated = require('../../../../lib/services/authentication').isAdmin
 
 router.get('/', isAuthenticated, rolet.roletBoxColors);
 router.get('/table/getRows', isAuthenticated, getRows);
-
 router.post('/table/updateRow', isAuthenticated, updateRow);
 // router.get('/lamel/getLamel/:id', isAuthenticated, getLamel);
 // router.get('/lamel/getGuides', isAuthenticated, getGuides);
