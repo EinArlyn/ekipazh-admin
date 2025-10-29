@@ -28,7 +28,10 @@ block content
               .group-name
                 =groupColors.name
               .btns-block
-                .btn-active-group.btn-active(data-group=groupColors.id class=!groupColors.is_activ ? 'btn-unactive' : 'btn-active')
+                if (groupColors.is_standart)
+                  span.is-standart-group
+                    ='standart '
+                .btn-active-group.btn-active(data-group=groupColors.id class=!groupColors.is_standart ? 'btn-unactive' : 'btn-active')
                 .btn-edit-group-colors(data-group=groupColors.id)
                 .btn-delete-group-colors(data-group=groupColors.id)
       .btn-add-group

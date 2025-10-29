@@ -35,14 +35,21 @@ block content
               .color-item(data-color-id=color.id)
                 .color-name 
                   =color.name
-                .color-img
+                .color-img(style="background-image: url('#{color.img}')")
               .color-lamel-rows 
                 if (lamels.length > 0)
                   each lamel in lamels
                     .color-lamel-item(data-lamel-id=lamel.id data-color-id=color.id)
                       select(id="color-lamel-select", name="", class="select-default color-lamel-select")
+                        option(
+                          value=0 
+                          data-color=''
+                        )=i18n.__('Ignore')
                         each groupColor in groupsColors
-                          option(value=groupColor.id)= groupColor.name
+                          option(
+                            value=groupColor.id 
+                            data-color=groupColor.img
+                          )= groupColor.name
                           
                 
                     

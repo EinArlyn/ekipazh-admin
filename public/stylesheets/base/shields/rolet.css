@@ -872,8 +872,8 @@ main {
       .header-lamel,
       .header-guide,
       .header-end-list {
-        flex: 0 0 150px;
-        width: 150px;
+        flex: 0 0 200px;
+        width: 200px;
         min-height: 35px;
         background-color: green;
       }
@@ -901,8 +901,8 @@ main {
         .color-item {
           display: flex;
           justify-content: space-between;
-          flex: 0 0 150px;
-          width: 150px;
+          flex: 0 0 200px;
+          width: 200px;
           border: 1px solid lightgray;
           box-sizing: border-box;
 
@@ -916,7 +916,10 @@ main {
           .color-img {
             width: 30px;
             height: 30px;
-            background-color: lightskyblue;
+            /* background-color: lightskyblue; */
+            background-size: cover;              
+            background-position: center;
+            background-repeat: no-repeat;
           }
         }
         .color-box-rows,
@@ -928,6 +931,8 @@ main {
           .color-lamel-item,
           .color-guide-item,
           .color-end-list-item {
+            display: flex;
+            align-items: center;
             box-sizing: border-box;
             border: 1px solid lightgray;
             flex: 0 0 70px;

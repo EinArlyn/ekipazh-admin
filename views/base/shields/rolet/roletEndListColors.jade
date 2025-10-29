@@ -35,14 +35,21 @@ block content
               .color-item(data-color-id=color.id)
                 .color-name 
                   =color.name
-                .color-img
+                .color-img(style="background-image: url('#{color.img}')")
               .color-end-list-rows 
                 if (endLists.length > 0)
                   each list in endLists
                     .color-end-list-item(data-end-list-id=list.id data-color-id=color.id)
                       select(id="color-end-list-select", name="", class="select-default color-end-list-select")
+                        option(
+                          value=0 
+                          data-color=''
+                        )=i18n.__('Ignore')
                         each groupColor in groupsColors
-                          option(value=groupColor.id)= groupColor.name
+                          option(
+                            value=groupColor.id 
+                            data-color=groupColor.img
+                          )= groupColor.name
                           
                 
                     

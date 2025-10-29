@@ -25,6 +25,12 @@ exports.roletPrice = require('./roletPrice');
 exports.roletBoxHeight = require('./roletBoxHeight');
 
 exports.roletColorsGroups = require('./roletColorsGroups');
+exports.roletAddGroup = require('./popups/add_group_colors');
+exports.roletEditGroup = require('./popups/edit_group_colors');
+exports.roletDeleteGroup = require('./popups/delete_group_colors');
+exports.roletAddColor = require('./popups/add_color');
+exports.roletEditColor = require('./popups/edit_color');
+exports.roletDeleteColor = require('./popups/delete_color');
 
 exports.roletBoxColors = require('./roletBoxColors');
 
