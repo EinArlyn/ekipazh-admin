@@ -35,14 +35,21 @@ block content
               .color-item(data-color-id=color.id)
                 .color-name 
                   =color.name
-                .color-img
+                .color-img(style="background-image: url('#{color.img}')")
               .color-box-rows 
                 if (boxes.length > 0)
                   each box in boxes
                     .color-box-item(data-box-id=box.id data-color-id=color.id)
                       select(id="color-box-select", name="", class="select-default color-box-select")
+                        option(
+                          value=0 
+                          data-color=''
+                        )=i18n.__('Ignore')
                         each groupColor in groupsColors
-                          option(value=groupColor.id)= groupColor.name
+                          option(
+                            value=groupColor.id 
+                            data-color=groupColor.img
+                          )= groupColor.name
                           
                 
                     

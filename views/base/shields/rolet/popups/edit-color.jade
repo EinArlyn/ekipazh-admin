@@ -1,112 +1,26 @@
-.pop-up.pop-up-rolet#popup-edit-system-rolet
-  form#edit-system-rolet-form(method="POST" action="/base/shields/rolet/rolet/system/edit" enctype="multipart/form-data")
-    input(type="hidden" name="system_id" value='' required)
+.pop-up.pop-up-rolet#popup-edit-color-rolet
+  form#edit-color-rolet-form(method="POST" action="/base/shields/rolet/roletColorsGroups/color/editColor" enctype="multipart/form-data")
+    input(type="hidden" name="color_id" value='' required)
     .pop-up-close-wrap
       a(class="pop-up-close", href="#")
     span.pop-up-header
-      ='Edit system'
-    //- .row
-    //-   .col-md-6
-    //-     img.rolet-image(src="/local_storage/default.png")
-    //-   .col-md-6
-    //-     input.hidden.rolet-image-file(type="file" name="rolet_img")
-    //-     input.add-image-btn(type="button" value="Изменить фото")
-    //- .pop-up-rolet-rows 
-    //-   .row-name.rolet-row 
-    //-     .title-group.title
-    //-       =i18n.__('Group')
-    //-       | :
-    //-     select.select-default.input-margin#rolet-proup(name="group_id" type="text" style="width: 230px;")
-    //-   .row-name.rolet-row 
-    //-     .title-name.title
-    //-       =i18n.__('Name')
-    //-       | :
-    //-     input.input-default.text-name(type="text" value="" name="name" required)
-    //-   .row-position.rolet-row 
-    //-     .title-position.title
-    //-       =i18n.__('Position')
-    //-       | :
-    //-     input.input-default.text-position(type="text" value="" name="position" required)
-    //-   .row-is-settings.rolet-row
-    //-     .title-is-lamination.title
-    //-       ='Is color'
-    //-       | :
-    //-     label.checkbox-label
-    //-       input.input-default.checkbox-rolet-popup(type="checkbox" name="is_color" value="1")
-    //-       span.checkbox-custom
-    //-   .row-is-settings.rolet-row
-    //-     .title-is-revision.title
-    //-       ='Is revision'
-    //-       | :
-    //-     label.checkbox-label
-    //-       input.input-default.checkbox-rolet-popup(type="checkbox" name="is_revision" value="1")
-    //-       span.checkbox-custom
-    //-   .row-is-settings.rolet-row
-    //-     .title-is-grid.title
-    //-       ='Is grid'
-    //-       | :
-    //-     label.checkbox-label
-    //-       input.input-default.checkbox-rolet-popup(type="checkbox" name="is_grid" value="1")
-    //-       span.checkbox-custom
-    //-   .row-is-settings.rolet-row
-    //-     .title-is-split.title
-    //-       ='Is split'
-    //-       | :
-    //-     label.is-split-label
-    //-       span
-    //-         ='Частей: '
-    //-       input.input-default.is-split-rolet-popup(type="number" name="is_split" value="1" min="0" max="4")
-    //-     label.is-split-price-label
-    //-       span
-    //-         ='Стоимость деления: '
-    //-       input.input-default.split-price-rolet-popup(type="number" name="split_price" value="1")
-    //-   .row-is-settings.rolet-row
-    //-     .title-is-defense.title
-    //-       ='Is security'
-    //-       | :
-    //-     label.checkbox-label
-    //-       input.input-default.checkbox-rolet-popup(type="checkbox" name="is_security" value="1")
-    //-       span.checkbox-custom
-    //-   .row-is-settings.rolet-row
-    //-     .title-is-engine.title
-    //-       ='Is engine'
-    //-       | :
-    //-     label.checkbox-label
-    //-       input.input-default.checkbox-rolet-popup(type="checkbox" name="is_engine" value="1")
-    //-       span.checkbox-custom
-    //-   .row-height-width.rolet-row
-    //-     .title-height-width
-    //-       ='Размеры бокса мм :'
-    //-     .title-height-width-wrap
-    //-       .height-box-title
-    //-         ='Height'
-    //-         | :
-    //-       .width-box-title
-    //-         ='Width'
-    //-         | :
-    //-     .height-width-box
-    //-       .field-height-width
-    //-         input.input-default.height-box(type="text" value="" name="height_1" )
-    //-         input.input-default.width-box(type="text" value="" name="width_1" )
-    //-       .field-height-width
-    //-         input.input-default.height-box(type="text" value="" name="height_2" )
-    //-         input.input-default.width-box(type="text" value="" name="width_2" )
-    //-       .field-height-width
-    //-         input.input-default.height-box(type="text" value="" name="height_3" )
-    //-         input.input-default.width-box(type="text" value="" name="width_3" )
-    //-       .field-height-width
-    //-         input.input-default.height-box(type="text" value="" name="height_4" )
-    //-         input.input-default.width-box(type="text" value="" name="width_4" )
-    //-       .field-height-width
-    //-         input.input-default.height-box(type="text" value="" name="height_5" )
-    //-         input.input-default.width-box(type="text" value="" name="width_5" )
-    //-       .field-height-width
-    //-         input.input-default.height-box(type="text" value="" name="height_6" )
-    //-         input.input-default.width-box(type="text" value="" name="width_6" )
-    //- .row-description
-    //-   .title-description
-    //-     =i18n.__('Description')
-    //-     | :
-    //-   textarea.input-default.text-description(name="description")  
+      ='Edit color'
+    .row
+      .col-md-6
+        img.rolet-image(src="/local_storage/default.png")
+      .col-md-6
+        input.hidden.rolet-image-file(type="file" name="rolet_img")
+        input.add-image-btn(type="button" value=i18n.__('Add'))
+    .pop-up-rolet-rows 
+      .row-name.rolet-row 
+        .title-name.title
+          =i18n.__('Name')
+          | :
+        input.input-default.text-name(type="text" value="" name="name" required)
+      .row-position.rolet-row 
+        .title-position.title
+          =i18n.__('Position')
+          | :
+        input.input-default.text-position(type="text" value="" name="position" required)
     .row.block-center.text-center
       input.btn-submit(type="submit" value=i18n.__('Save'))

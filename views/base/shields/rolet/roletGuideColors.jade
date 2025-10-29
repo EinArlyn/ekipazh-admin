@@ -35,14 +35,21 @@ block content
               .color-item(data-color-id=color.id)
                 .color-name 
                   =color.name
-                .color-img
+                .color-img(style="background-image: url('#{color.img}')")
               .color-guide-rows 
                 if (guides.length > 0)
                   each guide in guides
                     .color-guide-item(data-guide-id=guide.id data-color-id=color.id)
                       select(id="color-guide-select", name="", class="select-default color-guide-select")
+                        option(
+                          value=0 
+                          data-color=''
+                        )=i18n.__('Ignore')
                         each groupColor in groupsColors
-                          option(value=groupColor.id)= groupColor.name
+                          option(
+                            value=groupColor.id 
+                            data-color=groupColor.img
+                          )= groupColor.name
                           
                 
                     
