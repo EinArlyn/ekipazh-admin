@@ -521,6 +521,7 @@ main {
         width: 100px;
         border: 1px solid lightgray;
         text-align: center;
+        overflow-wrap: break-word;
       }
     }
 
@@ -891,6 +892,7 @@ main {
             flex: 0 0 70px;
             width: 70px;
             font-size: 12px;
+            overflow-wrap: break-word;
           }        
       }
     }
@@ -958,6 +960,149 @@ main {
       }
     }
   }
+
+  .price-table-colors {
+    max-height: 75vh;
+    overflow: auto;
+    display: flex;
+    flex-direction: column;
+    .rules-block {
+      margin: 10px;
+      .select-rules-price {
+        width: 300px;
+        height: 25px;
+        font-size: 16px;
+      }
+      span {
+        margin-left: 10px;
+        font-size: 12px;
+      }
+    }
+    .color-group-box {
+      position: sticky; 
+      top: 0; 
+      z-index: 2;
+      display: flex; 
+      flex-wrap: nowrap;
+      background: #fff;
+      min-width: max-content;
+      .header-box {
+        box-sizing: border-box;
+        width: 150px;
+        flex: 0 0 150px;
+        background-color: green;
+        border: 1px solid lightgray;
+      }
+      .group-row {
+        box-sizing: border-box;
+        text-align: center;
+        border: 1px solid lightgray;
+        width: 140px;
+        flex: 0 0 140px;
+      }
+    }
+
+    .groups-box {
+      display: flex;
+      flex-direction: column;
+      min-width: max-content;
+      .group-wrap {
+        .group-box-name {
+          height: 25px;
+          border: 1px solid lightgray;
+          text-align: center;
+          box-sizing: border-box;
+          background-color: #c6c6c6;
+          text-align: start;
+          padding-left: 10px;
+          font-weight: bold;
+        }
+        .boxes-box {
+          display: flex;
+          flex-direction: column;
+          .box-box {
+            display: flex;
+            flex-direction: column;
+            box-sizing: border-box;
+            /* border-top: 1px solid gray; */
+            border-bottom: 2px solid gray;
+            /* height: 25px; */
+            /* padding-left: 10px; */
+            .box-name {
+              padding-left: 15px;
+              background-color: #dadada;
+            }
+            .box-size {
+              display: flex;
+              box-sizing: border-box;
+              border-top: 1px solid lightgray;
+              .box-size-name {
+                position: sticky; 
+                top: 0;
+                left: 0;
+                z-index: 1;
+                width: 150px;
+                flex: 0 0 150px;
+                box-sizing: border-box;
+                text-align: center;
+                border-left: 1px solid lightgray;
+                border-right: 1px solid lightgray;
+              }
+              .price-field-color {
+                width: 140px;
+                flex: 0 0 140px;
+                box-sizing: border-box;
+                border-left: 1px solid lightgray;
+                border-right: 1px solid lightgray;
+                input {
+                  width: 90%;
+                  text-align: center;
+                  border: none;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+
+    .guides-block,
+    .end-list-block,
+    .lamel-block {
+      display: flex;
+      flex-direction: column;
+      .guide-wrap,
+      .end-list-wrap,
+      .lamel-wrap {
+        display: flex;
+        .guide-name,
+        .end-list-name,
+        .lamel-name {
+          position: sticky; 
+          top: 0;
+          left: 0;
+          z-index: 1;
+          width: 150px;
+          flex: 0 0 150px;
+          box-sizing: border-box;
+          text-align: center;
+          border: 1px solid lightgray;
+          border-right: 1px solid lightgray;
+        }
+        .price-field-color {
+          width: 140px;
+          flex: 0 0 140px;
+          box-sizing: border-box;
+          border: 1px solid lightgray;
+          input {
+            width: 90%;
+            text-align: center;
+            border: none;
+          }
+        }
+      }
+    }
+  }
 }
 
 .radio-colors-block {
@@ -990,5 +1135,5 @@ main {
 
 /* Активный квадратик */
 .color-radio-tile input:checked + .color-swatch {
-  border-color: #444; /* или #444 — как нравится */
+  border-color: #444;
 }

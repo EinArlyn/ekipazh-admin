@@ -40,3 +40,11 @@ exports.roletGuideColors = require('./roletGuideColors');
 
 exports.roletEndListColors = require('./roletEndListColors');
 
+exports.boxPriceColor = require('./boxPriceColor');
+
+exports.guidePriceColor = require('./guidePriceColor');
+
+exports.endListPriceColor = require('./endListPriceColor');
+
+exports.lamelPriceColor = require('./lamelPriceColor');
+

@@ -15,34 +15,36 @@ block content
       a(href="/base/shields/rolet/roletBoxHeight")='RoletBoxHeight'
   .main-content    
     .nav-sub-link
-      span#nav-sub-text='Rolet Price'
+      a(href="/base/shields/rolet/roletPrice")='Rolet Price'
       a(href="/base/shields/rolet/boxPriceColor")='Box Price Color'
-      a(href="/base/shields/rolet/guidePriceColor")='Guide Price Color'
+      span#nav-sub-text='Guide Price Color'
       a(href="/base/shields/rolet/endListPriceColor")='EndList Price Color'
       a(href="/base/shields/rolet/lamelPriceColor")='Lamel Price Color'
+      //- a(href="/base/shields/rolet/roletBoxColors")='Box Colors'
       //- a(href="/base/shields/rolet/roletGuideColors")='Guide Colors'
       //- a(href="/base/shields/rolet/roletEndListColors")='End List Colors'
       //- a(href="/base/shields/rolet/roletLamelColors")='Lamel Colors'
-    .price-table 
-      .lamels-box 
+    .price-table-colors
+      .rules-block
+        select.select-default.select-rules-price 
+          each rule in priceRules
+            option(value=rule.id)=rule.name
+        span 
+          ='(тип наценки)'
+      .color-group-box 
         .header-box
-        each lamel in lamels
-          .lamel-row(data-id=lamel.id)
+        each groupColor in colorGroups
+          .group-row(data-id=groupColor.id style="background-color: #{groupColor.img};")
             span 
-              =lamel.name
-      .groups-box 
-        each group in groups
-          .group-wrap 
-            .group-box-name
+              =groupColor.name
+      .guides-block 
+        each guide in guides
+          .guide-wrap 
+            .guide-name
               span 
-                =group.group.name
-            .boxes-box
-              each box in group.boxes
-                .box-box(data-box-id=box.id) 
-                  .box-name 
-                    =box.name
-                  each lam in lamels 
-                    .price-field(data-lamel-id=lam.id data-box-id=box.id)
-                      input.input-default.rolet-price-input(type="number" data-lamel-id=lam.id data-box-id=box.id value="" name="")         
+                =guide.name
+            each groupColor in colorGroups 
+              .price-field-color
+                input.input-default.rolet-price-input(type="number" data-group-color-id=groupColor.id data-guide-id=guide.id value="" name="")                     
                       
     
