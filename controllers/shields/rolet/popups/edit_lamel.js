@@ -123,6 +123,7 @@ module.exports = function (req, res) {
             .concat(endDelPromises)
             .concat(sizeAddPromises)
             .concat(sizeDelPromises)
+            .concat(sizeUpdatePromises)
         );
       });
     })
