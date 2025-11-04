@@ -91,6 +91,32 @@ module.exports = function (req, res) {
             return models.rol_lamels_guides.destroy({ where: { id: row.id } });
           });
 
+        // --- GUIDES: обновить различающиеся записи
+        const sizeUpdatePromises = lamelGuides
+          .filter(function (row) {
+            return size_list.some(function (s) {
+              return Number(s.id) === Number(row.rol_guide_id);
+            });
+          })
+          .map(function (row) {
+            const s = size_list.find(function (x) {
+              return Number(x.id) === Number(row.rol_guide_id);
+            });
+
+            // проверяем, изменились ли значения
+            if (Number(row.max_width) !== Number(s.width) || Number(row.max_square) !== Number(s.square)) {
+              return models.rol_lamels_guides.update(
+                {
+                  max_width: s.width,
+                  max_square: s.square
+                },
+                { where: { id: row.id } }
+              );
+            }
+
+            return Promise.resolve(); // ничего не делаем
+          });
+
         // Ждём выполнение всех операций
         return Promise.all(
           endAddPromises
