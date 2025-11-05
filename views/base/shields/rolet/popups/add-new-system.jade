@@ -69,6 +69,18 @@
         label.checkbox-label
           input.input-default.checkbox-rolet-popup(type="checkbox" name="is_engine" value="1")
           span.checkbox-custom
+      .row-is-settings.rolet-row
+        .title-min-size.title
+          ='Min Sizes'
+          | :
+        label.min-width-label
+          span
+            ='Min width: '
+          input.input-default.min-width-rolet-popup(type="number" name="min_width" value="1" min="0")
+        label.min-square-price-label
+          span
+            ='Min. м² for price: '
+          input.input-default.min-square-price-rolet-popup(type="number" name="min_square_price" value="1" step="0.1")
       .row-height-width.rolet-row
         .title-height-width
           ='Размеры бокса мм :'

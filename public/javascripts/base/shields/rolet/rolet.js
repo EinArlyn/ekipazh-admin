@@ -142,6 +142,16 @@ $(function () {
         } else {
           $('#popup-edit-system-rolet input[name="split_price"]').val(0);
         }
+        if (system.box.min_width) {
+          $('#popup-edit-system-rolet input[name="min_width"]').val(system.box.min_width);
+        } else {
+          $('#popup-edit-system-rolet input[name="min_width"]').val(0);
+        }
+        if (system.box.min_square_price) {
+          $('#popup-edit-system-rolet input[name="min_square_price"]').val(system.box.min_square_price);
+        } else {
+          $('#popup-edit-system-rolet input[name="min_square_price"]').val(0);
+        }
 
         $('#popup-edit-system-rolet input[name="is_color"]').val(system.box.is_color)
         $('#popup-edit-system-rolet input[name="is_grid"]').val(system.box.is_grid)
