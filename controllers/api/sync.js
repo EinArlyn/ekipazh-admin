@@ -2394,7 +2394,7 @@ module.exports = function (req, res) {
                 models.sequelize
                   .query(
                     `SELECT B.id, B.name, B.rol_group_id, B.is_activ, B.position, B.is_color, B.is_split,
-                            B.is_grid, B.is_security, B.is_revision, B.is_engine, B.split_price, B.description, B.img
+                            B.is_grid, B.is_security, B.is_revision, B.is_engine, B.split_price, B.description, B.img, B.min_width, B.min_square_price
                     FROM rol_boxes AS B
                     JOIN rol_groups AS G ON G.id = B.rol_group_id AND G.factory_id = ${factory_id}
                     JOIN users   AS U ON U.id = ${userId}
@@ -2404,7 +2404,7 @@ module.exports = function (req, res) {
                   )
                   .then(function (rows) {
                     tables.rol_boxes = {};
-                    tables.rol_boxes.fields = ["id","name","rol_group_id","is_activ","position","is_color","is_split","is_grid","is_security","is_revision","is_engine","split_price","description","img"];
+                    tables.rol_boxes.fields = ["id","name","rol_group_id","is_activ","position","is_color","is_split","is_grid","is_security","is_revision","is_engine","split_price","description","img","min_width","min_square_price"];
                     sortQueries(rows[0], function (values) {
                       tables.rol_boxes.rows = values;
                       callback(null);
