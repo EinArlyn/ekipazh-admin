@@ -20,7 +20,7 @@ $(function () {
     const rules = $('.select-rules-price').val();
     const groupColorId = $(this).data('group-color-id');
     const lamelId = $(this).data('lamel-id');
-    const value = parseInt($(this).val(), 10);
+    const value = Number($(this).val());
     if (value || value === 0) {
       $.post('/base/shields/rolet/lamelPriceColor/changePrice', {
         lamelId: lamelId,

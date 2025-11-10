@@ -34,7 +34,7 @@ $(function () {
     const lamId = $input.data('lamel-id');
     const boxId = $input.data('box-id');
     const sizeId = $input.data('size-id');
-    const height = parseInt($input.val(), 10);
+    const height = Number($input.val());
 
     if (height || height === 0) {
       const isGrid = $input.closest('.field-type-is').length ? 1 : 0;

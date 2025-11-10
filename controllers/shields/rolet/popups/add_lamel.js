@@ -11,7 +11,7 @@ module.exports = function (req, res) {
       factory_id: parseInt(req.session.user.factory_id, 10),
       name: fields.name,
       is_activ: 1,
-      height: parseInt(fields.height, 10) || 0,
+      height: Number(fields.height) || 0,
       is_color: parseInt(fields.is_color, 10) || 0,
       is_key: parseInt(fields.is_key, 10) || 0,
       description: fields.description,
