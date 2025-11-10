@@ -21,17 +21,17 @@
         .title-height.title
           =i18n.__('Height')
           | :
-        input.input-default.text-height(type="text" value="" name="height" required)
+        input.input-default.text-height(type="number" value="" name="height" step="0.1" required)
       .row-size-by-lamel.rolet-row 
         .title-size-by-lamel.title
           ='Thickness'
           | :
-        input.input-default.text-size-by-lamel(type="text" value="" name="thickness" required)
+        input.input-default.text-size-by-lamel(type="number" value="" name="thickness" step="0.1" required)
       .row-guide-price.rolet-row 
         .title-guide-price.title
           =i18n.__('Price')
           | :
-        input.input-default.text-guide-price(type="text" value="" name="price")
+        input.input-default.text-guide-price(type="number" value="" name="price" step="0.1")
       .row-is-settings.rolet-row
         .title-is-lamination.title
           ='Is color'

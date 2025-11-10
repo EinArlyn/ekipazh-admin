@@ -84,9 +84,9 @@ $(function () {
     for (let i = 0; i < countRowsSizes; i++) {
         $('#popup-add-system-rolet .height-width-box').append(
           `<div class="field-height-width">
-            <input class="input-default height-box" type="text" name="height" value="">
-            <input class="input-default width-box" type="text" name="width" value="">
-            <input class="input-default box-price" type="text" name="box_price" value="">
+            <input class="input-default height-box" type="number" name="height" value="">
+            <input class="input-default width-box" type="number" name="width" value="">
+            <input class="input-default box-price" type="number" name="box_price" value="">
           </div>`
         )
     }
@@ -163,9 +163,9 @@ $(function () {
         for (let i = 0; i < countRowsSizes; i++) {
             $('#popup-edit-system-rolet .height-width-box').append(
               `<div class="field-height-width" data-size-id=${system.sizes[i] ? system.sizes[i].id : ''}>
-                <input class="input-default height-box" type="text" name="height" value=${system.sizes[i] ? system.sizes[i].height : ''}>
-                <input class="input-default width-box" type="text" name="width" value=${system.sizes[i] ? system.sizes[i].width : ''}>
-                <input class="input-default box-price" type="text" name="box_price" value=${system.sizes[i] ? (system.sizes[i].box_price || 0) : ''}>
+                <input class="input-default height-box" type="number" name="height" value=${system.sizes[i] ? system.sizes[i].height : ''}>
+                <input class="input-default width-box" type="number" name="width" value=${system.sizes[i] ? system.sizes[i].width : ''}>
+                <input class="input-default box-price" type="number" name="box_price" value=${system.sizes[i] ? (system.sizes[i].box_price || 0) : ''}>
               </div>`
             )
         }

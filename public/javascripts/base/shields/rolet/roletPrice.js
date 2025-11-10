@@ -20,7 +20,7 @@ $(function () {
 
     const lamId = $(this).data('lamel-id');
     const boxId = $(this).data('box-id');
-    const value = parseInt($(this).val(), 10);
+    const value = Number($(this).val());
     if (value || value === 0) {
       $.post('/base/shields/rolet/roletPrice/changePrice', {
         lamId: lamId,

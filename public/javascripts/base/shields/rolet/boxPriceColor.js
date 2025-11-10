@@ -25,7 +25,7 @@ $(function () {
     const groupColorId = $(this).data('group-color-id');
     const boxId = $(this).data('box-id');
     const sizeId = $(this).data('size-id');
-    const value = parseInt($(this).val(), 10);
+    const value = Number($(this).val());
     if (value || value === 0) {
       $.post('/base/shields/rolet/boxPriceColor/changePrice', {
         boxId: boxId,

@@ -61,10 +61,10 @@ $(function () {
               `<div class="guide-size-settings" data-guide-id="${guide.id}">
                 <div class="guide-title">${guide.name}</div>
                 <div class="guide-max-width-input">
-                  <input class="input-default guide-box" type="text" value="" name="width">
+                  <input class="input-default guide-box" type="number" value="" name="width">
                 </div>
                 <div class="guide-max-square-input">
-                  <input class="input-default guide-box" type="text" value="" name="square">
+                  <input class="input-default guide-box" type="number" value="" name="square">
                 </div>
               </div>`
             );
@@ -143,10 +143,10 @@ $(function () {
           `<div class="guide-size-settings" data-guide-id="${guide.id}">
             <div class="guide-title">${guide.name}</div>
             <div class="guide-max-width-input">
-              <input class="input-default guide-box" type="text" value="${findSizes ? findSizes.max_width : ''}" name="width">
+              <input class="input-default guide-box" type="number" value="${findSizes ? findSizes.max_width : ''}" name="width">
             </div>
             <div class="guide-max-square-input">
-              <input class="input-default guide-box" type="text" value="${findSizes ? findSizes.max_square : ''}" name="square">
+              <input class="input-default guide-box" type="number" value="${findSizes ? findSizes.max_square : ''}" name="square">
             </div>
           </div>`
         );

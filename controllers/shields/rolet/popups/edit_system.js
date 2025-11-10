@@ -28,8 +28,8 @@ module.exports = function (req, res) {
           is_security: parseInt(fields.is_security, 10) || 0,
           is_revision: parseInt(fields.is_revision, 10) || 0,
           is_engine: parseInt(fields.is_engine, 10) || 0,
-          split_price: parseInt(fields.split_price, 10) || 0,
-          min_width: parseInt(fields.min_width, 10) || 0,
+          split_price: Number(fields.split_price) || 0,
+          min_width: Number(fields.min_width) || 0,
           min_square_price: Number(fields.min_square_price) || 0,
           description: fields.description
         })
