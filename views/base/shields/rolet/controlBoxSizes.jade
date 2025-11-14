@@ -1,0 +1,47 @@
+extends ../../layout
+
+block content
+  .main-nav
+    .nav-link
+      a(href="/")= i18n.__('Dashboard') 
+      a(href="/base/shields/rolet/rolet")='Boxes'
+      a(href="/base/shields/rolet/Guides")='Guides'
+      a(href="/base/shields/rolet/endLists")='End Lists'
+      a(href="/base/shields/rolet/lamels")='Lamels'
+      a(href="/base/shields/rolet/roletColorsGroups")='Colors'
+      a(href="/base/shields/rolet/roletPrice")='RoletPrice'
+      img.loader-ico(src="/assets/images/loader_ico.GIF")
+      a(href="/base/shields/rolet/roletBoxHeight")='RoletBoxHeight'
+      a(href="/base/shields/rolet/controls")='Controls'
+      span#nav-text
+        =' ControlBoxSizes '
+  .main-content
+    .controls-box-sizes-table
+      .controls-block 
+        .header-control
+        each control in controls
+          .control-row(data-id=control.id)
+            span 
+              =control.name
+      .groups-box 
+        each group in groups
+          .group-wrap 
+            .group-box-name
+              span 
+                =group.group.name
+            .boxes-box
+              each box in group.boxes
+                .box-box(data-box-id=box.id)
+                  .box-name 
+                    =box.name 
+                  each box_size in box.sizes
+                    .box-size
+                      .box-size-name
+                        =box_size.height
+                        =' / '
+                        =box_size.width
+                      each control in controls 
+                        .control-box-size-field
+                          .rolet-control-box-size-check(data-control-id=control.id data-box-id=box.id data-size-id=box_size.id)                     
+                      
+    

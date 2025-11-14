@@ -2684,14 +2684,14 @@ module.exports = function (req, res) {
                       FROM rol_prices AS P
                       JOIN allowed_boxes AB ON AB.id = P.id_rol_box
                     )
-                    SELECT L.id, L.factory_id, L.name, L.height, L.rol_guide_id, L.is_activ, L.is_color, L.description, L.img
+                    SELECT L.id, L.factory_id, L.name, L.height, L.rol_guide_id, L.is_activ, L.is_color, L.description, L.img, L.position
                     FROM rol_lamels AS L
                     JOIN allowed_lamels AL ON AL.rol_lamel_id = L.id
                     WHERE L.factory_id = ${factory_id}`
                   )
                   .then(function (rows) {
                     tables.rol_lamels = {};
-                    tables.rol_lamels.fields = ["id","factory_id","name","height","rol_guide_id","is_activ","is_color","description","img"];
+                    tables.rol_lamels.fields = ["id","factory_id","name","height","rol_guide_id","is_activ","is_color","description","img","position"];
                     sortQueries(rows[0], function (values) {
                       tables.rol_lamels.rows = values;
                       callback(null);
@@ -2727,7 +2727,7 @@ module.exports = function (req, res) {
                       JOIN allowed_lamels AL ON AL.rol_lamel_id = REL.rol_lamel_id
                     )
                     SELECT G2.id, G2.factory_id, G2.name, G2.height, G2.thickness, G2.is_activ, 
-                          G2.is_grid, G2.is_color, G2.description, G2.price, G2.img
+                          G2.is_grid, G2.is_color, G2.description, G2.price, G2.img, G2.position
                     FROM rol_guides AS G2
                     JOIN allowed_guides AG2 ON AG2.rol_guide_id = G2.id
                     WHERE G2.factory_id = ${factory_id}`
@@ -2745,7 +2745,8 @@ module.exports = function (req, res) {
                       "is_color",
                       "description",
                       "price",
-                      "img"
+                      "img",
+                      "position"
                     ];
                     sortQueries(rows[0], function (values) {
                       tables.rol_guides.rows = values;
@@ -2781,7 +2782,7 @@ module.exports = function (req, res) {
                       FROM rol_lamels_end_lists AS REL
                       JOIN allowed_lamels AL ON AL.rol_lamel_id = REL.rol_lamel_id
                     )
-                    SELECT E.id, E.factory_id, E.name, E.price, E.is_activ, E.is_key, E.is_color, E.description, E.img
+                    SELECT E.id, E.factory_id, E.name, E.price, E.is_activ, E.is_key, E.is_color, E.description, E.img, E.position
                     FROM rol_end_lists AS E
                     JOIN allowed_endlists AE ON AE.rol_end_list_id = E.id
                     WHERE E.factory_id = ${factory_id}`
@@ -2797,7 +2798,8 @@ module.exports = function (req, res) {
                       "is_key",
                       "is_color",
                       "description",
-                      "img"
+                      "img",
+                      "position"
                     ];
                     sortQueries(rows[0], function (values) {
                       tables.rol_end_lists.rows = values;
@@ -3088,7 +3090,65 @@ module.exports = function (req, res) {
                     });
                   });
               },
+              function (callback) {
+                /** rol_controls:*/
+                models.sequelize
+                  .query(
+                    `SELECT id, factory_id, name, position, is_activ, is_standart, price, description, img
+                    FROM rol_controls
+                    WHERE factory_id = ${factory_id}
+                    ORDER BY position ASC, id ASC`
+                  )
+                  .then(function (rows) {
+                    tables.rol_controls = {};
+                    tables.rol_controls.fields = [
+                      "id",
+                      "factory_id",
+                      "name",
+                      "position",
+                      "is_activ",
+                      "is_standart",
+                      "price",
+                      "description",
+                      "img"
+                    ];
 
+                    sortQueries(rows[0], function (values) {
+                      tables.rol_controls.rows = values;
+                      callback(null);
+                    });
+                  });
+              },
+              function (callback) {
+                /** rol_controls_box_sizes: связи только для разрешённых размеров боксов */
+                models.sequelize
+                  .query(
+                    `SELECT L.id,
+                            L.rol_control_id,
+                            L.rol_box_size_id
+                    FROM rol_controls_box_sizes AS L
+                    JOIN rol_box_sizes  AS S ON S.id = L.rol_box_size_id
+                    JOIN rol_boxes      AS B ON B.id = S.id_rol_box
+                    JOIN rol_groups     AS G ON G.id = B.rol_group_id AND G.factory_id = ${factory_id}
+                    JOIN users          AS U ON U.id = ${userId}
+                    JOIN cities         AS C ON C.id = U.city_id
+                    JOIN regions        AS R ON R.id = C.region_id
+                    JOIN compliance_rol_groups AS CG
+                          ON CG.rol_group_id = G.id AND CG.country_id = R.country_id`
+                  )
+                  .then(function (rows) {
+                    tables.rol_controls_box_sizes = {};
+                    tables.rol_controls_box_sizes.fields = [
+                      "id",
+                      "rol_control_id",
+                      "rol_box_size_id"
+                    ];
+                    sortQueries(rows[0], function (values) {
+                      tables.rol_controls_box_sizes.rows = values;
+                      callback(null);
+                    });
+                  });
+              },
             ],
             function (err, results) {
               if (err) {
