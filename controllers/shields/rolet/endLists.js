@@ -7,6 +7,7 @@ module.exports = function (req, res) {
   models.rol_end_lists.findAll({
     where: {factory_id: req.session.user.factory_id}
   }).then(function(endLists) {
+    endLists.sort((a,b) => a.position - b.position);
     res.render('base/shields/rolet/endLists', {
           i18n: i18n,
           title: 'End Lists',

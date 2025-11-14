@@ -10,6 +10,7 @@ module.exports = function (req, res) {
     models.rol_lamels.create({
       factory_id: parseInt(req.session.user.factory_id, 10),
       name: fields.name,
+      position: parseInt(fields.position, 10) || 0,
       is_activ: 1,
       height: Number(fields.height) || 0,
       is_color: parseInt(fields.is_color, 10) || 0,

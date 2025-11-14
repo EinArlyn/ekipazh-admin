@@ -6,15 +6,6 @@ var isAuthenticated = require('../../../../lib/services/authentication').isAdmin
 router.get('/', isAuthenticated, rolet.roletEndListColors);
 router.get('/table/getRows', isAuthenticated, getRows);
 router.post('/table/updateRow', isAuthenticated, updateRow);
-// router.get('/lamel/getLamel/:id', isAuthenticated, getLamel);
-// router.get('/lamel/getGuides', isAuthenticated, getGuides);
-// router.get('/lamel/getEndLists', isAuthenticated, getEndLists);
-// router.post('/lamel/add', isAuthenticated, rolet.addNewLamel);
-// router.post('/lamel/edit', isAuthenticated, rolet.editLamel);
-// router.post('/lamel/delete', isAuthenticated, rolet.deleteLamel);
-
-// router.post('/lamel/active/:id', isAuthenticated, activeLamel);
-// router.get('/lamel/getEditLamelInfo/:id', isAuthenticated, getEditLamelInfo);
 
 
 function getRows(req, res) {

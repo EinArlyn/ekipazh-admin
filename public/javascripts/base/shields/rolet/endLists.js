@@ -39,6 +39,7 @@ $(function () {
     $.get('/base/shields/rolet/endLists/endList/getEndList/' + endListsId, function(data) {
       if (data) {
         $('#popup-edit-end-list-rolet input[name="name"]').val(data.end_list.name);
+        $('#popup-edit-end-list-rolet input[name="position"]').val(data.end_list.position);
         $('#popup-edit-end-list-rolet input[name="price"]').val(data.end_list.price);
         $('#popup-edit-end-list-rolet input[name="description"]').val(data.end_list.description);
         $('#popup-edit-end-list-rolet img.rolet-image').attr('src', data.end_list.img);

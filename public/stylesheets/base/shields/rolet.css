@@ -37,6 +37,13 @@ main {
   width: 95%;
 }
 
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
 /** pop-ups */
 .pop-up {
   display: none;
@@ -84,6 +91,9 @@ main {
         &.text-guide-price,
         &.text-size-by-lamel,
         &.text-height {
+          width: 10%;
+        }
+        &.text-position {
           width: 10%;
         }
       }
@@ -371,7 +381,8 @@ main {
       }
     }
   }
-  .btn-active {
+  .btn-active,
+  .btn-standart {
       width: 35px;
       height: 15px;
       position: relative;
@@ -390,11 +401,13 @@ main {
         background-color: white;
         transition: 0.3s;
       }
-      &.btn-unactive::before {
+      &.btn-unactive::before,
+      &.btn-unstandart::before {
         right: 19px;
         transition: 0.3s;
       }
-      &.btn-unactive {
+      &.btn-unactive,
+      &.btn-unstandart {
         background-color: lightgray;
         transition: 0.3s;
       }
@@ -412,6 +425,14 @@ main {
       flex-direction: column;
       align-items: center;
       justify-content: space-between;
+      .is-standart  {
+        display: flex;
+        width: 100%;
+        justify-content: space-between;
+        font-size: 12px;
+        border-bottom: 1px solid #c6c6c6;
+        padding-bottom: 5px;
+      }
       .system-name {
         text-align: center;
         width: 140px;
@@ -476,7 +497,8 @@ main {
 
   .block-guides,
   .block-end-lists,
-  .block-lamels {
+  .block-lamels,
+  .block-controls {
     padding: 10px;
   }
   .btn-add-group {

@@ -12,6 +12,7 @@ module.exports = function (req, res) {
       if (guide) {
         guide.updateAttributes({
           name: fields.name,
+          position: parseInt(fields.position, 10) || 0,
           height: Number(fields.height) || 0,
           thickness: Number(fields.thickness) || 0,
           is_color: parseInt(fields.is_color, 10) || 0,

@@ -94,4 +94,5 @@ module.exports = function(app) {
   app.use('/base/shields/rolet/guidePriceColor', require('./base/shields/rolet/guidePriceColor'));
   app.use('/base/shields/rolet/endListPriceColor', require('./base/shields/rolet/endListPriceColor'));
   app.use('/base/shields/rolet/lamelPriceColor', require('./base/shields/rolet/lamelPriceColor'));
+  app.use('/base/shields/rolet/controls', require('./base/shields/rolet/controls'));
 };

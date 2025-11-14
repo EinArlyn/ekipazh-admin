@@ -1,10 +1,10 @@
-.pop-up.pop-up-rolet#popup-add-end-list-rolet
-  form#add-end-list-rolet-form(method="POST" action="/base/shields/rolet/endLists/endList/add" enctype="multipart/form-data")
+.pop-up.pop-up-rolet#popup-add-control-rolet
+  form#add-control-rolet-form(method="POST" action="/base/shields/rolet/controls/add" enctype="multipart/form-data")
     //- input(type="hidden" name="group_id" value='' required)
     .pop-up-close-wrap
       a(class="pop-up-close", href="#")
     span.pop-up-header
-      ='Add new end list'
+      ='Add new lamel'
     .row
       .col-md-6
         img.rolet-image(src="/local_storage/default.png")
@@ -21,27 +21,12 @@
         .title-position.title
           =i18n.__('Position')
           | :
-        input.input-default.text-position(type="number" value="" name="position" required)
-      .row-end-list-price.rolet-row 
-        .title-end-list-price.title
+        input.input-default.text-position(type="number" value="" name="position" required)          
+      .row-price.rolet-row 
+        .title-price.title
           =i18n.__('Price')
           | :
-        input.input-default.text-end-list-price(type="number" value="" name="price" step="0.1")
-      .row-is-settings.rolet-row
-        .title-is-lamination.title
-          ='Is color'
-          | :
-        label.checkbox-label
-          input.input-default.checkbox-rolet-popup(type="checkbox" name="is_color" value="1")
-          span.checkbox-custom
-      .row-is-settings.rolet-row
-        .title-is-key.title
-          ='Is key'
-          | :
-        label.checkbox-label
-          input.input-default.checkbox-rolet-popup(type="checkbox" name="is_key" value="1")
-          span.checkbox-custom
-          
+        input.input-default.text-price(type="number" value="" name="price" required)          
     .row-description
       .title-description
         =i18n.__('Description')
