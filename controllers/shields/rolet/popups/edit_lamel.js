@@ -20,6 +20,7 @@ module.exports = function (req, res) {
 
       return lamel.updateAttributes({
         name: fields.name,
+        position: parseInt(fields.position, 10) || 0,
         height: Number(fields.height) || 0,
         is_color: parseInt(fields.is_color, 10) || 0,
         description: fields.description

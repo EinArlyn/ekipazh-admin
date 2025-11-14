@@ -10,6 +10,7 @@ module.exports = function (req, res) {
     models.rol_end_lists.create({
       factory_id: parseInt(req.session.user.factory_id, 10),
       name: fields.name,
+      position: parseInt(fields.position, 10) || 0,
       is_activ: 1,
       price:  Number(fields.price) || 0,
       is_color: parseInt(fields.is_color, 10) || 0,

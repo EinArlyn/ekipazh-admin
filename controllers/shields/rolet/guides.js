@@ -7,7 +7,7 @@ module.exports = function (req, res) {
   models.rol_guides.findAll({
     where: {factory_id: req.session.user.factory_id}
   }).then(function(guidesList){
-    
+    guidesList.sort((a,b) => a.position - b.position);
     res.render('base/shields/rolet/guides', {
           i18n: i18n,
           title: 'Guides',

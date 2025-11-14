@@ -1,0 +1,44 @@
+extends ../../layout
+
+block content
+  .main-nav
+    .nav-link
+      a(href="/")= i18n.__('Dashboard') 
+      a(href="/base/shields/rolet/rolet")='Boxes'
+      a(href="/base/shields/rolet/guides")='Guides'
+      a(href="/base/shields/rolet/endLists")='End Lists'
+      a(href="/base/shields/rolet/lamels")='Lamels'
+      a(href="/base/shields/rolet/roletColorsGroups")='Colors'
+      a(href="/base/shields/rolet/roletPrice")='RoletPrice'
+      a(href="/base/shields/rolet/roletBoxHeight")='RoletBoxHeight'
+      span#nav-text
+        ='Controls'
+      img.loader-ico(src="/assets/images/loader_ico.GIF")
+  .main-content    
+    .titel-page 
+      ='Controls :'  
+    .block-systems.block-controls
+      if (controls && controls.length > 0)
+        each control in controls
+          .rolet-system-item
+            .is-standart 
+             span 
+              ='is standart'
+             .btn-standart-system.btn-standart(data-control=control.id class=!control.is_standart ? 'btn-unstandart' : 'btn-standart')  
+            .system-img
+              img(src=(control.img ? control.img : '/local_storage/default.png'), alt="")
+            .system-name
+              =control.name
+            .btns-block-item
+              .btn-active-system.btn-active(data-control=control.id class=!control.is_activ ? 'btn-unactive' : 'btn-active')  
+              .btn-edit-system.btn-system(data-control=control.id)
+              .btn-delete-system.btn-system(data-control=control.id)
+      .rolet-system-item.btn-add-system
+        div
+          ='+'
+        .btn-add-text 
+          ='Добавить'
+  include popups/add-new-control.jade
+  include popups/edit-control.jade
+  include popups/delete-control.jade
+  

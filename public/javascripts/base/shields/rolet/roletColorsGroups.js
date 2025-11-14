@@ -14,14 +14,6 @@ $(function () {
   $('#add-color-rolet-form input.add-image-btn').click(addImgColor);
   $('#edit-color-rolet-form input.add-image-btn').click(editImgColor);
 
-
-  // $('#add-lamel-rolet-form').on('submit', submitAddNewLamel);
-  // $('#edit-lamel-rolet-form').on('submit', submitEditLamel);
-  // $('#delete-lamel-rolet-form').on('submit', submitDeleteLamel);
-
-  // $('#add-lamel-rolet-form input.add-image-btn').click(addImgEndLamel);
-  // $('#edit-lamel-rolet-form input.add-image-btn').click(editImgEndLamel);
-
  
   const radioColorsGroup = [
     '#FFF', // белый

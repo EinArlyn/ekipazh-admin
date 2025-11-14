@@ -7,6 +7,7 @@ module.exports = function (req, res) {
   models.rol_lamels.findAll({
     where: {factory_id: req.session.user.factory_id}
   }).then(function(lamelsList) {
+    lamelsList.sort((a,b) => a.position - b.position);
     res.render('base/shields/rolet/lamels', {
           i18n: i18n,
           title: 'Lamels',

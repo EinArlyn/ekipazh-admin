@@ -39,6 +39,7 @@ $(function () {
     $.get('/base/shields/rolet/guides/guide/getGuide/' + guideId, function(data){
       if (data) {
         $('#popup-edit-guide-rolet input[name="name"]').val(data.guide.name);
+        $('#popup-edit-guide-rolet input[name="position"]').val(data.guide.position);
         $('#popup-edit-guide-rolet input[name="height"]').val(data.guide.height);
         $('#popup-edit-guide-rolet input[name="thickness"]').val(data.guide.thickness);
         $('#popup-edit-guide-rolet input[name="description"]').val(data.guide.description);
