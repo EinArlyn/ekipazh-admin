@@ -53,3 +53,5 @@ exports.addNewControl = require('./popups/add_control');
 exports.editControl = require('./popups/edit_control');
 exports.deleteControl = require('./popups/delete_control');
 
+exports.controlBoxSizes = require('./controlBoxSizes');
+

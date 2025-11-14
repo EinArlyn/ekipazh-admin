@@ -382,7 +382,8 @@ input[type="number"]::-webkit-outer-spin-button {
     }
   }
   .btn-active,
-  .btn-standart {
+  .btn-standart,
+  .rolet-control-box-size-check {
       width: 35px;
       height: 15px;
       position: relative;
@@ -391,6 +392,7 @@ input[type="number"]::-webkit-outer-spin-button {
       cursor: pointer;
       transition: 0.3s;
       background-color: green;
+      margin: 3px 0;
       &::before {
         content: '';
         position: absolute;
@@ -985,11 +987,13 @@ input[type="number"]::-webkit-outer-spin-button {
     }
   }
 
-  .price-table-colors {
+  .price-table-colors,
+  .controls-box-sizes-table {
     max-height: 75vh;
     overflow: auto;
     display: flex;
     flex-direction: column;
+    padding-top: 5px;
     .rules-block {
       margin: 10px;
       .select-rules-price {
@@ -1002,7 +1006,8 @@ input[type="number"]::-webkit-outer-spin-button {
         font-size: 12px;
       }
     }
-    .color-group-box {
+    .color-group-box,
+    .controls-block  {
       position: sticky; 
       top: 0; 
       z-index: 2;
@@ -1010,19 +1015,22 @@ input[type="number"]::-webkit-outer-spin-button {
       flex-wrap: nowrap;
       background: #fff;
       min-width: max-content;
-      .header-box {
+      .header-box,
+      .header-control {
         box-sizing: border-box;
         width: 150px;
         flex: 0 0 150px;
         background-color: green;
         border: 1px solid lightgray;
       }
-      .group-row {
+      .group-row,
+      .control-row {
         box-sizing: border-box;
         text-align: center;
         border: 1px solid lightgray;
         width: 140px;
         flex: 0 0 140px;
+        padding: 5px 0;
       }
     }
 
@@ -1083,6 +1091,20 @@ input[type="number"]::-webkit-outer-spin-button {
                   text-align: center;
                   border: none;
                 }
+              }
+              .control-box-size-field {
+                width: 140px;
+                flex: 0 0 140px;
+                box-sizing: border-box;
+                border-left: 1px solid lightgray;
+                border-right: 1px solid lightgray;
+                display: flex;
+                justify-content: center;
+                /* input {
+                  width: 20%;
+                  text-align: center;
+                  border: none;
+                } */
               }
             }
           }
