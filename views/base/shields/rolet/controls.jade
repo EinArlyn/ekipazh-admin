@@ -18,28 +18,43 @@ block content
   .main-content    
     .titel-page 
       ='Controls :'  
-    .block-systems.block-controls
-      if (controls && controls.length > 0)
-        each control in controls
-          .rolet-system-item
-            .is-standart 
-             span 
-              ='is standart'
-             .btn-standart-system.btn-standart(data-control=control.id class=!control.is_standart ? 'btn-unstandart' : 'btn-standart')  
-            .system-img
-              img(src=(control.img ? control.img : '/local_storage/default.png'), alt="")
-            .system-name
-              =control.name
-            .btns-block-item
-              .btn-active-system.btn-active(data-control=control.id class=!control.is_activ ? 'btn-unactive' : 'btn-active')  
-              .btn-edit-system.btn-system(data-control=control.id)
-              .btn-delete-system.btn-system(data-control=control.id)
-      .rolet-system-item.btn-add-system
-        div
-          ='+'
-        .btn-add-text 
-          ='Добавить'
+    .block-groups
+      if (groups.length > 0)
+        each group in groups
+          .group-rolet-system-item
+            .group-name
+              =group.name
+            .btns-block
+              .btn-active-group.btn-active(data-group=group.id class=!group.is_activ ? 'btn-unactive' : 'btn-active')
+              .btn-edit-group(data-group=group.id)
+              .btn-delete-group(data-group=group.id)
+          .block-systems.block-controls
+            if (group.controls && group.controls.length > 0)
+              each control in group.controls
+                .rolet-system-item
+                  .is-standart 
+                    span 
+                      ='is standart'
+                    .btn-standart-system.btn-standart(data-control=control.id class=!control.is_standart ? 'btn-unstandart' : 'btn-standart')  
+                  .system-img
+                    img(src=(control.img ? control.img : '/local_storage/default.png'), alt="")
+                  .system-name
+                    =control.name
+                  .btns-block-item
+                    .btn-active-system.btn-active(data-control=control.id class=!control.is_activ ? 'btn-unactive' : 'btn-active')  
+                    .btn-edit-system.btn-system(data-control=control.id)
+                    .btn-delete-system.btn-system(data-control=control.id)
+            .rolet-system-item.btn-add-system(data-group=group.id)
+              div
+                ='+'
+              .btn-add-text 
+                ='Добавить'
+    .btn-add-group
+      ='Добавить группу Управления'
+  include popups/add-group-controls.jade
   include popups/add-new-control.jade
   include popups/edit-control.jade
+  include popups/edit-group-controls.jade
   include popups/delete-control.jade
+  include popups/delete-group-controls.jade
   

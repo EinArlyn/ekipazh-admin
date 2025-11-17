@@ -1,6 +1,6 @@
 .pop-up.pop-up-rolet#popup-add-control-rolet
   form#add-control-rolet-form(method="POST" action="/base/shields/rolet/controls/add" enctype="multipart/form-data")
-    //- input(type="hidden" name="group_id" value='' required)
+    input(type="hidden" name="group_id" value='' required)
     .pop-up-close-wrap
       a(class="pop-up-close", href="#")
     span.pop-up-header
@@ -26,7 +26,14 @@
         .title-price.title
           =i18n.__('Price')
           | :
-        input.input-default.text-price(type="number" value="" name="price" required)          
+        input.input-default.text-price(type="number" value="" name="price" required)      
+      .row-is-settings.rolet-row
+        .title-is-side.title
+          ='Is side'
+          | :
+        label.checkbox-label
+          input.input-default.checkbox-rolet-popup(type="checkbox" name="is_side" value="1")
+          span.checkbox-custom    
     .row-description
       .title-description
         =i18n.__('Description')

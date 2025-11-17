@@ -49,6 +49,9 @@ exports.endListPriceColor = require('./endListPriceColor');
 exports.lamelPriceColor = require('./lamelPriceColor');
 
 exports.controls = require('./controls');
+exports.addNewGroupControls = require('./popups/add_group_controls');
+exports.editGroupControls = require('./popups/edit_group_controls');
+exports.deleteGroupControls = require('./popups/delete_group_controls');
 exports.addNewControl = require('./popups/add_control');
 exports.editControl = require('./popups/edit_control');
 exports.deleteControl = require('./popups/delete_control');

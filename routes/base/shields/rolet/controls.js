@@ -9,7 +9,15 @@ router.post('/add', isAuthenticated, rolet.addNewControl);
 router.post('/edit', isAuthenticated, rolet.editControl);
 router.post('/delete', isAuthenticated, rolet.deleteControl);
 
+router.get('/getGroups', isAuthenticated, getGroups);
+router.get('/getGroup/:id', isAuthenticated, getGroup);
+
+router.post('/addGroup', isAuthenticated, rolet.addNewGroupControls);
+router.post('/editGroup', isAuthenticated, rolet.editGroupControls);
+router.post('/deleteGroup', isAuthenticated, rolet.deleteGroupControls);
+
 router.post('/active/:id', isAuthenticated, activeControl);
+router.post('/activeGr/:id', isAuthenticated, activeGr);
 router.post('/isStandart/:id', isAuthenticated, standartControl);
 
 function activeControl(req, res) {
@@ -25,6 +33,17 @@ function activeControl(req, res) {
         } else {
             res.send({status: false});
         }
+    })
+}
+
+function activeGr(req, res) {
+    models.rol_control_groups.findOne({
+        where: {id: req.params.id}
+    }).then(function(group) {
+        group.updateAttributes({
+            is_activ: group.is_activ ? 0 : 1
+        })
+        res.send({status: true});
     })
 }
 
@@ -77,6 +96,26 @@ function getControl(req,res) {
     })
 }
 
+function getGroups(req,res) {
+    models.rol_control_groups.findAll({}).then(function(groups) {
+        res.send({status: true, groups: groups});
+    })
+}
+
+function getGroup(req, res) {
+    const groupId = parseInt(req.params.id, 10);
+    if (!Number.isFinite(groupId)) return res.send({ status: false, error: 'bad id' });
+
+    models.rol_control_groups.findOne({ where: { id: groupId } })
+    .then(function (group) {
+        if (!group) return res.send({ status: false, error: 'not found' });
+        res.send({ status: true, group: group});
+    })
+    .catch(function (err) {
+        console.error('getGroup error:', err);
+        res.send({ status: false });
+    });
+}
 
 
 
