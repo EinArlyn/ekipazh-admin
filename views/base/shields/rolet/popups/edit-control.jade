@@ -13,6 +13,11 @@
         input.add-image-btn(type="button" value=i18n.__('Add'))
     .pop-up-rolet-rows 
       .row-name.rolet-row 
+        .title-group.title
+          =i18n.__('Group')
+          | :
+        select.select-default.input-margin#rolet-proup(name="group_id" type="text" style="width: 230px;")
+      .row-name.rolet-row 
         .title-name.title
           =i18n.__('Name')
           | :
@@ -26,7 +31,14 @@
         .title-price.title
           =i18n.__('Price')
           | :
-        input.input-default.text-price(type="number" value="" name="price" required)          
+        input.input-default.text-price(type="number" value="" name="price" required)    
+      .row-is-settings.rolet-row
+        .title-is-side.title
+          ='Is side'
+          | :
+        label.checkbox-label
+          input.input-default.checkbox-rolet-popup(type="checkbox" name="is_side" value="1")
+          span.checkbox-custom        
     .row-description
       .title-description
         =i18n.__('Description')

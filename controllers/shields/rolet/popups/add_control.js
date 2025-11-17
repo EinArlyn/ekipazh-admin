@@ -14,9 +14,11 @@ module.exports = function (req, res) {
 
     models.rol_controls.create({
       factory_id: parseInt(req.session.user.factory_id, 10),
+      rol_control_group_id: parseInt(fields.group_id, 10),
       name: fields.name,
       position: Number(fields.position) || 0,
       price: Number(fields.price) || 0,
+      is_side: parseInt(fields.is_side, 10) || 0,
       is_activ: 1,
       is_standart: 0,
       description: fields.description,

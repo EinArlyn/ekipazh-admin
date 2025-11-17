@@ -19,10 +19,17 @@ block content
     .controls-box-sizes-table
       .controls-block 
         .header-control
-        each control in controls
-          .control-row(data-id=control.id)
-            span 
-              =control.name
+        each crGr in controlGroups
+          if (crGr.controls.length > 0)
+            .group-wrap
+              .control-gr-row 
+                .group-cr-name(style="max-width: #{140 * crGr.controls.length}px")
+                  =crGr.crGroup.name
+              .controls-wrap
+                each control in crGr.controls
+                  .control-row(data-id=control.id)
+                    .cr-name 
+                      =control.name
       .groups-box 
         each group in groups
           .group-wrap 
@@ -40,8 +47,10 @@ block content
                         =box_size.height
                         =' / '
                         =box_size.width
-                      each control in controls 
-                        .control-box-size-field
-                          .rolet-control-box-size-check(data-control-id=control.id data-box-id=box.id data-size-id=box_size.id)                     
+                      each crGr in controlGroups
+                        if (crGr.controls.length > 0)
+                        each control in crGr.controls 
+                          .control-box-size-field
+                            .rolet-control-box-size-check(data-control-id=control.id data-box-id=box.id data-size-id=box_size.id)                     
                       
     

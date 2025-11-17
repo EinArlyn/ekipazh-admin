@@ -24,8 +24,10 @@ module.exports = function (req, res) {
 
       return control.update({
         name: fields.name,
+        rol_control_group_id: parseInt(fields.group_id, 10),
         position: Number(fields.position) || 0,
         price: Number(fields.price) || 0,
+        is_side: parseInt(fields.is_side, 10) || 0,
         description: fields.description
       });
     })

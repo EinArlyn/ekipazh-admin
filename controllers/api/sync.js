@@ -3094,7 +3094,7 @@ module.exports = function (req, res) {
                 /** rol_controls:*/
                 models.sequelize
                   .query(
-                    `SELECT id, factory_id, name, position, is_activ, is_standart, price, description, img
+                    `SELECT id, factory_id, name, position, is_activ, is_standart, price, description, img, rol_control_group_id
                     FROM rol_controls
                     WHERE factory_id = ${factory_id}
                     ORDER BY position ASC, id ASC`
@@ -3110,7 +3110,8 @@ module.exports = function (req, res) {
                       "is_standart",
                       "price",
                       "description",
-                      "img"
+                      "img",
+                      "rol_control_group_id"
                     ];
 
                     sortQueries(rows[0], function (values) {
