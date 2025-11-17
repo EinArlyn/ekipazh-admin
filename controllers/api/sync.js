@@ -3094,7 +3094,7 @@ module.exports = function (req, res) {
                 /** rol_controls:*/
                 models.sequelize
                   .query(
-                    `SELECT id, factory_id, name, position, is_activ, is_standart, price, description, img, rol_control_group_id
+                    `SELECT id, factory_id, name, position, is_activ, is_standart, price, description, img, rol_control_group_id, is_side
                     FROM rol_controls
                     WHERE factory_id = ${factory_id}
                     ORDER BY position ASC, id ASC`
@@ -3111,11 +3111,45 @@ module.exports = function (req, res) {
                       "price",
                       "description",
                       "img",
-                      "rol_control_group_id"
+                      "rol_control_group_id",
+                      "is_side"
                     ];
 
                     sortQueries(rows[0], function (values) {
                       tables.rol_controls.rows = values;
+                      callback(null);
+                    });
+                  });
+              },
+              function (callback) {
+                /** rol_control_groups:*/
+                models.sequelize
+                  .query(
+                    `SELECT id,
+                            factory_id,
+                            name,
+                            position,
+                            is_activ,
+                            description,
+                            img
+                    FROM rol_control_groups
+                    WHERE factory_id = ${factory_id}
+                    ORDER BY position ASC, id ASC`
+                  )
+                  .then(function (rows) {
+                    tables.rol_control_groups = {};
+                    tables.rol_control_groups.fields = [
+                      "id",
+                      "factory_id",
+                      "name",
+                      "position",
+                      "is_activ",
+                      "description",
+                      "img"
+                    ];
+
+                    sortQueries(rows[0], function (values) {
+                      tables.rol_control_groups.rows = values;
                       callback(null);
                     });
                   });
