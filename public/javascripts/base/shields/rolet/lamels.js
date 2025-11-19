@@ -64,7 +64,7 @@ $(function () {
                   <input class="input-default guide-box" type="number" value="" name="width">
                 </div>
                 <div class="guide-max-square-input">
-                  <input class="input-default guide-box" type="number" value="" name="square">
+                  <input class="input-default guide-box" type="number" value="" name="square" step="0.01">
                 </div>
               </div>`
             );
@@ -115,7 +115,7 @@ $(function () {
       $('#popup-edit-lamel-rolet input[name="name"]').val(editLamelInfo.lamel.name);
       $('#popup-edit-lamel-rolet input[name="position"]').val(editLamelInfo.lamel.position);
       $('#popup-edit-lamel-rolet input[name="height"]').val(editLamelInfo.lamel.height);
-      $('#popup-edit-lamel-rolet input[name="description"]').val(editLamelInfo.lamel.description);
+      $('#popup-edit-lamel-rolet textarea[name="description"]').val(editLamelInfo.lamel.description);
       $('#popup-edit-lamel-rolet img.rolet-image').attr('src', editLamelInfo.lamel.img);
       if (editLamelInfo.lamel.is_color) {
         $('#popup-edit-lamel-rolet input[name="is_color"]').prop('checked', true);
@@ -147,7 +147,7 @@ $(function () {
               <input class="input-default guide-box" type="number" value="${findSizes ? findSizes.max_width : ''}" name="width">
             </div>
             <div class="guide-max-square-input">
-              <input class="input-default guide-box" type="number" value="${findSizes ? findSizes.max_square : ''}" name="square">
+              <input class="input-default guide-box" type="number" value="${findSizes ? findSizes.max_square : ''}" name="square" step="0.01">
             </div>
           </div>`
         );

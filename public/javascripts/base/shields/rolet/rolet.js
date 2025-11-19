@@ -47,7 +47,7 @@ $(function () {
     $.get('/base/shields/rolet/rolet/group/getGroup/' + groupId, function(data) {
       $('#popup-edit-group-rolet input[name="name"]').val(data.group.name);
       $('#popup-edit-group-rolet input[name="position"]').val(data.group.position);
-      $('#popup-edit-group-rolet input[name="description"]').val(data.group.description);
+      $('#popup-edit-group-rolet textarea[name="description"]').val(data.group.description);
       $('#popup-edit-group-rolet input[name="group_id"]').val(groupId);
       $('#popup-edit-group-rolet img.rolet-image').attr('src', data.group.img);
       $('#popup-edit-group-rolet input[type="checkbox"]').val('');
@@ -86,7 +86,7 @@ $(function () {
           `<div class="field-height-width">
             <input class="input-default height-box" type="number" name="height" value="">
             <input class="input-default width-box" type="number" name="width" value="">
-            <input class="input-default box-price" type="number" name="box_price" value="">
+            <input class="input-default box-price" type="number" name="box_price" value="" step="0.01">
           </div>`
         )
     }
@@ -105,7 +105,7 @@ $(function () {
       }, function(system) {
         $('#popup-edit-system-rolet input[name="name"]').val(system.box.name)
         $('#popup-edit-system-rolet input[name="position"]').val(system.box.position)
-        $('#popup-edit-system-rolet input[name="description"]').val(system.box.description)
+        $('#popup-edit-system-rolet textarea[name="description"]').val(system.box.description)
         $('#popup-edit-system-rolet img.rolet-image').attr('src', system.box.img);
         if (system.box.is_color) {
           $('#popup-edit-system-rolet input[name="is_color"]').prop('checked', true);
@@ -165,7 +165,7 @@ $(function () {
               `<div class="field-height-width" data-size-id=${system.sizes[i] ? system.sizes[i].id : ''}>
                 <input class="input-default height-box" type="number" name="height" value=${system.sizes[i] ? system.sizes[i].height : ''}>
                 <input class="input-default width-box" type="number" name="width" value=${system.sizes[i] ? system.sizes[i].width : ''}>
-                <input class="input-default box-price" type="number" name="box_price" value=${system.sizes[i] ? (system.sizes[i].box_price || 0) : ''}>
+                <input class="input-default box-price" type="number" name="box_price" value=${system.sizes[i] ? (system.sizes[i].box_price || 0) : ''} step="0.01">
               </div>`
             )
         }

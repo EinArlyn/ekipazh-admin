@@ -54,7 +54,7 @@
         label.is-split-price-label
           span
             ='Стоимость деления: '
-          input.input-default.split-price-rolet-popup(type="number" name="split_price" value="1" step="0.1")
+          input.input-default.split-price-rolet-popup(type="number" name="split_price" value="1" step="0.01")
       .row-is-settings.rolet-row
         .title-is-defense.title
           ='Is security'
@@ -76,11 +76,11 @@
         label.min-width-label
           span
             ='Min width: '
-          input.input-default.min-width-rolet-popup(type="number" name="min_width" value="1" min="0" step="0.1")
+          input.input-default.min-width-rolet-popup(type="number" name="min_width" value="1" min="0")
         label.min-square-price-label
           span
             ='Min. м² for price: '
-          input.input-default.min-square-price-rolet-popup(type="number" name="min_square_price" value="1" step="0.1")
+          input.input-default.min-square-price-rolet-popup(type="number" name="min_square_price" value="1" step="0.01")
       .row-height-width.rolet-row
         .title-height-width
           ='Размеры бокса мм :'
@@ -93,23 +93,23 @@
             | :
         .height-width-box
           .field-height-width
-            input.input-default.height-box(type="number" value="" name="height_1" step="0.1")
-            input.input-default.width-box(type="number" value="" name="width_1" step="0.1")
+            input.input-default.height-box(type="number" value="" name="height_1")
+            input.input-default.width-box(type="number" value="" name="width_1")
           .field-height-width
-            input.input-default.height-box(type="number" value="" name="height_2" step="0.1")
-            input.input-default.width-box(type="number" value="" name="width_2" step="0.1")
+            input.input-default.height-box(type="number" value="" name="height_2")
+            input.input-default.width-box(type="number" value="" name="width_2")
           .field-height-width
-            input.input-default.height-box(type="number" value="" name="height_3" step="0.1")
-            input.input-default.width-box(type="number" value="" name="width_3" step="0.1")
+            input.input-default.height-box(type="number" value="" name="height_3")
+            input.input-default.width-box(type="number" value="" name="width_3")
           .field-height-width
-            input.input-default.height-box(type="number" value="" name="height_4" step="0.1")
-            input.input-default.width-box(type="number" value="" name="width_4" step="0.1")
+            input.input-default.height-box(type="number" value="" name="height_4")
+            input.input-default.width-box(type="number" value="" name="width_4")
           .field-height-width
-            input.input-default.height-box(type="number" value="" name="height_5" step="0.1")
-            input.input-default.width-box(type="number" value="" name="width_5" step="0.1")
+            input.input-default.height-box(type="number" value="" name="height_5")
+            input.input-default.width-box(type="number" value="" name="width_5")
           .field-height-width
-            input.input-default.height-box(type="number" value="" name="height_6" step="0.1")
-            input.input-default.width-box(type="number" value="" name="width_6" step="0.1")
+            input.input-default.height-box(type="number" value="" name="height_6")
+            input.input-default.width-box(type="number" value="" name="width_6")
     .row-description
       .title-description
         =i18n.__('Description')

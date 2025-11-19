@@ -4,7 +4,7 @@
     .pop-up-close-wrap
       a(class="pop-up-close", href="#")
     span.pop-up-header
-      ='Add new lamel'
+      ='Add new control'
     .row
       .col-md-6
         img.rolet-image(src="/local_storage/default.png")
@@ -26,7 +26,7 @@
         .title-price.title
           =i18n.__('Price')
           | :
-        input.input-default.text-price(type="number" value="" name="price" required)      
+        input.input-default.text-price(type="number" value="" name="price" step="0.01" required)      
       .row-is-settings.rolet-row
         .title-is-side.title
           ='Is side'

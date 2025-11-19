@@ -46,7 +46,7 @@ $(function () {
       $('#popup-edit-group-controls input[name="group_id"]').val(groupId);
       $('#popup-edit-group-controls input[name="name"]').val(data.group.name);
       $('#popup-edit-group-controls input[name="position"]').val(data.group.position);
-      $('#popup-edit-group-controls input[name="description"]').val(data.group.description);
+      $('#popup-edit-group-controls textarea[name="description"]').val(data.group.description);
       $('#popup-edit-group-controls img.rolet-image').attr('src', data.group.img);
       
       $('#popup-edit-group-controls').popup('show');
@@ -74,8 +74,9 @@ $(function () {
     $('#popup-edit-control-rolet input[name="control_id"]').val(controlId);
     $.get('/base/shields/rolet/controls/getControl/' + controlId, function(data){
       if (data) {
+        console.log(data)
         $('#popup-edit-control-rolet input[name="name"]').val(data.control.name);
-        $('#popup-edit-control-rolet input[name="description"]').val(data.control.description);
+        $('#popup-edit-control-rolet textarea[name="description"]').val(data.control.description);
         $('#popup-edit-control-rolet input[name="position"]').val(data.control.position);
         $('#popup-edit-control-rolet input[name="price"]').val(data.control.price);
         $('#popup-edit-control-rolet img.rolet-image').attr('src', data.control.img);
