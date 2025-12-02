@@ -1008,21 +1008,31 @@ hr {
           display: flex;
           
           width: 100%;
-          border: 3px solid lightgray;
+          /* border: 1px solid lightgray; */
           border-top: none;
           box-sizing: border-box;
           justify-content: space-between;
-          /* .left-guide {
-              flex: 0 0 10px;
+          .left-guide {
+              flex: 0 0 5px;
               border: 1px solid lightgray;
-          } */
+          }
           .center {
-              /* // position: relative; */
+              position: relative;
               width: 100%;
               /* // flex: 0 0 culc(100%-20px); */
               .lamel-line {
                   /* // background-color: lightgray; */
                   height: 8px;
+                  border-top: 1px solid lightgray;
+                  border-bottom: 1px solid lightgray;
+              }
+              .lamel-endline {
+                  /* // background-color: lightgray; */
+                  position: absolute;
+                  bottom: 0;
+                  background-color: white;
+                  height: 10px;
+                  width: 100%;
                   border-top: 1px solid lightgray;
                   border-bottom: 1px solid lightgray;
               }
@@ -1051,10 +1061,10 @@ hr {
               border: 1px solid lightgray;
               transform: translateX(-50%) rotate(-90deg);
           }
-          /* .right-guide {
-              flex: 0 0 10px;
+          .right-guide {
+              flex: 0 0 5px;
               border: 1px solid lightgray;
-          } */
+          }
           /* .guide-size {
               position: absolute;
               bottom: 0;
