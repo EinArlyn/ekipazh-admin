@@ -625,5 +625,7 @@
     "box": "Cajón",
     "invalid_size": "Tamaño no permitido",
 	"part": "Parte",
+	"unit_short": "ud.",
+	"unit_kg": "kg",
     "add_roleta": "Agregar persiana enrollable"
 }

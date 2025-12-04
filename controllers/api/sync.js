@@ -3184,6 +3184,45 @@ module.exports = function (req, res) {
                     });
                   });
               },
+              function (callback) {
+                /** rol_add_elements: элементы, завязанные только на factory_id */
+                models.sequelize
+                  .query(
+                    `SELECT
+                      L.id,
+                      L.factory_id,
+                      L.name,
+                      L.position,
+                      L.price,
+                      L.rule,
+                      L.is_activ,
+                      L.description,
+                      L.img
+                    FROM rol_add_elements AS L
+                    WHERE L.factory_id = ${factory_id}`
+                  )
+                  .then(function (rows) {
+                    tables.rol_add_elements = {};
+                    tables.rol_add_elements.fields = [
+                      'id',
+                      'factory_id',
+                      'name',
+                      'position',
+                      'price',
+                      'rule',
+                      'is_activ',
+                      'description',
+                      'img'
+                    ];
+                    sortQueries(rows[0], function (values) {
+                      tables.rol_add_elements.rows = values;
+                      callback(null);
+                    });
+                  })
+                  .catch(function (err) {
+                    callback(err);
+                  });
+              }
             ],
             function (err, results) {
               if (err) {
