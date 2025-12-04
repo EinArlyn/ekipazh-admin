@@ -512,11 +512,13 @@ input.add-image-btn {
   }
 
 input.btn-submit {
-  width: 110px;
+  width: 140px;
   height: 35px;
-  background-image: url('/assets/images/save_active.png');
-  background-size: 110px 35px;
-  background-color: transparent;
+  /* background-image: url('/assets/images/save_active.png'); */
+  /* background-size: 110px 35px; */
+  /* background-color: transparent; */
+  background-color: black;
+  border-radius: 25px;
   text-shadow: 0px 1px 0px #45822b;
   color: #fff;
   font-family: Tahoma, Verdana, Segoe, sans-serif;
@@ -525,7 +527,7 @@ input.btn-submit {
   cursor: pointer;
   outline: none;
   border: 0;
-  border-radius: 2px;
+  /* border-radius: 2px; */
 }
 
   input.btn-submit:hover {

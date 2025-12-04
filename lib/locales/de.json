@@ -577,5 +577,7 @@
     "box": "Kasten",
     "invalid_size": "Unzulässige Größe",
 	"part": "Teil",
+	"unit_short": "Maßeinheit",
+	"unit_kg": "kg",
     "add_roleta": "Rollladen hinzufügen"
 }

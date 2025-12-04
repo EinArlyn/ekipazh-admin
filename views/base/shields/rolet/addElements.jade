@@ -1,0 +1,59 @@
+extends ../../layout
+
+block content
+  .main-nav
+    .nav-link
+      a(href="/")= i18n.__('Dashboard') 
+      a(href="/base/shields/rolet/rolet")='Boxes'
+      a(href="/base/shields/rolet/guides")='Guides'
+      a(href="/base/shields/rolet/endLists")='End Lists'
+      a(href="/base/shields/rolet/lamels")='Lamels'
+      a(href="/base/shields/rolet/roletColorsGroups")='Colors'
+      a(href="/base/shields/rolet/roletPrice")='RoletPrice'
+      a(href="/base/shields/rolet/roletBoxHeight")='RoletBoxHeight'
+      a(href="/base/shields/rolet/controls")='Controls'
+      a(href="/base/shields/rolet/controlBoxSizes")='ControlBoxSizes'
+      span#nav-text
+        ='AddElements'
+      img.loader-ico(src="/assets/images/loader_ico.GIF")
+  .main-content    
+    .titel-page 
+      ='Add Elements :'  
+    .block-systems.block-add-elements
+      if (addElements && addElements.length > 0)
+        each elem in addElements
+          .rolet-add-elem-item
+            .system-img
+              img(src=(elem.img ? elem.img : '/local_storage/default.png'), alt="")
+            .system-name
+              =i18n.__('Name')
+              = " : "
+              =elem.name
+            .system-price
+              =i18n.__('Price')
+              = " : "
+              =elem.price
+            .system-rule
+              =i18n.__('unit_short')
+              = " : "
+              if (elem.rule === 1)
+                =i18n.__('pcs')
+              if (elem.rule === 2)
+                =i18n.__('m')
+              if (elem.rule === 3)
+                =i18n.__('sq. m')
+              if (elem.rule === 4)
+                =i18n.__('unit_kg')
+            .btns-block-item
+              .btn-active-system.btn-active(data-elem=elem.id class=!elem.is_activ ? 'btn-unactive' : 'btn-active')  
+              .btn-edit-system.btn-system(data-elem=elem.id)
+              .btn-delete-system.btn-system(data-elem=elem.id)
+      .rolet-add-elem-item.btn-add-system
+        div
+          ='+'
+        .btn-add-text 
+          ='Добавить'
+  include popups/add-add-element.jade
+  include popups/edit-add-element.jade
+  include popups/delete-add-element.jade
+  

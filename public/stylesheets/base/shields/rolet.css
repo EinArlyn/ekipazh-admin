@@ -4,6 +4,11 @@
   height: 55px;
   border: 1px solid #c6c6c6;
 }
+@media (max-width: 1650px) {
+  .main-nav {
+    height: 80px;
+  }
+}
 
 .nav-link {
   margin: 15px;
@@ -62,7 +67,8 @@ input[type="number"]::-webkit-outer-spin-button {
     &#popup-delete-guide-rolet,
     &#popup-delete-end-list-rolet,
     &#popup-delete-lamel-rolet,
-    &#popup-delete-system-rolet {
+    &#popup-delete-system-rolet,
+    &#popup-delete-add-element-rolet {
       width: 200px;
       height: 100px;
     }
@@ -94,7 +100,8 @@ input[type="number"]::-webkit-outer-spin-button {
         &.text-height {
           width: 10%;
         }
-        &.text-position {
+        &.text-position,
+        &.text-add-element-price {
           width: 10%;
         }
       }
@@ -419,6 +426,9 @@ input[type="number"]::-webkit-outer-spin-button {
     display: flex;
     flex-wrap: wrap;
     gap: 20px;
+    &.block-add-elements {
+      gap: 10px;
+    }
     .rolet-system-item {
       padding: 5px;
       border: 1px solid #c6c6c6;
@@ -483,6 +493,68 @@ input[type="number"]::-webkit-outer-spin-button {
         }
       }
     }
+    .block-add-elements {
+      gap: 10px;
+    }
+    .rolet-add-elem-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      padding: 5px 20px 5px 5px;
+      border: 1px solid lightgray;
+      width: 100%;
+      .system-img {
+        width: 80px;
+        height: 80px;
+        flex: 0 0 80px;
+        background-color: lightgray;
+        overflow: hidden; 
+        img {
+          width: 100%;
+          height: 100%;
+          object-fit: contain; 
+          object-position: center; 
+          display: block;
+        }
+      }
+      .system-name {
+        /* text-align: center; */
+        width: 50%;
+      }
+      .system-price,
+      .system-rule {
+        width: 150px;
+      }
+
+      .btns-block-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 10%;
+        .btn-edit-system {
+          background-image: url('/assets/images/icon-edit.png');
+          background-repeat: no-repeat;
+          background-position: center;
+          background-size: cover;
+        }
+        .btn-delete-system {
+          background-image: url('/assets/images/icon-delete.png');
+          background-repeat: no-repeat;
+          background-position: center;
+          background-size: cover;
+        }
+        .btn-system {
+          width: 20px;
+          height: 20px;
+          cursor: pointer;
+          opacity: 0.7;
+          &:hover {
+            opacity: 1;
+          }
+        }
+      }
+    }
     .btn-add-system {
       background-color: black;
       color: white;
@@ -493,6 +565,15 @@ input[type="number"]::-webkit-outer-spin-button {
       min-width: 120px;
       min-height: 180px;
       cursor: pointer;
+      &.rolet-add-elem-item {
+        height: auto;
+        width: 120px;
+        min-height: 0;
+        flex-direction: row;
+        padding: 5px 20px;
+        border-radius: 25px;
+        margin-left: 5px;
+      }
       &:hover {
         background-color: #434343;
       }

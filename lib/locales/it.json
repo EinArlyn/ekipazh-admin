@@ -633,5 +633,7 @@
     "box": "Cassonetto",
     "invalid_size": "Dimensione non valida",
 	"part": "Parte",
+	"unit_short": "unità",
+	"unit_kg": "kg",
     "add_roleta": "Aggiungi tapparella"
 }

@@ -553,5 +553,7 @@
     "box": "Box",
     "invalid_size": "Invalid size",
 	"part": "Part",
+	"unit_short": "unit",
+	"unit_kg": "kg",
     "add_roleta": "Add Roller Shutter"
 }
