@@ -23,6 +23,17 @@ $(function () {
     transition: 'all 0.3s',
   });
 
+  // checkboxes 
+
+  $('input[type="checkbox"]').change(function() {
+    const isChecked = $(this).is(':checked');
+    if (isChecked) {
+      $(this).val('1');
+    } else {
+      $(this).val('0');
+    }
+  })
+
   // btns
   // systems
   $('.btn-add-system').click(function (e) {
@@ -48,9 +59,17 @@ $(function () {
       $('#popup-edit-add-element-rolet input[name="name"]').val(data.addElem.name);
       $('#popup-edit-add-element-rolet input[name="position"]').val(data.addElem.position);
       $('#popup-edit-add-element-rolet input[name="price"]').val(data.addElem.price);
+      $('#popup-edit-add-element-rolet input[name="min_qty"]').val(data.addElem.min_qty);
       $('#popup-edit-add-element-rolet select[name="rule"]').val(data.addElem.rule);
       $('#popup-edit-add-element-rolet textarea[name="description"]').val(data.addElem.description);
       $('#popup-edit-add-element-rolet img.rolet-image').attr('src', data.addElem.img);
+      $('#popup-edit-add-element-rolet input[name="checkbox"]').val(data.addElem.is_fix_price);
+      if (data.addElem.is_fix_price) {
+        $('#popup-edit-add-element-rolet input[name="is_fix_price"]').prop('checked', true);
+      } else {
+        $('#popup-edit-add-element-rolet input[name="is_fix_price"]').prop('checked', false);
+      }
+      $('#popup-edit-guide-rolet input[name="is_fix_price"]').val(data.addElem.is_fix_price);
       
 
       $('#popup-edit-add-element-rolet').popup('show');     
