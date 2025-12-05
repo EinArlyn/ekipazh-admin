@@ -627,5 +627,8 @@
 	"part": "Parte",
 	"unit_short": "ud.",
 	"unit_kg": "kg",
+	"unit_cm": "см",
+	"no_multiply_by_qty": "Sin multiplicar por la cantidad",
+	"min_quantity": "Cantidad mínima",
     "add_roleta": "Agregar persiana enrollable"
 }

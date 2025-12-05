@@ -4,6 +4,7 @@ var loadImage = require('../../../../lib/services/imageLoader.js').loadImage;
 
 module.exports = function (req, res) {
  parseForm(req, function (err, fields, files) {
+    console.log('EDIT>>>',fields)
     models.rol_add_elements.findOne({
       where: {id: fields.add_element_id}
     }).then(function(addElem) {
@@ -12,6 +13,8 @@ module.exports = function (req, res) {
           name: fields.name,
           price: Number(fields.price),
           rule: parseInt(fields.rule, 10),
+          min_qty: parseInt(fields.min_qty, 10) || 0,
+          is_fix_price: parseInt(fields.is_fix_price, 10) || 0,
           position: parseInt(fields.position, 10),
           description: fields.description,
         }).then(function(newAddElem) {

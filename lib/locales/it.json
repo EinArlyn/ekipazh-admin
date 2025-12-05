@@ -635,5 +635,8 @@
 	"part": "Parte",
 	"unit_short": "unità",
 	"unit_kg": "kg",
+	"unit_cm": "см",
+	"no_multiply_by_qty": "Senza moltiplicare per la quantità",
+	"min_quantity": "Quantità minima",
     "add_roleta": "Aggiungi tapparella"
 }

@@ -27,11 +27,16 @@
           =i18n.__('Price')
           | :
         input.input-default.text-add-element-price(type="number" value="" name="price" step="0.01" required)
+      .row-add-element-min-qty.rolet-row 
+        .title-add-element-min-qty.title
+          =i18n.__('min_quantity')
+          | :
+        input.input-default.text-add-element-min-qty(type="number" value="" name="min_qty")
       .row-add-element-rule.rolet-row 
         .title-add-element-rule.title
           =i18n.__('unit_short')
           | :
-         select.select-default.select-rules-price-add-element(name="rule" required)
+        select.select-default.select-rules-price-add-element(name="rule" required)
           option(value="1") 
             =i18n.__('pcs')
           option(value="2") 
@@ -40,6 +45,17 @@
             =i18n.__('sq. m')
           option(value="4") 
             =i18n.__('unit_kg')
+          option(value="5") 
+            =i18n.__('mm')
+          option(value="6") 
+            =i18n.__('unit_cm')
+      .row-is-settings.rolet-row 
+        .title-add-element-notcalc.title
+          =i18n.__('no_multiply_by_qty')
+          | :
+        label.checkbox-label
+          input.input-default.checkbox-rolet-popup(type="checkbox" name="is_fix_price" value="1")
+          span.checkbox-custom
     .row-description
       .title-description
         =i18n.__('Description')

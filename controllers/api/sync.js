@@ -3197,7 +3197,9 @@ module.exports = function (req, res) {
                       L.rule,
                       L.is_activ,
                       L.description,
-                      L.img
+                      L.img,
+                      L.is_fix_price,
+                      L.min_qty
                     FROM rol_add_elements AS L
                     WHERE L.factory_id = ${factory_id}`
                   )
@@ -3212,7 +3214,9 @@ module.exports = function (req, res) {
                       'rule',
                       'is_activ',
                       'description',
-                      'img'
+                      'img',
+                      'is_fix_price',
+                      'min_qty'
                     ];
                     sortQueries(rows[0], function (values) {
                       tables.rol_add_elements.rows = values;
