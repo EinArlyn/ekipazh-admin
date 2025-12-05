@@ -44,6 +44,10 @@ block content
                 =i18n.__('sq. m')
               if (elem.rule === 4)
                 =i18n.__('unit_kg')
+              if (elem.rule === 5)
+                =i18n.__('mm')
+              if (elem.rule === 6)
+                =i18n.__('unit_cm')
             .btns-block-item
               .btn-active-system.btn-active(data-elem=elem.id class=!elem.is_activ ? 'btn-unactive' : 'btn-active')  
               .btn-edit-system.btn-system(data-elem=elem.id)
