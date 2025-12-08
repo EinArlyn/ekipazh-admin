@@ -945,6 +945,15 @@ hr {
       }
     }
   }
+
+  .rolet-comment-title {
+    font-size: 14px;
+    font-weight: bold;
+    margin: 5px 0;
+  }
+  .rolet-comment-text {
+    font-size: 12px;
+  }
 }
 
 
