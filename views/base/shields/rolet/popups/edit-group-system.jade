@@ -22,6 +22,11 @@
           =i18n.__('Position')
           | :
         input.input-default.text-position(type="number" value="" name="position" required)
+      .row-currency.rolet-row 
+        .title-currency.title
+          =i18n.__('Currency')
+          | :
+        select.select-default.input-margin#rolet-currency(name="currency_id" style="width: 230px;")
     .row-description
       .title-description
         =i18n.__('Description')

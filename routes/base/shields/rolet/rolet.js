@@ -5,6 +5,7 @@ var isAuthenticated = require('../../../../lib/services/authentication').isAdmin
 
 router.get('/', isAuthenticated, rolet.index);
 router.get('/group/getGroups', isAuthenticated, getGroups);
+router.get('/group/getCurrencies', isAuthenticated, getCurrencies);
 router.get('/group/getGroup/:id', isAuthenticated, getGroup);
 router.post('/', isAuthenticated, rolet.addNewGroupSystem);
 router.post('/group/edit', isAuthenticated, rolet.editGroupSystem);
@@ -81,8 +82,18 @@ function getGroup(req, res) {
 }
 
 function getGroups(req,res) {
-    models.rol_groups.findAll({}).then(function(groups) {
+    models.rol_groups.findAll({
+        where: { factory_id: req.session.user.factory_id }
+    }).then(function(groups) {
         res.send({status: true, groups: groups});
+    })
+}
+
+function getCurrencies(req,res) {
+    models.currencies.findAll({
+        where: { factory_id: req.session.user.factory_id }
+    }).then(function(currencies) {
+        res.send({status: true, currencies: currencies});
     })
 }
 
