@@ -31,6 +31,7 @@ module.exports = function (req, res) {
         return group.update({
           name: fields.name,
           position: parseInt(fields.position, 10) || 0,
+          currency_id: parseInt(fields.currency_id, 10) || 0,
           description: fields.description
         })
         .then(function (editedGroup) {

@@ -90,7 +90,7 @@ $(function () {
 
 
 
-        $('#popup-edit-control-rolet #rolet-proup').find('option').remove();
+        $('#popup-edit-control-rolet #rolet-group').find('option').remove();
         $.get('/base/shields/rolet/controls/getGroups',  {
           
         }, function(dataGroup) {
@@ -99,7 +99,7 @@ $(function () {
               const group = dataGroup.groups[i];
               const selected = group.id == data.control.rol_control_group_id ? ' selected' : '';
               
-              $('#popup-edit-control-rolet #rolet-proup').append(
+              $('#popup-edit-control-rolet #rolet-group').append(
                 '<option value="' + group.id + '"' + selected + '>' + group.name + '</option>'
               );
             }

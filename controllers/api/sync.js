@@ -2372,7 +2372,7 @@ module.exports = function (req, res) {
                 /** rol_groups: только группы, разрешённые для страны пользователя */
                 models.sequelize
                   .query(
-                    `SELECT G.id, G.factory_id, G.name, G.is_activ, G.position, G.description, G.img
+                    `SELECT G.id, G.factory_id, G.name, G.is_activ, G.position, G.description, G.img, G.currency_id
                     FROM rol_groups AS G
                     JOIN users   AS U ON U.id = ${userId}
                     JOIN cities  AS C ON C.id = U.city_id
@@ -2382,7 +2382,7 @@ module.exports = function (req, res) {
                   )
                   .then(function (rows) {
                     tables.rol_groups = {};
-                    tables.rol_groups.fields = ["id","factory_id","name","is_activ","position","description","img"];
+                    tables.rol_groups.fields = ["id","factory_id","name","is_activ","position","description","img","currency_id"];
                     sortQueries(rows[0], function (values) {
                       tables.rol_groups.rows = values;
                       callback(null);

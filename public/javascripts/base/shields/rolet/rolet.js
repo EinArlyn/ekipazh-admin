@@ -61,15 +61,50 @@ $(function () {
           $(this).prop('checked', true);
         }
       });
+
+      $('#popup-edit-group-rolet #rolet-currency').find('option').remove();
+        $.get('/base/shields/rolet/rolet/group/getCurrencies',  {
+          
+          }, function(dataCurrency) {
+            if (dataCurrency.status) {
+              for (var i = 0, len = dataCurrency.currencies.length; i < len; i++) {
+                const currency = dataCurrency.currencies[i];
+                const selected = dataCurrency.currencies[i].id == data.group.currency_id ? ' selected' : '';
+                $('#popup-edit-group-rolet #rolet-currency').append(
+                  '<option value="' + currency.id + '"' + selected + '>' + currency.name + '</option>'
+                );
+              }
+            }
+
+            setTimeout(function(){
+              $('#popup-edit-group-rolet').popup('show');
+            },200)
+        })
       
-      $('#popup-edit-group-rolet').popup('show');
-    })
+      })
   })
   
   $('.btn-add-group').click(function(e) {
     e.preventDefault();
     $('#popup-add-group-rolet input.input-default').val('');
-    $('#popup-add-group-rolet').popup('show');
+
+    $('#popup-add-group-rolet #rolet-currency').find('option').remove();
+    $.get('/base/shields/rolet/rolet/group/getCurrencies',  {
+      
+      }, function(data) {
+        if (data.status) {
+          for (var i = 0, len = data.currencies.length; i < len; i++) {
+            const currency = data.currencies[i];
+            $('#popup-add-group-rolet #rolet-currency').append(
+              '<option value="' + currency.id + '">' + currency.name + '</option>'
+            );
+          }
+        }
+
+        setTimeout(function(){
+          $('#popup-add-group-rolet').popup('show');
+        },200)
+    })
   })
     // systems
   $('.btn-add-system').click(function(e) {
@@ -172,7 +207,7 @@ $(function () {
         initSizes();
 
 
-        $('#popup-edit-system-rolet #rolet-proup').find('option').remove();
+        $('#popup-edit-system-rolet #rolet-group').find('option').remove();
         $.get('/base/shields/rolet/rolet/group/getGroups',  {
           
         }, function(data) {
@@ -181,7 +216,7 @@ $(function () {
               const group = data.groups[i];
               const selected = group.id == system.box.rol_group_id ? ' selected' : '';
               
-              $('#popup-edit-system-rolet #rolet-proup').append(
+              $('#popup-edit-system-rolet #rolet-group').append(
                 '<option value="' + group.id + '"' + selected + '>' + group.name + '</option>'
               );
             }
