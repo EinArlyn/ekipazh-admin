@@ -26,6 +26,7 @@ module.exports = function (req, res) {
       is_activ: 1,
       position: parseInt(fields.position, 10) || 0,
       currency_id: parseInt(fields.currency_id, 10) || 0,
+      for_type: fields.types,
       description: fields.description,
       img: '/local_storage/default.png'
     })

@@ -114,6 +114,11 @@ input[type="number"]::-webkit-outer-spin-button {
           flex: 0 0 250px;
         }
       }
+      .for-type-checkboses {
+        display: flex;
+        gap: 70px;
+        padding-left: 20px;
+      }
       .is-split-label,
       .is-split-price-label,
       .min-width-label,
