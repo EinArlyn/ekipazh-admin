@@ -2,6 +2,20 @@ $(function () {
   var localizerOption = { resGetPath: '/assets/javascripts/vendor/localizer/__ns__-__lng__.json'};
   i18n.init(localizerOption);
 
+   const typeSizes = [
+    {
+      id: 1,
+      name: 'A'
+    },
+    {
+      id: 2,
+      name: 'B'
+    },
+    {
+      id: 3,
+      name: 'C'
+    }
+  ]
   
   $('#add-group-rolet-form').on('submit', submitAddNewGroupSystem);
   $('#add-system-rolet-form').on('submit', submitAddNewSystem);
@@ -63,6 +77,28 @@ $(function () {
       });
 
       $('#popup-edit-group-rolet #rolet-currency').find('option').remove();
+      $('#popup-edit-group-rolet .for-type-checkboses').empty();
+
+      const types = JSON.parse(data.group.for_type) || []; // ["1","2"]
+      
+      for (var t = 0, len = typeSizes.length; t < len; t++) {
+        const idValue = String(typeSizes[t].id);
+        const id = 'for-type-checkbox-' + idValue;
+        const checked = types.includes(idValue) ? 'checked' : '';
+
+        $('#popup-edit-group-rolet .for-type-checkboses').append(
+          '<div class="checkbox-item">' +
+            '<input type="checkbox" ' +
+              'id="' + id + '" ' +
+              'data-country-id="' + idValue + '" ' +
+              'name="checkForType" ' +
+              'value="' + idValue + '" ' +
+              checked + '>' +
+            '<label for="' + id + '">' + typeSizes[t].name + '</label>' +
+          '</div>'
+        );
+      }
+
         $.get('/base/shields/rolet/rolet/group/getCurrencies',  {
           
           }, function(dataCurrency) {
@@ -89,6 +125,23 @@ $(function () {
     $('#popup-add-group-rolet input.input-default').val('');
 
     $('#popup-add-group-rolet #rolet-currency').find('option').remove();
+    $('#popup-add-group-rolet .for-type-checkboses').empty();
+
+    for (var t = 0, len = typeSizes.length; t < len; t++) {
+      const id = 'for-type-checkbox-' + typeSizes[t].id;
+
+      $('#popup-add-group-rolet .for-type-checkboses').append(
+        '<div class="checkbox-item">' +
+          '<input type="checkbox" ' +
+            'id="' + id + '" ' +
+            'data-country-id="' + typeSizes[t].id + '" ' +
+            'name="checkForType" ' +
+            'value="' + typeSizes[t].id + '">' +
+          '<label for="' + id + '">' + typeSizes[t].name + '</label>' +
+        '</div>'
+      );
+    }
+
     $.get('/base/shields/rolet/rolet/group/getCurrencies',  {
       
       }, function(data) {
@@ -284,8 +337,13 @@ $(function () {
     e.preventDefault();
 
     const country_list = [];
+    const types = [];
     var formData = new FormData(this);
     var formAction = $(this).attr('action');
+
+    $('#popup-add-group-rolet input[name="checkForType"]:checked').each(function () {
+      types.push($(this).val());
+    });
 
     $('#popup-add-group-rolet input[name="checkGroup"]').each(function(){
       const is_check = $(this).val();
@@ -300,6 +358,7 @@ $(function () {
     })
 
     formData.append('country_list', JSON.stringify(country_list));
+    formData.append('types', JSON.stringify(types));
     submitForm({ action: formAction, data: formData }, onResponse);
 
     function onResponse (data) {
@@ -380,9 +439,14 @@ $(function () {
     e.preventDefault();
 
     const country_list = [];
+    const types = [];
 
     var formData = new FormData(this);
     var formAction = $(this).attr('action');
+
+    $('#popup-edit-group-rolet input[name="checkForType"]:checked').each(function () {
+      types.push($(this).val());
+    });
 
     $('#popup-edit-group-rolet input[name="checkGroup"]').each(function(){
       const is_check = $(this).val();
@@ -397,6 +461,7 @@ $(function () {
     })
 
     formData.append('country_list', JSON.stringify(country_list));
+    formData.append('types', JSON.stringify(types));
 
     submitForm({ action: formAction, data: formData }, onResponse);
 

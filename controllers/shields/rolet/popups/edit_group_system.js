@@ -32,6 +32,7 @@ module.exports = function (req, res) {
           name: fields.name,
           position: parseInt(fields.position, 10) || 0,
           currency_id: parseInt(fields.currency_id, 10) || 0,
+          for_type: fields.types,
           description: fields.description
         })
         .then(function (editedGroup) {
