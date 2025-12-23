@@ -398,6 +398,9 @@ $(function () {
       $.get('/base/doors/hardware/locks/get', function (data) {
         if (data.status) {
           if (data.availableLockLists.length) {
+            data.availableLockLists.sort((a, b) =>
+              a.name.localeCompare(b.name)
+            );
             var availableLockListsOptions = '';
 
             for (var i = 0, len = data.availableLockLists.length; i < len; i++) {
