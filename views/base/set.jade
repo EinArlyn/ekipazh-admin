@@ -415,7 +415,7 @@ block content
                   | 
                   =element.name
                 | 
-                if (element.list_content.rules_type_id === 3 || element.list_content.rules_type_id === 2 || element.list_content.rules_type_id === 15 || element.list_content.rules_type_id === 4 || element.list_content.rules_type_id === 6 || element.list_content.rules_type_id === 7 || element.list_content.rules_type_id === 8 || element.list_content.rules_type_id === 10 || element.list_content.rules_type_id === 12 || element.list_content.rules_type_id === 13 || element.list_content.rules_type_id === 14 || element.list_content.rules_type_id === 23 || element.list_content.rules_type_id === 24 || element.list_content.rules_type_id === 6 || element.list_content.rules_type_id === 7 || element.list_content.rules_type_id === 25 || element.list_content.rules_type_id === 11)
+                if (element.list_content.rules_type_id === 3 || element.list_content.rules_type_id === 2 || element.list_content.rules_type_id === 15 || element.list_content.rules_type_id === 4 || element.list_content.rules_type_id === 6 || element.list_content.rules_type_id === 7 || element.list_content.rules_type_id === 8 || element.list_content.rules_type_id === 10 || element.list_content.rules_type_id === 12 || element.list_content.rules_type_id === 13 || element.list_content.rules_type_id === 14 || element.list_content.rules_type_id === 23 || element.list_content.rules_type_id === 24 || element.list_content.rules_type_id === 6 || element.list_content.rules_type_id === 7 || element.list_content.rules_type_id === 25 || element.list_content.rules_type_id === 11 || element.list_content.rules_type_id === 9)
                   =parseFloat(element.list_content.value)
                   | 
                   =element.list_content.rules_type.name.replace('%d ', '')
@@ -426,7 +426,7 @@ block content
                   =parseFloat(element.list_content.value)
                   | 
                   =i18n.__('m')
-                else if (element.list_content.rules_type_id === 5)
+                else if (element.list_content.rules_type_id === 5 || element.list_content.rules_type_id === 9)
                   =element.list_content.rules_type.name.replace('%d кв. м', ' ')
                   | 
                   =parseFloat(element.list_content.value)
@@ -447,7 +447,7 @@ block content
                   | 
                   =set.name
                 | 
-                if (set.list_content.rules_type_id === 3 || set.list_content.rules_type_id === 2 || set.list_content.rules_type_id === 15 || set.list_content.rules_type_id === 4 || set.list_content.rules_type_id === 6 || set.list_content.rules_type_id === 7 || set.list_content.rules_type_id === 8 || set.list_content.rules_type_id === 10 || set.list_content.rules_type_id === 12 || set.list_content.rules_type_id === 13 || set.list_content.rules_type_id === 14 || set.list_content.rules_type_id === 23 || set.list_content.rules_type_id === 24 || set.list_content.rules_type_id === 25 || set.list_content.rules_type_id === 11)
+                if (set.list_content.rules_type_id === 3 || set.list_content.rules_type_id === 2 || set.list_content.rules_type_id === 15 || set.list_content.rules_type_id === 4 || set.list_content.rules_type_id === 6 || set.list_content.rules_type_id === 7 || set.list_content.rules_type_id === 8 || set.list_content.rules_type_id === 10 || set.list_content.rules_type_id === 12 || set.list_content.rules_type_id === 13 || set.list_content.rules_type_id === 14 || set.list_content.rules_type_id === 23 || set.list_content.rules_type_id === 24 || set.list_content.rules_type_id === 25 || set.list_content.rules_type_id === 11 || set.list_content.rules_type_id === 9)
                   =parseFloat(set.list_content.value)
                   | 
                   =set.list_content.rules_type.name.replace('%d ', '')
@@ -458,7 +458,7 @@ block content
                   =parseFloat(set.list_content.value)
                   | 
                   =i18n.__('m')
-                else if (set.list_content.rules_type_id === 5)
+                else if (set.list_content.rules_type_id === 5 || set.list_content.rules_type_id === 9)
                   =set.list_content.rules_type.name.replace('%d кв. м', ' ')
                   | 
                   =parseFloat(set.list_content.value)
