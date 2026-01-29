@@ -22,12 +22,12 @@ function getRows(req, res) {
 }
 
 function updateRow(req, res) {
-    const boxId     = parseInt(req.body.boxId, 10);
+    const boxSizeId     = parseInt(req.body.boxSizeId, 10);
     const colorId     = parseInt(req.body.colorId, 10);
     const newGroupId    = parseInt(req.body.newGroupId, 10);
 
     models.rol_box_color_groups.findOne({
-        where: {id_rol_box: boxId, rol_color_id: colorId}
+        where: {id_rol_box_size: boxSizeId, rol_color_id: colorId}
     }).then(function(row) {
         if (row) {
             return row.updateAttributes({
@@ -37,7 +37,7 @@ function updateRow(req, res) {
             });
         } else {
             return models.rol_box_color_groups.create({
-                id_rol_box: boxId,
+                id_rol_box_size: boxSizeId,
                 rol_color_id: colorId, 
                 rol_color_group_id: newGroupId
             }).then(function () {

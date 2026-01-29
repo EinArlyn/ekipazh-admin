@@ -2935,15 +2935,15 @@ module.exports = function (req, res) {
                       FROM rol_boxes AS B
                       JOIN allowed_groups AG ON AG.id = B.rol_group_id
                     )
-                    SELECT BC.id, BC.id_rol_box, BC.rol_color_id, BC.rol_color_group_id
+                    SELECT BC.id, BC.id_rol_box_size, BC.rol_color_id, BC.rol_color_group_id
                     FROM rol_box_color_groups AS BC
-                    JOIN allowed_boxes AB ON AB.id = BC.id_rol_box`
+                    JOIN allowed_boxes AB ON AB.id = BC.id_rol_box_size`
                   )
                   .then(function (rows) {
                     tables.rol_box_color_groups = {};
                     tables.rol_box_color_groups.fields = [
                       "id",
-                      "id_rol_box",
+                      "id_rol_box_size",
                       "rol_color_id",
                       "rol_color_group_id"
                     ];
