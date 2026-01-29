@@ -2916,7 +2916,7 @@ module.exports = function (req, res) {
                   });
               },
               function (callback) {
-                /** rol_box_color_groups: только для доступных боксов */
+                /** rol_box_color_groups: только для доступных размеров боксов */
                 models.sequelize
                   .query(
                     `WITH allowed_groups AS (
@@ -2934,10 +2934,15 @@ module.exports = function (req, res) {
                       SELECT B.id
                       FROM rol_boxes AS B
                       JOIN allowed_groups AG ON AG.id = B.rol_group_id
+                    ),
+                    allowed_box_sizes AS (
+                      SELECT S.id
+                      FROM rol_box_sizes AS S
+                      JOIN allowed_boxes AB ON AB.id = S.id_rol_box
                     )
                     SELECT BC.id, BC.id_rol_box_size, BC.rol_color_id, BC.rol_color_group_id
                     FROM rol_box_color_groups AS BC
-                    JOIN allowed_boxes AB ON AB.id = BC.id_rol_box_size`
+                    JOIN allowed_box_sizes ABS ON ABS.id = BC.id_rol_box_size`
                   )
                   .then(function (rows) {
                     tables.rol_box_color_groups = {};
