@@ -15,28 +15,36 @@ module.exports = function (req, res) {
         models.rol_colors.findAll({
           where: {factory_id: req.session.user.factory_id}
         }).then(function(colors) {
-          color_groups.sort((a,b) => a.position - b.position);
-          colors.sort((a,b) => a.position - b.position);
-          
-          let boxes = [];
-          rol_groups.forEach(group => {
-            rol_boxes
-              .filter(box => box.rol_group_id === group.id)
-              .forEach(box => boxes.push(box));
-          });
-          
+            models.rol_box_sizes.findAll({}).then(function(sizesBox) {
+            
+            
+            color_groups.sort((a,b) => a.position - b.position);
+            colors.sort((a,b) => a.position - b.position);
+            
+            let boxes = [];
+            rol_groups.forEach(group => {
+              rol_boxes
+                .filter(box => box.rol_group_id === group.id)
+                .forEach(box => {
+                  box.sizes_box = sizesBox.filter(size => size.id_rol_box === box.id);
+                  boxes.push(box)
+                });
+            });
+            
 
-          res.render('base/shields/rolet/roletBoxColors', {
-                i18n: i18n,
-                title: 'RoletBoxColors',
-                groupsColors: color_groups,
-                colorsList: colors,
-                boxes: boxes,
-                cssSrcs: ['/assets/stylesheets/base/shields/rolet.css'],
-                scriptSrcs: ['/assets/javascripts/vendor/localizer/i18next-1.10.1.min.js', '/assets/javascripts/base/shields/rolet/roletBoxColors.js']
-              });
-        }).catch(function(err){
-          res.send({status: false})
+
+            res.render('base/shields/rolet/roletBoxColors', {
+                  i18n: i18n,
+                  title: 'RoletBoxColors',
+                  groupsColors: color_groups,
+                  colorsList: colors,
+                  boxes: boxes,
+                  cssSrcs: ['/assets/stylesheets/base/shields/rolet.css'],
+                  scriptSrcs: ['/assets/javascripts/vendor/localizer/i18next-1.10.1.min.js', '/assets/javascripts/base/shields/rolet/roletBoxColors.js']
+                });
+          }).catch(function(err){
+            res.send({status: false})
+          })
         })
       })
     })

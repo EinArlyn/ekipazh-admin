@@ -1009,13 +1009,45 @@ input[type="number"]::-webkit-outer-spin-button {
             width: 70px;
             font-size: 12px;
             overflow-wrap: break-word;
-          }        
+          }  
+        &.box-color-content {
+          /* box-sizing: border-box; */
+          .box-item-wrap {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center; 
+            cursor: pointer;
+            .box-item {
+              /* width: 280px; */
+              border: none;
+            }
+            .box-sizes-wrap {
+              display: flex;
+              justify-content: center;
+              font-size: 12px;
+              .box-size-item {
+                box-sizing: border-box;
+                width: 70px;
+                flex: 0 0 70px;
+                border: 1px solid lightgray;
+                opacity: 0.1;
+              }
+              &.show {
+               .box-size-item {
+                  opacity: 1;
+                } 
+              }
+            }
+          }
+        }      
       }
     }
     .colors {
       .color-row {
         display: flex;
         align-items: center;
+        min-width: max-content;
         .color-item {
           display: flex;
           justify-content: space-between;
@@ -1070,6 +1102,14 @@ input[type="number"]::-webkit-outer-spin-button {
               overflow: hidden;
               text-overflow: ellipsis;
               white-space: nowrap;
+            }
+          }
+          .color-box-item {
+            opacity: 0.1;
+            pointer-events: none;
+            &.show {
+              opacity: 1;
+              pointer-events: auto;
             }
           }
         }

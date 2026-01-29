@@ -12,7 +12,7 @@ $(function () {
     const color = selected.data('color');
 
     const container = $(this).closest('.color-box-item');
-    const boxId = container.data('box-id');
+    const boxSizeId = container.data('box-size-id');
     const colorId = container.data('color-id');
 
     container.css({
@@ -23,7 +23,7 @@ $(function () {
     });
 
     $.post('/base/shields/rolet/roletBoxColors/table/updateRow', {
-        boxId,
+        boxSizeId,
         colorId,
         newGroupId
       });
@@ -32,10 +32,10 @@ $(function () {
   $.get('/base/shields/rolet/roletBoxColors/table/getRows', function(data) {
     $('.color-box-select').each(function() {
       const container = $(this).closest('.color-box-item');
-      const boxId = container.data('box-id');
+      const boxSizeId = container.data('box-size-id');
       const colorId = container.data('color-id');
       
-      const row = data.find(r => r.id_rol_box === boxId && r.rol_color_id === colorId);
+      const row = data.find(r => r.id_rol_box_size === boxSizeId && r.rol_color_id === colorId);
       if (row) {
         $(this).val(row.rol_color_group_id);
       } else {
@@ -53,6 +53,12 @@ $(function () {
     });
   });
 
-
+  $('.box-item-wrap').on('click', function() {
+    const boxId = $(this).find('.box-item').data('box-id');
+    
+    $(this).find('.box-sizes-wrap').toggleClass('show');
+    
+    $('.color-box-item[data-box-id="' + boxId + '"]').toggleClass('show');
+  });
 
 });
