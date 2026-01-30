@@ -31,7 +31,10 @@ block content
             each box, index in boxes
               .box-item-wrap(style=index % 2 === 0 ? 'background-color: #eae9e9;' : '')
                 .box-item(data-box-id=box.id)
-                  =box.name
+                  span(style="text-transform: uppercase; font-weight: bold;") 
+                    =box.group_name
+                  span
+                    =' / ' + box.name
                 .box-sizes-wrap
                   each size in box.sizes_box
                     .box-size-item(data-size-id=size.id)
