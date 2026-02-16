@@ -54,7 +54,7 @@ input[type="number"]::-webkit-outer-spin-button {
   display: none;
   &.pop-up-rolet {
     width: 500px;
-    height: 710px;
+    height: auto;
     background-color: white;
     border: 1px solid black;
     border-radius: 20px;
@@ -203,6 +203,22 @@ input[type="number"]::-webkit-outer-spin-button {
         .checkbox-rolet-popup:checked + .checkbox-custom::before {
           right: 0;
           transition: 0.3s;
+        }
+
+        &.indicator-pvc-alum {
+          .checkbox-rolet-popup:checked + .checkbox-custom {
+            background-color: lightgray;
+            transition: 0.3s;
+          }
+        }
+
+        span.text-pvc {
+          font-size: 14px;
+          margin-right: 10px;
+        }
+        span.text-alum {
+          font-size: 14px;
+          margin-left: 10px;
         }
       }
 
@@ -1029,10 +1045,18 @@ input[type="number"]::-webkit-outer-spin-button {
               font-size: 12px;
               .box-size-item {
                 box-sizing: border-box;
-                width: 70px;
-                flex: 0 0 70px;
+                width: 140px;
+                flex: 0 0 140px;
                 border: 1px solid lightgray;
                 opacity: 0.1;
+                .box-size-item-pvc-alum {
+                  display: flex;
+                  justify-content: space-around;
+                  .name-pvc,
+                  .name-alum {
+                    width: 50%;
+                  }
+                }
               }
               &.show {
                .box-size-item {

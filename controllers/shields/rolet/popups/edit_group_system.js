@@ -30,6 +30,10 @@ module.exports = function (req, res) {
         // 1) апдейт базовых полей
         return group.update({
           name: fields.name,
+          name_front: fields.name_front,
+          name_back: fields.name_back,
+          name_top: fields.name_top,
+          name_bottom: fields.name_bottom,
           position: parseInt(fields.position, 10) || 0,
           currency_id: parseInt(fields.currency_id, 10) || 0,
           for_type: fields.types,

@@ -639,5 +639,10 @@
 	"unit_cm": "см",
 	"no_multiply_by_qty": "Senza moltiplicare per la quantità",
 	"min_quantity": "Quantità minima",
-    "add_roleta": "Aggiungi tapparella"
+    "add_roleta": "Aggiungi tapparella",
+	"Outer box cover": "Coperchio esterno della scatola",
+	"Inner box cover": "Coperchio interno della scatola",
+	"Top box cover": "Coperchio superiore della scatola",
+	"Bottom box cover": "Coperchio inferiore della scatola"
+
 }

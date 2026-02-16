@@ -32,6 +32,26 @@
           =i18n.__('Type')
           | :
         .for-type-checkboses
+      .row-name.rolet-row 
+        .title-name.title
+          =i18n.__('Outer box cover')
+          | :
+        input.input-default.text-name(type="text" value="" name="name_front" required)
+      .row-name.rolet-row 
+        .title-name.title
+          =i18n.__('Inner box cover')
+          | :
+        input.input-default.text-name(type="text" value="" name="name_back" required)
+      .row-name.rolet-row 
+        .title-name.title
+          =i18n.__('Top box cover')
+          | :
+        input.input-default.text-name(type="text" value="" name="name_top" required)
+      .row-name.rolet-row 
+        .title-name.title
+          =i18n.__('Bottom box cover')
+          | :
+        input.input-default.text-name(type="text" value="" name="name_bottom" required)
     .row-description
       .title-description
         =i18n.__('Description')

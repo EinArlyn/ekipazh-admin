@@ -583,5 +583,10 @@
 	"unit_cm": "см",
 	"no_multiply_by_qty": "Ohne Multiplikation mit der Menge",
 	"min_quantity": "Mindestmenge",
-    "add_roleta": "Rollladen hinzufügen"
+    "add_roleta": "Rollladen hinzufügen",
+	"Outer box cover": "Äußere Abdeckung des Kastens",
+	"Inner box cover": "Innere Abdeckung des Kastens",
+	"Top box cover": "Oberer Deckel des Kastens",
+	"Bottom box cover": "Unterer Deckel des Kastens"
+
 }

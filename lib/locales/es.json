@@ -631,5 +631,10 @@
 	"unit_cm": "см",
 	"no_multiply_by_qty": "Sin multiplicar por la cantidad",
 	"min_quantity": "Cantidad mínima",
-    "add_roleta": "Agregar persiana enrollable"
+    "add_roleta": "Agregar persiana enrollable",
+	"Outer box cover": "Tapa exterior de la caja",
+	"Inner box cover": "Tapa interior de la caja",
+	"Top box cover": "Tapa superior de la caja",
+	"Bottom box cover": "Tapa inferior de la caja"
+
 }

@@ -559,5 +559,10 @@
 	"unit_cm": "см",
 	"no_multiply_by_qty": "Without multiplying by quantity",
 	"min_quantity": "Minimum quantity",
-    "add_roleta": "Add Roller Shutter"
+    "add_roleta": "Add Roller Shutter",
+	"Outer box cover": "Outer box cover",
+	"Inner box cover": "Inner box cover",
+	"Top box cover": "Top box cover",
+	"Bottom box cover": "Bottom box cover"
+
 }

@@ -66,6 +66,11 @@ $(function () {
       $('#popup-edit-group-rolet img.rolet-image').attr('src', data.group.img);
       $('#popup-edit-group-rolet input[type="checkbox"]').val('');
       $('#popup-edit-group-rolet input[type="checkbox"]').prop('checked', false);
+
+      $('#popup-edit-group-rolet input[name="name_front"]').val(data.group.name_front);
+      $('#popup-edit-group-rolet input[name="name_back"]').val(data.group.name_back);
+      $('#popup-edit-group-rolet input[name="name_top"]').val(data.group.name_top);
+      $('#popup-edit-group-rolet input[name="name_bottom"]').val(data.group.name_bottom);
       
       $('#popup-edit-group-rolet input[type="checkbox"]').each(function(){
         const country_id = $(this).data('countryId');
@@ -179,7 +184,16 @@ $(function () {
         )
     }
     initSizes();
-    $('#popup-add-system-rolet').popup('show');
+
+    $.get('/base/shields/rolet/rolet/group/getGroup/' + groupId, function(data) {
+      if (data.group) {
+        $('#popup-add-system-rolet .title-is-pvc-alum-front').text(data.group.name_front ? data.group.name_front + ':' : 'Front:');
+        $('#popup-add-system-rolet .title-is-pvc-alum-back').text(data.group.name_back ? data.group.name_back + ':' : 'Back:');
+        $('#popup-add-system-rolet .title-is-pvc-alum-top').text(data.group.name_top ? data.group.name_top + ':' : 'Top:');
+        $('#popup-add-system-rolet .title-is-pvc-alum-bottom').text(data.group.name_bottom ? data.group.name_bottom + ':' : 'Bottom:');
+      }
+      $('#popup-add-system-rolet').popup('show');
+    });
   })
 
   $('.btn-edit-system').click(function(e) {
@@ -240,12 +254,36 @@ $(function () {
         } else {
           $('#popup-edit-system-rolet input[name="min_square_price"]').val(0);
         }
+        if (system.box.pvc_or_alum_front) {
+          $('#popup-edit-system-rolet input[name="pvc_or_alum_front"]').prop('checked', true);
+        } else {
+          $('#popup-edit-system-rolet input[name="pvc_or_alum_front"]').prop('checked', false);
+        }
+        if (system.box.pvc_or_alum_back) {
+          $('#popup-edit-system-rolet input[name="pvc_or_alum_back"]').prop('checked', true);
+        } else {
+          $('#popup-edit-system-rolet input[name="pvc_or_alum_back"]').prop('checked', false);
+        }
+        if (system.box.pvc_or_alum_top) {
+          $('#popup-edit-system-rolet input[name="pvc_or_alum_top"]').prop('checked', true);
+        } else {
+          $('#popup-edit-system-rolet input[name="pvc_or_alum_top"]').prop('checked', false);
+        }
+        if (system.box.pvc_or_alum_bottom) {
+          $('#popup-edit-system-rolet input[name="pvc_or_alum_bottom"]').prop('checked', true);
+        } else {
+          $('#popup-edit-system-rolet input[name="pvc_or_alum_bottom"]').prop('checked', false);
+        }
 
         $('#popup-edit-system-rolet input[name="is_color"]').val(system.box.is_color)
         $('#popup-edit-system-rolet input[name="is_grid"]').val(system.box.is_grid)
         $('#popup-edit-system-rolet input[name="is_security"]').val(system.box.is_security)
         $('#popup-edit-system-rolet input[name="is_revision"]').val(system.box.is_revision)
         $('#popup-edit-system-rolet input[name="is_engine"]').val(system.box.is_engine)
+        $('#popup-edit-system-rolet input[name="pvc_or_alum_front"]').val(system.box.pvc_or_alum_front)
+        $('#popup-edit-system-rolet input[name="pvc_or_alum_back"]').val(system.box.pvc_or_alum_back)
+        $('#popup-edit-system-rolet input[name="pvc_or_alum_top"]').val(system.box.pvc_or_alum_top)
+        $('#popup-edit-system-rolet input[name="pvc_or_alum_bottom"]').val(system.box.pvc_or_alum_bottom)
 
         const countRowsSizes = 6;
         for (let i = 0; i < countRowsSizes; i++) {
@@ -274,10 +312,19 @@ $(function () {
               );
             }
           }
+          $.get('/base/shields/rolet/rolet/group/getGroup/' + system.box.rol_group_id, function(data) {
+            if (data.group) {
+              $('#popup-edit-system-rolet .title-is-pvc-alum-front').text(data.group.name_front ? data.group.name_front + ':' : 'Front:');
+              $('#popup-edit-system-rolet .title-is-pvc-alum-back').text(data.group.name_back ? data.group.name_back + ':' : 'Back:');
+              $('#popup-edit-system-rolet .title-is-pvc-alum-top').text(data.group.name_top ? data.group.name_top + ':' : 'Top:');
+              $('#popup-edit-system-rolet .title-is-pvc-alum-bottom').text(data.group.name_bottom ? data.group.name_bottom + ':' : 'Bottom:');
+            }
 
-          setTimeout(function(){
-            $('#popup-edit-system-rolet').popup('show');
-          },200)
+            setTimeout(function(){
+              $('#popup-edit-system-rolet').popup('show');
+            },200)
+          });
+
         })
       })
     }
