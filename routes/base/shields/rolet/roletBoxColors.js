@@ -25,9 +25,10 @@ function updateRow(req, res) {
     const boxSizeId     = parseInt(req.body.boxSizeId, 10);
     const colorId     = parseInt(req.body.colorId, 10);
     const newGroupId    = parseInt(req.body.newGroupId, 10);
+    const pvcAlum      = parseInt(req.body.pvcAlum, 10);
 
     models.rol_box_color_groups.findOne({
-        where: {id_rol_box_size: boxSizeId, rol_color_id: colorId}
+        where: {id_rol_box_size: boxSizeId, rol_color_id: colorId, pvc_or_alum: pvcAlum}
     }).then(function(row) {
         if (row) {
             return row.updateAttributes({
@@ -39,7 +40,8 @@ function updateRow(req, res) {
             return models.rol_box_color_groups.create({
                 id_rol_box_size: boxSizeId,
                 rol_color_id: colorId, 
-                rol_color_group_id: newGroupId
+                rol_color_group_id: newGroupId,
+                pvc_or_alum: pvcAlum
             }).then(function () {
                 res.send({ status: true, mode: 'created' });
             });

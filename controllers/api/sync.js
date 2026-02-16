@@ -2372,7 +2372,7 @@ module.exports = function (req, res) {
                 /** rol_groups: только группы, разрешённые для страны пользователя */
                 models.sequelize
                   .query(
-                    `SELECT G.id, G.factory_id, G.name, G.is_activ, G.position, G.description, G.img, G.currency_id, G.for_type
+                    `SELECT G.id, G.factory_id, G.name, G.is_activ, G.position, G.description, G.img, G.currency_id, G.for_type, G.name_front, G.name_back, G.name_top, G.name_bottom
                     FROM rol_groups AS G
                     JOIN users   AS U ON U.id = ${userId}
                     JOIN cities  AS C ON C.id = U.city_id
@@ -2382,7 +2382,7 @@ module.exports = function (req, res) {
                   )
                   .then(function (rows) {
                     tables.rol_groups = {};
-                    tables.rol_groups.fields = ["id","factory_id","name","is_activ","position","description","img","currency_id","for_type"];
+                    tables.rol_groups.fields = ["id","factory_id","name","is_activ","position","description","img","currency_id","for_type","name_front","name_back","name_top","name_bottom"];
                     sortQueries(rows[0], function (values) {
                       tables.rol_groups.rows = values;
                       callback(null);
@@ -2394,7 +2394,7 @@ module.exports = function (req, res) {
                 models.sequelize
                   .query(
                     `SELECT B.id, B.name, B.rol_group_id, B.is_activ, B.position, B.is_color, B.is_split,
-                            B.is_grid, B.is_security, B.is_revision, B.is_engine, B.split_price, B.description, B.img, B.min_width, B.min_square_price
+                            B.is_grid, B.is_security, B.is_revision, B.is_engine, B.split_price, B.description, B.img, B.min_width, B.min_square_price, B.pvc_or_alum_front, B.pvc_or_alum_back, B.pvc_or_alum_top, B.pvc_or_alum_bottom
                     FROM rol_boxes AS B
                     JOIN rol_groups AS G ON G.id = B.rol_group_id AND G.factory_id = ${factory_id}
                     JOIN users   AS U ON U.id = ${userId}
@@ -2404,7 +2404,7 @@ module.exports = function (req, res) {
                   )
                   .then(function (rows) {
                     tables.rol_boxes = {};
-                    tables.rol_boxes.fields = ["id","name","rol_group_id","is_activ","position","is_color","is_split","is_grid","is_security","is_revision","is_engine","split_price","description","img","min_width","min_square_price"];
+                    tables.rol_boxes.fields = ["id","name","rol_group_id","is_activ","position","is_color","is_split","is_grid","is_security","is_revision","is_engine","split_price","description","img","min_width","min_square_price","pvc_or_alum_front","pvc_or_alum_back","pvc_or_alum_top","pvc_or_alum_bottom"];
                     sortQueries(rows[0], function (values) {
                       tables.rol_boxes.rows = values;
                       callback(null);
@@ -2940,7 +2940,7 @@ module.exports = function (req, res) {
                       FROM rol_box_sizes AS S
                       JOIN allowed_boxes AB ON AB.id = S.id_rol_box
                     )
-                    SELECT BC.id, BC.id_rol_box_size, BC.rol_color_id, BC.rol_color_group_id
+                    SELECT BC.id, BC.id_rol_box_size, BC.rol_color_id, BC.rol_color_group_id, BC.pvc_or_alum
                     FROM rol_box_color_groups AS BC
                     JOIN allowed_box_sizes ABS ON ABS.id = BC.id_rol_box_size`
                   )
@@ -2950,7 +2950,8 @@ module.exports = function (req, res) {
                       "id",
                       "id_rol_box_size",
                       "rol_color_id",
-                      "rol_color_group_id"
+                      "rol_color_group_id",
+                      "pvc_or_alum"
                     ];
                     sortQueries(rows[0], function (values) {
                       tables.rol_box_color_groups.rows = values;

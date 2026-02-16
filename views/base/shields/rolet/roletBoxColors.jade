@@ -38,7 +38,13 @@ block content
                 .box-sizes-wrap
                   each size in box.sizes_box
                     .box-size-item(data-size-id=size.id)
-                      =size.height + ' / ' + size.width
+                      .box-size-item-name
+                        =size.height + ' / ' + size.width
+                      .box-size-item-pvc-alum 
+                        .name-pvc 
+                          ='PVC'
+                        .name-alum
+                          ='Alum'
       .colors 
         if (colorsList.length > 0)
           each color in colorsList
@@ -51,7 +57,18 @@ block content
                 if (boxes.length > 0)
                   each box in boxes
                     each size in box.sizes_box
-                      .color-box-item(data-box-size-id=size.id data-color-id=color.id data-box-id=box.id)
+                      .color-box-item(data-box-size-id=size.id data-color-id=color.id data-box-id=box.id data-pvc-alum=0)
+                        select(id="color-box-select", name="", class="select-default color-box-select")
+                          option(
+                            value=0 
+                            data-color=''
+                          )=i18n.__('Ignore')
+                          each groupColor in groupsColors
+                            option(
+                              value=groupColor.id 
+                              data-color=groupColor.img
+                            )= groupColor.name
+                      .color-box-item(data-box-size-id=size.id data-color-id=color.id data-box-id=box.id data-pvc-alum=1)
                         select(id="color-box-select", name="", class="select-default color-box-select")
                           option(
                             value=0 

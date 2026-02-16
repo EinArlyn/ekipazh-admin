@@ -23,6 +23,10 @@ module.exports = function (req, res) {
     models.rol_groups.create({
       factory_id: parseInt(req.session.user.factory_id, 10),
       name: fields.name,
+      name_front: fields.name_front,
+      name_back: fields.name_back,
+      name_top: fields.name_top,
+      name_bottom: fields.name_bottom,
       is_activ: 1,
       position: parseInt(fields.position, 10) || 0,
       currency_id: parseInt(fields.currency_id, 10) || 0,

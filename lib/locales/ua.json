@@ -643,5 +643,10 @@
 	"unit_cm": "см",
 	"no_multiply_by_qty": "Без множення на кількість",
 	"min_quantity": "Мінімальна кількість",
-    "add_roleta": "Додати ролету"
+    "add_roleta": "Додати ролету",
+	"Outer box cover": "Зовнішня кришка короба",
+	"Inner box cover": "Внутрішня кришка короба",
+	"Top box cover": "Верхня кришка короба",
+	"Bottom box cover": "Нижня кришка короба"
+
 }

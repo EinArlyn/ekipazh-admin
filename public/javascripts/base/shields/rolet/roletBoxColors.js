@@ -14,6 +14,7 @@ $(function () {
     const container = $(this).closest('.color-box-item');
     const boxSizeId = container.data('box-size-id');
     const colorId = container.data('color-id');
+    const pvcAlum = container.data('pvc-alum');
 
     container.css({
       backgroundColor: color || '#e6e6e6'
@@ -25,7 +26,8 @@ $(function () {
     $.post('/base/shields/rolet/roletBoxColors/table/updateRow', {
         boxSizeId,
         colorId,
-        newGroupId
+        newGroupId,
+        pvcAlum
       });
   });
 
@@ -34,8 +36,9 @@ $(function () {
       const container = $(this).closest('.color-box-item');
       const boxSizeId = container.data('box-size-id');
       const colorId = container.data('color-id');
+      const pvcAlum = container.data('pvc-alum');
       
-      const row = data.find(r => r.id_rol_box_size === boxSizeId && r.rol_color_id === colorId);
+      const row = data.find(r => r.id_rol_box_size === boxSizeId && r.rol_color_id === colorId && r.pvc_or_alum === pvcAlum);
       if (row) {
         $(this).val(row.rol_color_group_id);
       } else {
