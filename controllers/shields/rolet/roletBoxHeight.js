@@ -16,7 +16,7 @@ module.exports = function (req, res) {
       
           const boxesAddSizes = dataBoxes.map(box => {
             const sizes = boxSizes.filter(size => size.id_rol_box === box.id);
-            box.sizes = sizes;
+            box.sizes = sizes.sort((a, b) => a.height - b.height);
             return box;
           });
 
