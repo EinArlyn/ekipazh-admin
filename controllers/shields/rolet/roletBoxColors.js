@@ -26,7 +26,7 @@ module.exports = function (req, res) {
               rol_boxes
                 .filter(box => box.rol_group_id === group.id)
                 .forEach(box => {
-                  box.sizes_box = sizesBox.filter(size => size.id_rol_box === box.id);
+                  box.sizes_box = sizesBox.filter(size => size.id_rol_box === box.id).sort((a,b) => a.height - b.height);
                   box.group_name = group.name;
                   boxes.push(box)
                 });
