@@ -34,9 +34,14 @@
         input.input-default.text-size-by-lamel(type="number" value="" name="thickness" required)
       .row-guide-price.rolet-row 
         .title-guide-price.title
-          =i18n.__('Price')
+          =i18n.__('Price') + ' m²'
           | :
         input.input-default.text-guide-price(type="number" value="" name="price" step="0.01")
+      .row-guide-price.rolet-row 
+        .title-guide-price.title
+          =i18n.__('Price') + ' m'
+          | :
+        input.input-default.text-guide-price(type="number" value="" name="price_m" step="0.01")
       .row-is-settings.rolet-row
         .title-is-lamination.title
           ='Is color'

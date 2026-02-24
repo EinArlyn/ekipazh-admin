@@ -17,6 +17,7 @@ module.exports = function (req, res) {
       is_color: parseInt(fields.is_color, 10) || 0,
       is_grid: parseInt(fields.is_grid, 10) || 0,
       price: Number(fields.price) || 0,
+      price_m: Number(fields.price_m) || 0,
       description: fields.description,
       img: '/local_storage/default.png'
     }).then(function(newGuide){
