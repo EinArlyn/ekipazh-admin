@@ -3232,6 +3232,35 @@ module.exports = function (req, res) {
                   .catch(function (err) {
                     callback(err);
                   });
+              },
+              function (callback) {
+                /** rol_guide_box_price_rules: связи, завязанные только на factory_id */
+                models.sequelize
+                  .query(
+                    `SELECT L.id,
+                            L.rol_guide_id,
+                            L.rol_groups_id,
+                            L.rol_price_rules_id
+                    FROM rol_guide_box_price_rules AS L
+                    JOIN rol_groups AS G ON G.id = L.rol_groups_id
+                    WHERE G.factory_id = ${factory_id}`
+                  )
+                  .then(function (rows) {
+                    tables.rol_guide_box_price_rules = {};
+                    tables.rol_guide_box_price_rules.fields = [
+                      'id',
+                      'rol_guide_id',
+                      'rol_groups_id',
+                      'rol_price_rules_id'
+                    ];
+                    sortQueries(rows[0], function (values) {
+                      tables.rol_guide_box_price_rules.rows = values;
+                      callback(null);
+                    });
+                  })
+                  .catch(function (err) {
+                    callback(err);
+                  });
               }
             ],
             function (err, results) {
