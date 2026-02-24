@@ -2527,13 +2527,13 @@ module.exports = function (req, res) {
                       FROM rol_lamels_guides AS REL
                       JOIN allowed_lamels AL ON AL.rol_lamel_id = REL.rol_lamel_id
                     )
-                    SELECT GP.id, GP.rol_guide_id, GP.rol_color_group_id, GP.price, GP.rol_price_rules_id
+                    SELECT GP.id, GP.rol_guide_id, GP.rol_color_group_id, GP.price, GP.rol_price_rules_id, GP.price_m
                     FROM rol_guide_prices AS GP
                     JOIN allowed_guides AG2 ON AG2.rol_guide_id = GP.rol_guide_id`
                   )
                   .then(function (rows) {
                     tables.rol_guide_prices = {};
-                    tables.rol_guide_prices.fields = ["id","rol_guide_id","rol_color_group_id","price","rol_price_rules_id"];
+                    tables.rol_guide_prices.fields = ["id","rol_guide_id","rol_color_group_id","price","rol_price_rules_id","price_m"];
                     sortQueries(rows[0], function (values) {
                       tables.rol_guide_prices.rows = values;
                       callback(null);

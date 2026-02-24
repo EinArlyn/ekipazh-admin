@@ -18,6 +18,7 @@ function changePrice(req, res) {
   const guideId = parseInt(req.body.guideId, 10);
   const newPrice = Number(req.body.price); 
   const rules = parseInt(req.body.rules, 10);
+  const priceType = parseInt(req.body.priceType, 10);
 
   if (!Number.isFinite(groupColorId) || !Number.isFinite(guideId) || !Number.isFinite(newPrice) || !Number.isFinite(rules)) {
     return res.send({ status: false, error: 'bad params' });
@@ -28,17 +29,31 @@ function changePrice(req, res) {
   })
   .then(row => {
     if (row) {
+      const updateData = { rol_price_rules_id: rules };
+      
+      if (priceType === 0) {
+        updateData.price = newPrice;
+      } else if (priceType === 1) {
+        updateData.price_m = newPrice;
+      }
 
-      return row.update({ price: newPrice, rol_price_rules_id: rules })
+      return row.update(updateData)
         .then(() => res.send({ status: true, mode: 'updated' }));
     }
 
-    return models.rol_guide_prices.create({
+    const createData = {
       rol_guide_id: guideId,
       rol_color_group_id: groupColorId,
-      price: newPrice,
       rol_price_rules_id: rules
-    })
+    };
+
+    if (priceType === 0) {
+      createData.price = newPrice;
+    } else if (priceType === 1) {
+      createData.price_m = newPrice;
+    }
+
+    return models.rol_guide_prices.create(createData)
     .then(() => res.send({ status: true, mode: 'created' }));
   })
   .catch(err => {
