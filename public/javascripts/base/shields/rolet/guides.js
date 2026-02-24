@@ -236,7 +236,7 @@ $(function () {
       const groupId = group && group.id ? group.id : '';
       const isActive = rulesByGroupId[groupId] === 1;
       const groupTitle = $('<div>').addClass('title-group-boxes title').text(groupName);
-      const textM2 = $('<span>').addClass('text-m2').text('m2');
+      const textM2 = $('<span>').addClass('text-m2').text('m²');
       const label = $('<label>').addClass('checkbox-label');
       const checkbox = $('<input>')
         .addClass('input-default checkbox-rolet-popup')
