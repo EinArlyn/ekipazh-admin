@@ -5,6 +5,7 @@ var isAuthenticated = require('../../../../lib/services/authentication').isAdmin
 
 router.get('/', isAuthenticated, rolet.guides);
 router.get('/guide/getGuide/:id', isAuthenticated, getGuide);
+router.get('/guide/getBoxes', isAuthenticated, getBoxes);
 router.post('/guide/add', isAuthenticated, rolet.addNewGuide);
 router.post('/guide/edit', isAuthenticated, rolet.editGuide);
 router.post('/guide/delete', isAuthenticated, rolet.deleteGuide);
@@ -37,6 +38,18 @@ function getGuide(req,res) {
     }).catch(function(err){
         res.send({status: false});
     })
+}
+
+function getBoxes(req, res) {
+    models.rol_groups.findAll({
+        where: {factory_id: req.session.user.factory_id}
+    }).then(function(rol_groups) {
+        models.rol_guide_box_price_rules.findAll({}).then(function(rules) {
+
+            rol_groups.sort((a,b) => a.position - b.position);
+            res.send({status: true, groups: rol_groups, rules: rules});
+        });
+    });
 }
 
 

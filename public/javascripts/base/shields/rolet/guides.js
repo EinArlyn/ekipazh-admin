@@ -29,7 +29,18 @@ $(function () {
     e.preventDefault();
     $('#popup-add-guide-rolet input:not([type="submit"]):not([type="button"])').val('')
     $('#popup-add-guide-rolet input[type="checkbox"]').prop('checked', false);
-    $('#popup-add-guide-rolet').popup('show');
+
+    $.get('/base/shields/rolet/guides/guide/getBoxes', function(data){
+      if (data.status) {
+        console.log('boxesGroups', data.groups);
+        const boxesGroups = data.groups || [];
+        const rowBoxLinks = $('#popup-add-guide-rolet').find('.row-guide-box-links');
+        rowBoxLinks.empty();
+        renderBoxesGroups(boxesGroups, rowBoxLinks);
+      }
+      $('#popup-add-guide-rolet').popup('show');
+    })
+
   })
 
   $('.btn-edit-system').click(function(e) {
@@ -60,7 +71,16 @@ $(function () {
         $('#popup-edit-guide-rolet input[name="is_grid"]').val(data.guide.is_grid);
 
 
-        $('#popup-edit-guide-rolet').popup('show');
+        $.get('/base/shields/rolet/guides/guide/getBoxes', function(dataBoxLinks){
+          if (dataBoxLinks.status) {
+            const rules = dataBoxLinks.rules.filter( rule => rule.rol_guide_id === guideId) || [];
+            const boxesGroups = dataBoxLinks.groups || [];
+            const rowBoxLinks = $('#popup-edit-guide-rolet').find('.row-guide-box-links');
+            rowBoxLinks.empty();
+            renderBoxesGroups(boxesGroups, rowBoxLinks, rules);
+          }
+          $('#popup-edit-guide-rolet').popup('show');
+        })
       }
     })
   })
@@ -87,7 +107,7 @@ $(function () {
 
   // checkboxes 
 
-  $('input[type="checkbox"]').change(function() {
+  $(document).on('change', 'input[type="checkbox"]', function() {
     const isChecked = $(this).is(':checked');
     if (isChecked) {
       $(this).val('1');
@@ -101,6 +121,17 @@ $(function () {
     e.preventDefault();
 
     var formData = new FormData(this);
+    var m2OrMData = {};
+
+    $('#popup-add-guide-rolet input[name^="m2_or_m_"]').each(function() {
+      var name = $(this).attr('name');
+      var groupId = name.replace('m2_or_m_', '');
+      if (groupId) {
+        m2OrMData[groupId] = $(this).val();
+      }
+    });
+
+    formData.append('m2_or_m', JSON.stringify(m2OrMData));
     var formAction = $(this).attr('action');
 
     submitForm({ action: formAction, data: formData }, onResponse);
@@ -124,6 +155,17 @@ $(function () {
     e.preventDefault();
 
     var formData = new FormData(this);
+    var m2OrMData = {};
+
+    $('#popup-edit-guide-rolet input[name^="m2_or_m_"]').each(function() {
+      var name = $(this).attr('name');
+      var groupId = name.replace('m2_or_m_', '');
+      if (groupId) {
+        m2OrMData[groupId] = $(this).val();
+      }
+    });
+
+    formData.append('m2_or_m', JSON.stringify(m2OrMData));
     var formAction = $(this).attr('action');
 
     submitForm({ action: formAction, data: formData }, onResponse);
@@ -174,6 +216,43 @@ $(function () {
   
   function selectImageRolet (popup) {
     $(popup + ' input.rolet-image-file').trigger('click');
+  }
+
+  function renderBoxesGroups(boxesGroups, rowBoxLinks, rules) {
+    if (!Array.isArray(boxesGroups)) {
+      return;
+    }
+
+    const rulesByGroupId = Array.isArray(rules)
+      ? rules.reduce(function(acc, rule) {
+          acc[rule.rol_groups_id] = rule.rol_price_rules_id;
+          return acc;
+        }, {})
+      : {};
+
+    boxesGroups.forEach(function(group) {
+      const groupBox = $('<div>').addClass('group-boxes');
+      const groupName = group && group.name ? group.name : '';
+      const groupId = group && group.id ? group.id : '';
+      const isActive = rulesByGroupId[groupId] === 1;
+      const groupTitle = $('<div>').addClass('title-group-boxes title').text(groupName);
+      const textM2 = $('<span>').addClass('text-m2').text('m2');
+      const label = $('<label>').addClass('checkbox-label');
+      const checkbox = $('<input>')
+        .addClass('input-default checkbox-rolet-popup')
+        .attr({ type: 'checkbox', name: 'm2_or_m_' + groupId })
+        .val(isActive ? '1' : '0');
+      if (isActive) {
+        checkbox.prop('checked', true);
+      }
+      const checkboxCustom = $('<span>').addClass('checkbox-custom');
+      const textM = $('<span>').addClass('text-m').text('m');
+
+      label.append(checkbox, checkboxCustom);
+      groupBox.append(groupTitle, textM2, label, textM);
+
+      rowBoxLinks.append(groupBox);
+    });
   }
 
   

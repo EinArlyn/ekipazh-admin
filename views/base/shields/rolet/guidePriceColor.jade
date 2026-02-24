@@ -28,7 +28,7 @@ block content
       //- a(href="/base/shields/rolet/roletEndListColors")='End List Colors'
       //- a(href="/base/shields/rolet/roletLamelColors")='Lamel Colors'
     .price-table-colors
-      .rules-block
+      .rules-block.unactive
         select.select-default.select-rules-price 
           each rule in priceRules
             option(value=rule.id)=rule.name
@@ -37,9 +37,14 @@ block content
       .color-group-box 
         .header-box
         each groupColor in colorGroups
-          .group-row(data-id=groupColor.id style="background-color: #{groupColor.img};")
+          .group-row.guide(data-id=groupColor.id style="background-color: #{groupColor.img};")
             span 
               =groupColor.name
+            .type-price 
+              span.price-m2 
+                ='m²'
+              span.price-m 
+                ='m'
       .guides-block 
         each guide in guides
           .guide-wrap 
@@ -47,7 +52,9 @@ block content
               span 
                 =guide.name
             each groupColor in colorGroups 
-              .price-field-color
-                input.input-default.rolet-price-input(type="number" data-group-color-id=groupColor.id data-guide-id=guide.id value="" name="")                     
+              .price-field-color.guides-price-field
+                input.input-default.rolet-price-input(type="number" data-price-type=0 data-group-color-id=groupColor.id data-guide-id=guide.id value="" name="")                     
+              .price-field-color.guides-price-field
+                input.input-default.rolet-price-input(type="number" data-price-type=1 data-group-color-id=groupColor.id data-guide-id=guide.id value="" name="")                     
                       
     

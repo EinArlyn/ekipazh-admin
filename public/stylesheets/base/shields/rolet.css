@@ -205,10 +205,14 @@ input[type="number"]::-webkit-outer-spin-button {
           transition: 0.3s;
         }
 
-        &.indicator-pvc-alum {
+        &.indicator-pvc-alum,
+        &.row-guide-box-links {
           .checkbox-rolet-popup:checked + .checkbox-custom {
             background-color: lightgray;
             transition: 0.3s;
+          }
+          .checkbox-custom::before {
+            background-color: #6d6d6d;
           }
         }
 
@@ -219,6 +223,29 @@ input[type="number"]::-webkit-outer-spin-button {
         span.text-alum {
           font-size: 14px;
           margin-left: 10px;
+        }
+
+        span.text-m2 {
+          font-size: 14px;
+          margin-right: 5px;
+        }
+        span.text-m {
+          font-size: 14px;
+          margin-left: 5px;
+        }
+
+        &.row-guide-box-links {
+          .group-boxes {
+            display: flex;
+            border: 1px solid lightgray;
+            margin: 3px 0;
+            padding: 5px;
+            .title-group-boxes {
+              width: 80%;
+              font-weight: bold;
+            }
+            
+          }
         }
       }
 
@@ -1160,6 +1187,10 @@ input[type="number"]::-webkit-outer-spin-button {
         margin-left: 10px;
         font-size: 12px;
       }
+      &.unactive {
+        pointer-events: none;
+        opacity: 0.3;
+      }
     }
     .color-group-box,
     .controls-block  {
@@ -1186,6 +1217,15 @@ input[type="number"]::-webkit-outer-spin-button {
         width: 140px;
         flex: 0 0 140px;
         padding: 5px 0;
+        &.guide {
+          display: flex;
+          flex-direction: column;
+          justify-content: space-between;
+          .type-price  {
+            display: flex;
+            justify-content: space-around;
+          }
+        }
       }
       .group-wrap {
         .control-gr-row {
@@ -1309,6 +1349,10 @@ input[type="number"]::-webkit-outer-spin-button {
             width: 90%;
             text-align: center;
             border: none;
+          }
+          &.guides-price-field {
+            width: 70px;
+            flex: 0 0 70px;
           }
         }
       }

@@ -20,16 +20,56 @@ module.exports = function (req, res) {
           price: Number(fields.price) || 0,
           description: fields.description
         }).then(function(newGuide) {
-          if (!files.rolet_img.name) return res.send({ status: true });
+          let m2OrMData = {};
+          if (fields.m2_or_m) {
+            try {
+              m2OrMData = JSON.parse(fields.m2_or_m);
+            } catch (error) {
+              console.log(error);
+            }
+          }
 
-          var imageUrl = '/local_storage/rollets/' + Math.floor(Math.random() * 1000000) + files.rolet_img.name;
-          loadImage(files.rolet_img.path, imageUrl);
+          const rulesPromises = Object.keys(m2OrMData).map(function(groupId) {
+            return models.rol_guide_box_price_rules.findOne({
+              where: {
+                rol_guide_id: newGuide.id,
+                rol_groups_id: parseInt(groupId, 10) || 0
+              }
+            }).then(function(existingRule) {
+              const ruleValue = parseInt(m2OrMData[groupId], 10) || 0;
+              if (existingRule) {
+                return existingRule.updateAttributes({
+                  rol_price_rules_id: ruleValue
+                });
+              } else {
+                return models.rol_guide_box_price_rules.create({
+                  rol_guide_id: newGuide.id,
+                  rol_groups_id: parseInt(groupId, 10) || 0,
+                  rol_price_rules_id: ruleValue
+                });
+              }
+            });
+          });
 
-          newGuide.updateAttributes({
-            img: imageUrl
-          }).then(function (newGuide) {
-            res.send({ status: true });
-          }).catch(function (error) {
+          const rulesPromise = rulesPromises.length
+            ? Promise.all(rulesPromises)
+            : Promise.resolve();
+
+          rulesPromise.then(function() {
+            if (!files.rolet_img.name) return res.send({ status: true });
+
+            const imageUrl = '/local_storage/rollets/' + Math.floor(Math.random() * 1000000) + files.rolet_img.name;
+            loadImage(files.rolet_img.path, imageUrl);
+
+            newGuide.updateAttributes({
+              img: imageUrl
+            }).then(function () {
+              res.send({ status: true });
+            }).catch(function (error) {
+              console.log(error);
+              res.send({ status: false });
+            });
+          }).catch(function(error) {
             console.log(error);
             res.send({ status: false });
           });
