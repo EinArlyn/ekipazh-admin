@@ -55,6 +55,7 @@ $(function () {
         $('#popup-edit-guide-rolet input[name="thickness"]').val(data.guide.thickness);
         $('#popup-edit-guide-rolet textarea[name="description"]').val(data.guide.description);
         $('#popup-edit-guide-rolet input[name="price"]').val(data.guide.price);
+        $('#popup-edit-guide-rolet input[name="price_m"]').val(data.guide.price_m);
         $('#popup-edit-guide-rolet img.rolet-image').attr('src', data.guide.img);
         if (data.guide.is_color) {
           $('#popup-edit-guide-rolet input[name="is_color"]').prop('checked', true);

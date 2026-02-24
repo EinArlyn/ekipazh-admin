@@ -2727,7 +2727,7 @@ module.exports = function (req, res) {
                       JOIN allowed_lamels AL ON AL.rol_lamel_id = REL.rol_lamel_id
                     )
                     SELECT G2.id, G2.factory_id, G2.name, G2.height, G2.thickness, G2.is_activ, 
-                          G2.is_grid, G2.is_color, G2.description, G2.price, G2.img, G2.position
+                          G2.is_grid, G2.is_color, G2.description, G2.price, G2.img, G2.position, G2.price_m
                     FROM rol_guides AS G2
                     JOIN allowed_guides AG2 ON AG2.rol_guide_id = G2.id
                     WHERE G2.factory_id = ${factory_id}`
@@ -2746,7 +2746,8 @@ module.exports = function (req, res) {
                       "description",
                       "price",
                       "img",
-                      "position"
+                      "position",
+                      "price_m"
                     ];
                     sortQueries(rows[0], function (values) {
                       tables.rol_guides.rows = values;
