@@ -229,6 +229,59 @@
     border-bottom: 1px solid #c9c9c9;
   }
 
+  .beed-info-popup {
+    position: fixed;
+    top: 65px;
+    left: 10%;
+    width: 80%;
+    height: 80%;
+    background-color: white;
+    border: 1px solid black;
+    border-radius: 10px;
+    padding: 10px;
+    
+    &.hide {
+      display: none;
+    }
+
+    .beed-info-profile-name {
+      font-weight: bold;
+      font-size: 16px;
+      text-align: center;
+      margin: 10px 0;
+    }
+
+    .beed-info-content {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      font-size: 13px;
+      overflow: auto;
+      height: 90%;
+      .beed-info-color-group {
+        width: 48%;
+        .beed-info-color-name {
+          font-weight: bold;
+        }
+      }
+    }
+
+    .beed-info-close {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      width: 22px;
+      height: 22px;
+      background-color: black;
+      color: white;
+      text-align: center;
+      line-height: 20px;
+      font-weight: bold;
+      cursor: pointer;
+      border-radius: 15px;
+    }
+  }
+
 /** Buttons */
 
   /* close pop-up button */

@@ -623,6 +623,62 @@ $(function () {
     $('.pop-up').popup('hide');
   });
 
+  $('.profile-name').click(function() {
+    // показ списка штапиков по профильной системе во всех цветах и толщинах стеклопакета
+    var profileSystemId = $(this).attr('data-beed-info');
+    if (profileSystemId) {
+      $.get('/base/profiles/getBeedInfo/' + profileSystemId, function(data) {
+        var content = '';
+
+        $('.beed-info-popup .beed-info-profile-name').remove();
+        $('.beed-info-popup .beed-info-content').before(
+          '<div class="beed-info-profile-name">' + escapeBeedInfoHtml(data.profileSystem ? data.profileSystem.name : '') + '</div>'
+        );
+        $('.beed-info-popup .beed-info-content').empty();
+
+        if (data.laminationColors && data.laminationColors.length) {
+          console.log(data)
+          data.laminationColors.forEach(function(color) {
+            content += '<div class="beed-info-color-group">';
+            content += '<div class="beed-info-color-name">' + escapeBeedInfoHtml(color.name || '') + '</div>';
+
+            if (color.beeds && color.beeds.length) {
+              color.beeds.forEach(function(beed) {
+                content += '<div class="beed-info-row">' +
+                  '<span class="beed-info-width">' + 'Толщина: ' + escapeBeedInfoHtml(String(beed.for_width || '')) + '</span>' +
+                  '<span class="beed-info-name">' + ' / Название: ' + escapeBeedInfoHtml(beed.name || '') + '</span>' +
+                '</div>';
+              });
+            } else {
+              content += '<div class="beed-info-row beed-info-row-empty">-</div>';
+            }
+
+            content += '</div>';
+          });
+        } else {
+          content = '<div class="beed-info-row beed-info-row-empty">-</div>';
+        }
+
+        $('.beed-info-popup .beed-info-content').html(content);
+
+        $('.beed-info-popup').removeClass('hide');
+        $('.beed-info-popup .beed-info-close').off('click').on('click', function() {
+          $('.beed-info-popup').addClass('hide');
+        });
+
+      });
+    }
+  });
+
+  function escapeBeedInfoHtml(value) {
+    return String(value)
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#39;');
+  }
+
   function editProfileSystem(profileSystemId) {
     $.get('/base/profiles/getProfileSystem/' + profileSystemId, function(data) {
       if (data.status) {
