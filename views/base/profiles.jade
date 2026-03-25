@@ -27,7 +27,7 @@ block content
             table.profile-systems-table(cellpadding="0", cellspacing="0" data=profileSystemFolder.id)
               each profileSystem in profileSystemFolder.profile_systems
                 tr.profile-system-exist
-                  td.profile-name
+                  td.profile-name(data-beed-info=profileSystem.id)
                     .td-margin.title-text
                       =profileSystem.name
                   td.profile-brend
@@ -160,7 +160,7 @@ block content
           if (profileSystemFolder.name == 'Default')
             each profileSystem in profileSystemFolder.profile_systems
               tr.profile-system-exist
-                td.profile-name
+                td.profile-name(data-beed-info=profileSystem.id)
                   .td-margin.title-text
                     =profileSystem.name
                 td.profile-brend
@@ -275,6 +275,10 @@ block content
             span.add-profile-text
               | Добавить +
       .footer-profile
+      .beed-info-popup.hide
+        .beed-info-content
+        .beed-info-close
+          ='x'
   include includes/profiles-add-group
   include includes/profiles-edit-profile-system
   include includes/profiles-add-from-default

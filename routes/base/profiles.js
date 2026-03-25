@@ -31,6 +31,97 @@ router.get('/is-push/:id', isAuthenticated, isProfileFolderAvailableAsPush);
 router.post('/getProfileCountry/:id', isAuthenticated, getProfileCountry);
 //router.post('/addNewProfileSystem', addNewProfileSystem);
 //router.post('/removeProfileSystem', removeProfileSystem);
+// deep info
+router.get('/getBeedInfo/:id', isAuthenticated, getBeedInfo);
+
+function getBeedInfo(req, res) {
+  // показ списка штапиков по профильной системе во всех цветах и толщинах стеклопакета
+  models.profile_systems.find({
+    where: {id: req.params.id}
+  }).then(function(profileSystem) {
+    if (!profileSystem) {
+      return res.send({ status: false });
+    }
+
+    return Promise.all([
+      models.beed_profile_systems.findAll({
+        where: {profile_system_id: profileSystem.id, glass_width: { $ne: 0 }}
+      }),
+      models.lamination_factory_colors.findAll({
+        where: {factory_id: req.session.user.factory_id}
+      })
+    ]).then(function(result) {
+      var beedProfileSystems = result[0];
+      var laminationColors = result[1];
+
+      var listIds = beedProfileSystems
+        .map(function(beed) { return beed.list_id; })
+        .filter(function(id) { return !!id; });
+
+      if (!listIds.length) {
+        return res.send({
+          status: true,
+          profileSystem: profileSystem,
+          beedProfileSystems: beedProfileSystems,
+          lists: [],
+          laminationColors: laminationColors.map(function(color) { return color.toJSON(); })
+        });
+      }
+
+      return models.lists.findAll({
+        where: {id: { $in: listIds }}
+      }).then(function(lists) {
+        var listsById = {};
+
+        lists.forEach(function(list) {
+          var listJson = list.toJSON();
+          listsById[Number(listJson.id)] = listJson;
+        });
+
+        // Keep duplicates visible: one item in lists per beed_profile_system row.
+        var listsPlain = beedProfileSystems
+          .map(function(beed) {
+            var baseList = listsById[Number(beed.list_id)];
+            if (!baseList) return null;
+
+            var listJson = Object.assign({}, baseList);
+            listJson.for_width = beed.glass_width;
+            return listJson;
+          })
+          .filter(function(item) { return !!item; });
+
+        var beedsByLaminationId = {};
+        listsPlain.forEach(function(beed) {
+          var laminationId = Number(beed.beed_lamination_id);
+          if (!beedsByLaminationId[laminationId]) {
+            beedsByLaminationId[laminationId] = [];
+          }
+          beedsByLaminationId[laminationId].push(beed);
+        });
+
+        var laminationColorsFl = laminationColors.map(function(color) {
+          var colorJson = color.toJSON();
+          colorJson.beeds = beedsByLaminationId[Number(colorJson.id)] || [];
+          return colorJson;
+        });
+
+        res.send({
+          status: true,
+          profileSystem: profileSystem,
+          beedProfileSystems: beedProfileSystems,
+          lists: listsPlain,
+          laminationColors: laminationColorsFl
+        });
+      });
+    }).catch(function(error) {
+      console.log(error);
+      res.send({ status: false });
+    });
+  }).catch(function (error) {
+    console.log(error);
+    res.send({ status: false });
+  });
+}
 
 function isProfileFolderAvailableAsPush (req, res) {
   models.sequelize.query("" +
