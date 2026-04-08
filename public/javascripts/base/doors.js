@@ -103,6 +103,7 @@ $(function () {
             var newGroup = _returnNewGroup(data.default, group);
             $(selector + ' > tbody').append(newGroup);
             $(selector + ' .tr-group-item[data-id="' + group.id + '"]').click(openDoorGroup);
+            $(selector + ' .tr-group-item[data-id="' + group.id + '"]').css('opacity', parseInt(group.is_active, 10) ? 1 : 0.3);
             $(selector + ' .group-edit').click(editDoorGroup);
             $(selector + ' .add-door-group[data-id="' + group.id + '"] .add-dependency-btn').click(addDoorGroupDependency);
 
@@ -294,6 +295,7 @@ $(function () {
         $(selector + ' td.td-empty').parent().remove();
         $(selector + ' > tbody').append(newGroup);
         $(selector + ' .tr-group-item[data-id="' + data.group.id + '"]').click(openDoorGroup);
+        $(selector + ' .tr-group-item[data-id="' + data.group.id + '"]').css('opacity', parseInt(data.group.is_active, 10) ? 1 : 0.3);
         $(selector + ' .tr-group-item[data-id="' + data.group.id + '"] .group-edit').click(editDoorGroup);
         $(selector + ' .add-door-group[data-id="' + data.group.id + '"] .add-dependency-btn').click(addDoorGroupDependency);
         $('.pop-up').popup('hide');
@@ -365,11 +367,14 @@ $(function () {
 
     function onResponse (data) {
       if (data.status) {
+        var groupSelector = '.tr-group-item[data-id="' + data.group.id + '"]';
+        $(groupSelector).css('opacity', parseInt(data.group.is_active, 10) ? 1 : 0.3);
+
         if (data.newFolder) {
           __updateFolders();
           $('.pop-up').popup('hide');
         } else {
-          $('.tr-group-item[data-id="' + data.group.id + '"]').find('span.group-description').text(data.group.name);
+          $(groupSelector).find('span.group-description').text(data.group.name);
           $('.pop-up').popup('hide');
         }
         showToaster('Изменения сохранены', false);
