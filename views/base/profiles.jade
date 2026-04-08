@@ -26,7 +26,7 @@ block content
             .profile-systems
             table.profile-systems-table(cellpadding="0", cellspacing="0" data=profileSystemFolder.id)
               each profileSystem in profileSystemFolder.profile_systems
-                tr.profile-system-exist
+                tr.profile-system-exist(style=(profileSystem.is_editable == 1 ? 'opacity:1;' : 'opacity:0.3;'))
                   td.profile-name(data-beed-info=profileSystem.id)
                     .td-margin.title-text
                       =profileSystem.name
@@ -159,7 +159,7 @@ block content
         each profileSystemFolder in profileSystemFolders
           if (profileSystemFolder.name == 'Default')
             each profileSystem in profileSystemFolder.profile_systems
-              tr.profile-system-exist
+              tr.profile-system-exist(style=(profileSystem.is_editable == 1 ? 'opacity:1;' : 'opacity:0.3;'))
                 td.profile-name(data-beed-info=profileSystem.id)
                   .td-margin.title-text
                     =profileSystem.name

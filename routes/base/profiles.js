@@ -170,6 +170,7 @@ SELECT
         json_build_object(
             'id', ps.id,
             'name', ps.name,
+            'is_editable', ps.is_editable,
             'cameras', ps.cameras,
             'country', ps.country,
             'heat_coeff', ps.heat_coeff,
