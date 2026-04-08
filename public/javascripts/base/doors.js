@@ -321,6 +321,7 @@ $(function () {
 
       $('#doors-group-edit-system-image').attr('src', img);
       $('#doors-group-description-input').val(findGroup.description);
+      $('.popup-edit-group input[name="is_active"]').prop('checked', !!parseInt(findGroup.is_active, 10));
       $('.popup-edit-group input[name="group_id"]').val(groupId);
       $('.popup-edit-group input[name="name"]').val(currentName);
       $('.popup-edit-group select[name="folder_id"]').val(currentFolder);
@@ -356,6 +357,8 @@ $(function () {
     e.preventDefault();
 
     var formData = new FormData(this);
+    var isActive = $('.popup-edit-group input[name="is_active"]').is(':checked') ? '1' : '0';
+    formData.set('is_active', isActive);
     var formAction = $(this).attr('action');
 
     submitForm({ action: formAction, data: formData }, onResponse);
