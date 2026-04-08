@@ -20,11 +20,12 @@ module.exports = function (req, res) {
       }
     }).then(function (group) {
       var newFolder = parseInt(group.folder_id, 10) !== parseInt(fields.folder_id, 10);
-
+      var isActive = parseInt(fields.is_active, 10) ? 1 : 0;
       group.updateAttributes({
         name: fields.name,
         folder_id: fields.folder_id,
-        description: fields.description
+        description: fields.description,
+        is_active: isActive
       }).then(function (updatedGroup) {
 
         if (files.doors_group_img.name) {

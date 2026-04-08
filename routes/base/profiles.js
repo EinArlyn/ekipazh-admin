@@ -31,7 +31,7 @@ router.get('/is-push/:id', isAuthenticated, isProfileFolderAvailableAsPush);
 router.post('/getProfileCountry/:id', isAuthenticated, getProfileCountry);
 //router.post('/addNewProfileSystem', addNewProfileSystem);
 //router.post('/removeProfileSystem', removeProfileSystem);
-// deep info
+// beed info
 router.get('/getBeedInfo/:id', isAuthenticated, getBeedInfo);
 
 function getBeedInfo(req, res) {

@@ -6,6 +6,11 @@
     span.pop-up-header
       =i18n.__('Edit group')
     .row
+      span#profile-active(style="margin-left: 15px;")
+        input.active-btn-profile(id="checkbox-profile-active", type="checkbox", name="is_active" value="1")
+        label(for="checkbox-profile-active")
+          =i18n.__("Active")
+    .row
       .col-md-2.text-right
         =i18n.__('Folder')
         | :

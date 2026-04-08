@@ -797,6 +797,7 @@ module.exports = function (req, res) {
                           "folder_id",
                           "factory_id",
                           "id",
+                          "is_active"
                         ],
                       })
                       .then(function (doors_groups) {
@@ -827,6 +828,7 @@ module.exports = function (req, res) {
                           "folder_id",
                           "factory_id",
                           "id",
+                          "is_active"
                         ];
                         sortValues(doors_groups, function (values) {
                           tables.doors_groups.rows = values;
