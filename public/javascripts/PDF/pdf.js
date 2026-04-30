@@ -18,11 +18,10 @@ $(function() {
 
   function initTemplates(schemeId, id) { 
     $.get('/orders/getScheme/' + schemeId, function(data) {
-      console.log(data);
+
       var obj = $.parseJSON(data.product.template_source);
       var WIDTH = 420;
       var HEIGHT = 320;
-
       var depths = {
         frameDepth: {
           a: (data.frame ? data.frame.a : 0),
@@ -836,7 +835,7 @@ $(function() {
   }
 
 
-  function buildSVG(template, widthSVG, heightSVG, elem, depths, sizeConstr) {
+  function buildSVG(template, widthSVG, heightSVG, elem, depths, sizeConstr, objSource) {
     const buildId = Date.now().toString(36);
     var elem = $('#' + elem);
 
@@ -996,7 +995,47 @@ $(function() {
           //----- sash open direction
           if (template.details[i].sashOpenDir) {
             // console.log('D',template.details[i])
-            elementsGroup.selectAll('path.sash_mark.' + template.details[i].id)
+            
+
+            // sliding systems
+            if (objSource.is_sliding) {
+                const path_marker = {
+                    1: "/assets/images/handles/marker_right.svg",
+                    2: "/assets/images/handles/marker_right_shtrih.svg",
+                    3: "/assets/images/handles/marker_around.svg",
+                    4: "/assets/images/handles/marker_left.svg",
+                    5: "/assets/images/handles/marker_left_shtrih.svg",
+                }
+                let markerUrl = '';
+                if (template.details[i].openDir[0] === 2 && template.details[i].position === 2 && template.details[i].sashType === 5) {
+                    markerUrl = path_marker[4];
+                } else if (template.details[i].openDir[0] === 4 && template.details[i].position === 2 && template.details[i].sashType === 5) {
+                    markerUrl = path_marker[1];
+                } else if (template.details[i].openDir[0] === 2 && template.details[i].position === 4 && template.details[i].sashType === 5) {
+                    markerUrl = path_marker[5];
+                } else if (template.details[i].openDir[0] === 4 && template.details[i].position === 4 && template.details[i].sashType === 5) {
+                    markerUrl = path_marker[2];
+                } else if (template.details[i].openDir[0] === 4 && template.details[i].sashType === 8 && (template.details[i].position === 4 || template.details[i].position === 2)) {
+                    markerUrl = path_marker[2];
+                } else if (template.details[i].openDir[0] === 2 && template.details[i].sashType === 8 && (template.details[i].position === 4 || template.details[i].position === 2)) {
+                    markerUrl = path_marker[5];
+                } else if (template.details[i].sashType === 8 && template.details[i].position === 3) {
+                    markerUrl = path_marker[3];
+                }
+
+                elementsGroup.selectAll('path.sash_mark.' + template.details[i].id)
+                    .data(template.details[i].sashOpenDir)
+                    .enter()
+                    .append('image')
+                    .attr('xlink:href', markerUrl)
+                    .attr('x', d => template.details[i].center.x - 150)
+                    .attr('y', d => template.details[i].center.y / 1.1)
+                    .attr('width', 300)
+                    .attr('height', 300)
+                    .attr('class', 'custom-marker-image');
+
+            } else {
+              elementsGroup.selectAll('path.sash_mark.' + template.details[i].id)
               .data(template.details[i].sashOpenDir)
               .enter()
               .append('path')
@@ -1064,6 +1103,7 @@ $(function() {
                   }
                 }
               });
+            }
           }
 
 
@@ -1409,6 +1449,7 @@ $(function() {
         var thisObj = {};
 
         thisObj.details = JSON.parse(JSON.stringify(sourceObj.details));
+        objSource = JSON.parse(JSON.stringify(sourceObj));
         thisObj.priceElements = {
           framesSize: [],
           sashsSize: [],
@@ -1541,7 +1582,7 @@ $(function() {
         thisObj.dimension = initDimensions(thisObj.details);
 
         console.log('TEMPLATE END++++', thisObj);
-        buildSVG(thisObj, width, height, elem, {frameDepth: depths.frameDepth, frameStillDepth: depths.frameStillDepth},sizeConstr);
+        buildSVG(thisObj, width, height, elem, {frameDepth: depths.frameDepth, frameStillDepth: depths.frameStillDepth},sizeConstr, objSource);
       }
 
 
