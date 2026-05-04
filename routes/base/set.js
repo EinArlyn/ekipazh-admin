@@ -172,14 +172,14 @@ function getSet (req, res) {
                     }
                   }).then(function(folders) {
 
-                    const windowSillsFolders = folders.filter(folder => folder.addition_type_id === 8);
-                    const spillwaysFolders = folders.filter(folder => folder.addition_type_id === 9);
-                    const visorsFolders = folders.filter(folder => folder.addition_type_id === 21);
-                    const connectorsFolders = folders.filter(folder => folder.addition_type_id === 7);
-                    const mosquitosFolders = folders.filter(folder => folder.addition_type_id === 12);
-                    const doorhandlesFolders = folders.filter(folder => folder.addition_type_id === 10);
-                    const otherElemsFolders = folders.filter(folder => folder.addition_type_id === 11);
-                    const holesElemsFolders = folders.filter(folder => folder.addition_type_id === 13);
+                    const windowSillsFolders = folders.filter(folder => folder.addition_type_id === 8).sort((a, b) => a.name.localeCompare(b.name));
+                    const spillwaysFolders = folders.filter(folder => folder.addition_type_id === 9).sort((a, b) => a.name.localeCompare(b.name));
+                    const visorsFolders = folders.filter(folder => folder.addition_type_id === 21).sort((a, b) => a.name.localeCompare(b.name));
+                    const connectorsFolders = folders.filter(folder => folder.addition_type_id === 7).sort((a, b) => a.name.localeCompare(b.name));
+                    const mosquitosFolders = folders.filter(folder => folder.addition_type_id === 12).sort((a, b) => a.name.localeCompare(b.name));
+                    const doorhandlesFolders = folders.filter(folder => folder.addition_type_id === 10).sort((a, b) => a.name.localeCompare(b.name));
+                    const otherElemsFolders = folders.filter(folder => folder.addition_type_id === 11).sort((a, b) => a.name.localeCompare(b.name));
+                    const holesElemsFolders = folders.filter(folder => folder.addition_type_id === 13).sort((a, b) => a.name.localeCompare(b.name));
                   
                     models.window_hardware_handles.find({
                       where: {list_id: id}
