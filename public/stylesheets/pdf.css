@@ -769,6 +769,16 @@ hr {
           border: 1px solid lightgray;
           padding: 0 10px;
         }
+        .ekipazh-value {
+          font-size: 12px;
+          margin-top: 5px;
+          background-color: lightgray;
+          border: 1px solid lightgray;
+          padding: 0 10px;
+        }
+        .ekipazh-title {
+          font-size: 12px;
+        }
       }
 
       .info-add-price {
@@ -942,6 +952,16 @@ hr {
         background-color: lightgray;
         border: 1px solid lightgray;
         padding: 0 10px;
+      }
+      .ekipazh-value {
+        font-size: 12px;
+        margin-top: 5px;
+        background-color: lightgray;
+        border: 1px solid lightgray;
+        padding: 0 10px;
+      }
+      .ekipazh-title {
+        font-size: 12px;
       }
     }
   }
