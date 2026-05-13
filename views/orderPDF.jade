@@ -124,6 +124,9 @@ html
                     =i18n.__('The total area of constructions')
                 .total-perimeter-name
                     =i18n.__('The total perimeter of constructions')
+                if (weightTotal && weightTotal > 0)
+                  .total-perimeter-name
+                      =i18n.__('Weight (kg)')
                 //- .total-price-name
                 //-       =i18n.__('TOTAL')
                 //-       | :
@@ -135,6 +138,9 @@ html
                     =square.toFixed(2)
                 .total-perimeter-value
                     =perimeter.toFixed(2)
+                if (weightTotal && weightTotal > 0)
+                  .total-perimeter-value
+                      =weightTotal.toFixed(2)
                 //- .total-price-value 
                 //-     =parseFloat(total).toFixed(2)
                 //-     | 

@@ -181,6 +181,7 @@ module.exports = function (req, res) {
                 maxConstructDisc: order.discount_construct,
                 maxAddElemDisc: order.discount_addelem,
                 perimeter: result.perimeter,
+                weightTotal: result.weightTotal,
                 currency: currency.name,
                 delivery: order.delivery,
                 mounting: order.mounting,
