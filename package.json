@@ -15,6 +15,7 @@
   },
   "dependencies": {
     "async": "^3.2.6",
+    "dotenv": "^16.0.0",
     "cookie-parser": "~1.4.7",
     "debug": "~4.4.0",
     "emailjs": "^5.0.0",

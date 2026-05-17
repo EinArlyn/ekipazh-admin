@@ -1,3 +1,4 @@
+require('dotenv').config();
 var express = require("express");
 var session = require("express-session");
 var path = require("path");
@@ -40,7 +41,7 @@ var models = require("./lib/models");
 var relationships = require("./lib/relationships");
 
 var app = express();
-var port = process.env.PORT || 5002;
+var port = process.env.PORT || 3000;
 
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "pug");
@@ -50,7 +51,7 @@ app.use(logger("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(session({ secret: "dgdfg389t77efghjkfvk", resave: false, saveUninitialized: true }));
+app.use(session({ secret: process.env.SESSION_SECRET, resave: false, saveUninitialized: true }));
 app.use(flash());
 app.use("/assets", express.static(__dirname + "/public"));
 app.use("/local_storage", express.static(__dirname + "/local_storage"));

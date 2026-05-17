@@ -1,10 +1,8 @@
 var i18n = require('i18n');
 var crypto = require('crypto');
-var env = process.env.NODE_ENV || 'development';
-
 var auth = require('../../../lib/services/authentication');
 var models = require('../../../lib/models');
-var config = require('../../../config.json');
+var config = require('../../../lib/config');
 var algorithm = 'aes-256-ctr';
 var salt = 'd6F3Efeq';
 
@@ -38,10 +36,10 @@ module.exports = function(req, res) {
           userCity : city,
           urlKey: urlKey,
           userToken: req.session.user.device_code,
-          proUrl: config[env].proUrl,
-          analitycsUrl: config[env].analitycsUrl,
-          calculatorLink: config[env].calculatorLink,
-          statisticLink: config[env].statisticLink,
+          proUrl: config.proUrl,
+          analitycsUrl: config.analitycsUrl,
+          calculatorLink: config.calculatorLink,
+          statisticLink: config.statisticLink,
           accesses: accesses,
           lang: lang,
           cssSrcs: ['/assets/stylesheets/dashboard.css'],

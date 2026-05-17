@@ -1,8 +1,6 @@
 var i18n = require('i18n');
 var models = require('../../lib/models');
-var config = require('../../config.json');
-
-var env = process.env.NODE_ENV || 'development';
+var config = require('../../lib/config');
 var ORDER_BY = 'created';
 var ITEMS_PER_PAGE = 7;
 
@@ -98,7 +96,7 @@ module.exports = function (req, res) {
             orders        : result.rows,
             totalPages    : totalPages,
             totalCount    : totalOrdersCount,
-            EXPORT_LINK   : config[env].orderExportLink,
+            EXPORT_LINK   : config.orderExportLink,
             currentPage   : currentPage,
             fromC         : fromC,
             toC           : toC,
