@@ -15,7 +15,7 @@ module.exports = function (req, res) {
 
     models.rol_boxes.findOne({ where: { id: fields.system_id } })
       .then(function (system) {
-        if (!system) return res.send({ status: false });
+        if (!system) {return res.send({ status: false });}
 
         // 1️⃣ обновляем основные поля системы
         return system.update({
@@ -99,7 +99,7 @@ module.exports = function (req, res) {
           .then(function () {
             // 3️⃣ если есть новый файл — обновляем картинку
             const hasNewImg = files && files.rolet_img && files.rolet_img.name;
-            if (!hasNewImg) return; // нет нового файла — выходим спокойно
+            if (!hasNewImg) {return;} // нет нового файла — выходим спокойно
 
             const imageUrl =
               '/local_storage/rollets/' +

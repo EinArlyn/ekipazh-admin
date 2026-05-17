@@ -28,8 +28,8 @@ function changeHeight(req, res) {
   })
   .then(function (row) {
     var data = {};
-    if (isGrid === 1) data.height_is_grid = newHeight;
-    else data.height_not_grid = newHeight;
+    if (isGrid === 1) {data.height_is_grid = newHeight;}
+    else {data.height_not_grid = newHeight;}
 
     if (row) {
       return row.update(data).then(function () {
@@ -43,8 +43,8 @@ function changeHeight(req, res) {
       id_rol_box: boxId,
       rol_box_size_id: sizeId
     };
-    if (isGrid === 1) payload.height_is_grid = newHeight;
-    else payload.height_not_grid = newHeight;
+    if (isGrid === 1) {payload.height_is_grid = newHeight;}
+    else {payload.height_not_grid = newHeight;}
 
     return models.rol_box_lamel_heights.create(payload).then(function () {
       res.send({ status: true, mode: 'created' });
@@ -52,7 +52,7 @@ function changeHeight(req, res) {
   })
   .catch(function (err) {
     console.error('changeHeight error:', err);
-    try { res.send({ status: false, error: 'db' }); } catch (e) {}
+    try { res.send({ status: false, error: 'db' }); } catch (e) { /* TODO: handle send error */ }
   });
 }
 

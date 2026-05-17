@@ -1,8 +1,6 @@
 var i18n = require('i18n');
 var models = require('../../lib/models');
-var config = require('../../config.json');
-
-var env = process.env.NODE_ENV || 'development';
+var config = require('../../lib/config');
 var ORDER_BY = 'created';
 var ITEMS_PER_PAGE = 7;
 
@@ -41,10 +39,10 @@ module.exports = function (req, res) {
     include = getOrderIncludeTemplate(rights, req.session.user.factory_id, req.session.user.id);
 
     if (req.query.state && req.query.state !== '0') {
-      if (!rights) include[0].where[req.query.state] = { $ne: new Date(0) };
+      if (!rights) {include[0].where[req.query.state] = { $ne: new Date(0) };}
       orderBy = req.query.state;
     } else if (req.query.order && req.query.order !== '0') {
-      if (!rights) include[0].where[req.query.order] = { $ne: new Date(0) };
+      if (!rights) {include[0].where[req.query.order] = { $ne: new Date(0) };}
       orderBy = req.query.order;
     } else {
       orderBy = '0';
@@ -98,7 +96,7 @@ module.exports = function (req, res) {
             orders        : result.rows,
             totalPages    : totalPages,
             totalCount    : totalOrdersCount,
-            EXPORT_LINK   : config[env].orderExportLink,
+            EXPORT_LINK   : config.orderExportLink,
             currentPage   : currentPage,
             fromC         : fromC,
             toC           : toC,

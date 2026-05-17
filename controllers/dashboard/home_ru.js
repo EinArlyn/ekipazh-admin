@@ -1,10 +1,8 @@
 var i18n = require('i18n');
 var crypto = require('crypto');
-var env = process.env.NODE_ENV || 'development';
-
 var auth = require('../../lib/services/authentication');
 var models = require('../../lib/models');
-var config = require('../../config.json');
+var config = require('../../lib/config');
 
 var algorithm = 'aes-256-ctr';
 var salt = 'd6F3Efeq';
@@ -15,7 +13,7 @@ var iv = '1234567890123456';
 
 module.exports = function(req, res) {
   i18n.setLocale('ru');
-  document.cookie = "i18next=" + 'ru' + ";path=/;expires=Fri, 31 Dec 9999 23:59:59 GMT";
+  document.cookie = "i18next=" + 'ru' + ";path=/;expires=Fri, 31 Dec 9999 23:59:59 GMT"; // eslint-disable-line no-undef
 
   if (auth.checkAuth(req, res)) {
     /** Get accessible routes */
@@ -37,11 +35,11 @@ module.exports = function(req, res) {
           userCity : city,
           urlKey: urlKey,
           userToken: req.session.user.device_code,
-          proUrl: config[env].proUrl,
-          analitycsUrl: config[env].analitycsUrl,
-          calculatorLink: config[env].calculatorLink,
-          documentsUrl: config[env].documentsUrl,
-          statisticLink: config[env].statisticLink,
+          proUrl: config.proUrl,
+          analitycsUrl: config.analitycsUrl,
+          calculatorLink: config.calculatorLink,
+          documentsUrl: config.documentsUrl,
+          statisticLink: config.statisticLink,
           accesses: accesses,
           cssSrcs: ['/assets/stylesheets/dashboard.css'],
           scriptSrcs: ['/assets/javascripts/dashboard.js']
@@ -57,7 +55,7 @@ function nodeEncrypt(text, key, iv) {
   var encrypted = cipher.update(text, 'utf8', 'binary');
 
   encrypted += cipher.final('binary');
-  var hexVal = new Buffer(encrypted, 'binary');
+  var hexVal = Buffer.from(encrypted, 'binary');
   var newEncrypted = hexVal.toString('hex');
   console.log('Encrypted: ', newEncrypted);
   return newEncrypted;

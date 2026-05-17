@@ -10,7 +10,7 @@ var loadImage = require('../../../lib/services/imageLoader.js').loadImage;
  */
 module.exports = function (req, res) {
   parseForm(req, function (err, fields, files) {
-    if (err) return res.send({ status: false, error: err });
+    if (err) {return res.send({ status: false, error: err });}
 
     var isPush = fields.is_push ? 1 : 0;
 
@@ -35,7 +35,7 @@ module.exports = function (req, res) {
       is_active: 1,
       is_push: isPush
     }).then(function (newGroup) {
-      if (!files.group_image.name) return res.send({ status: true, group: newGroup });
+      if (!files.group_image.name) {return res.send({ status: true, group: newGroup });}
 
       var imageUrl = '/local_storage/hardware_groups/' + Math.floor(Math.random() * 1000000) + files.group_image.name;
       loadImage(files.group_image.path, imageUrl);

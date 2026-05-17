@@ -2094,7 +2094,7 @@ function editCurrencyName(req, res) {
       console.log(err);
       res.send(i18n.__('Error'));
     });
-  }).catch(function() {
+  }).catch(function(err) {
     console.log(err);
     res.send(i18n.__('Error'));
   });
@@ -2221,7 +2221,7 @@ function getGeneralOptions(req, res) {
         res.send('Internal server error.');
       })
     }).catch(function (error) {
-      console.log(err);
+      console.log(error);
       res.send('Internal server error.');
     });
   }).catch(function(err) {
@@ -2417,7 +2417,7 @@ function addNewTemplate(req, res) {
 
   form.keepExtensions = true;
   form.parse(req, function (err, fields, files) {
-    if (!files.template_img.name) return res.send({status: false});
+    if (!files.template_img.name) {return res.send({status: false});}
 
     var url = '/local_storage/templates/' + Math.floor(Math.random()*1000000) + files.template_img.name;
 
@@ -2468,7 +2468,7 @@ function editTemplate(req, res) {
         desc_2: fields.desc_2,
         modified: new Date()
       }).then(function(result) {
-        if (!files.template_img.name) return res.send({status: true});
+        if (!files.template_img.name) {return res.send({status: true});}
 
         var url = '/local_storage/templates/' + Math.floor(Math.random()*1000000) + files.template_img.name;
         loadImage(files.template_img.path, url);
@@ -3013,7 +3013,7 @@ function _saveGlassesSystem (glassesId, countryId) {
       country_id: countryId
     }
   }).then(function (result) {
-    if (result) return;
+    if (result) {return;}
     models.compliance_glass_folders.create({
       glass_folders_id: parseInt(glassesId, 10),
       country_id: parseInt(countryId, 10)
@@ -3030,7 +3030,7 @@ function _destroyGlassesSystem(glassesId, countryId) {
       country_id: countryId
     }
   }).then(function (result) {
-    if (!result) return;
+    if (!result) {return;}
     result.destroy().then(function () {
       return;
     });
@@ -3077,7 +3077,7 @@ function _saveLaminationSystem (laminationId, countryId) {
       country_id: countryId
     }
   }).then(function (result) {
-    if (result) return;
+    if (result) {return;}
     models.compliance_lamination_colors.create({
       lamination_factory_colors_id: parseInt(laminationId, 10),
       country_id: parseInt(countryId, 10)
@@ -3094,7 +3094,7 @@ function _destroyLaminationSystem(laminationId, countryId) {
       country_id: countryId
     }
   }).then(function (result) {
-    if (!result) return;
+    if (!result) {return;}
     result.destroy().then(function () {
       return;
     });
@@ -3141,7 +3141,7 @@ function _saveAddElemsSystem (addElemsId, countryId) {
       country_id: countryId
     }
   }).then(function (result) {
-    if (result) return;
+    if (result) {return;}
     models.compliance_addition_folders.create({
       addition_folders_id: parseInt(addElemsId, 10),
       country_id: parseInt(countryId, 10)
@@ -3158,7 +3158,7 @@ function _destroyAddElemsSystem(addElemsId, countryId) {
       country_id: countryId
     }
   }).then(function (result) {
-    if (!result) return;
+    if (!result) {return;}
     result.destroy().then(function () {
       return;
     });

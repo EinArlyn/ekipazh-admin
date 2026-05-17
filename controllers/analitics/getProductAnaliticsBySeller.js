@@ -26,7 +26,7 @@ module.exports = function(req, res, next) {
   var factory_id = req.session.user.factory_id;//897;//940;
   var timeStart = '';
   getRegions(factory_id, function (err, regionsData) {
-    if (!Object.keys(regionsData).length) return res.send({error: 'Нет данных по этому запросу'});
+    if (!Object.keys(regionsData).length) {return res.send({error: 'Нет данных по этому запросу'});}
     regions = regionsData;
     getProfileSystemsInformation (factory_id, function (err, result) {
       console.log('1')
@@ -269,7 +269,7 @@ function getGlazingInfo(factoryId, callback) {
       }],
       attributes: ['sku']
     }).then(function (elements) {
-      var i, j, gl, glazingData = {};
+      var i, j, k, gl, glazingData = {};
       for (i = 0; i < elements.length; i++) {
         glazingData[elements[i].sku] = 0;
         for (j = 0; j < ids.length; j++) {
@@ -317,7 +317,7 @@ function getApertures(factoryId, callback) {
   }).then(function (apertures) {
     console.timeEnd('getApertures')
     async.map(apertures, function(app, _cb) {
-      var details, region;
+      var details, region, j;
       try {
         details = JSON.parse(app.template_source).details;
         if (details) {
@@ -487,7 +487,7 @@ function openTypes(data, callback) {
     async.map(data, function (data, _cb) {
       Object.keys(data.sash).forEach(function(key, item, keys) {
         hardwareName = hNames.find(function (el, index, arr) {
-          if (el.id === +key) return true;
+          if (el.id === +key) {return true;}
         }).name;
         addInnerData(data.region, 'hardwareTypes', hardwareName, 'hardwareTypesCount', data.sex, data.age, data.occup, data.info);
         if (fields.hardwareTypeInfo.indexOf(hardwareName) === -1) {

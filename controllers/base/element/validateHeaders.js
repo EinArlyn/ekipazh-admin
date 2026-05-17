@@ -14,10 +14,10 @@ module.exports = function (req, res) {
   var factoryId = req.session.user.factory_id;
 
   __validateHeaders(elementId, sku, name, factoryId, function (error, data) {
-    if (error) return res.send({
+    if (error) {return res.send({
       status: false,
       error: error
-    });
+    });}
 
     res.send(data);
   });

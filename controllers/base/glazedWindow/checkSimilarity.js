@@ -18,10 +18,10 @@ module.exports = function (req, res) {
       element_id: elementId
     }
   }).then(function (result) {
-    if (result) return res.send({
+    if (result) {return res.send({
       exist: true,
       id: result.id
-    });
+    });}
 
     res.send({ exist: false });
   }).catch(function (error) {

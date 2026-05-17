@@ -1,7 +1,7 @@
 var async = require('async');
 var _ = require('lodash');
 var i18n = require('i18n');
-var conf = require('../../config.json');
+var config = require('../../lib/config');
 
 var getIncludedUsers = require('../../lib/services/helpers').getIncludedUsers;
 var models = require('../../lib/models');
@@ -14,7 +14,7 @@ var models = require('../../lib/models');
 module.exports = function (req, res) {
   var lang = req.getLocale();
 
-  if (conf.production && conf.production.specLink.indexOf('ekipazh') > -1) {
+  if (config.specLink && config.specLink.indexOf('ekipazh') > -1) {
     return res.redirect('/');
   }
 
@@ -55,7 +55,7 @@ module.exports = function (req, res) {
           factory_id: req.session.user.factory_id
         }
       }).then(function (factoryIdentificators) {
-        res.render('mynetwork/index.jade', {
+        res.render('mynetwork/index', {
           i18n: i18n,
           title: i18n.__('My network'),
           thisPageLink  : '/mynetwork/',

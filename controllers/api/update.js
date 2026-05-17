@@ -25,7 +25,7 @@ module.exports = function(req, res) {
   models.users.find({
     where: {phone: login, device_code: access_token}
   }).then(function(user) {
-    if (!user) return res.send({ status: false, error: 'User does not exist' });
+    if (!user) {return res.send({ status: false, error: 'User does not exist' });}
     // if (model === 'order_products' || model === 'order_addelements') {
     //   return _updateOrderProperties(model, rowId, field, function (error, status) {
     //     if (!error) return res.send({ status: true });
@@ -170,7 +170,7 @@ function _setPrices(orderRow, user, factory, childPurchase, seller) {
         discount_construct: constructDiscount,
         discount_addelem: addElemDiscount
       }).then(function() {
-        if (parseInt(user.id, 10) === parseInt(factory.id)) return; //__setParallelPrices(orderRow, user.id, seller.id, childPurchase, userDeliveryPrice, userMountingPrice, constructDiscount, addElemDiscount);
+        if (parseInt(user.id, 10) === parseInt(factory.id)) {return;} //__setParallelPrices(orderRow, user.id, seller.id, childPurchase, userDeliveryPrice, userMountingPrice, constructDiscount, addElemDiscount);
 
         models.users.find({
           where: {

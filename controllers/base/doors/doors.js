@@ -26,7 +26,7 @@ module.exports = function (req, res) {
       order: ['id']
     }).then(function (doorGroups) {
       _getAvailableSets(req.session.user.factory_id, function (err, result) {
-        if (err) return res.send('Internal server error.');
+        if (err) {return res.send('Internal server error.');}
 
         res.render('base/doors', {
           i18n: i18n,

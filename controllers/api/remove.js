@@ -17,7 +17,7 @@ module.exports = function(req, res) {
   models.users.find({
     where: { phone: login, device_code: access_token }
   }).then(function (user) {
-    if (!user) return res.send({ status: false, error: 'User doesn\'t exist.'});
+    if (!user) {return res.send({ status: false, error: 'User doesn\'t exist.'});}
 
     models[model].find({
       where: {

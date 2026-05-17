@@ -5,7 +5,7 @@ var parseForm = require('../../lib/services/formParser').parseForm;
 
 module.exports = function (req, res) {
   parseForm(req, function (err, fields, files) {
-    if (fields.profile_id === '0') return updateUnbindedMosquitos();
+    if (fields.profile_id === '0') {return updateUnbindedMosquitos();}
     updateProfileMosquitos();
 
     function updateUnbindedMosquitos () {

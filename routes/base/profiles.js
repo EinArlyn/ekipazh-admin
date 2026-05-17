@@ -82,7 +82,7 @@ function getBeedInfo(req, res) {
         var listsPlain = beedProfileSystems
           .map(function(beed) {
             var baseList = listsById[Number(beed.list_id)];
-            if (!baseList) return null;
+            if (!baseList) {return null;}
 
             var listJson = Object.assign({}, baseList);
             listJson.for_width = beed.glass_width;
@@ -135,11 +135,11 @@ function isProfileFolderAvailableAsPush (req, res) {
       return group.id != req.params.id;
     });
 
-    if (groups && groups.length) return res.send({
+    if (groups && groups.length) {return res.send({
       status: true,
       isAvailable: false,
       message: i18n.__('Unavailable Push') + ' ' + groups[0].name
-    });
+    });}
 
     res.send({ status: true, isAvailable: true });
   }).catch(function (error) {
@@ -391,7 +391,7 @@ function editProfileSystem(req, res) {
       }).then(function() {
         if (files.profile_img.name) {
           fs.readFile(files.profile_img.path, function(err, data) {
-            if (err) console.log('Image upload error. Error: ' + err);
+            if (err) {console.log('Image upload error. Error: ' + err);}
             imageUrl = '/local_storage/profiles/' + Math.floor(Math.random()*1000000) + files.profile_img.name;
             fs.writeFile('.' + imageUrl, data, function(err) {});
             __saveProfileImg(fields.profile_system_id, imageUrl);
@@ -740,7 +740,7 @@ function getProfileLaminations(req, res) {
     }
   }).then(function(profileLaminations) {
     _getLaminationInfo(req.session.user.factory_id, function(err, result) {
-      if (err) return res.send({ status: false });
+      if (err) {return res.send({ status: false });}
 
       res.send({
         status               : true,
@@ -761,7 +761,7 @@ function getProfileLaminations(req, res) {
 
 function getLaminationDependency(req, res) {
   _getLaminationInfo(req.session.user.factory_id, function(err, result) {
-    if (err) return res.send({ status: false });
+    if (err) {return res.send({ status: false });}
 
     res.send({
       status               : true,
@@ -861,7 +861,7 @@ function _getLaminationInfo(factoryId, cb) {
 }
 
 function submitLaminationDependency(req, res) {
-  if (parseInt(req.body.lamination_in_id, 10) === 1 && parseInt(req.body.lamination_out_id, 10) === 1) return res.send({ status: false });
+  if (parseInt(req.body.lamination_in_id, 10) === 1 && parseInt(req.body.lamination_out_id, 10) === 1) {return res.send({ status: false });}
 
   models.profile_laminations.create({
     profile_id: parseInt(req.body.profile_id, 10),
@@ -889,8 +889,8 @@ function editLaminationDependency(req, res) {
       id: req.body.dependencyId
     }
   }).then(function(laminationDependency) {
-    if (req.body.field === 'lamination_in_id' && parseInt(req.body.value, 10) === 1 && laminationDependency.lamination_out_id === 1) return res.send({status: false, error: i18n.__('Current dependency is exist')});
-    if (req.body.field === 'lamination_out_id' && parseInt(req.body.value, 10) === 1 && laminationDependency.lamination_in_id === 1) return res.send({status: false, error: i18n.__('Current dependency is exist')});
+    if (req.body.field === 'lamination_in_id' && parseInt(req.body.value, 10) === 1 && laminationDependency.lamination_out_id === 1) {return res.send({status: false, error: i18n.__('Current dependency is exist')});}
+    if (req.body.field === 'lamination_out_id' && parseInt(req.body.value, 10) === 1 && laminationDependency.lamination_in_id === 1) {return res.send({status: false, error: i18n.__('Current dependency is exist')});}
 
     var updateObj = {};
     updateObj[req.body.field] = req.body.value;
@@ -901,7 +901,7 @@ function editLaminationDependency(req, res) {
       })
       .catch(function(err) {
         console.log(err);
-        if (err.message === 'Validation error') return res.send({status: false, error: i18n.__('Current dependency is exist')});
+        if (err.message === 'Validation error') {return res.send({status: false, error: i18n.__('Current dependency is exist')});}
         res.send({status: false, error: i18n.__('Internal server error')});
       });
   }).catch(function(err) {
@@ -949,7 +949,7 @@ function _saveProfileSystem (profileId, countryId) {
       country_id: countryId
     }
   }).then(function (result) {
-    if (result) return;
+    if (result) {return;}
     models.compliance_profile_systems.create({
       profile_system_id: parseInt(profileId, 10),
       country_id: parseInt(countryId, 10)
@@ -966,7 +966,7 @@ function _destroyProfileSystem(profileId, countryId) {
       country_id: countryId
     }
   }).then(function (result) {
-    if (!result) return;
+    if (!result) {return;}
     result.destroy().then(function () {
       return;
     });

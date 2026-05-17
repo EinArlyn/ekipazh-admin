@@ -5,7 +5,7 @@ module.exports = function (req, res) {
   var userId = req.params.userId;
 
   __maxParentDiscout(req.session.user, userId, req.body.maxConst, req.body.maxAddEl, function(isValid, parentValue) {
-    if (!isValid) return res.send({ status: false, parentValue: parentValue });
+    if (!isValid) {return res.send({ status: false, parentValue: parentValue });}
 
     models.users_discounts.findOne({
       where: {user_id: parseInt(userId)}
@@ -67,7 +67,7 @@ module.exports = function (req, res) {
 
   /** Check max parent Discount */
   function __maxParentDiscout(sessionUser, userId, maxConst, maxAddEl, cb) {
-    if (sessionUser.id === parseInt(userId, 10) && sessionUser.user_type === 7) return cb(true);
+    if (sessionUser.id === parseInt(userId, 10) && sessionUser.user_type === 7) {return cb(true);}
 
     models.users_discounts.findOne({
       where: {

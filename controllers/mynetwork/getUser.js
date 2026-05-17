@@ -27,7 +27,7 @@ module.exports = function (req, res) {
         }).then(function(userAccess) {
           // (req.session.user.id !== user.parent_id || !req.session.user.is_all_calcs && req.session.user.user_type !== 7)
           if (req.session.user.id !== user.parent_id)
-            return sendUser(user, userLocation, userAccess, null, null, null, null, factoryFolders);
+            {return sendUser(user, userLocation, userAccess, null, null, null, null, factoryFolders);}
 
           models.users_accesses.findAll({
             where: {
@@ -42,7 +42,7 @@ module.exports = function (req, res) {
               where: {parent_id: req.session.user.id, id: {$ne: id}},
               attributes: ['id', 'name']
             }).then(function(childs) {
-              if (req.session.user.user_type === 7) return sendUser(user, userLocation, userAccess, childs, null, [{id: req.session.user.id, name: req.session.user.name}], mapedParentAccesses, factoryFolders);
+              if (req.session.user.user_type === 7) {return sendUser(user, userLocation, userAccess, childs, null, [{id: req.session.user.id, name: req.session.user.name}], mapedParentAccesses, factoryFolders);}
 
               models.users.find({
                 where: {id: req.session.user.parent_id},

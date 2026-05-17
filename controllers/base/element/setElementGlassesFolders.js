@@ -32,7 +32,7 @@ function _saveGlassesFolder (glassId, elementId) {
       element_id: elementId
     }
   }).then(function (result) {
-    if (result) return;
+    if (result) {return;}
 
     models.glasses_folders.create({
       glass_folders_id: parseInt(glassId, 10),
@@ -51,7 +51,7 @@ function _destroyGlassesFolder(glassId, elementId) {
       element_id: elementId
     }
   }).then(function (result) {
-    if (!result) return;
+    if (!result) {return;}
 
     result.destroy().then(function () {
       return;

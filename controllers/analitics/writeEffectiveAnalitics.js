@@ -69,14 +69,14 @@ exports.writeToExcel = function (allData, sellers, fileName, callback) {
       ws.cell(2 + regionCount, 28).formula('SUM(' + xl.getExcelCellRef(2 + regionCount, 25) + ':' + xl.getExcelCellRef(2 + regionCount, 27) + ')').style(myStyle);
       var i;
       for (i = 18; i < 25; i++) {
-        if (i != 24) ws.cell(2 + regionCount, i).number(allData[key][i - 10] || 0).style(myStyle);
+        if (i != 24) {ws.cell(2 + regionCount, i).number(allData[key][i - 10] || 0).style(myStyle);}
         ws.cell(3 + regionCount, i).formula('IF(' + xl.getExcelCellRef(2 + regionCount, 24) + '>0,' + xl.getExcelCellRef(2 + regionCount, i) + '/' + xl.getExcelCellRef(2 + regionCount, 24) + ', 0)')
         .style(myStyle)
         .style({numberFormat: '0 %'})
         .style(bottomStyle);
       }
       for (i = 25; i < 29; i++) {
-        if (i != 28) ws.cell(2 + regionCount, i).number(allData[key][i - 10] || 0).style(myStyle);
+        if (i != 28) {ws.cell(2 + regionCount, i).number(allData[key][i - 10] || 0).style(myStyle);}
         ws.cell(3 + regionCount, i).formula('IF(' + xl.getExcelCellRef(2 + regionCount, 28) + '>0, ' + xl.getExcelCellRef(2 + regionCount, i) + '/' + xl.getExcelCellRef(2 + regionCount, 28) + ', 0)')
         .style(myStyle)
         .style({numberFormat: '0 %'})
@@ -106,7 +106,7 @@ exports.writeToExcel = function (allData, sellers, fileName, callback) {
     for (var row = 4; row < 2 + regionCount; row += 2) {
       sum += xl.getExcelCellRef(row, d) + ',';
     }
-    if (sum !== 'SUM(') ws.cell(2 + regionCount, d).formula(sum.slice(0, -1) + ')').style(myStyle);
+    if (sum !== 'SUM(') {ws.cell(2 + regionCount, d).formula(sum.slice(0, -1) + ')').style(myStyle);}
     sum = 'SUM(';
   }
   ws.cell(4, 24, 3 + regionCount, 24).style(sideStyle);
@@ -169,14 +169,14 @@ function writeDataToInnerTable(allData, data, keySheet, wb, myStyle, fullBorderS
     ws.cell(2 + regionCount, 24).formula('SUM(' + xl.getExcelCellRef(2 + regionCount, 18) + ':' + xl.getExcelCellRef(2 + regionCount, 23) + ')').style(myStyle);
     ws.cell(2 + regionCount, 28).formula('SUM(' + xl.getExcelCellRef(2 + regionCount, 25) + ':' + xl.getExcelCellRef(2 + regionCount, 27) + ')').style(myStyle);
     for (i = 18; i < 25; i++) {
-      if (i != 24) ws.cell(2 + regionCount, i).number(data[key]? data[key][i - 10] || 0: 0).style(myStyle);
+      if (i != 24) {ws.cell(2 + regionCount, i).number(data[key]? data[key][i - 10] || 0: 0).style(myStyle);}
       ws.cell(3 + regionCount, i).formula('IF(' + xl.getExcelCellRef(2 + regionCount, 24) + '>0,' +  xl.getExcelCellRef(2 + regionCount, i) + '/' + xl.getExcelCellRef(2 + regionCount, 24) + ', 0)')
       .style(myStyle)
       .style({numberFormat: '0 %'})
       .style(bottomStyle);
     }
     for (i = 25; i < 29; i++) {
-      if (i !== 28) ws.cell(2 + regionCount, i).number(data[key]? data[key][i - 10] || 0: 0).style(myStyle);
+      if (i !== 28) {ws.cell(2 + regionCount, i).number(data[key]? data[key][i - 10] || 0: 0).style(myStyle);}
      ws.cell(3 + regionCount, i).formula('IF(' + xl.getExcelCellRef(2 + regionCount, 28) + '>0,' + xl.getExcelCellRef(2 + regionCount, i) + '/' + xl.getExcelCellRef(2 + regionCount, 28) + ', 0)')
      .style(myStyle)
      .style({numberFormat: '0 %'})

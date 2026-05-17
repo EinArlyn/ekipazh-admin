@@ -7,7 +7,7 @@ var models = require('../../../lib/models');
  * Get door's hardware
  */
 module.exports = function (req, res) {
-  res.render('base/doorsHardware/index.jade', {
+  res.render('base/doorsHardware/index', {
     i18n: i18n,
     title: i18n.__('Door hardware'),
     cssSrcs: ['/assets/stylesheets/base/index.css', '/assets/stylesheets/base/doorsHardware.css'],

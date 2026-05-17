@@ -7,4 +7,5 @@ public/components
 *.log
 local_storage
 config.json
+.env
 .idea/

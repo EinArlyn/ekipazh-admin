@@ -25,7 +25,7 @@ module.exports = function (req, res) {
 
     models.rol_groups.findOne({ where: { id: groupId } })
       .then(function (group) {
-        if (!group) return res.send({ status: false });
+        if (!group) {return res.send({ status: false });}
 
         // 1) апдейт базовых полей
         return group.update({
@@ -76,7 +76,7 @@ module.exports = function (req, res) {
             return Promise.all(ops).then(function () {
               // 4) картинка: только если загружен новый файл
               var hasNewImg = files && files.rolet_img && files.rolet_img.name;
-              if (!hasNewImg) return null;
+              if (!hasNewImg) {return null;}
 
               var imageUrl = '/local_storage/rollets/' +
                 Math.floor(Math.random() * 1000000) +

@@ -30,7 +30,7 @@ function activeGroup(req, res) {
 
   models.rol_color_groups.findOne({ where: { id } })
     .then(group => {
-      if (!group) return res.send({ status: false });
+      if (!group) {return res.send({ status: false });}
       const next = group.is_standart ? 0 : 1;
 
       return models.rol_color_groups.update(

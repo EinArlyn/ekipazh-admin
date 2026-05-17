@@ -18,7 +18,7 @@ module.exports = function (req, res) {
       }, 600);
     }
   ], function (err, result) {
-    if (err) return res.send({ status: false });
+    if (err) {return res.send({ status: false });}
 
     models.sequelize.query('' +
       'SELECT users.id, users.name, users.avatar, users.identificator, users.updated_at, users.updated_at, users.user_type ' +

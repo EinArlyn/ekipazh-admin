@@ -204,7 +204,7 @@ function _setPrices(orderRow, user, factory, childPurchase, seller) {
         discount_construct: constructDiscount,
         discount_addelem: addElemDiscount
       }).then(function() {
-        if (parseInt(user.id, 10) === parseInt(factory.id)) return; //__setParallelPrices(orderRow, user.id, seller.id, childPurchase, userDeliveryPrice, userMountingPrice, constructDiscount, addElemDiscount);
+        if (parseInt(user.id, 10) === parseInt(factory.id)) {return;} //__setParallelPrices(orderRow, user.id, seller.id, childPurchase, userDeliveryPrice, userMountingPrice, constructDiscount, addElemDiscount);
 
         models.users.find({
           where: {
@@ -291,7 +291,7 @@ function __setParallelPrices(orderRow, factoryId, sellerId, childPurchase, facto
         var diffUsers = _.difference(includedUsersIds, usersIds);
 
         async.each(diffUsers, __setPriceForParallel, function(err) {
-          if (err) return _cb(err);
+          if (err) {return _cb(err);}
           _cb(null);
           console.log('Parallels prices - done.');
         });
@@ -332,7 +332,7 @@ function __setParallelPrices(orderRow, factoryId, sellerId, childPurchase, facto
         }
       }
     ], function(err) {
-      if (err) return console.log(err);
+      if (err) {return console.log(err);}
     });
   }).catch(function(err) {
     console.log('__setParallelPrices', err);

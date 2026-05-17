@@ -12,7 +12,7 @@ module.exports = function (req, res) {
       password: md5(req.body.password)
     }
   }).then(function (user) {
-    if (!user) return res.send({ status: false });
+    if (!user) {return res.send({ status: false });}
 
     res.send({ status: true });
   }).catch(function (error) {

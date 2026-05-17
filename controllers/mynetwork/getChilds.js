@@ -18,7 +18,7 @@ module.exports = function (req, res) {
       }, 500);
     }
   ], function (err, result) {
-    if (err) return res.send({ status: false });
+    if (err) {return res.send({ status: false });}
 
     res.send({ status: true, users: result });
   });

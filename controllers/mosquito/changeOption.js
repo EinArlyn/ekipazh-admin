@@ -3,7 +3,7 @@
 var models = require('../../lib/models');
 
 module.exports = function (req, res) {
-  if (req.body.profileId === '0') return updateUnbindedMosquitos();
+  if (req.body.profileId === '0') {return updateUnbindedMosquitos();}
   updateProfileMosquitos();
 
   function updateUnbindedMosquitos () {

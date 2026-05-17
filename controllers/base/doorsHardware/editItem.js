@@ -8,7 +8,7 @@ var parseForm = require('../../../lib/services/formParser').parseForm;
  */
 module.exports = function (req, res) {
   parseForm(req, function (err, fields, files) {
-    if (err) return res.send({ status: false, error: err });
+    if (err) {return res.send({ status: false, error: err });}
 
     models.doors_hardware_items.find({
       where: {

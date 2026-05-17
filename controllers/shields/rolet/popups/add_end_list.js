@@ -19,7 +19,7 @@ module.exports = function (req, res) {
       img: '/local_storage/default.png'
     }).then(function(newEndList) {
 
-      if (!files.rolet_img.name) return res.send({ status: true });
+      if (!files.rolet_img.name) {return res.send({ status: true });}
 
       var imageUrl = '/local_storage/rollets/' + Math.floor(Math.random() * 1000000) + files.rolet_img.name;
       loadImage(files.rolet_img.path, imageUrl);

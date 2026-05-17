@@ -8,9 +8,9 @@ var MOSQUITO_CLOTHS_ID = 20;
 
 module.exports = function (req, res) {
   parseForm(req, function (err, fields, files) {
-    if (err) return res.send({ status: false });
+    if (err) {return res.send({ status: false });}
 
-    if (parseInt(fields.profile_id, 10) === 0) return createUnbindedMosquito();
+    if (parseInt(fields.profile_id, 10) === 0) {return createUnbindedMosquito();}
     createProfileMosquito();
 
     function createUnbindedMosquito () {

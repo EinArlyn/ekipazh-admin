@@ -14,7 +14,7 @@ module.exports = function (req, res) {
       modified: new Date(),
       img: '/local_storage/default.png',
     }).then(function(newColor) {      
-      if (!files.color_img.name) return res.send({ status: true });
+      if (!files.color_img.name) {return res.send({ status: true });}
 
       var imageUrl = '/local_storage/addition_colors/' + Math.floor(Math.random() * 1000000) + files.color_img.name;
       loadImage(files.color_img.path, imageUrl);

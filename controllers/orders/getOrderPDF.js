@@ -79,7 +79,7 @@ module.exports = function (req, res) {
           });
 
           async.each(order.order.order_products, function (product, __cb) {
-            if (!product.dataValues.door_group_id) return __cb();
+            if (!product.dataValues.door_group_id) {return __cb();}
 
             models.doors_hardware_groups.find({
               where: {
@@ -113,7 +113,7 @@ module.exports = function (req, res) {
             `${okpo}\n\n\n` +
             `${order_num}\n`;
 
-          var buffer = new Buffer(qrData, 'utf8');
+          var buffer = Buffer.from(qrData, 'utf8');
           var base64 = buffer.toString('base64');
           var base64url = base64.replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
           var url = `https://bank.gov.ua/qr/${base64url}`
@@ -161,7 +161,7 @@ module.exports = function (req, res) {
               var qrBase64 = null;
               if (url) {
                 var svgString = qr.imageSync(url, { type: 'svg' }).toString('utf8');
-                var buffer = new Buffer(svgString, 'utf8');
+                var buffer = Buffer.from(svgString, 'utf8');
                 qrBase64 = buffer.toString('base64');
                 qrBase64 = `data:image/svg+xml;base64,${qrBase64}`
               }

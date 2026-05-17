@@ -61,11 +61,11 @@ function getSystem(req,res) {
 }
 function getGroup(req, res) {
     const groupId = parseInt(req.params.id, 10);
-    if (!Number.isFinite(groupId)) return res.send({ status: false, error: 'bad id' });
+    if (!Number.isFinite(groupId)) {return res.send({ status: false, error: 'bad id' });}
 
     models.rol_groups.findOne({ where: { id: groupId } })
     .then(function (group) {
-        if (!group) return res.send({ status: false, error: 'not found' });
+        if (!group) {return res.send({ status: false, error: 'not found' });}
         return models.compliance_rol_groups.findAll({ where: { rol_group_id: groupId } })
         .then(function (countries) {
             let country_ids = [];

@@ -8,7 +8,7 @@ var md5 = require('md5');
  */
 module.exports = function (req, res) {
   parseForm(req, function (err, fields) {
-    if (err) return res.send({ status: false });
+    if (err) {return res.send({ status: false });}
 
     models.users.find({
       where: {
@@ -16,9 +16,9 @@ module.exports = function (req, res) {
         password: md5(fields.old_password)
       }
     }).then(function (user) {
-      if (!user) return res.send({ status: false });
+      if (!user) {return res.send({ status: false });}
 
-      if (fields.new_password !== fields.new_password_repeat) return res.send({ status: false });
+      if (fields.new_password !== fields.new_password_repeat) {return res.send({ status: false });}
 
       user.updateAttributes({
         password: md5(fields.new_password),
