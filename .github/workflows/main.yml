@@ -12,10 +12,10 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Setup Node.js 22
+      - name: Setup Node.js 18
         uses: actions/setup-node@v4
         with:
-          node-version: '22'
+          node-version: '18'
           cache: 'npm'
 
       - name: Install dependencies
@@ -84,8 +84,8 @@ jobs:
           script: |
             export NVM_DIR="$HOME/.nvm"
             [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
-            nvm use 22
-            cd /web/current
+            nvm use 18
+            cd ${{ vars.APP_PATH }}
             npm ci --omit=dev
             APP="${{ vars.PM2_APP_NAME }}"
             if pm2 describe "$APP" > /dev/null 2>&1; then
