@@ -62,7 +62,7 @@ function nodeEncrypt(text, key, iv) {
   var encrypted = cipher.update(text, 'utf8', 'binary');
 
   encrypted += cipher.final('binary');
-  var hexVal = new Buffer(encrypted, 'binary');
+  var hexVal = Buffer.from(encrypted, 'binary');
   var newEncrypted = hexVal.toString('hex');
   console.log('Encrypted: ', newEncrypted);
   return newEncrypted;
