@@ -12,6 +12,30 @@ git.short(function (str) {
   i18n.copyright = "(c) 2024 " + pjson.version;
   i18n.version = "";
 });
+// Compatibility patch: Sequelize v3 expects pg to return an EventEmitter from
+// client.query() (using .on('row'/.on('end')), but pg v8 returns a Promise.
+// This patch wraps pg v8's Promise result in an EventEmitter so Sequelize v3
+// can attach its .on() listeners without modification.
+var EventEmitter = require("events");
+var pg = require("pg");
+var _pgQuery = pg.Client.prototype.query;
+pg.Client.prototype.query = function (config, values, callback) {
+  var result = _pgQuery.call(this, config, values, callback);
+  if (result && typeof result.then === "function" && typeof result.on !== "function") {
+    var emitter = new EventEmitter();
+    result.then(function (res) {
+      if (res && res.rows) {
+        res.rows.forEach(function (row) { emitter.emit("row", row); });
+      }
+      emitter.emit("end", res);
+    }).catch(function (err) {
+      emitter.emit("error", err);
+    });
+    return emitter;
+  }
+  return result;
+};
+
 var models = require("./lib/models");
 var relationships = require("./lib/relationships");
 
@@ -19,14 +43,38 @@ var app = express();
 var port = process.env.PORT || 5002;
 
 app.set("views", path.join(__dirname, "views"));
-app.set("view engine", "pug");
+
+// pug v3 hardcodes ".pug" extension for includes/extends without extension.
+// Our templates use ".jade" extension, so we provide a custom read plugin
+// that falls back from ".pug" to ".jade" when the .pug file doesn't exist.
+var pug = require("pug");
+var fs = require("fs");
+var jadeCompatPlugin = {
+  read: function(filename) {
+    if (path.extname(filename) === ".pug" && !fs.existsSync(filename)) {
+      var jadePath = filename.slice(0, -4) + ".jade";
+      if (fs.existsSync(jadePath)) return fs.readFileSync(jadePath);
+    }
+    return fs.readFileSync(filename);
+  },
+};
+app.engine("jade", function(filePath, options, callback) {
+  options.filename = filePath;
+  options.plugins = [jadeCompatPlugin];
+  try {
+    callback(null, pug.renderFile(filePath, options));
+  } catch (e) {
+    callback(e);
+  }
+});
+app.set("view engine", "jade");
 
 app.use(favicon(__dirname + "/public/images/favicon.ico"));
 app.use(logger("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(session({ secret: "dgdfg389t77efghjkfvk", saveUninitialized: true }));
+app.use(session({ secret: "dgdfg389t77efghjkfvk", resave: false, saveUninitialized: true }));
 app.use(flash());
 app.use("/assets", express.static(__dirname + "/public"));
 app.use("/local_storage", express.static(__dirname + "/local_storage"));
@@ -129,9 +177,13 @@ app.use(function (err, req, res, next) {
   });
 });
 
-models.sequelize.sync().then(function () {
-  var server = app.listen(port, function () {
-    console.log("Server started at http://localhost:" + port);
+var server = app.listen(port, function () {
+  console.log("Server started at http://localhost:" + port);
+
+  models.sequelize.sync().then(function () {
+    console.log("Database sync complete");
+  }).catch(function (err) {
+    console.error("Database sync failed:", err.message);
   });
 });
 
