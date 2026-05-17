@@ -18,7 +18,7 @@
     "dotenv": "^16.0.0",
     "cookie-parser": "~1.4.7",
     "debug": "~4.4.0",
-    "emailjs": "^5.0.0",
+    "emailjs": "^4.0.3",
     "excel4node": "^1.8.2",
     "express": "^4.22.2",
     "express-flash": "0.0.2",

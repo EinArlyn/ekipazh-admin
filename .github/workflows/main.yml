@@ -89,8 +89,6 @@ jobs:
             cd ${{ vars.APP_PATH }}
             npm ci --omit=dev
             APP="${{ vars.PM2_APP_NAME }}"
-            if pm2 describe "$APP" > /dev/null 2>&1; then
-              pm2 restart "$APP"
-            else
-              pm2 start app.js --name "$APP"
-            fi
+            pm2 delete "$APP" 2>/dev/null || true
+            pm2 start app.js --name "$APP"
+            pm2 save
