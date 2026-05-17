@@ -6,7 +6,8 @@
     "node": ">=22"
   },
   "scripts": {
-    "start": "node ./app.js"
+    "start": "node ./app.js",
+    "lint:pug": "node ./scripts/check-templates.js"
   },
   "dependencies": {
     "async": "^3.2.6",

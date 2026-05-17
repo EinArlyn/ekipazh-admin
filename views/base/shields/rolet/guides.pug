@@ -1,0 +1,42 @@
+extends ../../layout
+
+block content
+  .main-nav
+    .nav-link
+      a(href="/")= i18n.__('Dashboard') 
+      a(href="/base/shields/rolet/rolet")='Boxes'
+      span#nav-text
+        =' Guides '
+      a(href="/base/shields/rolet/endLists")='End Lists'
+      a(href="/base/shields/rolet/lamels")='Lamels'
+      a(href="/base/shields/rolet/roletColorsGroups")='Colors'
+      a(href="/base/shields/rolet/roletPrice")='RoletPrice'
+      a(href="/base/shields/rolet/roletBoxHeight")='RoletBoxHeight'
+      a(href="/base/shields/rolet/controls")='Controls'
+      a(href="/base/shields/rolet/controlBoxSizes")='ControlBoxSizes'
+      a(href="/base/shields/rolet/addElements")='AddElements'
+      img.loader-ico(src="/assets/images/loader_ico.GIF")
+  .main-content    
+    .titel-page 
+      ='Guides :'  
+    .block-systems.block-guides
+      if (guidesList && guidesList.length > 0)
+        each guide in guidesList
+          .rolet-system-item
+            .system-img
+              img(src=(guide.img ? guide.img : '/local_storage/default.png'), alt="")
+            .system-name
+              =guide.name
+            .btns-block-item
+              .btn-active-system.btn-active(data-guide=guide.id class=!guide.is_activ ? 'btn-unactive' : 'btn-active') 
+              .btn-edit-system.btn-system(data-guide=guide.id)
+              .btn-delete-system.btn-system(data-guide=guide.id)
+      .rolet-system-item.btn-add-system
+        div
+          ='+'
+        .btn-add-text 
+          ='Добавить'
+  include popups/add-new-guide.pug
+  include popups/edit-guide.pug
+  include popups/delete-guide.pug
+  

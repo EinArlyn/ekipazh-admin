@@ -55,7 +55,7 @@ module.exports = function (req, res) {
           factory_id: req.session.user.factory_id
         }
       }).then(function (factoryIdentificators) {
-        res.render('mynetwork/index.jade', {
+        res.render('mynetwork/index', {
           i18n: i18n,
           title: i18n.__('My network'),
           thisPageLink  : '/mynetwork/',

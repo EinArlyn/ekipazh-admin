@@ -43,31 +43,7 @@ var app = express();
 var port = process.env.PORT || 5002;
 
 app.set("views", path.join(__dirname, "views"));
-
-// pug v3 hardcodes ".pug" extension for includes/extends without extension.
-// Our templates use ".jade" extension, so we provide a custom read plugin
-// that falls back from ".pug" to ".jade" when the .pug file doesn't exist.
-var pug = require("pug");
-var fs = require("fs");
-var jadeCompatPlugin = {
-  read: function(filename) {
-    if (path.extname(filename) === ".pug" && !fs.existsSync(filename)) {
-      var jadePath = filename.slice(0, -4) + ".jade";
-      if (fs.existsSync(jadePath)) return fs.readFileSync(jadePath);
-    }
-    return fs.readFileSync(filename);
-  },
-};
-app.engine("jade", function(filePath, options, callback) {
-  options.filename = filePath;
-  options.plugins = [jadeCompatPlugin];
-  try {
-    callback(null, pug.renderFile(filePath, options));
-  } catch (e) {
-    callback(e);
-  }
-});
-app.set("view engine", "jade");
+app.set("view engine", "pug");
 
 app.use(favicon(__dirname + "/public/images/favicon.ico"));
 app.use(logger("dev"));
