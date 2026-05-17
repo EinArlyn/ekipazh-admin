@@ -13,7 +13,7 @@ module.exports = function (req, res) {
   var access_token = req.query.access_token;
   var type = parseInt(req.query.type, 10) || 1;
 
-  if (type < 1 || type > 3) return res.send({ status: false, error: 'Type value should be 1, 2 or 3.' });
+  if (type < 1 || type > 3) {return res.send({ status: false, error: 'Type value should be 1, 2 or 3.' });}
 
   var ranges = getRanges(type);
   console.log(ranges)
@@ -37,7 +37,7 @@ module.exports = function (req, res) {
       device_code: access_token
     }
   }).then(function (user) {
-    if (!user) return res.send({ status: false, count: count, error: 'User doesn\'t exist' });
+    if (!user) {return res.send({ status: false, count: count, error: 'User doesn\'t exist' });}
 
     var userId = user.id;
 
@@ -57,7 +57,7 @@ module.exports = function (req, res) {
       }],
       attributes: ["currency_value", "order_lang", "app_version", "sync_date", "comment", "bill", "customer_floor", "customer_flat", "customer_house", "margin_plant", "disc_term_plant", "default_term_plant", "mounting_user_id", "delivery_user_id", "discount_addelem_max", "discount_construct_max", "customer_city_id", "order_price_dis", "order_number", "order_hz", "floor_price", "addelems_price", "templates_price", "customer_city", "heat_coef_min", "order_type", "order_date", "new_delivery_date", "delivery_date", "state_buch", "state_to", "sended", "modified", "created", "customer_infoSource", "customer_occupation", "customer_education", "customer_age", "customer_sex", "customer_target", "customer_endtime", "customer_starttime", "customer_itn", "discount_addelem", "discount_construct", "order_price_primary", "order_price", "payment_monthly_primary", "payment_first_primary", "payment_monthly", "payment_first", "is_old_price", "instalment_id", "is_instalment", "mounting_id", "floor_id", "is_date_price_more", "is_date_price_less", "products_price", "products_qty", "order_style", "customer_location", "climatic_zone", "user_id", "mounting_price", "delivery_price", "sale_price", "purchase_price", "factory_id", "factory_margin", "customer_address", "customer_email", "customer_name", "customer_phone_city", "base_price", "customer_phone", "batch", "additional_payment", "id"]
     }).then(function (orders) {
-      if (!orders || !orders.length) return res.send({ status: true, count: count, tables: tables });
+      if (!orders || !orders.length) {return res.send({ status: true, count: count, tables: tables });}
 
       count = orders.map(function (order) {
         tables.orders.rows.push(_.omit(order.dataValues, ['order_products', 'order_addelements']));

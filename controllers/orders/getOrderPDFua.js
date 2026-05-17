@@ -77,7 +77,7 @@ module.exports = function (req, res) {
           });
 
           async.each(order.order.order_products, function (product, __cb) {
-            if (!product.dataValues.door_group_id) return __cb();
+            if (!product.dataValues.door_group_id) {return __cb();}
 
             models.doors_hardware_groups.find({
               where: {

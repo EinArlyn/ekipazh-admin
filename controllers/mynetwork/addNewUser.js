@@ -5,7 +5,7 @@ var loadImage = require('../../lib/services/imageLoader').loadImage;
 
 module.exports = function (req, res) {
   parseForm(req, function (err, fields, files) {
-    if (err) return res.send({ status: false });
+    if (err) {return res.send({ status: false });}
 
     var pass = md5(fields.password);
     var deviceCode = md5(fields.mobPhone);

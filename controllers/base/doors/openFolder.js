@@ -16,7 +16,7 @@ module.exports = function (req, res) {
     }
   }).then(function (folderGroups) {
     _getAvailableSets(req.session.user.factory_id, function (err, result) {
-      if (err) return ({ status: false, error: err });
+      if (err) {return ({ status: false, error: err });}
 
       res.send({ status: true, groups: folderGroups, default: result });
     });

@@ -296,7 +296,7 @@ function getGlazingInfo(factoryId, callback) {
       var glassName, region, sex, age, occup, info;
       glassIds.forEach(function(product, g_item, products) {
         if (product.glass_id)
-          product.glass_id.split(', ').forEach(function (list, l_item, lists) {
+          {product.glass_id.split(', ').forEach(function (list, l_item, lists) {
             sex = product.order.customer_sex;
             age = product.order.customer_age;
             occup = product.order.customer_occupation;
@@ -304,12 +304,12 @@ function getGlazingInfo(factoryId, callback) {
             region = product.order.city.region.name;
             glassName = elements.find(function (el, index, array) {
               if (el.lists.find(function (el_list, el_index, el_array) {
-                if (el_list.id == +list) return true;
-              })) return true;
+                if (el_list.id == +list) {return true;}
+              })) {return true;}
             });
             if (glassName)
-              addInnerData(region, 'glazingTypes', glassName.sku, 'glazingCount', sex, age, occup, info);
-          });
+              {addInnerData(region, 'glazingTypes', glassName.sku, 'glazingCount', sex, age, occup, info);}
+          });}
       });
       callback(null, glazingData);
     }).catch(function (err) {
@@ -474,7 +474,7 @@ function openTypes(data, callback) {
     async.map(data, function (data, _cb) {
       Object.keys(data.sash).forEach(function(key, item, keys) {
         hardwareName = hNames.find(function (el, index, arr) {
-          if (el.id === +key) return true;
+          if (el.id === +key) {return true;}
         }).name;
         addInnerData(data.region, 'hardwareTypes', hardwareName, 'hardwareTypesCount', data.sex, data.age, data.occup, data.info);
         if (fields.hardwareTypeInfo.indexOf(hardwareName) === -1) {

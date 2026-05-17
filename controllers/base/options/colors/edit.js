@@ -17,7 +17,7 @@ module.exports = function (req, res) {
         lamination_factory_colors_id: fields.change_lamination_id,
         modified: new Date(),
       }).then(function(editColor) {
-        if (!files.color_img.name) return res.send({ status: true });
+        if (!files.color_img.name) {return res.send({ status: true });}
 
         var imageUrl = '/local_storage/addition_colors/' + Math.floor(Math.random() * 1000000) + files.color_img.name;
         loadImage(files.color_img.path, imageUrl);

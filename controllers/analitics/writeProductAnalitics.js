@@ -23,7 +23,7 @@ function saveInfoAboutCustomers(regionsData, regionName, generalData, wb, myStyl
     glazzingStop = glazzingStart + generalData.glazzing.length + 1,
     sillsStart = glazzingStop + 3 + generalData.windowsills.length,
     sillsEnd = sillsStart + generalData.frontSills.length + 1,
-    regionNumber = 0, innField;
+    regionNumber = 0, innField, i, percent;
   ws1.cell(1,1).string('Продукт');
   ws1.cell(2, 1, 3, 1, true).style(myStyle);
   ws1.cell(2, 2, 2, hardwareStart, true).string('Профиль').style(myStyle);
@@ -253,7 +253,7 @@ exports.writeToExcel = function (regions, result, fileName, sellers, callback) {
     if (i !== controlCell) {
       ws.cell(4 + regionNumber, i).formula('SUM(' + xl.getExcelCellRef(4, i) + ':' + xl.getExcelCellRef(2 + regionNumber, i) + ')').style(myStyle);
     } else {
-      if (sum !== 'SUM(') ws.cell(4 + regionNumber, controlCell).formula(sum.slice(0, -1) + ')').style(myStyle);
+      if (sum !== 'SUM(') {ws.cell(4 + regionNumber, controlCell).formula(sum.slice(0, -1) + ')').style(myStyle);}
     }
     sum = 'SUM(';
     if (i == glazzingStop + 1) {

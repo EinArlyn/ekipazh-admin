@@ -17,7 +17,7 @@ module.exports = function (req, res) {
       device_code: access_token
     }
   }).then(function (user) {
-    if (!user) return res.send({ status: false });
+    if (!user) {return res.send({ status: false });}
 
     initSession(user);
     res.send({ status: true });

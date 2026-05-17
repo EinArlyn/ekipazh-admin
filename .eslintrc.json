@@ -1,0 +1,29 @@
+{
+  "extends": ["eslint:recommended", "prettier"],
+  "parserOptions": {
+    "ecmaVersion": 2020
+  },
+  "env": {
+    "node": true,
+    "es6": true
+  },
+  "rules": {
+    // === Ошибки: блокируют CI ===
+    "curly": "error",
+    "no-new-require": "error",
+
+    // === Предупреждения: видны, но не блокируют CI ===
+    // radix и eqeqeq понижены до warn — слишком много нарушений в legacy-коде,
+    // исправлять нужно постепенно и осторожно (риск изменить логику)
+    "eqeqeq": "warn",
+    "radix": "warn",
+    "no-unused-vars": "warn",
+
+    // === Отключено: серверный код, console разрешён ===
+    "no-console": "off"
+
+    // Намеренно НЕ включено пока (слишком много нарушений в legacy-коде):
+    // "no-var": "error"
+    // "prefer-const": "warn"
+  }
+}

@@ -20,7 +20,7 @@ module.exports = function (req, res) {
         description: fields.description,
         max_size: parseInt(fields.max_size, 10) || 0
       }).then(function(newGroup) {
-        if (!files.folder_img.name) return res.send({ status: true });
+        if (!files.folder_img.name) {return res.send({ status: true });}
 
         var imageUrl = '/local_storage/addition_folders/' + Math.floor(Math.random() * 1000000) + files.folder_img.name;
         loadImage(files.folder_img.path, imageUrl);

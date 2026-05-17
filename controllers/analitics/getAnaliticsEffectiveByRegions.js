@@ -60,7 +60,7 @@ function getRegions1(callback) {
       allData[region.name][19] = {};
       var countOrders = 0;
       var countSendedOrders = 0;
-      if (!countsInner[region.name]) countsInner[region.name] = {};
+      if (!countsInner[region.name]) {countsInner[region.name] = {};}
       region.cities.forEach(function (city, c_item, cities) {
         city.orders.forEach(function (order, o_item, orders) {
           var sex = order.customer_sex;
@@ -79,59 +79,59 @@ function getRegions1(callback) {
             countSendedOrders ++;
           }
           if (sex > 0) {
-            if (!allData[region.name][19][sexes[sex]]) allData[region.name][19][sexes[sex]] = [];
-            if (!allData[region.name][19][sexes[sex]][7]) allData[region.name][19][sexes[sex]][7] = {sum: 0, count: 0};
+            if (!allData[region.name][19][sexes[sex]]) {allData[region.name][19][sexes[sex]] = [];}
+            if (!allData[region.name][19][sexes[sex]][7]) {allData[region.name][19][sexes[sex]][7] = {sum: 0, count: 0};}
             allData[region.name][19][sexes[sex]][1] = (+allData[region.name][19][sexes[sex]][1] || 0) + (+order.order_price);
             allData[region.name][19][sexes[sex]][4] = (allData[region.name][19][sexes[sex]][4] || 0) + order.order_products.length;
             countsInner[region.name][sexes[sex]] = (+countsInner[region.name][sexes[sex]] || 0) + 1;
-            if (new Date(order.sended) > new Date(0)) allData[region.name][19][sexes[sex]][7].sum += +timeInDays;
-            if (new Date(order.sended) > new Date(0)) allData[region.name][19][sexes[sex]][7].count ++;
+            if (new Date(order.sended) > new Date(0)) {allData[region.name][19][sexes[sex]][7].sum += +timeInDays;}
+            if (new Date(order.sended) > new Date(0)) {allData[region.name][19][sexes[sex]][7].count ++;}
           }
           if (age > 0) {
-            if (!allData[region.name][19][ages[age]]) allData[region.name][19][ages[age]] = [];
-            if (!allData[region.name][19][ages[age]][7]) allData[region.name][19][ages[age]][7] = {sum: 0, count: 0};
+            if (!allData[region.name][19][ages[age]]) {allData[region.name][19][ages[age]] = [];}
+            if (!allData[region.name][19][ages[age]][7]) {allData[region.name][19][ages[age]][7] = {sum: 0, count: 0};}
             allData[region.name][19][ages[age]][1] = (+allData[region.name][19][ages[age]][1] || 0) + (+order.order_price);
             allData[region.name][19][ages[age]][4] = (allData[region.name][19][ages[age]][4] || 0) + order.order_products.length;
             countsInner[region.name][ages[age]] = (+countsInner[region.name][ages[age]] || 0) + 1;
-            if (new Date(order.sended) > new Date(0)) allData[region.name][19][ages[age]][7].sum += +timeInDays;
-            if (new Date(order.sended) > new Date(0)) allData[region.name][19][ages[age]][7].count ++;
+            if (new Date(order.sended) > new Date(0)) {allData[region.name][19][ages[age]][7].sum += +timeInDays;}
+            if (new Date(order.sended) > new Date(0)) {allData[region.name][19][ages[age]][7].count ++;}
           }
           if (occup > 0) {
-            if (!allData[region.name][19][ocupations[occup]]) allData[region.name][19][ocupations[occup]] = [];
-            if (!allData[region.name][19][ocupations[occup]][7]) allData[region.name][19][ocupations[occup]][7] = {sum: 0, count: 0};
+            if (!allData[region.name][19][ocupations[occup]]) {allData[region.name][19][ocupations[occup]] = [];}
+            if (!allData[region.name][19][ocupations[occup]][7]) {allData[region.name][19][ocupations[occup]][7] = {sum: 0, count: 0};}
             allData[region.name][19][ocupations[occup]][1] = (+allData[region.name][19][ocupations[occup]][1] || 0) + (+order.order_price);
             allData[region.name][19][ocupations[occup]][4] = (allData[region.name][19][ocupations[occup]][4] || 0) + order.order_products.length;
             countsInner[region.name][ocupations[occup]] = (+countsInner[region.name][ocupations[occup]] || 0) + 1;
-            if (new Date(order.sended) > new Date(0)) allData[region.name][19][ocupations[occup]][7].sum += +timeInDays;
-            if (new Date(order.sended) > new Date(0)) allData[region.name][19][ocupations[occup]][7].count ++;
+            if (new Date(order.sended) > new Date(0)) {allData[region.name][19][ocupations[occup]][7].sum += +timeInDays;}
+            if (new Date(order.sended) > new Date(0)) {allData[region.name][19][ocupations[occup]][7].count ++;}
           }
           if (info > 0) {
-            if (!allData[region.name][19][sources[info]]) allData[region.name][19][sources[info]] = [];
-            if (!allData[region.name][19][sources[info]][7]) allData[region.name][19][sources[info]][7] = {sum: 0, count: 0};
+            if (!allData[region.name][19][sources[info]]) {allData[region.name][19][sources[info]] = [];}
+            if (!allData[region.name][19][sources[info]][7]) {allData[region.name][19][sources[info]][7] = {sum: 0, count: 0};}
             allData[region.name][19][sources[info]][1] = (+allData[region.name][19][sources[info]][1] || 0) + (+order.order_price);
             allData[region.name][19][sources[info]][4] = (allData[region.name][19][sources[info]][4] || 0) + order.order_products.length;
             countsInner[region.name][sources[info]] = (+countsInner[region.name][sources[info]] || 0) + 1;
-            if (new Date(order.sended) > new Date(0)) allData[region.name][19][sources[info]][7].sum += +timeInDays;
-            if (new Date(order.sended) > new Date(0)) allData[region.name][19][sources[info]][7].count ++;
+            if (new Date(order.sended) > new Date(0)) {allData[region.name][19][sources[info]][7].sum += +timeInDays;}
+            if (new Date(order.sended) > new Date(0)) {allData[region.name][19][sources[info]][7].count ++;}
           }
           order.order_products.forEach(function (product, p_item, products) {
             var costBySize = product.template_price / (product.template_width * product.template_height) * 1000000;
             allData[region.name][3] = allData[region.name][3]? +allData[region.name][3] + costBySize: costBySize;
             allData[region.name][5] = (allData[region.name][5] || 0) + 1 ;
             if (sex > 0) {
-              if (!allData[region.name][19][sexes[sex]]) allData[region.name][19][sexes[sex]] = [];
+              if (!allData[region.name][19][sexes[sex]]) {allData[region.name][19][sexes[sex]] = [];}
               allData[region.name][19][sexes[sex]][3] = (allData[region.name][19][sexes[sex]][3] || 0) + costBySize;
             }
             if (age > 0) {
-              if (!allData[region.name][19][ages[age]]) allData[region.name][19][ages[age]] = [];
+              if (!allData[region.name][19][ages[age]]) {allData[region.name][19][ages[age]] = [];}
               allData[region.name][19][ages[age]][3] = (allData[region.name][19][ages[age]][3] || 0) + costBySize;
             }
             if (occup > 0) {
-              if (!allData[region.name][19][ocupations[occup]]) allData[region.name][19][ocupations[occup]] = [];
+              if (!allData[region.name][19][ocupations[occup]]) {allData[region.name][19][ocupations[occup]] = [];}
               allData[region.name][19][ocupations[occup]][3] = (allData[region.name][19][ocupations[occup]][3] || 0) + costBySize;
             }
             if (info > 0) {
-              if (!allData[region.name][19][sources[info]]) allData[region.name][19][sources[info]] = [];
+              if (!allData[region.name][19][sources[info]]) {allData[region.name][19][sources[info]] = [];}
               allData[region.name][19][sources[info]][3] = (allData[region.name][19][sources[info]][3] || 0) +  costBySize;
             }
             dataForInnerTable(region.name, sex, age, occup, info, 5);
@@ -164,7 +164,7 @@ function getRegions1(callback) {
       });
       _cb(null, {name: region.name, countOrders: countOrders, countSendedOrders: countSendedOrders, countsInner: countsInner});
     }, function (err, result) {
-      if (err) console.log(err, result);
+      if (err) {console.log(err, result);}
       for (var i = 0; i < result.length; i++) {
         allData[result[i].name][1] = allData[result[i].name][1] / result[i].countOrders;
         allData[result[i].name][4] = allData[result[i].name][4] / result[i].countOrders;
@@ -179,7 +179,7 @@ function getRegions1(callback) {
       callback(null, regions.length);
     });
   }).catch(function (err) {
-    if (err) console.log(err);
+    if (err) {console.log(err);}
     callback(true, err, 'getRegions');
   });
 }
@@ -228,26 +228,26 @@ function getCosts(callback) {
         var age = order.customer_age;
         var occup = order.customer_occupation;
         var info = order.customer_infoSource;
-        if (!countsInner[region]) countsInner[region] = {};
+        if (!countsInner[region]) {countsInner[region] = {};}
         allData[region][1] = allData[region][1]? +allData[region][1] + (+order.order_price): order.order_price;
         counts[region] = counts[region]? counts[region] + 1: 1;
         if (sex > 0) {
-          if (!allData[region][19][sexes[sex]]) allData[region][19][sexes[sex]] = [];
+          if (!allData[region][19][sexes[sex]]) {allData[region][19][sexes[sex]] = [];}
           allData[region][19][sexes[sex]][1] = (+allData[region][19][sexes[sex]][1] || 0) + (+order.order_price);
           countsInner[region][sexes[sex]] = (+countsInner[region][sexes[sex]] || 0) + 1;
         }
         if (age > 0) {
-          if (!allData[region][19][ages[age]]) allData[region][19][ages[age]] = [];
+          if (!allData[region][19][ages[age]]) {allData[region][19][ages[age]] = [];}
           allData[region][19][ages[age]][1] = (+allData[region][19][ages[age]][1] || 0) + (+order.order_price);
           countsInner[region][ages[age]] = (+countsInner[region][ages[age]] || 0) + 1;
         }
         if (occup > 0) {
-          if (!allData[region][19][ocupations[occup]]) allData[region][19][ocupations[occup]] = [];
+          if (!allData[region][19][ocupations[occup]]) {allData[region][19][ocupations[occup]] = [];}
           allData[region][19][ocupations[occup]][1] = (+allData[region][19][ocupations[occup]][1] || 0) + (+order.order_price);
           countsInner[region][ocupations[occup]] = (+countsInner[region][ocupations[occup]] || 0) + 1;
         }
         if (info > 0) {
-          if (!allData[region][19][sources[info]]) allData[region][19][sources[info]] = [];
+          if (!allData[region][19][sources[info]]) {allData[region][19][sources[info]] = [];}
           allData[region][19][sources[info]][1] = (+allData[region][19][sources[info]][1] || 0) + (+order.order_price);
           countsInner[region][sources[info]] = (+countsInner[region][sources[info]] || 0) + 1;
         }
@@ -287,7 +287,7 @@ function getCostsBySize(callback) {
       ]
     }
   }).then(function (products) {
-    if (!products.length) return callback(null);
+    if (!products.length) {return callback(null);}
     var region, costBySize;
     async.map(products, function (product, _cb) {
       region = product.order.city.region.name;
@@ -299,22 +299,22 @@ function getCostsBySize(callback) {
       var occup = product.order.customer_occupation;
       var info = product.order.customer_infoSource;
       if (sex > 0) {
-        if (!allData[region][19][sexes[sex]]) allData[region][19][sexes[sex]] = [];
+        if (!allData[region][19][sexes[sex]]) {allData[region][19][sexes[sex]] = [];}
         allData[region][19][sexes[sex]][3] = (allData[region][19][sexes[sex]][3] || 0) + costBySize;
         allData[region][19][sexes[sex]][5] = (allData[region][19][sexes[sex]][5] || 0) + 1;
       }
       if (age > 0) {
-        if (!allData[region][19][ages[age]]) allData[region][19][ages[age]] = [];
+        if (!allData[region][19][ages[age]]) {allData[region][19][ages[age]] = [];}
         allData[region][19][ages[age]][3] = (allData[region][19][ages[age]][3] || 0) + costBySize;
         allData[region][19][ages[age]][5] = (allData[region][19][ages[age]][5] || 0) + 1;
       }
       if (occup > 0) {
-        if (!allData[region][19][ocupations[occup]]) allData[region][19][ocupations[occup]] = [];
+        if (!allData[region][19][ocupations[occup]]) {allData[region][19][ocupations[occup]] = [];}
         allData[region][19][ocupations[occup]][3] = (allData[region][19][ocupations[occup]][3] || 0) + costBySize;
         allData[region][19][ocupations[occup]][5] = (allData[region][19][ocupations[occup]][5] || 0) + 1;
       }
       if (info > 0) {
-        if (!allData[region][19][sources[info]]) allData[region][19][sources[info]] = [];
+        if (!allData[region][19][sources[info]]) {allData[region][19][sources[info]] = [];}
         allData[region][19][sources[info]][3] = (allData[region][19][sources[info]][3] || 0) +  costBySize;
         allData[region][19][sources[info]][5] = (allData[region][19][sources[info]][5] || 0) + 1;
       }
@@ -344,7 +344,7 @@ function getCountWindows(callback) {
       {model: models.users, attributes: ['name'], required: true}
     ]
   }).then(function (orders) {
-    if (!orders.length) return callback(null);
+    if (!orders.length) {return callback(null);}
     var region, orderCounts = {}, countsInner = {};
     async.map(orders, function (order, _cb) {
       region = order.city.region.name;
@@ -352,26 +352,26 @@ function getCountWindows(callback) {
       var age = order.customer_age;
       var occup = order.customer_occupation;
       var info = order.customer_infoSource;
-      if (!countsInner[region]) countsInner[region] = {};
+      if (!countsInner[region]) {countsInner[region] = {};}
       allData[region][4] = allData[region][4]? +allData[region][4] + order.order_products.length: order.order_products.length;
       orderCounts[region] = orderCounts[region]? +orderCounts[region] + 1: 1;
       if (sex > 0) {
-        if (!allData[region][19][sexes[sex]]) allData[region][19][sexes[sex]] = [];
+        if (!allData[region][19][sexes[sex]]) {allData[region][19][sexes[sex]] = [];}
         allData[region][19][sexes[sex]][4] = (allData[region][19][sexes[sex]][4] || 0) + order.order_products.length;
         countsInner[region][sexes[sex]] = (countsInner[region][sexes[sex]] || 0) + 1;
       }
       if (age > 0) {
-        if (!allData[region][19][ages[age]]) allData[region][19][ages[age]] = [];
+        if (!allData[region][19][ages[age]]) {allData[region][19][ages[age]] = [];}
         allData[region][19][ages[age]][4] = (allData[region][19][ages[age]][4] || 0) + order.order_products.length;
         countsInner[region][ages[age]] = (countsInner[region][ages[age]] || 0) + 1;
       }
       if (occup > 0) {
-        if (!allData[region][19][ocupations[occup]]) allData[region][19][ocupations[occup]] = [];
+        if (!allData[region][19][ocupations[occup]]) {allData[region][19][ocupations[occup]] = [];}
         allData[region][19][ocupations[occup]][4] = (allData[region][19][ocupations[occup]][4] || 0) + order.order_products.length;
         countsInner[region][ocupations[occup]] = (countsInner[region][ocupations[occup]] || 0) + 1;
       }
       if (info > 0) {
-        if (!allData[region][19][sources[info]]) allData[region][19][sources[info]] = [];
+        if (!allData[region][19][sources[info]]) {allData[region][19][sources[info]] = [];}
         allData[region][19][sources[info]][4] = (allData[region][19][sources[info]][4] || 0) + order.order_products.length;
         countsInner[region][sources[info]] = (countsInner[region][sources[info]] || 0) + 1;
       }
@@ -405,7 +405,7 @@ function getSendedOrdersCount(callback) {
       ]
     }
   }).then(function (sendedOrders) {
-    if (!sendedOrders.length) return callback(null);
+    if (!sendedOrders.length) {return callback(null);}
     var region;
     async.map(sendedOrders, function (order, _cb) {
       region = order.order.city.region.name;
@@ -437,11 +437,11 @@ function getTimeOfProcessing(callback) {
     ]
   }).then(function (orders) {
     if (!orders.length)
-      return callback(null);
+      {return callback(null);}
     var timeInDays, region, orderCounts = {}, countsInner = {};
     async.map(orders, function (order, _cb) {
       region = order.city.region.name;
-      if (!countsInner[region]) countsInner[region] = {};
+      if (!countsInner[region]) {countsInner[region] = {};}
       timeInDays = Math.ceil((order.sended - order.modified) / (1000 * 3600 * 24));
       allData[region][7] = (allData[region][7] || 0) + timeInDays;
       orderCounts[region] = (orderCounts[region] || 0) + 1;
@@ -460,17 +460,17 @@ function getTimeOfProcessing(callback) {
         }
       }
       if (age > 0) {
-        if (!allData[region][19][ages[age]]) allData[region][19][ages[age]] = [];
+        if (!allData[region][19][ages[age]]) {allData[region][19][ages[age]] = [];}
         allData[region][19][ages[age]][7] = (allData[region][19][ages[age]][7] || 0) + timeInDays;
         countsInner[region][ages[age]] = (countsInner[region][ages[age]] || 0) + 1;
       }
       if (occup > 0) {
-        if (!allData[region][19][ocupations[occup]]) allData[region][19][ocupations[occup]] = [];
+        if (!allData[region][19][ocupations[occup]]) {allData[region][19][ocupations[occup]] = [];}
         allData[region][19][ocupations[occup]][7] = (allData[region][19][ocupations[occup]][7] || 0) + timeInDays;
         countsInner[region][ocupations[occup]] = (countsInner[region][ocupations[occup]] || 0) + 1;
       }
       if (info > 0) {
-        if (!allData[region][19][sources[info]]) allData[region][19][sources[info]] = [];
+        if (!allData[region][19][sources[info]]) {allData[region][19][sources[info]] = [];}
         allData[region][19][sources[info]][7] = (allData[region][19][sources[info]][7] || 0) + timeInDays;
         countsInner[region][sources[info]] = (countsInner[region][sources[info]] || 0) + 1;
       }
@@ -505,8 +505,8 @@ function getOrdersByDays(callback) { //все сoзданные заказы
       ]
     }
   }).then(function (orders) {
-    if (!orders.length) return callback(null);
-    var region, day, sex, age, occup, info;
+    if (!orders.length) {return callback(null);}
+    var region, day, hours, sex, age, occup, info;
     async.map(orders, function (order, _cb) {
       region = order.order.city.region.name;
       day = order.order.modified.getDay();
@@ -547,19 +547,19 @@ function getOrdersByDays(callback) { //все сoзданные заказы
 // -------------------- helper -------------------------
 function dataForInnerTable(region, sex, age, occup, info, number) {
   if (sex > 0) {
-    if (!allData[region][19][sexes[sex]]) allData[region][19][sexes[sex]] = [];
+    if (!allData[region][19][sexes[sex]]) {allData[region][19][sexes[sex]] = [];}
     allData[region][19][sexes[sex]][number] = (allData[region][19][sexes[sex]][number] || 0) + 1;
   }
   if (age > 0) {
-    if (!allData[region][19][ages[age]]) allData[region][19][ages[age]] = [];
+    if (!allData[region][19][ages[age]]) {allData[region][19][ages[age]] = [];}
     allData[region][19][ages[age]][number] = (allData[region][19][ages[age]][number] || 0) + 1;
   }
   if (occup > 0) {
-    if (!allData[region][19][ocupations[occup]]) allData[region][19][ocupations[occup]] = [];
+    if (!allData[region][19][ocupations[occup]]) {allData[region][19][ocupations[occup]] = [];}
     allData[region][19][ocupations[occup]][number] = (allData[region][19][ocupations[occup]][number] || 0) + 1;
   }
   if (info > 0) {
-    if (!allData[region][19][sources[info]]) allData[region][19][sources[info]] = [];
+    if (!allData[region][19][sources[info]]) {allData[region][19][sources[info]] = [];}
     allData[region][19][sources[info]][number] = (allData[region][19][sources[info]][number] || 0) + 1;
   }
 }

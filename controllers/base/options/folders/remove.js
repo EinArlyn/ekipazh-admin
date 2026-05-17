@@ -11,7 +11,7 @@ module.exports = function (req, res) {
       id: folderId
     }
   }).then(function (folder) {
-    if (parseInt(folder.addition_type_id, 10) === 12) return updateMosquitos();
+    if (parseInt(folder.addition_type_id, 10) === 12) {return updateMosquitos();}
 
     updateLists();
 

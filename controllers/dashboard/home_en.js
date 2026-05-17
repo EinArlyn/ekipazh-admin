@@ -16,7 +16,7 @@ var iv = '1234567890123456';
 module.exports = function(req, res) {
   var lang = 'en';
   i18n.setLocale(lang);
-  document.cookie = "i18next=" + lang + ";path=/;expires=Fri, 31 Dec 9999 23:59:59 GMT";
+  document.cookie = "i18next=" + lang + ";path=/;expires=Fri, 31 Dec 9999 23:59:59 GMT"; // eslint-disable-line no-undef
 
   if (auth.checkAuth(req, res)) {
     /** Get accessible routes */

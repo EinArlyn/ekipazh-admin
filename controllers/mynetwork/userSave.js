@@ -197,17 +197,17 @@ function __reasignUser(userId, newParentId, cb) {
           max_construct: parseFloat(validUser.maxConstruct),
           max_add_elem: parseFloat(validUser.maxAddElem)
         }).then(function() {
-          if (!validUser.diff.length) _cb(null);
+          if (!validUser.diff.length) {_cb(null);}
 
           models.users_accesses.destroy({
             where: {user_id: userId, menu_id: {$in: validUser.diff}}
           }).then(function() {
             _cb(null);
-          }).catch(function() {
+          }).catch(function(err) {
             console.log(err);
             _cb(err);
           });
-        }).catch(function() {
+        }).catch(function(err) {
           console.log(err);
           _cb(err);
         });
@@ -228,7 +228,7 @@ function __reasignUser(userId, newParentId, cb) {
         }).then(function(prnt) {
           var obj = {};
           _.mapKeys(crntUser.dataValues, function(value, key) {
-            if (prnt.dataValues[key] < value) return obj[key] = 0;
+            if (prnt.dataValues[key] < value) {return obj[key] = 0;}
           });
           validUser.diffTypes = obj;
 
@@ -248,7 +248,7 @@ function __reasignUser(userId, newParentId, cb) {
       });
     }
   ], function(err, result) {
-    if (err) return cb(err);
+    if (err) {return cb(err);}
 
     models.users.find({
       where: { id: userId }

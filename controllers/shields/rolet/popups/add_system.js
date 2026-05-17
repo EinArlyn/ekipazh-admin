@@ -36,7 +36,7 @@ module.exports = function (req, res) {
     .then(function (newSystem) {
 
       var size_list = [];
-      try { size_list = JSON.parse(fields.size_list || '[]') || []; } catch (e) {}
+      try { size_list = JSON.parse(fields.size_list || '[]') || []; } catch (e) { /* TODO: handle parse error */ }
 
       var sizePromises = size_list.map(function (size) {
         return models.rol_box_sizes.create({

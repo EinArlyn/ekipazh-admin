@@ -50,7 +50,7 @@ function _saveProfileSystem (profileId, elementId) {
       element_id: elementId
     }
   }).then(function (result) {
-    if (result) return;
+    if (result) {return;}
 
     models.elements_profile_systems.create({
       profile_system_id: parseInt(profileId, 10),
@@ -67,7 +67,7 @@ function _saveProfileSystem (profileId, elementId) {
   }).then(function (lists) {
     if (lists.length) {
       for (var i = 0, len = lists.length; i < len; i++) {
-        __setBeedProfileSystems(lists[i].id, profileId);
+        __setBeedProfileSystems(lists[i].id, profileId); // eslint-disable-line no-undef
       }
     }
   }).catch(function (error) {
@@ -87,7 +87,7 @@ function _destroyProfileSystem(profileId, elementId) {
       element_id: elementId
     }
   }).then(function (result) {
-    if (!result) return;
+    if (!result) {return;}
 
     result.destroy().then(function () {
       return;
@@ -120,7 +120,7 @@ function __destroyBeedProfileSystems (listId, profileId) {
       profile_system_id: profileId
     }
   }).then(function (result) {
-    if (!result) return;
+    if (!result) {return;}
 
     result.destroy().then(function (){
       // Done.

@@ -12,7 +12,7 @@ var parseForm = require('../../../lib/services/formParser').parseForm;
 module.exports = function (req, res) {
   var imageUrl = '';
   parseForm(req, function (err, fields, files) {
-    if (err) return res.send({ status: false, error: err });
+    if (err) {return res.send({ status: false, error: err });}
 
     models.doors_groups.find({
       where: {
@@ -30,7 +30,7 @@ module.exports = function (req, res) {
 
         if (files.doors_group_img.name) {
           fs.readFile(files.doors_group_img.path, function(err, data) {
-            if (err) console.log('Image upload error. Error: ' + err);
+            if (err) {console.log('Image upload error. Error: ' + err);}
             imageUrl = '/local_storage/profiles/' + Math.floor(Math.random()*1000000) + files.doors_group_img.name;
             fs.writeFile('.' + imageUrl, data, function(err) {});
             __saveDoorsGroupImg(fields.group_id, imageUrl);

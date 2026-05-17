@@ -623,11 +623,11 @@ function checkListAvalabilityAsPush (req, res) {
       'AND L.is_push = 1' +
   '').then(function (lists) {
     console.log(lists)
-    if (lists && lists[0] && lists[0][0]) return res.send({
+    if (lists && lists[0] && lists[0][0]) {return res.send({
       status: true,
       isAvailable: false,
       message: i18n.__('Unavailable Push') + ' ' + lists[0][0].name
-    });
+    });}
 
     res.send({ status: true, isAvailable: true });
   }).catch(function (error) {
@@ -669,7 +669,7 @@ function _saveSendvichSystem (sendvichId, laminationId) {
       lists_id: sendvichId
     }
   }).then(function (result) {
-    if (result) return;
+    if (result) {return;}
     models.compliance_lists_lamination_colors.create({
       lamination_factory_colors_id: parseInt(laminationId, 10),
       lists_id: parseInt(sendvichId, 10)
@@ -686,7 +686,7 @@ function _destroySendvichSystem(sendvichId, laminationId) {
       lists_id: sendvichId
     }
   }).then(function (result) {
-    if (!result) return;
+    if (!result) {return;}
     result.destroy().then(function () {
       return;
     });
@@ -730,7 +730,7 @@ function _saveProfileSystem (profileId, listId) {
       list_id: listId
     }
   }).then(function (result) {
-    if (result) return;
+    if (result) {return;}
 
     models.lists_profile_systems.create({
       profile_system_id: parseInt(profileId, 10),
@@ -749,7 +749,7 @@ function _destroyProfileSystem(profileId, listId) {
       list_id: listId
     }
   }).then(function (result) {
-    if (!result) return;
+    if (!result) {return;}
 
     result.destroy().then(function () {
       return;

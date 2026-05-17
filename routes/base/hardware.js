@@ -97,11 +97,11 @@ function isHardwareGroupAvailableAsPush (req, res) {
       return group.id != req.params.id;
     });
 
-    if (groups && groups.length) return res.send({
+    if (groups && groups.length) {return res.send({
       status: true,
       isAvailable: false,
       message: i18n.__('Unavailable Push') + ' ' + groups[0].name
-    });
+    });}
 
     res.send({ status: true, isAvailable: true });
   }).catch(function (error) {
@@ -431,7 +431,7 @@ function addFeature (req, res) {
 
     function saveFeatureLogo(logoUrl) {
       fs.readFile(files.feature_img.path, function(err, data) {
-        if (err) console.log('Image upload error. Error: ' + err);
+        if (err) {console.log('Image upload error. Error: ' + err);}
         fs.writeFile(logoUrl, data, function(err) {});
       });
     }
@@ -514,7 +514,7 @@ function editGroup (req, res) {
 
     if (files.feature_img.name) {
       fs.readFile(files.feature_img.path, function(err, data) {
-        if (err) console.log('Image upload error. Error: ' + err);
+        if (err) {console.log('Image upload error. Error: ' + err);}
         fs.writeFile('./local_storage/hardware/' + files.feature_img.name, data, function(err) {});
         imageUrl = '/local_storage/hardware/' + files.feature_img.name;
         saveFeatureDescription();
@@ -927,7 +927,7 @@ function getTypeOptions(req, res) {
       group_id: groupId
     }
   }).then(function (type) {
-    if (type) return res.send({ status: true, type: type });
+    if (type) {return res.send({ status: true, type: type });}
 
     /** According to new TT. */
     models.window_hardware_type_ranges.create({
@@ -990,7 +990,7 @@ function _saveProfileSystem (profileId, hardwareId) {
       window_hardware_group_id: hardwareId
     }
   }).then(function (result) {
-    if (result) return;
+    if (result) {return;}
     models.window_hardware_profile_systems.create({
       profile_system_id: parseInt(profileId, 10),
       window_hardware_group_id: parseInt(hardwareId, 10),
@@ -1012,7 +1012,7 @@ function _destroyProfileSystem(profileId, hardwareId) {
       window_hardware_group_id: hardwareId
     }
   }).then(function (result) {
-    if (!result) return;
+    if (!result) {return;}
     result.destroy().then(function () {
       return;
     });
@@ -1058,7 +1058,7 @@ function _saveHardwareSystem (hardwareId, countryId) {
       country_id: countryId
     }
   }).then(function (result) {
-    if (result) return;
+    if (result) {return;}
     models.compliance_window_hardware_groups.create({
       window_hardware_group_id: parseInt(hardwareId, 10),
       country_id: parseInt(countryId, 10)
@@ -1075,7 +1075,7 @@ function _destroyHardwareSystem(hardwareId, countryId) {
       country_id: countryId
     }
   }).then(function (result) {
-    if (!result) return;
+    if (!result) {return;}
     result.destroy().then(function () {
       return;
     });

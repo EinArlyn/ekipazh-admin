@@ -16,7 +16,7 @@ module.exports = function (req, res) {
     models.profile_systems.find({
       where: { id: product.profile_id }
     }).then(function (profileSystem) {
-      if (profileSystem) return _getTemplateStruct(profileSystem, sendResponse);
+      if (profileSystem) {return _getTemplateStruct(profileSystem, sendResponse);}
       
       /** Find door group for parsing depths*/
       models.doors_groups.find({
@@ -24,7 +24,7 @@ module.exports = function (req, res) {
       }).then(function (doorGroup) {
         _getTemplateStruct(doorGroup, sendResponse);
       }).catch(function (error) {
-        console.log(err);
+        console.log(error);
         res.send({ status: false });
       });
     }).catch(function (err) {

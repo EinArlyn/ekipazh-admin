@@ -104,11 +104,11 @@ function getGroups(req,res) {
 
 function getGroup(req, res) {
     const groupId = parseInt(req.params.id, 10);
-    if (!Number.isFinite(groupId)) return res.send({ status: false, error: 'bad id' });
+    if (!Number.isFinite(groupId)) {return res.send({ status: false, error: 'bad id' });}
 
     models.rol_control_groups.findOne({ where: { id: groupId } })
     .then(function (group) {
-        if (!group) return res.send({ status: false, error: 'not found' });
+        if (!group) {return res.send({ status: false, error: 'not found' });}
         res.send({ status: true, group: group});
     })
     .catch(function (err) {

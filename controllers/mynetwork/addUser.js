@@ -3,7 +3,7 @@ var initLocation = require('../../lib/services/locationService').initLocation;
 
 module.exports = function (req, res) {
   initLocation(req.session.user.city_id, function (err, location) {
-    if (err) return res.send('Internal server error');
+    if (err) {return res.send('Internal server error');}
 
     res.render('add_user', {
       i18n: i18n,

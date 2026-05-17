@@ -11,7 +11,7 @@ var _getAvailableSets = require('./utils')._getAvailableSets;
  */
 module.exports = function (req, res) {
   parseForm(req, function (err, fields, files) {
-    if (err) return res.send({ status: false, error: err });
+    if (err) {return res.send({ status: false, error: err });}
 
     models.doors_groups.create({
       factory_id: parseInt(req.session.user.factory_id, 10),
@@ -28,7 +28,7 @@ module.exports = function (req, res) {
       rama_sill_list_id: 0
     }).then(function (newGroup) {
       _getAvailableSets(req.session.user.factory_id, function (err, result) {
-        if (err) return ({ status: false, error: err });
+        if (err) {return ({ status: false, error: err });}
 
         res.send({ status: true, group: newGroup, default: result });
       });

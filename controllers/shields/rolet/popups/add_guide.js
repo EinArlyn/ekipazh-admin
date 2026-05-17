@@ -45,7 +45,7 @@ module.exports = function (req, res) {
         : Promise.resolve();
 
       rulesPromise.then(function() {
-        if (!files.rolet_img.name) return res.send({ status: true });
+        if (!files.rolet_img.name) {return res.send({ status: true });}
 
         const imageUrl = '/local_storage/rollets/' + Math.floor(Math.random() * 1000000) + files.rolet_img.name;
         loadImage(files.rolet_img.path, imageUrl);

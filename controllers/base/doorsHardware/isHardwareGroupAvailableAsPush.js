@@ -14,11 +14,11 @@ module.exports = function (req, res) {
       is_push: 1
     }
   }).then(function (hardwareGroup) {
-    if (hardwareGroup) return res.send({
+    if (hardwareGroup) {return res.send({
       status: true,
       isAvailable: false,
       message: i18n.__('Unavailable Push') + ' ' + hardwareGroup.name
-    });
+    });}
 
     res.send({ status: true, isAvailable: true });
   }).catch(function (error) {

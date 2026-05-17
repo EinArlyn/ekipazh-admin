@@ -7,7 +7,11 @@
   },
   "scripts": {
     "start": "node ./app.js",
-    "lint:pug": "node ./scripts/check-templates.js"
+    "lint": "npm run lint:js && npm run lint:pug",
+    "lint:js": "eslint controllers/ lib/ routes/ app.js --ext .js --cache --cache-location .eslintcache",
+    "lint:pug": "node ./scripts/check-templates.js && pug-lint views/",
+    "lint:fix": "eslint controllers/ lib/ routes/ app.js --ext .js --fix",
+    "format": "prettier --write controllers/ lib/ routes/ app.js"
   },
   "dependencies": {
     "async": "^3.2.6",
@@ -36,7 +40,11 @@
     "util": "^0.12.5"
   },
   "devDependencies": {
+    "eslint": "^8.57.1",
+    "eslint-config-prettier": "^8.10.2",
     "expect.js": "^0.3.1",
-    "mocha": "^11.1.0"
+    "mocha": "^11.1.0",
+    "prettier": "^3.6.2",
+    "pug-lint": "^2.7.0"
   }
 }
