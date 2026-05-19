@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var i18n = require('i18n');
-var formidable = require('formidable');
+var parseForm = require('../../lib/services/formParser').parseForm;
 var async = require('async');
 
 var models = require('../../lib/models');
@@ -188,9 +188,7 @@ function getLaminations (req, res) {
 }
 
 function addLaminationGroup(req, res) {
-  var form = new formidable.IncomingForm();
-  form.keepExtensions = true;
-  form.parse(req, function (err, fields, files) {
+  parseForm(req, function (err, fields, files) {
     models.lamination_folders.create({
       name: fields.name,
       factory_id: parseInt(req.session.user.factory_id, 10),
@@ -206,9 +204,7 @@ function addLaminationGroup(req, res) {
 }
 
 function addLaminationColor(req, res) {
-  var form = new formidable.IncomingForm();
-  form.keepExtensions = true;
-  form.parse(req, function (err, fields, files) {
+  parseForm(req, function (err, fields, files) {
     models.lamination_default_colors.create({
       name: fields.name,
       url: '',
@@ -235,9 +231,7 @@ function addLaminationColor(req, res) {
 }
 
 function editLaminationColor(req, res) {
-  var form = new formidable.IncomingForm();
-  form.keepExtensions = true;
-  form.parse(req, function (err, fields, files) {
+  parseForm(req, function (err, fields, files) {
       if (files.folder_img.name) {
         var url = '/local_storage/lamination_colors/' + Math.floor(Math.random()*1000000) + files.folder_img.name;
         loadImage(files.folder_img.path, url);
@@ -255,9 +249,7 @@ function editLaminationColor(req, res) {
 }
 
 function saveEditLamination(req, res) {
-  var form = new formidable.IncomingForm();
-  form.keepExtensions = true;
-  form.parse(req, function (err, fields, files) {
+  parseForm(req, function (err, fields, files) {
         models.lamination_factory_colors.findOne({
           where: {id: parseInt(fields.color_id)}
         }).then(function(laminationColor) {
@@ -332,10 +324,8 @@ function changeLaminationFolder(req, res) {
 
 
 function saveLaminationFolder(req, res) {
-  var form = new formidable.IncomingForm();
 
-  form.keepExtensions = true;
-  form.parse(req, function (err, fields, files) {
+  parseForm(req, function (err, fields, files) {
     models.lamination_folders.findOne({
       where: {id: fields.folder_id}
     }).then(function(lamination_folder) {
@@ -458,9 +448,7 @@ function getPresetsList(req, res) {
 }
 
 function editPresetSet(req, res) {
-  var form = new formidable.IncomingForm();
-  form.keepExtensions = true;
-  form.parse(req, function (err, fields, files) {
+  parseForm(req, function (err, fields, files) {
         
         models.sets.findOne({
           where: {id: parseInt(fields.set_id)}
@@ -571,9 +559,7 @@ function getPresetForm(req, res) {
 }
 
 function createPresetSet(req, res) {
-    var form = new formidable.IncomingForm();
-      form.keepExtensions = true;
-      form.parse(req, function (err, fields, files) {
+      parseForm(req, function (err, fields, files) {
 
          models.sets.create({
           categories_sets_id: parseInt(fields.group),
@@ -609,9 +595,7 @@ function createPresetSet(req, res) {
 
 
 function addPresetFolder(req,res) {
-  var form = new formidable.IncomingForm();
-      form.keepExtensions = true;
-      form.parse(req, function (err, fields, files) {
+      parseForm(req, function (err, fields, files) {
         
         models.categories_sets.create({
           name: fields.name,
@@ -640,9 +624,7 @@ function getPresetsFolder(req, res) {
 }
 
 function editPresetFolder(req, res) {
-  var form = new formidable.IncomingForm();
-      form.keepExtensions = true;
-      form.parse(req, function (err, fields, files) {
+      parseForm(req, function (err, fields, files) {
         models.categories_sets.findOne({
           where: {id: parseInt(fields.folder_id)}
         }).then(function(folder) {
@@ -973,10 +955,8 @@ function getGlassFolder(req, res) {
  * @param {integer}  position
  */
 function saveGlassFolder(req, res) {
-  var form = new formidable.IncomingForm();
 
-  form.keepExtensions = true;
-  form.parse(req, function (err, fields, files) {
+  parseForm(req, function (err, fields, files) {
     models.glass_folders.findOne({
       where: {id: fields.folder_id}
     }).then(function(glassFolder) {
@@ -1045,10 +1025,8 @@ function saveGlassFolder(req, res) {
  * @param {string}  img
  */
 function addNewGlassFolder(req, res) {
-  var form = new formidable.IncomingForm();
 
-  form.keepExtensions = true;
-  form.parse(req, function (err, fields, files) {
+  parseForm(req, function (err, fields, files) {
 
     models.glass_folders.create({
       name: fields.name,
@@ -1211,10 +1189,8 @@ function getWindowSills (req, res) {
  * @param {integer} position
  */
 function addNewSillFolder(req, res) {
-  var form = new formidable.IncomingForm();
 
-  form.keepExtensions = true;
-  form.parse(req, function (err, fields, files) {
+  parseForm(req, function (err, fields, files) {
 
     models.addition_folders.create({
       name: fields.name,
@@ -1335,10 +1311,8 @@ function getSillFolder(req, res) {
  * @param {integer} position
  */
 function saveSillFolder(req, res) {
-  var form = new formidable.IncomingForm();
 
-  form.keepExtensions = true;
-  form.parse(req, function (err, fields, files) {
+  parseForm(req, function (err, fields, files) {
     models.addition_folders.findOne({
       where: {id: fields.folder_id}
     }).then(function(sillFolder) {
@@ -1469,10 +1443,8 @@ function getSpillways(req, res) {
  * @param {integer} position
  */
 function addNewSpillwayFolder(req, res) {
-  var form = new formidable.IncomingForm();
 
-  form.keepExtensions = true;
-  form.parse(req, function (err, fields, files) {
+  parseForm(req, function (err, fields, files) {
     models.addition_folders.create({
       name: fields.name,
       addition_type_id: 9,
@@ -1545,10 +1517,8 @@ function getSpillwayFolder(req, res) {
  * @param {integer} position
  */
 function saveSpillwayFolder(req, res) {
-  var form = new formidable.IncomingForm();
 
-  form.keepExtensions = true;
-  form.parse(req, function (err, fields, files) {
+  parseForm(req, function (err, fields, files) {
     models.addition_folders.findOne({
       where: {id: fields.folder_id}
     }).then(function(spillwayFolder) {
@@ -1703,10 +1673,8 @@ function getVisors(req, res) {
  * @param {integer} position
  */
 function addNewVisorFolder(req, res) {
-  var form = new formidable.IncomingForm();
 
-  form.keepExtensions = true;
-  form.parse(req, function (err, fields, files) {
+  parseForm(req, function (err, fields, files) {
     models.addition_folders.create({
       name: fields.name,
       addition_type_id: 21,
@@ -1779,10 +1747,8 @@ function getVisorFolder(req, res) {
  * @param {integer} position
  */
 function saveVisorFolder(req, res) {
-  var form = new formidable.IncomingForm();
 
-  form.keepExtensions = true;
-  form.parse(req, function (err, fields, files) {
+  parseForm(req, function (err, fields, files) {
     models.addition_folders.findOne({
       where: {id: fields.folder_id}
     }).then(function(visorFolder) {
@@ -2413,10 +2379,8 @@ function changeAppLink(req, res) {
  * @param
  */
 function addNewTemplate(req, res) {
-  var form = new formidable.IncomingForm();
 
-  form.keepExtensions = true;
-  form.parse(req, function (err, fields, files) {
+  parseForm(req, function (err, fields, files) {
     if (!files.template_img.name) {return res.send({status: false});}
 
     var url = '/local_storage/templates/' + Math.floor(Math.random()*1000000) + files.template_img.name;
@@ -2453,10 +2417,8 @@ function getTemplate(req, res) {
 }
 
 function editTemplate(req, res) {
-  var form = new formidable.IncomingForm();
 
-  form.keepExtensions = true;
-  form.parse(req, function (err, fields, files) {
+  parseForm(req, function (err, fields, files) {
     models.background_templates.find({
       where: {id: fields.template_id}
     }).then(function(template) {

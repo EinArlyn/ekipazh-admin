@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-var formidable = require('formidable');
+var parseForm = require('../../lib/services/formParser').parseForm;
 var fs = require('fs');
 var i18n = require('i18n');
 
@@ -287,11 +287,9 @@ function getSet (req, res) {
 function saveSet(req, res) {
   //console.log(req.body);
   var id = req.params.id;
-  var form = new formidable.IncomingForm();
   var lastLocation = '';
 
-  form.keepExtensions = true;
-  form.parse(req, function (err, fields, files) {
+  parseForm(req, function (err, fields, files) {
     lastLocation = fields.last_location;
     models.lists.find({ where: {id: id} }).then(function (set) {
       var isPush = fields.is_push ? 1 : 0;

@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-var formidable = require('formidable');
+var parseForm = require('../../lib/services/formParser').parseForm;
 var i18n = require('i18n');
 var fs = require('fs');
 
@@ -289,10 +289,7 @@ function getProfilesOfGroup(req, res) {
 }
 
 function addProfileGroup(req, res) {
-  var form = new formidable.IncomingForm();
-
-  form.keepExtensions = true;
-  form.parse(req, function (err, fields, files) {
+  parseForm(req, function (err, fields, files) {
     models.profile_system_folders.create({
       name: fields.name,
       factory_id: parseInt(req.session.user.factory_id, 10),
@@ -355,13 +352,11 @@ function getProfileSystem(req, res) {
  * @param {string}   profileSystemName
  */
 function editProfileSystem(req, res) {
-  var form = new formidable.IncomingForm();
   var isDefault = 0;
   var isPush = 0;
   var imageUrl = '';
 
-  form.keepExtensions = true;
-  form.parse(req, function (err, fields, files) {
+  parseForm(req, function (err, fields, files) {
     if (fields.profile_by_default) {
       isDefault = 1;
       _unselectDefaultProfileSystem(fields.profile_system_id, req.session.user.factory_id);
@@ -564,10 +559,7 @@ function getProfileGroup(req, res) {
 }
 
 function saveProfileGroup(req, res) {
-  var form = new formidable.IncomingForm();
-
-  form.keepExtensions = true;
-  form.parse(req, function (err, fields, files) {
+  parseForm(req, function (err, fields, files) {
     models.profile_system_folders.findOne({
       where: {id: parseInt(fields.group_id)}
     }).then(function(profileSystemGroup) {
