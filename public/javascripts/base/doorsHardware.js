@@ -170,6 +170,10 @@ $(function () {
         $('.popup-edit-group input[name="width_max"]').val(data.group.width_max);
         $('.popup-edit-group input[name="height_min"]').val(data.group.height_min);
         $('.popup-edit-group input[name="height_max"]').val(data.group.height_max);
+        $('.popup-edit-group input[name="noguarantee_min_width"]').val(data.group.noguarantee_min_width);
+        $('.popup-edit-group input[name="noguarantee_max_width"]').val(data.group.noguarantee_max_width);
+        $('.popup-edit-group input[name="noguarantee_min_height"]').val(data.group.noguarantee_min_height);
+        $('.popup-edit-group input[name="noguarantee_max_height"]').val(data.group.noguarantee_max_height);
         $('.popup-edit-group img.image-preview').attr('src', data.group.image);
 
         if (parseInt(data.group.is_active, 10)) {

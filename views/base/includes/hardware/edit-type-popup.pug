@@ -25,6 +25,27 @@
           | 
           | max 
           input(class="input-default", type="text", name="max_height", value="", size="5")
+    span.pop-up-header
+      =i18n.__('noguaranteeSizes')
+    .hardware-type-diapasons-pop-up
+      .diapasons-label
+        =i18n.__('Width (mm)')
+        | :
+        span.diapasons-margin-label
+          =i18n.__('Height (mm)')
+          | :
+      .diapasons-inputs
+        | min 
+        input(class="input-default", type="text", name="noguarantee_min_width", value="", size="5")
+        | 
+        | max 
+        input(class="input-default", type="text", name="noguarantee_max_width", value="", size="5")
+        span.diapasons-margin-inputs
+          | min 
+          input(class="input-default", type="text", name="noguarantee_min_height", value="", size="5")
+          | 
+          | max 
+          input(class="input-default", type="text", name="noguarantee_max_height", value="", size="5")
     .feature-edit-pop-up
       a.save-btn-text.save-btn#save-hardware-type-btn(href="#", type="button", value)
         span.save-btn-text

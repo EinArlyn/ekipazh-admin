@@ -108,6 +108,36 @@
             | max
             | 
             input.input-default(type="text" name="height_max" value="")
+    hr
+    .row
+      .row.text-center.row-fold-params
+        =i18n.__('noguaranteeSizes')
+        | :
+      .row.row-fold-values
+        .col-md-6
+          .row.text-center
+            =i18n.__('Width (mm)')
+            | :
+          .row
+            | min
+            | 
+            input.input-default(type="text" name="noguarantee_min_width" value="")
+            | 
+            | max
+            | 
+            input.input-default(type="text" name="noguarantee_max_width" value="")
+        .col-md-6
+          .row.text-center
+            =i18n.__('Height (mm)')
+            | :
+          .row
+            | min
+            | 
+            input.input-default(type="text" name="noguarantee_min_height" value="")
+            | 
+            | max
+            | 
+            input.input-default(type="text" name="noguarantee_max_height" value="")
     .row
       .col-md-6
         input.add-image-btn.add-hardware-group-image(type="button")

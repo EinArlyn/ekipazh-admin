@@ -927,6 +927,10 @@ function getTypeOptions(req, res) {
       min_width: 0,
       max_height: 1000,
       min_height: 0,
+      noguarantee_max_width: 0,
+      noguarantee_min_width: 0,
+      noguarantee_max_height: 0,
+      noguarantee_min_height: 0,
       modified: new Date(),
       group_id: groupId
     }).then(function (newType) {
@@ -954,7 +958,12 @@ function editHardwareType(req, res) {
         min_height: fields.min_height,
         max_height: fields.max_height,
         min_width: fields.min_width,
-        max_width: fields.max_width
+        max_width: fields.max_width,
+        noguarantee_min_height: fields.noguarantee_min_height,
+        noguarantee_max_height: fields.noguarantee_max_height,
+        noguarantee_min_width: fields.noguarantee_min_width,
+        noguarantee_max_width: fields.noguarantee_max_width,
+        modified: new Date()
       }).then(function () {
         res.send({ status: true });
       }).catch(function (error) {

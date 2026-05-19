@@ -31,6 +31,10 @@ module.exports = function (req, res) {
       width_max: parseInt(fields.width_max, 10),
       height_min: parseInt(fields.height_min, 10),
       height_max: parseInt(fields.height_max, 10),
+      noguarantee_min_width: parseInt(fields.noguarantee_min_width, 10),
+      noguarantee_max_width: parseInt(fields.noguarantee_max_width, 10),
+      noguarantee_min_height: parseInt(fields.noguarantee_min_height, 10),
+      noguarantee_max_height: parseInt(fields.noguarantee_max_height, 10),
       code_sync: '',
       is_active: 1,
       is_push: isPush

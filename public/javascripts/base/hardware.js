@@ -1331,6 +1331,10 @@ $('div.profile_item input').click(function() {
         $('.edit-hardware-type-pop-up input[name="max_width"]').val(data.type.max_width);
         $('.edit-hardware-type-pop-up input[name="min_height"]').val(data.type.min_height);
         $('.edit-hardware-type-pop-up input[name="min_width"]').val(data.type.min_width);
+        $('.edit-hardware-type-pop-up input[name="noguarantee_max_height"]').val(data.type.noguarantee_max_height);
+        $('.edit-hardware-type-pop-up input[name="noguarantee_max_width"]').val(data.type.noguarantee_max_width);
+        $('.edit-hardware-type-pop-up input[name="noguarantee_min_height"]').val(data.type.noguarantee_min_height);
+        $('.edit-hardware-type-pop-up input[name="noguarantee_min_width"]').val(data.type.noguarantee_min_width);
         $('#hardware-type-id-pop-up-input').val(hardwareTypeId);
         $('#hardware-group-id-pop-up-input').val(checkedWindowHardwareGroup);
         $('.edit-hardware-type-pop-up').popup('show');

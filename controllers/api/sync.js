@@ -2171,6 +2171,10 @@ module.exports = function (req, res) {
                       "type_id",
                       "factory_id",
                       "id",
+                      "noguarantee_min_width",
+                      "noguarantee_max_width",
+                      "noguarantee_min_height",
+                      "noguarantee_max_height",
                     ];
                     sortValues(window_hardware_type_ranges, function (values) {
                       tables.window_hardware_type_ranges.rows = values;
@@ -2204,6 +2208,10 @@ module.exports = function (req, res) {
                       "hardware_type_id",
                       "factory_id",
                       "id",
+                      "noguarantee_min_width",
+                      "noguarantee_max_width",
+                      "noguarantee_min_height",
+                      "noguarantee_max_height"
                     ],
                   })
                   .then(function (doors_hardware_groups) {
@@ -2233,6 +2241,10 @@ module.exports = function (req, res) {
                       "hardware_type_id",
                       "factory_id",
                       "id",
+                      "noguarantee_min_width",
+                      "noguarantee_max_width",
+                      "noguarantee_min_height",
+                      "noguarantee_max_height"
                     ];
                     sortValues(doors_hardware_groups, function (values) {
                       tables.doors_hardware_groups.rows = values;
