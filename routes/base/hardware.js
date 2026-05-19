@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-var formidable = require('formidable');
+var parseForm = require('../../lib/services/formParser').parseForm;
 var fs = require('fs');
 var i18n = require('i18n');
 var async = require('async');
@@ -402,9 +402,7 @@ function addFeature (req, res) {
    * @param {integer} heat_coeff
    * @param {integer} air_coeff
    */
-  var form = new formidable.IncomingForm();
-  form.keepExtensions = true;
-  form.parse(req, function (err, fields, files) {
+  parseForm(req, function (err, fields, files) {
     var logoUrl = '';
 
     if (!files.feature_img.name) {
@@ -474,9 +472,7 @@ function getGroup(req, res) {
 function editGroup (req, res) {
   var imageUrl = null;
   var isPush = 0;
-  var form = new formidable.IncomingForm();
-  form.keepExtensions = true;
-  form.parse(req, function (err, fields, files) {
+  parseForm(req, function (err, fields, files) {
     models.window_hardware_groups.find({
       where: {id: fields.feature_id}
     }).then(function (group) {
@@ -599,10 +595,7 @@ function editGroup (req, res) {
  * @param {date} modified
  */
 function addHardwareFolder (req, res) {
-  var form = new formidable.IncomingForm();
-
-  form.keepExtensions = true;
-  form.parse(req, function (err, fields, files) {
+  parseForm(req, function (err, fields, files) {
     models.window_hardware_folders.create({
       name: fields.name,
       factory_id: parseInt(req.session.user.factory_id),
@@ -742,10 +735,7 @@ function getHardwareFolder(req, res) {
  * @param {string} img
  */
 function editHardwareFolder(req, res) {
-  var form = new formidable.IncomingForm();
-
-  form.keepExtensions = true;
-  form.parse(req, function (err, fields, files) {
+  parseForm(req, function (err, fields, files) {
     models.window_hardware_folders.findOne({
       where: {id: parseInt(fields.folder_id)}
     }).then(function(hardware_group) {
@@ -952,9 +942,7 @@ function getTypeOptions(req, res) {
 }
 
 function editHardwareType(req, res) {
-  var form = new formidable.IncomingForm();
-  form.keepExtensions = true;
-  form.parse(req, function (err, fields, files) {
+  parseForm(req, function (err, fields, files) {
     models.window_hardware_type_ranges.find({
       where: {
         factory_id: req.session.user.factory_id,
