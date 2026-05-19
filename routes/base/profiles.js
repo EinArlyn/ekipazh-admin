@@ -371,17 +371,17 @@ function editProfileSystem(req, res) {
     }).then(function(profileSystem) {
       profileSystem.updateAttributes({
         name: fields.name,
-        position: parseInt(fields.position, 10),
+        position: parseInt(fields.position, 10) || 55,
         folder_id: parseInt(fields.folder_id, 10),
-        cameras: parseInt(fields.cameras, 10),
-        country: fields.country,
-        heat_coeff: parseInt(fields.heat_coeff, 10),
-        heat_coeff_value: parseFloat(fields.heat_coeff_value),
-        noise_coeff: parseInt(fields.noise_coeff, 10),
+        cameras: parseInt(fields.cameras, 10) || 1,
+        country: fields.country || 0,
+        heat_coeff: parseInt(fields.heat_coeff, 10) || 0,
+        heat_coeff_value: parseFloat(fields.heat_coeff_value) || 0,
+        noise_coeff: parseInt(fields.noise_coeff, 10) || 0,
         is_default: isDefault,
-        link: fields.link,
-        description: fields.description,
-        code_sync: fields.sync_code,
+        link: fields.link || 0,
+        description: fields.description || 'Empty',
+        code_sync: fields.sync_code || 0,
         is_push: isPush
       }).then(function() {
         if (files.profile_img.name) {
