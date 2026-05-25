@@ -14,9 +14,9 @@ var models = require('../../lib/models');
 module.exports = function (req, res) {
   var lang = req.getLocale();
 
-  if (config.specLink && config.specLink.indexOf('ekipazh') > -1) {
-    return res.redirect('/');
-  }
+  // if (config.specLink && config.specLink.indexOf('ekipazh') > -1) {
+  //   return res.redirect('/');
+  // }
 
   /** Set time interval of entries, orders, calcs */
   var from = (req.query.from ? (req.query.from.split('.')[2] + '-' + req.query.from.split('.')[1] + '-' + req.query.from.split('.')[0]) : new Date(req.session.user.created_at).getFullYear() + '-' + (("0" + (new Date(req.session.user.created_at).getMonth() + 1)).slice(-2)) + '-' + ("0" + new Date(req.session.user.created_at).getDate()).slice(-2));
