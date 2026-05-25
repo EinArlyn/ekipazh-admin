@@ -9,3 +9,4 @@ local_storage
 config.json
 .env
 .idea/
+.claude
