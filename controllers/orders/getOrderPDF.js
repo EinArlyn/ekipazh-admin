@@ -138,14 +138,17 @@ module.exports = function (req, res) {
                 if(order.user.currencies_id === 102) {
                   currency.name = '₴';
                   order.sale_price = order.sale_price/order.order.currency_value;
+                  result.extraPriceGlobal = result.extraPriceGlobal/order.order.currency_value;
                 }
                 if(order.user.currencies_id === 685) {
                   currency.name = '$';
                   order.sale_price = order.sale_price/order.order.currency_value;
+                  result.extraPriceGlobal = result.extraPriceGlobal/order.order.currency_value;
                 }
                 if(order.user.currencies_id === 684) {
                   currency.name = '€';
                   order.sale_price = order.sale_price/order.order.currency_value;
+                  result.extraPriceGlobal = result.extraPriceGlobal/order.order.currency_value;
                 }              
 
               // console.log('should render with result:', result);
@@ -187,6 +190,7 @@ module.exports = function (req, res) {
                 mounting: order.mounting,
                 addServicePrice: addServicePrice,
                 total: order.sale_price,
+                extraPrice: result.extraPriceGlobal,
                 lang: lang,
                 svg_qr: qrBase64,
                 url: url 
