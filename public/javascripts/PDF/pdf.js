@@ -771,7 +771,7 @@ $(function() {
             // Определяем fill на основе значения item_side
             let fillValue;
             if (itemSide === "0") {
-              if (door_type === 3) {
+              if (door_type === 3 || door_type === 2) {
                 fillValue = "#000000";
               } else if (door_type === 1) {
                 fillValue = "#ffffff";
@@ -854,7 +854,7 @@ $(function() {
                   part.sideGradient = frameIndex % 4;
                   part.points = part.points.map(point => ({ ...point }));
 
-                  if (door_type == 3) {
+                  if (door_type == 3 || door_type == 2) {
                     if (part.sideGradient === 0) {
                       part.points[2].x = part.points[1].x;
                       part.points[3].x = part.points[0].x;
