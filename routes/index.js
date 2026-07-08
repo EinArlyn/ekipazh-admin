@@ -97,4 +97,6 @@ module.exports = function(app) {
   app.use('/base/shields/rolet/controls', require('./base/shields/rolet/controls'));
   app.use('/base/shields/rolet/controlBoxSizes', require('./base/shields/rolet/controlBoxSizes'));
   app.use('/base/shields/rolet/addElements', require('./base/shields/rolet/addElements'));
+  
+  app.use('/base/shields/grids/elements', require('./base/shields/grids/elements'));
 };
