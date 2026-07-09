@@ -1,0 +1,64 @@
+.pop-up.pop-up-pls#popup-add-grid-pls
+  form#add-grid-pls-form(method="POST" action="/base/shields/grids/grids/addGrid" enctype="multipart/form-data")
+    //- input(type="hidden" name="group_id" value='' required)
+    .pop-up-close-wrap
+      a(class="pop-up-close", href="#")
+    span.pop-up-header
+      =i18n.__('Add')
+    
+    .row
+      .col-md-6
+        img.pls-image(src="/local_storage/default.png")
+      .col-md-6
+        input.hidden.pls-image-file(type="file" name="pls_img")
+        input.add-image-btn(type="button" value=i18n.__('Add'))
+    .pop-up-pls-rows 
+      .row-name.pls-row 
+        .title-name.title
+          =i18n.__('Name')
+          | :
+        input.input-default.text-name(type="text" value="" name="name" required)
+      .row-sku.pls-row 
+        .title-sku.title
+          =i18n.__('SKU')
+          | :
+        input.input-default.text-sku(type="text" value="" name="sku" required)
+      .row-price.pls-row 
+        .title-price.title
+          =i18n.__('Price')
+          | :
+        input.input-default.text-price(style="width: 50px;" type="number" value="" name="price" step="0.01" required)
+      
+      .row-currency.pls-row 
+        .title-currency.title
+          =i18n.__('Currency')
+          | :
+        select.select-default.input-margin#pls-currency(style="width: 150px;" name="currency_id")
+      
+      .row-edit-size-w.pls-row 
+        .title-edit-size-w.title
+          = '-' + i18n.__('Width')
+          | :
+        input.input-default.text-edit-size-w(style="width: 50px;" type="number" value="" name="edit_size_w" required)
+      .row-edit-size-h.pls-row 
+        .title-edit-size-h.title
+          = '-' + i18n.__('Height')
+          | :
+        input.input-default.text-edit-size-h(style="width: 50px;" type="number" value="" name="edit_size_h" required)
+      .row-size-wave.pls-row 
+        .title-size-wave.title
+          ='размер волны (мм) ПЕРЕВОДЫ'
+          | :
+        input.input-default.text-size-wave(style="width: 50px;" type="number" value="" name="size_wave" required)
+      .row-weight.pls-row 
+        .title-weight.title
+          =i18n.__('Weight (kg)')
+          | :
+        input.input-default.text-weight(style="width: 50px;" type="number" value="" name="weight" step="0.01" required)
+      .row-description
+        .title-description
+          =i18n.__('Description')
+          | :
+        textarea.input-default.text-description(name="description")
+    .row.block-center.text-center
+      input.btn-submit(type="submit" value=i18n.__('Add'))

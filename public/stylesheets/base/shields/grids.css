@@ -50,7 +50,11 @@ input[type="number"]::-webkit-outer-spin-button {
 }
 
 /* elements page */
-.btn-add-element {
+.btn-add-element,
+.btn-add-profile,
+.btn-add-grid,
+.add-element-to-profile,
+.add-element-to-grid {
   width: 20%;
   background-color: black;
   color: white;
@@ -127,45 +131,155 @@ input[type="number"]::-webkit-outer-spin-button {
       opacity: 1;
     }
   }
+  .btn-show-more {
+    width: 20px;
+    height: 20px;
+    background-image: url('/assets/images/22.png');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    cursor: pointer;
+    opacity: 0.7;
+    &:hover {
+      color: white;
+      opacity: 1;
+    }
+  }
 }
 
 
-.elements-list {
-  .element-row {
+.elements-list,
+.grids-list,
+.profiles-list {
+  .element-row,
+  .grid-row,
+  .profile-row {
     display: flex;
     justify-content: space-between;
     padding: 5px 10px;
     margin: 10px 0;
     border: 1px solid lightgray;
-    .element-content {
+    .element-content,
+    .grid-content,
+    .profile-content {
       display: flex;
       align-items: center;
       font-size: 13px;
       gap: 10px;
       width: 90%;
-      .element-name {
+
+      .grid-img {
+        width: 50px;
+        height: 50px;
+        background-color: lightgray;
+        overflow: hidden; 
+        img {
+          width: 100%;
+          height: 100%;
+          object-fit: contain; 
+          object-position: center; 
+          display: block;
+        }
+      }
+      .element-name,
+      .grid-name,
+      .profile-name {
         width: 40%;
         overflow: hidden;
         white-space: nowrap;
         text-overflow: ellipsis;
         border-right: 1px solid lightgray;
       }
-      .element-article {
-        width: 40%;
+      .element-article,
+      .grid-article,
+      .profile-article {
+        width: 35%;
         overflow: hidden;
         white-space: nowrap;
         text-overflow: ellipsis;
         border-right: 1px solid lightgray;
       }
-      .element-price {
+      .element-price,
+      .grid-price,
+      .profile-price {
         width: 6%;
         border-right: 1px solid lightgray;
       }
-      .element-unit-type {
+      .element-unit-type,
+      .profile-type {
+        width: 10%;
+        border-right: 1px solid lightgray;
+      }
+      .element-weight,
+      .grid-weight,
+      .profile-weight {
         width: 6%;
         border-right: 1px solid lightgray;
       }
-      .element-weight {
+    }
+    .btns-block {
+      min-width: 5%;
+    }
+  }
+}
+
+.profile-elements,
+.grid-elements {
+  /* border-bottom: 5px solid black; */
+  background-color: #dadada;
+  padding: 0 20px 20px 20px;
+  .wrap {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .profile-elements-header,
+  .profile-elements-header,
+  .grid-elements-header,
+  .elements-info-text {
+    font-size: 14px;
+    font-weight: bold;
+  }
+  .profile-elements-header,
+  .grid-elements-header,
+  .profile-elements-row,
+  .grid-elements-row {
+    display: flex;
+    background-color: white;
+    justify-content: space-between;
+    padding: 5px 10px;
+    margin: 10px 0;
+    border: 1px solid lightgray;
+    .profile-elements-content,
+    .grid-elements-content {
+      display: flex;
+      align-items: center;
+      font-size: 13px;
+      gap: 10px;
+      width: 90%;
+      .profile-elements-name,
+      .grid-elements-name {
+        width: 30%;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        border-right: 1px solid lightgray;
+      }
+      .profile-elements-article,
+      .grid-elements-article {
+        width: 30%;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        border-right: 1px solid lightgray;
+      }
+      .profile-elements-rules-name,
+      .grid-elements-rules-name {
+        width: 20%;
+        border-right: 1px solid lightgray;
+      }
+      .profile-elements-rules-value,
+      .grid-elements-rules-value {
         width: 6%;
         border-right: 1px solid lightgray;
       }
@@ -191,10 +305,18 @@ input[type="number"]::-webkit-outer-spin-button {
     .title {
       font-size: 14px;
     }
-    &#popup-delete-element-pls {
+    &#popup-delete-element-pls,
+    &#popup-delete-link-element-pls,
+    &#popup-delete-profile-pls {
       width: 200px;
       height: 100px;
     }
+
+    &#popup-add-link-element-pls,
+    &#popup-edit-link-element-pls {
+      width: 800px;
+    }
+
     img.pls-image {
       margin-top: 10px;
       height: 100px;

@@ -1,0 +1,93 @@
+extends ../../layout
+
+block content
+  .main-nav
+    .nav-link
+      a(href="/")= i18n.__('Dashboard') 
+      a(href="/base/shields/grids/elements")=i18n.__('Elements')
+      span#nav-text
+        =i18n.__('Profiles')
+      a(href="/base/shields/grids/grids")=i18n.__('Cloth')
+      //- a(href="/base/shields/rolet/lamels")='Lamels'
+      //- a(href="/base/shields/rolet/roletColorsGroups")='Colors'
+      //- a(href="/base/shields/rolet/roletPrice")='RoletPrice'
+      //- a(href="/base/shields/rolet/roletBoxHeight")='RoletBoxHeight'
+      //- a(href="/base/shields/rolet/controls")='Controls'
+      //- a(href="/base/shields/rolet/controlBoxSizes")='ControlBoxSizes'
+      //- a(href="/base/shields/rolet/addElements")='AddElements'
+      img.loader-ico(src="/assets/images/loader_ico.GIF")
+  .main-content
+    .btn-add-profile
+      =i18n.__('Add') + ' ' + i18n.__('Profile')
+    .profiles-list
+      .profile-row(style="font-weight: bold;")
+        .profile-content 
+          .profile-name
+            =i18n.__('Name')
+          .profile-article
+            =i18n.__('SKU')
+          .profile-type
+            =i18n.__('Type')
+          .profile-price
+            =i18n.__('Price')
+          .profile-weight
+            =i18n.__('Weight (kg)')
+        .btns-block
+          
+      if (profiles.length > 0)
+       each profile in profiles
+        .profile-row
+          .profile-content 
+            .profile-name
+              =profile.name
+            .profile-article
+              =profile.sku
+            .profile-type
+              =(profile.type === 1 ? 'Рама' : profile.type === 2 ? 'Порог' : profile.type === 3 ? 'Штанга' : profile.type === 4 ? 'с Барабаном' : '')
+            .profile-price
+              =profile.price + (profile.currency_id === 102 ? ' ₴' : profile.currency_id === 685 ? ' $' : profile.currency_id === 684 ? ' €' : '')
+            .profile-weight
+              =profile.weight + ' ' + i18n.__('unit_kg')
+          .btns-block
+            .btn-edit-item(data-profile=profile.id)
+            .btn-delete-item(data-profile=profile.id)
+            .btn-show-more(data-profile=profile.id)
+        .profile-elements(data-profile=profile.id style="display: none;")
+          .wrap
+            .elements-info-text
+              ='Елементы профиля:'
+            .add-element-to-profile(data-profile=profile.id)
+              =i18n.__('Add element')
+          .profile-elements-header
+            .profile-elements-content
+              .profile-elements-name
+                =i18n.__('Name')
+              .profile-elements-article
+                =i18n.__('SKU')
+              .profile-elements-rules-name
+                =i18n.__('Rule')
+              .profile-elements-rules-value
+                =i18n.__('Value')
+            .btns-block
+          if (profile.elements.length > 0)
+            each elem in profile.elements
+              .profile-elements-row
+                .profile-elements-content
+                  .profile-elements-name
+                    =elem.name
+                  .profile-elements-article
+                    =elem.sku
+                  .profile-elements-rules-name
+                    =rulesData[elem.rules_id - 1] ? rulesData[elem.rules_id - 1].name : 'Ошибка правила'
+                  .profile-elements-rules-value
+                    =elem.rules_value
+                .btns-block
+                  .btn-edit-item(data-profile=profile.id, data-element=elem.id)
+                  .btn-delete-item(data-profile=profile.id, data-element=elem.id)
+  include popups/add_profile.pug
+  include popups/edit_profile.pug
+  include popups/delete_profile.pug
+  include popups/add_link_element.pug
+  include popups/edit_link_element.pug
+  include popups/delete_link_element.pug
+  

@@ -11,7 +11,7 @@ module.exports = function (req, res) {
     elements.sort((a, b) => a.id - b.id);
     res.render('base/shields/grids/elements', {
       i18n: i18n,
-      title: 'Grids',
+      title: 'Elements',
       // groupSystems: groupSystems,
       elements: elements,
       cssSrcs: ['/assets/stylesheets/base/shields/grids.css'],
