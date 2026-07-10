@@ -17,3 +17,11 @@ exports.deleteGrid = require('./popups/delete_grid');
 exports.addLinkElement = require('./popups/add_link_element');
 exports.editLinkElement = require('./popups/edit_link_element');
 exports.deleteLinkElement = require('./popups/delete_link_element');
+
+exports.systems = require('./systems');
+exports.addGroup = require('./popups/add_system_group');
+exports.editGroup = require('./popups/edit_system_group');
+exports.deleteGroup = require('./popups/delete_system_group');
+exports.addSystem = require('./popups/add_system');
+exports.editSystem = require('./popups/edit_system');
+exports.deleteSystem = require('./popups/delete_system');

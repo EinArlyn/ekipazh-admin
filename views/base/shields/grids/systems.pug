@@ -1,0 +1,59 @@
+extends ../../layout
+
+block content
+  .main-nav
+    .nav-link
+      a(href="/")= i18n.__('Dashboard') 
+      a(href="/base/shields/grids/elements")=i18n.__('Elements')
+      a(href="/base/shields/grids/profiles")=i18n.__('Profiles')
+      a(href="/base/shields/grids/grids")=i18n.__('Cloth')
+      span#nav-text
+        =i18n.__('Profile systems')
+      //- a(href="/base/shields/rolet/endLists")='End Lists'
+      //- a(href="/base/shields/rolet/lamels")='Lamels'
+      //- a(href="/base/shields/rolet/roletColorsGroups")='Colors'
+      //- a(href="/base/shields/rolet/roletPrice")='RoletPrice'
+      //- a(href="/base/shields/rolet/roletBoxHeight")='RoletBoxHeight'
+      //- a(href="/base/shields/rolet/controls")='Controls'
+      //- a(href="/base/shields/rolet/controlBoxSizes")='ControlBoxSizes'
+      //- a(href="/base/shields/rolet/addElements")='AddElements'
+      img.loader-ico(src="/assets/images/loader_ico.GIF")
+  .main-content
+    .btn-add-group
+      =i18n.__('Add group +')
+    .group-list
+      if (groups.length > 0)
+        each group in groups
+          .group-row(style="font-weight: bold;")
+            .group-content             
+              .group-name
+                =group.name
+            .btns-block
+              .btn-active-group.btn-active(data-group=group.id class=!group.is_active ? 'btn-unactive' : 'btn-active')
+              .btn-edit-item(data-group=group.id)
+              .btn-delete-item(data-group=group.id)
+              .btn-show-more(data-group=group.id)
+          .system-list(data-group=group.id style="display: none;")
+            .btn-add-system(data-group=group.id)
+              =i18n.__('Add profile system')
+            if (group.systems.length > 0)
+              each system in group.systems
+                .system-row
+                  .system-content 
+                    .system-img
+                      img(src=system.img)
+                    .system-name
+                      =system.name
+                  .btns-block
+                    .btn-active-system.btn-active(data-system=system.id class=!system.is_active ? 'btn-unactive' : 'btn-active')
+                    .btn-edit-item(data-system=system.id)
+                    .btn-delete-item(data-system=system.id)
+                    //- .btn-show-more(data-system=system.id)
+    
+  include popups/add_system_group.pug
+  include popups/edit_system_group.pug
+  include popups/delete_system_group.pug
+  include popups/add_system.pug
+  include popups/edit_system.pug
+  include popups/delete_system.pug
+  

@@ -101,4 +101,5 @@ module.exports = function(app) {
   app.use('/base/shields/grids/elements', require('./base/shields/grids/elements'));
   app.use('/base/shields/grids/profiles', require('./base/shields/grids/profiles'));
   app.use('/base/shields/grids/grids', require('./base/shields/grids/grids'));
+  app.use('/base/shields/grids/systems', require('./base/shields/grids/systems'));
 };

@@ -24,6 +24,9 @@ $(function () {
   $('#edit-link-element-pls-form').on('submit', submitEditLinkElement);
   $('#delete-link-element-pls-form').on('submit', submitDeleteLinkElement);
 
+  $('#popup-add-grid-pls input.add-image-btn').click(addImgGrid);
+  $('#popup-edit-grid-pls input.add-image-btn').click(editImgGrid);
+
   /** Init popups */
   $(
     '#popup-add-grid-pls',
@@ -384,5 +387,17 @@ $(function () {
         console.log('error');
       }
     }
+  }
+
+
+  function addImgGrid (e) {
+    selectImageGrid('#popup-add-grid-pls');
+  }
+  function editImgGrid (e) {
+    selectImageGrid('#popup-edit-grid-pls');
+  }
+  
+  function selectImageGrid (popup) {
+    $(popup + ' input.pls-image-file').trigger('click');
   }
 });
