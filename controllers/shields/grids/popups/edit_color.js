@@ -10,29 +10,18 @@ module.exports = function (req, res) {
     }
 
 
-    models.pls_systems.findOne({
-      where: { id: fields.system_id }
-    }).then(function(system) {
-      if (!system) {
-        return res.send({ status: false, message: 'System not found' });
+    models.pls_profile_colors.findOne({
+      where: { id: fields.color_id }
+    }).then(function(color) {
+      if (!color) {
+        return res.send({ status: false, message: 'Color not found' });
       }
 
-      return system.update({
+      return color.update({
         name: fields.name,
+        sku: fields.sku,
         position: parseInt(fields.position, 10) || 0,
-        top_id: parseInt(fields.top_id, 10) || 0,
-        right_id: parseInt(fields.right_id, 10) || 0,
-        bottom_id: parseInt(fields.bottom_id, 10) || 0,
-        left_id: parseInt(fields.left_id, 10) || 0,
-        center_id: parseInt(fields.center_id, 10) || 0,
-        sash_id: parseInt(fields.sash_id, 10) || 0,
-        min_w: Number(fields.min_w) || 0,
-        max_w: Number(fields.max_w) || 0,
-        min_h: Number(fields.min_h) || 0,
-        max_h: Number(fields.max_h) || 0,
-        edit_grid_w: Number(fields.edit_grid_w) || 0,
-        edit_grid_h: Number(fields.edit_grid_h) || 0,
-        description: fields.description || '',
+        price: Number(fields.price) || 0,
       }).then(function () {
         if (!(files && files.pls_img && files.pls_img.name && files.pls_img.path)) {
           return res.send({ status: true });
@@ -45,13 +34,13 @@ module.exports = function (req, res) {
           : Promise.resolve();
 
         return waitLoad.then(function () {
-          return system.updateAttributes({ img: imageUrl });
+          return color.updateAttributes({ img: imageUrl });
         }).then(function () {
           res.send({ status: true });
         });
       });
     }).catch(function(err) {
-      console.error('Error editing system:', err.message);
+      console.error('Error editing color:', err.message);
       res.send({ status: false, message: err.message });
     });
   });

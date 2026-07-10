@@ -55,6 +55,7 @@ input[type="number"]::-webkit-outer-spin-button {
 .btn-add-grid,
 .btn-add-group,
 .btn-add-system,
+.btn-add-color,
 .add-element-to-profile,
 .add-element-to-grid {
   width: 20%;
@@ -158,21 +159,27 @@ input[type="number"]::-webkit-outer-spin-button {
 .grids-list,
 .group-list,
 .system-list,
+.colors-list,
 .profiles-list {
   .element-row,
   .grid-row,
   .system-row,
   .profile-row,
+  .color-row,
   .group-row {
     display: flex;
     justify-content: space-between;
     padding: 5px 10px;
     margin: 10px 0;
     border: 1px solid lightgray;
+    &.opacity-content {
+      background-color: #f0f0f0;
+    }
     .element-content,
     .grid-content,
     .group-content,
     .system-content,
+    .color-content,
     .profile-content {
       display: flex;
       align-items: center;
@@ -181,6 +188,7 @@ input[type="number"]::-webkit-outer-spin-button {
       width: 90%;
 
       .grid-img,
+      .color-img,
       .system-img {
         width: 50px;
         height: 50px;

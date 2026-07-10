@@ -40,9 +40,11 @@ $(function () {
 
     if (isVisible) {
       $target.slideUp(150);
+      $('.group-row').removeClass('opacity-content');
       return;
     }
 
+    $('.group-row').addClass('opacity-content');
     $target.slideDown(150);
   });
 
@@ -161,6 +163,8 @@ $(function () {
         $('#popup-edit-system-pls input[name="min_h"]').val(system.min_h);
         $('#popup-edit-system-pls input[name="max_w"]').val(system.max_w);
         $('#popup-edit-system-pls input[name="max_h"]').val(system.max_h);
+        $('#popup-edit-system-pls input[name="edit_grid_w"]').val(system.edit_grid_w);
+        $('#popup-edit-system-pls input[name="edit_grid_h"]').val(system.edit_grid_h);
         $.get('/base/shields/grids/systems/getProfiles', function (data) {
           if (data.status) {
             fillProfileSelects('#popup-edit-system-pls', data.profiles);

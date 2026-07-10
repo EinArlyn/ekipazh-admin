@@ -4,9 +4,9 @@ var models = require('../../../../lib/models');
 var isAuthenticated = require('../../../../lib/services/authentication').isAdminAuth;
 
 router.get('/', isAuthenticated, grids.systems);
-router.post('/addGroup', isAuthenticated, grids.addGroup);
-router.post('/editGroup', isAuthenticated, grids.editGroup);
-router.post('/deleteGroup', isAuthenticated, grids.deleteGroup);
+router.post('/addSystemGroup', isAuthenticated, grids.addSystemGroup);
+router.post('/editSystemGroup', isAuthenticated, grids.editSystemGroup);
+router.post('/deleteSystemGroup', isAuthenticated, grids.deleteSystemGroup);
 router.post('/addSystem', isAuthenticated, grids.addSystem);
 router.post('/editSystem', isAuthenticated, grids.editSystem);
 router.post('/deleteSystem', isAuthenticated, grids.deleteSystem);

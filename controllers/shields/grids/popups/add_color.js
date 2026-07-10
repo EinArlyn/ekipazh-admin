@@ -10,27 +10,15 @@ module.exports = function (req, res) {
       }
 
     console.log('fields', fields);
-    models.pls_systems.create({
-        factory_id: parseInt(req.session.user.factory_id, 10),
+    models.pls_profile_colors.create({
         group_id: parseInt(fields.group_id, 10),
         name: fields.name,
+        sku: fields.sku,
         is_active: 1,
         position: parseInt(fields.position, 10) || 0,
-        top_id: parseInt(fields.top_id, 10) || 0,
-        right_id: parseInt(fields.right_id, 10) || 0,
-        bottom_id: parseInt(fields.bottom_id, 10) || 0,
-        left_id: parseInt(fields.left_id, 10) || 0,
-        center_id: parseInt(fields.center_id, 10) || 0,
-        sash_id: parseInt(fields.sash_id, 10) || 0,
-        min_w: Number(fields.min_w) || 0,
-        max_w: Number(fields.max_w) || 0,
-        min_h: Number(fields.min_h) || 0,
-        max_h: Number(fields.max_h) || 0,
-        edit_grid_w: Number(fields.edit_grid_w) || 0,
-        edit_grid_h: Number(fields.edit_grid_h) || 0,
-        description: fields.description || '',
+        price: Number(fields.price) || 0,
         img: '/local_storage/default.png'
-    }).then(function(newSystem) {
+    }).then(function(newColor) {
       if (!(files && files.pls_img && files.pls_img.name && files.pls_img.path)) {
         return res.send({ status: true });
       }
@@ -42,7 +30,7 @@ module.exports = function (req, res) {
         : Promise.resolve();
 
       waitLoad.then(function () {
-        return newSystem.updateAttributes({
+        return newColor.updateAttributes({
           img: imageUrl
         });
       }).then(function () {
@@ -53,7 +41,7 @@ module.exports = function (req, res) {
       });
       
     }).catch(function(err) {
-        console.error('Error creating system:', err.message);
+        console.error('Error creating color:', err.message);
         res.send({status: false, message: err.message})
     });
   })

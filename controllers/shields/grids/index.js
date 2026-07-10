@@ -19,9 +19,17 @@ exports.editLinkElement = require('./popups/edit_link_element');
 exports.deleteLinkElement = require('./popups/delete_link_element');
 
 exports.systems = require('./systems');
-exports.addGroup = require('./popups/add_system_group');
-exports.editGroup = require('./popups/edit_system_group');
-exports.deleteGroup = require('./popups/delete_system_group');
+exports.addSystemGroup = require('./popups/add_system_group');
+exports.editSystemGroup = require('./popups/edit_system_group');
+exports.deleteSystemGroup = require('./popups/delete_system_group');
 exports.addSystem = require('./popups/add_system');
 exports.editSystem = require('./popups/edit_system');
 exports.deleteSystem = require('./popups/delete_system');
+
+exports.colors = require('./colors');
+exports.addColorGroup = require('./popups/add_color_group');
+exports.editColorGroup = require('./popups/edit_color_group');
+exports.deleteColorGroup = require('./popups/delete_color_group');
+exports.addColor = require('./popups/add_color');
+exports.editColor = require('./popups/edit_color');
+exports.deleteColor = require('./popups/delete_color');

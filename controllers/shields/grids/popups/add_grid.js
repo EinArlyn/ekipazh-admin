@@ -15,8 +15,6 @@ module.exports = function (req, res) {
         name: fields.name,
         sku: fields.sku,
         price: parseFloat(fields.price) || 0,
-        edit_size_w: parseFloat(fields.edit_size_w) || 0,
-        edit_size_h: parseFloat(fields.edit_size_h) || 0,
         size_wave: parseFloat(fields.size_wave) || 0,
         weight: parseFloat(fields.weight) || 0,
         currency_id: parseInt(fields.currency_id, 10),

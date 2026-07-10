@@ -159,8 +159,6 @@ $(function () {
           $('#popup-edit-grid-pls input[name="sku"]').val(grid.sku);
           $('#popup-edit-grid-pls #pls-currency').val(grid.currency_id);
           $('#popup-edit-grid-pls input[name="price"]').val(grid.price);
-          $('#popup-edit-grid-pls input[name="edit_size_w"]').val(grid.edit_size_w);
-          $('#popup-edit-grid-pls input[name="edit_size_h"]').val(grid.edit_size_h);
           $('#popup-edit-grid-pls input[name="size_wave"]').val(grid.size_wave);
           $('#popup-edit-grid-pls input[name="weight"]').val(grid.weight);
           $('#popup-edit-grid-pls img.pls-image').attr('src', grid.img);

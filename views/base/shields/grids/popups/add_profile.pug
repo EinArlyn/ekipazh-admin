@@ -44,12 +44,12 @@
       
       .row-waste.pls-row 
         .title-waste.title
-          =i18n.__('Waste')
+          =i18n.__('Waste') + ' (%)'
           | :
         input.input-default.text-waste(style="width: 50px;" type="number" value="" name="waste" step="0.01" required)
       .row-amendment-pruning.pls-row 
         .title-amendment-pruning.title
-          =i18n.__('Correction for pruning')
+          =i18n.__('Correction for pruning') + ' ' + i18n.__('(mm)')
           | :
         input.input-default.text-amendment-pruning(style="width: 50px;" type="number" value="" name="amendment_pruning" step="0.01" required)
       .row-weight.pls-row 
