@@ -33,3 +33,5 @@ exports.deleteColorGroup = require('./popups/delete_color_group');
 exports.addColor = require('./popups/add_color');
 exports.editColor = require('./popups/edit_color');
 exports.deleteColor = require('./popups/delete_color');
+
+exports.colorPrices = require('./colorPrices');
