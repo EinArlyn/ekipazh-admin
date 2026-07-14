@@ -10,7 +10,7 @@
         img.rolet-image(src="/local_storage/default.png")
       .col-md-6
         input.hidden.rolet-image-file(type="file" name="rolet_img")
-        input.add-image-btn(type="button" value="Изменить фото")
+        input.add-image-btn(type="button" value=i18n.__('Change avatar'))
     .pop-up-rolet-rows 
       .row-name.rolet-row 
         .title-name.title
@@ -29,7 +29,7 @@
         input.input-default.text-height(type="number" value="" name="height" required)
       .row-size-by-lamel.rolet-row 
         .title-size-by-lamel.title
-          ='Thickness'
+          =i18n.__('thickness')
           | :
         input.input-default.text-size-by-lamel(type="number" value="" name="thickness" required)
       .row-guide-price.rolet-row 
@@ -42,20 +42,20 @@
           =i18n.__('Price') + ' m'
           | :
         input.input-default.text-guide-price(type="number" value="" name="price_m" step="0.01")
-      .row-is-settings.rolet-row
-        .title-is-lamination.title
-          ='Is color'
-          | :
-        label.checkbox-label
-          input.input-default.checkbox-rolet-popup(type="checkbox" name="is_color" value="1")
-          span.checkbox-custom
-      .row-is-settings.rolet-row
-        .title-is-grid-guide.title
-          ='Is grid guide'
-          | :
-        label.checkbox-label
-          input.input-default.checkbox-rolet-popup(type="checkbox" name="is_grid" value="1")
-          span.checkbox-custom
+      //- .row-is-settings.rolet-row
+      //-   .title-is-lamination.title
+      //-     ='Is color'
+      //-     | :
+      //-   label.checkbox-label
+      //-     input.input-default.checkbox-rolet-popup(type="checkbox" name="is_color" value="1")
+      //-     span.checkbox-custom
+      //- .row-is-settings.rolet-row
+      //-   .title-is-grid-guide.title
+      //-     ='Is grid guide'
+      //-     | :
+      //-   label.checkbox-label
+      //-     input.input-default.checkbox-rolet-popup(type="checkbox" name="is_grid" value="1")
+      //-     span.checkbox-custom
       .row-is-settings.row-guide-box-links
     .row-description
       .title-description

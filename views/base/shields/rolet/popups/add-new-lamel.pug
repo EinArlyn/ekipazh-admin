@@ -4,7 +4,7 @@
     .pop-up-close-wrap
       a(class="pop-up-close", href="#")
     span.pop-up-header
-      ='Add new lamel'
+      =i18n.__("Add")
     .row
       .col-md-6
         img.rolet-image(src="/local_storage/default.png")
@@ -29,7 +29,7 @@
         input.input-default.text-height(type="number" value="" name="height" required)
       .row-thickness.rolet-row 
         .title-thickness.title
-          ='Thickness'
+          =i18n.__('thickness')
           | :
         .thickness-list
           label.thickness-option
@@ -46,7 +46,7 @@
             span 40
       .row-end-list.rolet-row 
         .title-end-list.title
-          ='With end list'
+          =i18n.__('rol_endcaps_link')
           | :
         .end-lists
           label.end-list-option
@@ -63,16 +63,16 @@
             span end_4
       .row-guide 
         .title-guide.title
-          ='With guides'
+          =i18n.__('rol_guides_link')
           | :
         .guide-lists
           .title-guide-text 
             .guide-name 
               ='. '
             .guide-max-width.title
-              ='Max width, mm'
+              =i18n.__('max_width') + ' ' + i18n.__('mm')
             .guide-max-square.title
-              ='Max square, m2'
+              =i18n.__('rol_max_area') + ' ' + i18n.__('sq. m')
           .guide-size-settings 
             .guide-title 
               ='PP 1'
@@ -102,13 +102,13 @@
             .guide-max-square-input
               input.input-default.guide-box(type="number" value="" name="guide_4_max_square" step="0.01")         
           
-      .row-is-settings.rolet-row
-        .title-is-lamination.title
-          ='Is color'
-          | :
-        label.checkbox-label
-          input.input-default.checkbox-rolet-popup(type="checkbox" name="is_color" value="1")
-          span.checkbox-custom
+      //- .row-is-settings.rolet-row
+      //-   .title-is-lamination.title
+      //-     ='Is color'
+      //-     | :
+      //-   label.checkbox-label
+      //-     input.input-default.checkbox-rolet-popup(type="checkbox" name="is_color" value="1")
+      //-     span.checkbox-custom
       //- .row-is-settings.rolet-row
       //-   .title-is-lamination.title
       //-     ='Is color out'

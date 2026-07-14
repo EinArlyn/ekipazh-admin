@@ -3,22 +3,22 @@ extends ../../layout
 block content
   .main-nav
     .nav-link
-      a(href="/")= i18n.__('Dashboard') 
-      a(href="/base/shields/rolet/rolet")='Boxes'
-      a(href="/base/shields/rolet/Guides")='Guides'
-      a(href="/base/shields/rolet/endLists")='End Lists'
-      a(href="/base/shields/rolet/lamels")='Lamels'
-      a(href="/base/shields/rolet/roletColorsGroups")='Colors'
-      a(href="/base/shields/rolet/roletPrice")='roletPrice'
+      a(href="/")=i18n.__('Dashboard') 
+      a(href="/base/shields/rolet/rolet")=i18n.__('rol_boxes')
+      a(href="/base/shields/rolet/guides")=i18n.__('rol_guides')
+      a(href="/base/shields/rolet/endLists")=i18n.__('rol_endcaps')
+      a(href="/base/shields/rolet/lamels")=i18n.__('rol_slats')
+      a(href="/base/shields/rolet/roletColorsGroups")=i18n.__('rol_colors')
+      a(href="/base/shields/rolet/roletPrice")=i18n.__('rol_prices')
       span#nav-text
-        =' RoletBoxHeight '
-      a(href="/base/shields/rolet/controls")='Controls'
-      a(href="/base/shields/rolet/controlBoxSizes")='ControlBoxSizes'
-      a(href="/base/shields/rolet/addElements")='AddElements'
+        =i18n.__('rol_height')
+      a(href="/base/shields/rolet/controls")=i18n.__('rol_control')
+      a(href="/base/shields/rolet/controlBoxSizes")=i18n.__('rol_mapping')
+      a(href="/base/shields/rolet/addElements")=i18n.__('Add. elements')
       img.loader-ico(src="/assets/images/loader_ico.GIF")
   .main-content    
     .titel-page 
-      ='RoletBoxHeight :'  
+      //- ='RoletBoxHeight :'  
     .box-height-table 
       .lamels-box 
         .header-box
@@ -28,9 +28,9 @@ block content
               =lamel.name
             .types
               .type-not
-                ='not grid'
+                =' '
               .type-is
-                ='is grid'
+                =' '
       .groups-box 
         each group in groups
           .group-wrap 

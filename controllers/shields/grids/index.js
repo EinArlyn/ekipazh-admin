@@ -35,3 +35,8 @@ exports.editColor = require('./popups/edit_color');
 exports.deleteColor = require('./popups/delete_color');
 
 exports.colorPrices = require('./colorPrices');
+
+exports.templates = require('./templates');
+exports.addTemplate = require('./popups/add_template');
+exports.editTemplate = require('./popups/edit_template');
+exports.deleteTemplate = require('./popups/delete_template');

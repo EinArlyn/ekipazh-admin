@@ -3,26 +3,26 @@ extends ../../layout
 block content
   .main-nav
     .nav-link
-      a(href="/")= i18n.__('Dashboard') 
-      a(href="/base/shields/rolet/rolet")='Boxes'
-      a(href="/base/shields/rolet/guides")='Guides'
-      a(href="/base/shields/rolet/endLists")='End Lists'
-      a(href="/base/shields/rolet/lamels")='Lamels'
+      a(href="/")=i18n.__('Dashboard') 
+      a(href="/base/shields/rolet/rolet")=i18n.__('rol_boxes')
+      a(href="/base/shields/rolet/guides")=i18n.__('rol_guides')
+      a(href="/base/shields/rolet/endLists")=i18n.__('rol_endcaps')
+      a(href="/base/shields/rolet/lamels")=i18n.__('rol_slats')
       span#nav-text
-        ='Colors'
-      a(href="/base/shields/rolet/roletPrice")='RoletPrice'
-      a(href="/base/shields/rolet/roletBoxHeight")='RoletBoxHeight'
-      a(href="/base/shields/rolet/controls")='Controls'
-      a(href="/base/shields/rolet/controlBoxSizes")='ControlBoxSizes'
-      a(href="/base/shields/rolet/addElements")='AddElements'
+        =i18n.__('rol_colors')
+      a(href="/base/shields/rolet/roletPrice")=i18n.__('rol_prices')
+      a(href="/base/shields/rolet/roletBoxHeight")=i18n.__('rol_height')
+      a(href="/base/shields/rolet/controls")=i18n.__('rol_control')
+      a(href="/base/shields/rolet/controlBoxSizes")=i18n.__('rol_mapping')
+      a(href="/base/shields/rolet/addElements")=i18n.__('Add. elements')
       img.loader-ico(src="/assets/images/loader_ico.GIF")
   .main-content
     .nav-sub-link
-      span#nav-sub-text='Groups and Colors'
-      a(href="/base/shields/rolet/roletBoxColors")='Box Colors'
-      a(href="/base/shields/rolet/roletGuideColors")='Guide Colors'
-      a(href="/base/shields/rolet/roletEndListColors")='End List Colors'
-      a(href="/base/shields/rolet/roletLamelColors")='Lamel Colors'
+      span#nav-sub-text=i18n.__('Color') + ' / ' + i18n.__('Groups')
+      a(href="/base/shields/rolet/roletBoxColors")=i18n.__('box_color')
+      a(href="/base/shields/rolet/roletGuideColors")=i18n.__('guides_color')
+      a(href="/base/shields/rolet/roletEndListColors")=i18n.__('end_profile_color')
+      a(href="/base/shields/rolet/roletLamelColors")=i18n.__('lamel_color')
     .block-colors-groups
       .groups-content
         if (groupsColors.length > 0)
@@ -33,12 +33,12 @@ block content
               .btns-block
                 if (groupColors.is_standart)
                   span.is-standart-group
-                    ='standart '
+                    =i18n.__('Standart')
                 .btn-active-group.btn-active(data-group=groupColors.id class=!groupColors.is_standart ? 'btn-unactive' : 'btn-active')
                 .btn-edit-group-colors(data-group=groupColors.id)
                 .btn-delete-group-colors(data-group=groupColors.id)
       .btn-add-group
-        ='Добавить группу Цветов'
+        =i18n.__('Add group +')
     .block-colors
       .colors-content
         if (colorsList && colorsList.length > 0)
@@ -53,7 +53,7 @@ block content
                 .btn-edit-color.btn-color(data-color=color.id)
                 .btn-delete-color.btn-color(data-color=color.id)
       .btn-add-color
-        ='Добавить Цвет'
+        =i18n.__('Add') + ' ' + i18n.__('Color')
   include popups/add-group-colors.pug
   include popups/edit-group-colors.pug
   include popups/delete-group-colors.pug

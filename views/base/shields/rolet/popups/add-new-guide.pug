@@ -4,7 +4,7 @@
     .pop-up-close-wrap
       a(class="pop-up-close", href="#")
     span.pop-up-header
-      ='Add new guide'
+      =i18n.__("Add")
     .row
       .col-md-6
         img.rolet-image(src="/local_storage/default.png")
@@ -29,7 +29,7 @@
         input.input-default.text-height(type="number" value="" name="height" required)
       .row-size-by-lamel.rolet-row 
         .title-size-by-lamel.title
-          ='Thickness'
+          =i18n.__('thickness')
           | :
         input.input-default.text-size-by-lamel(type="number" value="" name="thickness" required)
       .row-guide-price.rolet-row 
@@ -42,20 +42,20 @@
           =i18n.__('Price') + ' m'
           | :
         input.input-default.text-guide-price(type="number" value="" name="price_m" step="0.01")
-      .row-is-settings.rolet-row
-        .title-is-lamination.title
-          ='Is color'
-          | :
-        label.checkbox-label
-          input.input-default.checkbox-rolet-popup(type="checkbox" name="is_color" value="1")
-          span.checkbox-custom
-      .row-is-settings.rolet-row
-        .title-is-grid-guide.title
-          ='Is grid guide'
-          | :
-        label.checkbox-label
-          input.input-default.checkbox-rolet-popup(type="checkbox" name="is_grid" value="1")
-          span.checkbox-custom
+      //- .row-is-settings.rolet-row
+      //-   .title-is-lamination.title
+      //-     ='Is color'
+      //-     | :
+      //-   label.checkbox-label
+      //-     input.input-default.checkbox-rolet-popup(type="checkbox" name="is_color" value="1")
+      //-     span.checkbox-custom
+      //- .row-is-settings.rolet-row
+      //-   .title-is-grid-guide.title
+      //-     ='Is grid guide'
+      //-     | :
+      //-   label.checkbox-label
+      //-     input.input-default.checkbox-rolet-popup(type="checkbox" name="is_grid" value="1")
+      //-     span.checkbox-custom
       .row-is-settings.row-guide-box-links
     .row-description
       .title-description

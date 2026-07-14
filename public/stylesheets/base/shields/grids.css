@@ -56,6 +56,7 @@ input[type="number"]::-webkit-outer-spin-button {
 .btn-add-group,
 .btn-add-system,
 .btn-add-color,
+.btn-add-template,
 .add-element-to-profile,
 .add-element-to-grid {
   width: 20%;
@@ -160,12 +161,14 @@ input[type="number"]::-webkit-outer-spin-button {
 .group-list,
 .system-list,
 .colors-list,
+.templates-list,
 .profiles-list {
   .element-row,
   .grid-row,
   .system-row,
   .profile-row,
   .color-row,
+  .template-row,
   .group-row {
     display: flex;
     justify-content: space-between;
@@ -180,6 +183,7 @@ input[type="number"]::-webkit-outer-spin-button {
     .group-content,
     .system-content,
     .color-content,
+    .template-content,
     .profile-content {
       display: flex;
       align-items: center;
@@ -189,6 +193,7 @@ input[type="number"]::-webkit-outer-spin-button {
 
       .grid-img,
       .color-img,
+      .template-img,
       .system-img {
         width: 50px;
         height: 50px;
@@ -204,6 +209,7 @@ input[type="number"]::-webkit-outer-spin-button {
       }
       .element-name,
       .grid-name,
+      .template-name,
       .profile-name {
         width: 40%;
         overflow: hidden;
@@ -534,6 +540,28 @@ input[type="number"]::-webkit-outer-spin-button {
       .country-item {
         width: 100px;
         font-size: 12px;
+      }
+    }
+
+    .row-templates-links{
+      display: flex;
+      flex-wrap: wrap;
+      gap: 5px 20px;
+      border-top: 1px solid lightgray;
+      border-bottom: 1px solid lightgray;
+      padding: 10px 0;
+      margin: 10px 0;
+      .system-checkbox-block {
+        flex: 0 0 45%;
+      }
+      label {
+        font-size: 14px;
+      }
+      input {
+        width: 25px;
+        margin: 0;
+        padding: 0;
+        opacity: 0;
       }
     }
   }

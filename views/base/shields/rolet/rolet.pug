@@ -3,18 +3,18 @@ extends ../../layout
 block content
   .main-nav
     .nav-link
-      a(href="/")= i18n.__('Dashboard') 
+      a(href="/")=i18n.__('Dashboard') 
       span#nav-text
-        ='Boxes'
-      a(href="/base/shields/rolet/guides")='Guides'
-      a(href="/base/shields/rolet/endLists")='End Lists'
-      a(href="/base/shields/rolet/lamels")='Lamels'
-      a(href="/base/shields/rolet/roletColorsGroups")='Colors'
-      a(href="/base/shields/rolet/roletPrice")='RoletPrice'
-      a(href="/base/shields/rolet/roletBoxHeight")='RoletBoxHeight'
-      a(href="/base/shields/rolet/controls")='Controls'
-      a(href="/base/shields/rolet/controlBoxSizes")='ControlBoxSizes'
-      a(href="/base/shields/rolet/addElements")='AddElements'
+        =i18n.__('rol_boxes')
+      a(href="/base/shields/rolet/guides")=i18n.__('rol_guides')
+      a(href="/base/shields/rolet/endLists")=i18n.__('rol_endcaps')
+      a(href="/base/shields/rolet/lamels")=i18n.__('rol_slats')
+      a(href="/base/shields/rolet/roletColorsGroups")=i18n.__('rol_colors')
+      a(href="/base/shields/rolet/roletPrice")=i18n.__('rol_prices')
+      a(href="/base/shields/rolet/roletBoxHeight")=i18n.__('rol_height')
+      a(href="/base/shields/rolet/controls")=i18n.__('rol_control')
+      a(href="/base/shields/rolet/controlBoxSizes")=i18n.__('rol_mapping')
+      a(href="/base/shields/rolet/addElements")=i18n.__('Add. elements')
       img.loader-ico(src="/assets/images/loader_ico.GIF")
   .main-content
     .block-groups
@@ -43,9 +43,9 @@ block content
               div
                 ='+'
               .btn-add-text 
-                ='Добавить'
+                =i18n.__('Add +')
     .btn-add-group
-      ='Добавить группу Коробов'
+      =i18n.__('Add group +')
   include popups/add-group-system.pug
   include popups/edit-group-system.pug
   include popups/delete-group-system.pug

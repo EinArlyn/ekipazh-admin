@@ -104,4 +104,5 @@ module.exports = function(app) {
   app.use('/base/shields/grids/systems', require('./base/shields/grids/systems'));
   app.use('/base/shields/grids/colors', require('./base/shields/grids/colors'));
   app.use('/base/shields/grids/colorPrices', require('./base/shields/grids/colorPrices'));
+  app.use('/base/shields/grids/templates', require('./base/shields/grids/templates'));
 };

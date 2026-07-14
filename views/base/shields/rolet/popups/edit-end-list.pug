@@ -4,13 +4,13 @@
     .pop-up-close-wrap
       a(class="pop-up-close", href="#")
     span.pop-up-header
-      ='Edit end list'
+      =i18n.__('Edit')
     .row
       .col-md-6
         img.rolet-image(src="/local_storage/default.png")
       .col-md-6
         input.hidden.rolet-image-file(type="file" name="rolet_img")
-        input.add-image-btn(type="button" value="Изменить фото")
+        input.add-image-btn(type="button" value=i18n.__('Change avatar'))
     .pop-up-rolet-rows 
       .row-name.rolet-row 
         .title-name.title
@@ -27,20 +27,20 @@
           =i18n.__('Price')
           | :
         input.input-default.text-end-list-price(type="number" value="" name="price" step="0.01")
-      .row-is-settings.rolet-row
-        .title-is-lamination.title
-          ='Is color'
-          | :
-        label.checkbox-label
-          input.input-default.checkbox-rolet-popup(type="checkbox" name="is_color" value="1")
-          span.checkbox-custom
-      .row-is-settings.rolet-row
-        .title-is-key.title
-          ='Is key'
-          | :
-        label.checkbox-label
-          input.input-default.checkbox-rolet-popup(type="checkbox" name="is_key" value="1")
-          span.checkbox-custom
+      //- .row-is-settings.rolet-row
+      //-   .title-is-lamination.title
+      //-     ='Is color'
+      //-     | :
+      //-   label.checkbox-label
+      //-     input.input-default.checkbox-rolet-popup(type="checkbox" name="is_color" value="1")
+      //-     span.checkbox-custom
+      //- .row-is-settings.rolet-row
+      //-   .title-is-key.title
+      //-     ='Is key'
+      //-     | :
+      //-   label.checkbox-label
+      //-     input.input-default.checkbox-rolet-popup(type="checkbox" name="is_key" value="1")
+      //-     span.checkbox-custom
           
     .row-description
       .title-description

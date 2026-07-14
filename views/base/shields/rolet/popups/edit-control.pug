@@ -4,13 +4,13 @@
     .pop-up-close-wrap
       a(class="pop-up-close", href="#")
     span.pop-up-header
-      ='Edit control'
+      =i18n.__('Edit')
     .row
       .col-md-6
         img.rolet-image(src="/local_storage/default.png")
       .col-md-6
         input.hidden.rolet-image-file(type="file" name="rolet_img")
-        input.add-image-btn(type="button" value=i18n.__('Add'))
+        input.add-image-btn(type="button" value=i18n.__('Change avatar'))
     .pop-up-rolet-rows 
       .row-name.rolet-row 
         .title-group.title
@@ -34,7 +34,7 @@
         input.input-default.text-price(type="number" value="" name="price" step="0.01" required)    
       .row-is-settings.rolet-row
         .title-is-side.title
-          ='Is side'
+          =i18n.__('rol_side')
           | :
         label.checkbox-label
           input.input-default.checkbox-rolet-popup(type="checkbox" name="is_side" value="1")

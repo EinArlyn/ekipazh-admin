@@ -4,13 +4,13 @@
     .pop-up-close-wrap
       a(class="pop-up-close", href="#")
     span.pop-up-header
-      ='Add new Element'
+      =i18n.__('Edit')
     .row
       .col-md-6
         img.rolet-image(src="/local_storage/default.png")
       .col-md-6
         input.hidden.rolet-image-file(type="file" name="rolet_img")
-        input.add-image-btn(type="button" value=i18n.__('Add'))
+        input.add-image-btn(type="button" value=i18n.__('Change avatar'))
     .pop-up-rolet-rows 
       .row-name.rolet-row 
         .title-name.title
@@ -62,4 +62,4 @@
         | :
       textarea.input-default.text-description(name="description")  
     .row.block-center.text-center
-      input.btn-submit(type="submit" value=i18n.__('Add'))
+      input.btn-submit(type="submit" value=i18n.__('Save'))

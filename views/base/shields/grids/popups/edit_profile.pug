@@ -23,13 +23,13 @@
           | :
         select.select-default.select-profile-type(style="width: 150px;" name="type" required)
           option(value="1") 
-            ='Рама'
+            =i18n.__('Frame')
           option(value="2") 
-            ='Порог'
+            =i18n.__('pls_threshold')
           option(value="3") 
-            ='Штанга'
+            =i18n.__('pls_bar')
           option(value="4") 
-            ='с Барабаном'
+            =i18n.__('pls_drum')
       .row-price.pls-row 
         .title-price.title
           =i18n.__('Price')
