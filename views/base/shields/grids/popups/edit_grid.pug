@@ -1,0 +1,54 @@
+.pop-up.pop-up-pls#popup-edit-grid-pls
+  form#edit-grid-pls-form(method="POST" action="/base/shields/grids/grids/editGrid" enctype="multipart/form-data")
+    input(type="hidden" name="grid_id" value='' required)
+    .pop-up-close-wrap
+      a(class="pop-up-close", href="#")
+    span.pop-up-header
+      =i18n.__('Edit')
+      
+    .row
+      .col-md-6
+        img.pls-image(src="/local_storage/default.png")
+      .col-md-6
+        input.hidden.pls-image-file(type="file" name="pls_img")
+        input.add-image-btn(type="button" value=i18n.__('Edit'))
+    .pop-up-pls-rows 
+      .row-name.pls-row 
+        .title-name.title
+          =i18n.__('Name')
+          | :
+        input.input-default.text-name(type="text" value="" name="name" required)
+      .row-sku.pls-row 
+        .title-sku.title
+          =i18n.__('SKU')
+          | :
+        input.input-default.text-sku(type="text" value="" name="sku" required)
+      .row-price.pls-row 
+        .title-price.title
+          =i18n.__('Price')
+          | :
+        input.input-default.text-price(style="width: 50px;" type="number" value="" name="price" step="0.01" required)
+      
+      .row-currency.pls-row 
+        .title-currency.title
+          =i18n.__('Currency')
+          | :
+        select.select-default.input-margin#pls-currency(style="width: 150px;" name="currency_id")
+      
+      .row-size-wave.pls-row 
+        .title-size-wave.title
+          =i18n.__('pls_pleat_pitch') + ' ' + i18n.__('mm')
+          | :
+        input.input-default.text-size-wave(style="width: 50px;" type="number" value="" name="size_wave" required)
+      .row-weight.pls-row 
+        .title-weight.title
+          =i18n.__('Weight (kg)')
+          | :
+        input.input-default.text-weight(style="width: 50px;" type="number" value="" name="weight" step="0.01" required)
+      .row-description
+        .title-description
+          =i18n.__('Description')
+          | :
+        textarea.input-default.text-description(name="description")
+    .row.block-center.text-center
+      input.btn-submit(type="submit" value=i18n.__('Save'))

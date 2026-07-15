@@ -1,0 +1,9 @@
+.pop-up.pop-up-pls#popup-delete-color-group-pls
+  form#delete-color-group-pls-form(method="POST" action="/base/shields/grids/colors/deleteColorGroup" enctype="multipart/form-data")
+    input(type="hidden" name="group_id" value='' required)
+    .pop-up-close-wrap
+      a(class="pop-up-close", href="#")
+    span.pop-up-header
+      =i18n.__('Are you sure?')     
+    .row.block-center.text-center
+      input.btn-submit(type="submit" value=i18n.__('Remove'))

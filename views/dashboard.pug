@@ -87,13 +87,15 @@ block content
       .base-shields
         ul
           li
-            a.base-btn(class="external-link" href='/base/shields/rolet/rolet')='Rolet'
+            a.base-btn(class="external-link" href='/base/shields/rolet/rolet')=i18n.__('menu_roller_shutters')
           li
-            a.base-btn(class="external-link" href='#')='Поляница'
-          li
-            a.base-btn(class="external-link" href='#')='Фламинго'
-          li
-            a.base-btn(class="external-link" href='#')='Шахеды'
+            a.base-btn(class="external-link" href='/base/shields/grids/elements')=i18n.__('Mosquito nets') + ' New'
+          //- li
+          //-   a.base-btn(class="external-link" href='#')='Поляница'
+          //- li
+          //-   a.base-btn(class="external-link" href='#')='Фламинго'
+          //- li
+          //-   a.base-btn(class="external-link" href='#')='Шахеды'
   form#stats-submit(method="GET" action='/analytics/')
     input(type="hidden" name="userdata" value=urlKey)
   form#analitycs-submit(method="POST" action=analitycsUrl target="_blank")

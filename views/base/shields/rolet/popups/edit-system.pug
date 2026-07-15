@@ -10,7 +10,7 @@
         img.rolet-image(src="/local_storage/default.png")
       .col-md-6
         input.hidden.rolet-image-file(type="file" name="rolet_img")
-        input.add-image-btn(type="button" value="Изменить фото")
+        input.add-image-btn(type="button" value=i18n.__('Change avatar'))
     .pop-up-rolet-rows 
       .row-name.rolet-row 
         .title-group.title
@@ -27,53 +27,53 @@
           =i18n.__('Position')
           | :
         input.input-default.text-position(type="number" value="" name="position" required)
-      .row-is-settings.rolet-row
-        .title-is-lamination.title
-          ='Is color'
-          | :
-        label.checkbox-label
-          input.input-default.checkbox-rolet-popup(type="checkbox" name="is_color" value="1")
-          span.checkbox-custom
-      .row-is-settings.rolet-row
-        .title-is-revision.title
-          ='Is revision'
-          | :
-        label.checkbox-label
-          input.input-default.checkbox-rolet-popup(type="checkbox" name="is_revision" value="1")
-          span.checkbox-custom
-      .row-is-settings.rolet-row
-        .title-is-grid.title
-          ='Is grid'
-          | :
-        label.checkbox-label
-          input.input-default.checkbox-rolet-popup(type="checkbox" name="is_grid" value="1")
-          span.checkbox-custom
+      //- .row-is-settings.rolet-row
+      //-   .title-is-lamination.title
+      //-     ='Is color'
+      //-     | :
+      //-   label.checkbox-label
+      //-     input.input-default.checkbox-rolet-popup(type="checkbox" name="is_color" value="1")
+      //-     span.checkbox-custom
+      //- .row-is-settings.rolet-row
+      //-   .title-is-revision.title
+      //-     ='Is revision'
+      //-     | :
+      //-   label.checkbox-label
+      //-     input.input-default.checkbox-rolet-popup(type="checkbox" name="is_revision" value="1")
+      //-     span.checkbox-custom
+      //- .row-is-settings.rolet-row
+      //-   .title-is-grid.title
+      //-     ='Is grid'
+      //-     | :
+      //-   label.checkbox-label
+      //-     input.input-default.checkbox-rolet-popup(type="checkbox" name="is_grid" value="1")
+      //-     span.checkbox-custom
       .row-is-settings.rolet-row
         .title-is-split.title
-          ='Is split'
+          =i18n.__('split')
           | :
         label.is-split-label
           span
-            ='Частей: '
+            =i18n.__('rol_parts') + ': '
           input.input-default.is-split-rolet-popup(type="number" name="is_split" value="1" min="0" max="4")
         label.is-split-price-label
           span
-            ='Стоимость деления: '
+            =i18n.__('rol_part_price') + ': '
           input.input-default.split-price-rolet-popup(type="number" name="split_price" value="1" step="0.01")
-      .row-is-settings.rolet-row
-        .title-is-defense.title
-          ='Is security'
-          | :
-        label.checkbox-label
-          input.input-default.checkbox-rolet-popup(type="checkbox" name="is_security" value="1")
-          span.checkbox-custom
-      .row-is-settings.rolet-row
-        .title-is-engine.title
-          ='Is engine'
-          | :
-        label.checkbox-label
-          input.input-default.checkbox-rolet-popup(type="checkbox" name="is_engine" value="1")
-          span.checkbox-custom
+      //- .row-is-settings.rolet-row
+      //-   .title-is-defense.title
+      //-     ='Is security'
+      //-     | :
+      //-   label.checkbox-label
+      //-     input.input-default.checkbox-rolet-popup(type="checkbox" name="is_security" value="1")
+      //-     span.checkbox-custom
+      //- .row-is-settings.rolet-row
+      //-   .title-is-engine.title
+      //-     ='Is engine'
+      //-     | :
+      //-   label.checkbox-label
+      //-     input.input-default.checkbox-rolet-popup(type="checkbox" name="is_engine" value="1")
+      //-     span.checkbox-custom
       .row-is-settings.indicator-pvc-alum.rolet-row
         .title-is-pvc-alum-front.title
           ='Is PVC or Alum for Front'

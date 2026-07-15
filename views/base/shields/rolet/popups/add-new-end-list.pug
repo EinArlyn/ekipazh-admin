@@ -4,7 +4,7 @@
     .pop-up-close-wrap
       a(class="pop-up-close", href="#")
     span.pop-up-header
-      ='Add new end list'
+      =i18n.__("Add")
     .row
       .col-md-6
         img.rolet-image(src="/local_storage/default.png")
@@ -27,20 +27,20 @@
           =i18n.__('Price')
           | :
         input.input-default.text-end-list-price(type="number" value="" name="price" step="0.01")
-      .row-is-settings.rolet-row
-        .title-is-lamination.title
-          ='Is color'
-          | :
-        label.checkbox-label
-          input.input-default.checkbox-rolet-popup(type="checkbox" name="is_color" value="1")
-          span.checkbox-custom
-      .row-is-settings.rolet-row
-        .title-is-key.title
-          ='Is key'
-          | :
-        label.checkbox-label
-          input.input-default.checkbox-rolet-popup(type="checkbox" name="is_key" value="1")
-          span.checkbox-custom
+      //- .row-is-settings.rolet-row
+      //-   .title-is-lamination.title
+      //-     ='Is color'
+      //-     | :
+      //-   label.checkbox-label
+      //-     input.input-default.checkbox-rolet-popup(type="checkbox" name="is_color" value="1")
+      //-     span.checkbox-custom
+      //- .row-is-settings.rolet-row
+      //-   .title-is-key.title
+      //-     ='Is key'
+      //-     | :
+      //-   label.checkbox-label
+      //-     input.input-default.checkbox-rolet-popup(type="checkbox" name="is_key" value="1")
+      //-     span.checkbox-custom
           
     .row-description
       .title-description

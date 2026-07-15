@@ -4,7 +4,7 @@
     .pop-up-close-wrap
       a(class="pop-up-close", href="#")
     span.pop-up-header
-      ='Add new system'
+      =i18n.__("Add")
     .row
       .col-md-6
         img.rolet-image(src="/local_storage/default.png")
@@ -22,53 +22,53 @@
           =i18n.__('Position')
           | :
         input.input-default.text-position(type="number" value="" name="position" required)
-      .row-is-settings.rolet-row
-        .title-is-lamination.title
-          ='Is color'
-          | :
-        label.checkbox-label
-          input.input-default.checkbox-rolet-popup(type="checkbox" name="is_color" value="1")
-          span.checkbox-custom
-      .row-is-settings.rolet-row
-        .title-is-revision.title
-          ='Is revision'
-          | :
-        label.checkbox-label
-          input.input-default.checkbox-rolet-popup(type="checkbox" name="is_revision" value="1")
-          span.checkbox-custom
-      .row-is-settings.rolet-row
-        .title-is-grid.title
-          ='Is grid'
-          | :
-        label.checkbox-label
-          input.input-default.checkbox-rolet-popup(type="checkbox" name="is_grid" value="1")
-          span.checkbox-custom
+      //- .row-is-settings.rolet-row
+      //-   .title-is-lamination.title
+      //-     ='Is color'
+      //-     | :
+      //-   label.checkbox-label
+      //-     input.input-default.checkbox-rolet-popup(type="checkbox" name="is_color" value="1")
+      //-     span.checkbox-custom
+      //- .row-is-settings.rolet-row
+      //-   .title-is-revision.title
+      //-     ='Is revision'
+      //-     | :
+      //-   label.checkbox-label
+      //-     input.input-default.checkbox-rolet-popup(type="checkbox" name="is_revision" value="1")
+      //-     span.checkbox-custom
+      //- .row-is-settings.rolet-row
+      //-   .title-is-grid.title
+      //-     ='Is grid'
+      //-     | :
+      //-   label.checkbox-label
+      //-     input.input-default.checkbox-rolet-popup(type="checkbox" name="is_grid" value="1")
+      //-     span.checkbox-custom
       .row-is-settings.rolet-row
         .title-is-split.title
-          ='Is split'
+          =i18n.__('split')
           | :
         label.is-split-label
           span
-            ='Частей: '
+            =i18n.__('rol_parts') + ': '
           input.input-default.is-split-rolet-popup(type="number" name="is_split" value="1" min="0" max="4")
         label.is-split-price-label
           span
-            ='Стоимость деления: '
+            =i18n.__('rol_part_price') + ': '
           input.input-default.split-price-rolet-popup(type="number" name="split_price" value="1" step="0.01")
-      .row-is-settings.rolet-row
-        .title-is-defense.title
-          ='Is security'
-          | :
-        label.checkbox-label
-          input.input-default.checkbox-rolet-popup(type="checkbox" name="is_security" value="1")
-          span.checkbox-custom
-      .row-is-settings.rolet-row
-        .title-is-engine.title
-          ='Is engine'
-          | :
-        label.checkbox-label
-          input.input-default.checkbox-rolet-popup(type="checkbox" name="is_engine" value="1")
-          span.checkbox-custom
+      //- .row-is-settings.rolet-row
+      //-   .title-is-defense.title
+      //-     ='Is security'
+      //-     | :
+      //-   label.checkbox-label
+      //-     input.input-default.checkbox-rolet-popup(type="checkbox" name="is_security" value="1")
+      //-     span.checkbox-custom
+      //- .row-is-settings.rolet-row
+      //-   .title-is-engine.title
+      //-     ='Is engine'
+      //-     | :
+      //-   label.checkbox-label
+      //-     input.input-default.checkbox-rolet-popup(type="checkbox" name="is_engine" value="1")
+      //-     span.checkbox-custom
       .row-is-settings.indicator-pvc-alum.rolet-row
         .title-is-pvc-alum-front.title
           ='Is PVC or Alum for Front'
@@ -115,25 +115,25 @@
           ='Alum'
       .row-is-settings.rolet-row
         .title-min-size.title
-          ='Min Sizes'
+          =i18n.__('rol_min_size')
           | :
         label.min-width-label
           span
-            ='Min width: '
+            =i18n.__('min_length') + ': '
           input.input-default.min-width-rolet-popup(type="number" name="min_width" value="1" min="0")
         label.min-square-price-label
           span
-            ='Min. м² for price: '
+            =i18n.__('rol_min_area') + ': '
           input.input-default.min-square-price-rolet-popup(type="number" name="min_square_price" value="1" step="0.01")
       .row-height-width.rolet-row
         .title-height-width
-          ='Размеры бокса мм :'
+          =i18n.__('rol_box_size') + ' ' + i18n.__('mm') + ':'
         .title-height-width-wrap
           .height-box-title
-            ='Height'
+            =i18n.__('Height')
             | :
           .width-box-title
-            ='Width'
+            =i18n.__('Width')
             | :
         .height-width-box
           .field-height-width

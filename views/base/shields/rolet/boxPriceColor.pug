@@ -3,37 +3,37 @@ extends ../../layout
 block content
   .main-nav
     .nav-link
-      a(href="/")= i18n.__('Dashboard') 
-      a(href="/base/shields/rolet/rolet")='Boxes'
-      a(href="/base/shields/rolet/Guides")='Guides'
-      a(href="/base/shields/rolet/endLists")='End Lists'
-      a(href="/base/shields/rolet/lamels")='Lamels'
-      a(href="/base/shields/rolet/roletColorsGroups")='Colors'
+      a(href="/")=i18n.__('Dashboard') 
+      a(href="/base/shields/rolet/rolet")=i18n.__('rol_boxes')
+      a(href="/base/shields/rolet/guides")=i18n.__('rol_guides')
+      a(href="/base/shields/rolet/endLists")=i18n.__('rol_endcaps')
+      a(href="/base/shields/rolet/lamels")=i18n.__('rol_slats')
+      a(href="/base/shields/rolet/roletColorsGroups")=i18n.__('rol_colors')
       span#nav-text
-        =' RoletPrice '
+        =i18n.__('rol_prices')
       img.loader-ico(src="/assets/images/loader_ico.GIF")
-      a(href="/base/shields/rolet/roletBoxHeight")='RoletBoxHeight'
-      a(href="/base/shields/rolet/controls")='Controls'
-      a(href="/base/shields/rolet/controlBoxSizes")='ControlBoxSizes'
-      a(href="/base/shields/rolet/addElements")='AddElements'
+      a(href="/base/shields/rolet/roletBoxHeight")=i18n.__('rol_height')
+      a(href="/base/shields/rolet/controls")=i18n.__('rol_control')
+      a(href="/base/shields/rolet/controlBoxSizes")=i18n.__('rol_mapping')
+      a(href="/base/shields/rolet/addElements")=i18n.__('Add. elements')
   .main-content    
     .nav-sub-link
-      a(href="/base/shields/rolet/roletPrice")='Rolet Price'
-      span#nav-sub-text='Box Price Color'
-      a(href="/base/shields/rolet/guidePriceColor")='Guide Price Color'
-      a(href="/base/shields/rolet/endListPriceColor")='EndList Price Color'
-      a(href="/base/shields/rolet/lamelPriceColor")='Lamel Price Color'
+      a(href="/base/shields/rolet/roletPrice")=i18n.__('Price') + ' ' + i18n.__('box') + ' / ' + i18n.__('lamel')
+      span#nav-sub-text=i18n.__('Price') + ' ' + i18n.__('box') + ' / ' + i18n.__('Color')
+      a(href="/base/shields/rolet/guidePriceColor")=i18n.__('Price') + ' ' + i18n.__('guides') + ' / ' + i18n.__('Color')
+      a(href="/base/shields/rolet/endListPriceColor")=i18n.__('Price') + ' ' + i18n.__('end_profile') + ' / ' + i18n.__('Color')
+      a(href="/base/shields/rolet/lamelPriceColor")=i18n.__('Price') + ' ' + i18n.__('lamel') + ' / ' + i18n.__('Color')
     .price-table-colors
       .rules-block
         select.select-default.select-rules-price 
           each rule in priceRules
             option(value=rule.id)=rule.name
         span 
-          ='(тип наценки)'
+          =i18n.__('Markup type')
       .color-group-box 
         .header-box
         each groupColor in colorGroups
-          .group-row(data-id=groupColor.id style="background-color: #{groupColor.img};")
+          .group-row(data-id=groupColor.id style=`background-color: ${groupColor.img};`)
             span 
               =groupColor.name
       .groups-box 

@@ -1,0 +1,54 @@
+extends ../../layout
+
+block content
+  .main-nav
+    .nav-link
+      a(href="/")= i18n.__('Dashboard') 
+      span#nav-text
+        =i18n.__('Elements')
+      a(href="/base/shields/grids/profiles")=i18n.__('Profiles')
+      a(href="/base/shields/grids/grids")=i18n.__('Mosquito nets')
+      a(href="/base/shields/grids/systems")=i18n.__('Profile systems')
+      a(href="/base/shields/grids/colors")=i18n.__('Color')
+      a(href="/base/shields/grids/colorPrices")=i18n.__('pls_color_prices')
+      a(href="/base/shields/grids/templates")=i18n.__('Template')
+      img.loader-ico(src="/assets/images/loader_ico.GIF")
+  .main-content
+    .btn-add-element
+      =i18n.__('Add element')
+    .elements-list
+      .element-row(style="font-weight: bold;")
+        .element-content 
+          .element-name
+            =i18n.__('Name')
+          .element-article
+            =i18n.__('SKU')
+          .element-price
+            =i18n.__('Price')
+          .element-unit-type
+            =i18n.__('unit_short')
+          .element-weight
+            =i18n.__('Weight (kg)')
+        .btns-block
+          
+      if (elements.length > 0)
+       each elem in elements
+        .element-row
+          .element-content 
+            .element-name
+              =elem.name
+            .element-article
+              =elem.sku
+            .element-price
+              =elem.price + (elem.currency_id === 102 ? ' ₴' : elem.currency_id === 685 ? ' $' : elem.currency_id === 684 ? ' €' : '')
+            .element-unit-type
+              =(elem.unit_type_id === 1 ? i18n.__('pcs') : elem.unit_type_id === 2 ? i18n.__('m') : elem.unit_type_id === 3 ? i18n.__('sq. m') : elem.unit_type_id === 4 ? i18n.__('unit_kg') : '')
+            .element-weight
+              =elem.weight + ' ' + i18n.__('unit_kg')
+          .btns-block
+            .btn-edit-item(data-element=elem.id)
+            .btn-delete-item(data-element=elem.id)
+  include popups/add_element.pug
+  include popups/edit_element.pug
+  include popups/delete_element.pug
+  

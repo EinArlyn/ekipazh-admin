@@ -1,0 +1,53 @@
+extends ../../layout
+
+block content
+  .main-nav
+    .nav-link
+      a(href="/")= i18n.__('Dashboard') 
+      a(href="/base/shields/grids/elements")=i18n.__('Elements')
+      a(href="/base/shields/grids/profiles")=i18n.__('Profiles')
+      a(href="/base/shields/grids/grids")=i18n.__('Mosquito nets')
+      a(href="/base/shields/grids/systems")=i18n.__('Profile systems')
+      span#nav-text
+        =i18n.__('Color')
+      a(href="/base/shields/grids/colorPrices")=i18n.__('pls_color_prices')
+      a(href="/base/shields/grids/templates")=i18n.__('Template')
+      img.loader-ico(src="/assets/images/loader_ico.GIF")
+  .main-content
+    .btn-add-group
+      =i18n.__('Add group +')
+    .group-list
+      if (groups.length > 0)
+        each group in groups
+          .group-row(style="font-weight: bold;")
+            .group-content             
+              .group-name
+                =group.name
+            .btns-block
+              .btn-active-group.btn-active(data-group=group.id class=!group.is_active ? 'btn-unactive' : 'btn-active')
+              .btn-edit-item(data-group=group.id)
+              .btn-delete-item(data-group=group.id)
+              .btn-show-more(data-group=group.id)
+          .colors-list(data-group=group.id style="display: none;")
+            .btn-add-color(data-group=group.id)
+              =i18n.__('Add') + ' ' + i18n.__('Color')
+            if (group.colors.length > 0)
+              each color in group.colors
+                .color-row
+                  .color-content 
+                    .color-img
+                      img(src=color.img)
+                    .color-name
+                      =color.name
+                  .btns-block
+                    .btn-active-color.btn-active(data-color=color.id class=!color.is_active ? 'btn-unactive' : 'btn-active')
+                    .btn-edit-item(data-color=color.id)
+                    .btn-delete-item(data-color=color.id)
+    
+  include popups/add_color_group.pug
+  include popups/edit_color_group.pug
+  include popups/delete_color_group.pug
+  include popups/add_color.pug
+  include popups/edit_color.pug
+  include popups/delete_color.pug
+  

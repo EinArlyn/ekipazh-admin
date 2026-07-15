@@ -1,0 +1,91 @@
+.pop-up.pop-up-pls#popup-add-system-pls
+  form#add-system-pls-form(method="POST" action="/base/shields/grids/systems/addSystem" enctype="multipart/form-data")
+    input(type="hidden" name="group_id" value='' required)
+    .pop-up-close-wrap
+      a(class="pop-up-close", href="#")
+    span.pop-up-header
+      =i18n.__('Add')
+    .row
+      .col-md-6
+        img.pls-image(src="/local_storage/default.png")
+      .col-md-6
+        input.hidden.pls-image-file(type="file" name="pls_img")
+        input.add-image-btn(type="button" value=i18n.__('Add'))
+    .pop-up-pls-rows 
+      .row-name.pls-row 
+        .title-name.title
+          =i18n.__('Name')
+          | :
+        input.input-default.text-name(type="text" value="" name="name" required)
+      .row-position.pls-row 
+        .title-position.title
+          =i18n.__('Position')
+          | :
+        input.input-default.text-position(style="width: 50px;" type="number" value="" name="position" required)
+      .row-top.pls-row 
+        .title-top.title
+          =i18n.__('Frame') + ' ' + i18n.__('Top')
+          | :
+        select.select-default.select-top(style="width: 500px;" name="top_id")
+      .row-right.pls-row 
+        .title-right.title
+          =i18n.__('Frame') + ' ' + i18n.__('Right')
+          | :
+        select.select-default.select-right(style="width: 500px;" name="right_id")
+      .row-bottom.pls-row 
+        .title-bottom.title
+          =i18n.__('Frame') + ' ' + i18n.__('Bottom')
+          | :
+        select.select-default.select-bottom(style="width: 500px;" name="bottom_id")
+      .row-left.pls-row 
+        .title-left.title
+          =i18n.__('Frame') + ' ' + i18n.__('Left')
+          | :
+        select.select-default.select-left(style="width: 500px;" name="left_id")
+      .row-center.pls-row 
+        .title-center.title
+          =i18n.__('Frame') + ' ' + i18n.__('middle')
+          | :
+        select.select-default.select-center(style="width: 500px;" name="center_id")
+      .row-sash.pls-row 
+        .title-sash.title
+          =i18n.__('Profile') + ' ' + i18n.__('Leaf')
+          | :
+        select.select-default.select-sash(style="width: 500px;" name="sash_id")
+      .row-min-w.pls-row 
+        .title-min-w.title
+          =i18n.__('min') + ' ' + i18n.__('width_mm')
+          | :
+        input.input-default.text-min-w(style="width: 50px;" type="number" value="" name="min_w" required)
+      .row-max-w.pls-row 
+        .title-max-w.title
+          =i18n.__('max') + ' ' + i18n.__('width_mm')
+          | :
+        input.input-default.text-max-w(style="width: 50px;" type="number" value="" name="max_w" required)
+      .row-min-h.pls-row 
+        .title-min-h.title
+          =i18n.__('min') + ' ' + i18n.__('height_mm')
+          | :
+        input.input-default.text-min-h(style="width: 50px;" type="number" value="" name="min_h" required)
+      .row-max-h.pls-row 
+        .title-max-h.title
+          =i18n.__('max') + ' ' + i18n.__('height_mm')
+          | :
+        input.input-default.text-max-h(style="width: 50px;" type="number" value="" name="max_h" required)
+      .row-edit-grid-w.pls-row 
+        .title-edit-grid-w.title
+          =i18n.__('pls_less_width') + ' ' + i18n.__('mm')
+          | :
+        input.input-default.text-edit-grid-w(style="width: 50px;" type="number" value="" name="edit_grid_w" required)
+      .row-edit-grid-h.pls-row 
+        .title-edit-grid-h.title
+          =i18n.__('pls_less_height') + ' ' + i18n.__('mm')
+          | :
+        input.input-default.text-edit-grid-h(style="width: 50px;" type="number" value="" name="edit_grid_h" required)
+      .row-description
+        .title-description
+          =i18n.__('Description')
+          | :
+        textarea.input-default.text-description(name="description")
+    .row.block-center.text-center
+      input.btn-submit(type="submit" value=i18n.__('Add'))

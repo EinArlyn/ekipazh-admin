@@ -1,0 +1,90 @@
+extends ../../layout
+
+block content
+  .main-nav
+    .nav-link
+      a(href="/")= i18n.__('Dashboard') 
+      a(href="/base/shields/grids/elements")=i18n.__('Elements')
+      a(href="/base/shields/grids/profiles")=i18n.__('Profiles')
+      span#nav-text
+        =i18n.__('Mosquito nets')
+      a(href="/base/shields/grids/systems")=i18n.__('Profile systems')
+      a(href="/base/shields/grids/colors")=i18n.__('Color')
+      a(href="/base/shields/grids/colorPrices")=i18n.__('pls_color_prices')
+      a(href="/base/shields/grids/templates")=i18n.__('Template')
+      img.loader-ico(src="/assets/images/loader_ico.GIF")
+  .main-content
+    .btn-add-grid
+      =i18n.__('Add') + ' ' + i18n.__('Mosquito nets')
+    .grids-list
+      .grid-row(style="font-weight: bold;")
+        .grid-content 
+          .grid-img(style="background-color: white;")
+            
+          .grid-name
+            =i18n.__('Name')
+          .grid-article
+            =i18n.__('SKU')
+          .grid-price
+            =i18n.__('Price')
+          .grid-weight
+            =i18n.__('Weight (kg)')
+        .btns-block
+          
+      if (grids.length > 0)
+       each grid in grids
+        .grid-row
+          .grid-content 
+            .grid-img
+              img(src=grid.img)
+            .grid-name
+              =grid.name
+            .grid-article
+              =grid.sku
+            .grid-price
+              =grid.price + (grid.currency_id === 102 ? ' ₴' : grid.currency_id === 685 ? ' $' : grid.currency_id === 684 ? ' €' : '')
+            .grid-weight
+              =grid.weight + ' ' + i18n.__('unit_kg')
+          .btns-block
+            .btn-edit-item(data-grid=grid.id)
+            .btn-delete-item(data-grid=grid.id)
+            .btn-show-more(data-grid=grid.id)
+        .grid-elements(data-grid=grid.id style="display: none;")
+          .wrap
+            .elements-info-text
+              =i18n.__('Elements') + ': '
+            .add-element-to-grid(data-grid=grid.id)
+              =i18n.__('Add element')
+          .grid-elements-header
+            .grid-elements-content
+              .grid-elements-name
+                =i18n.__('Name')
+              .grid-elements-article
+                =i18n.__('SKU')
+              .grid-elements-rules-name
+                =i18n.__('Rule')
+              .grid-elements-rules-value
+                =i18n.__('Value')
+            .btns-block
+          if (grid.elements.length > 0)
+            each elem in grid.elements
+              .grid-elements-row
+                .grid-elements-content
+                  .grid-elements-name
+                    =elem.name
+                  .grid-elements-article
+                    =elem.sku
+                  .grid-elements-rules-name
+                    =rulesData[elem.rules_id - 1] ? rulesData[elem.rules_id - 1].name : 'Ошибка правила'
+                  .grid-elements-rules-value
+                    =elem.rules_value
+                .btns-block
+                  .btn-edit-item(data-grid=grid.id, data-element=elem.id)
+                  .btn-delete-item(data-grid=grid.id, data-element=elem.id)
+  include popups/add_grid.pug
+  include popups/edit_grid.pug
+  include popups/delete_grid.pug
+  include popups/add_link_element.pug
+  include popups/edit_link_element.pug
+  include popups/delete_link_element.pug
+  

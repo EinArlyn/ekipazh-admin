@@ -1,0 +1,45 @@
+extends ../../layout
+
+block content
+  .main-nav
+    .nav-link
+      a(href="/")= i18n.__('Dashboard') 
+      a(href="/base/shields/grids/elements")=i18n.__('Elements')
+      a(href="/base/shields/grids/profiles")=i18n.__('Profiles')
+      a(href="/base/shields/grids/grids")=i18n.__('Mosquito nets')
+      a(href="/base/shields/grids/systems")=i18n.__('Profile systems')
+      a(href="/base/shields/grids/colors")=i18n.__('Color')
+      a(href="/base/shields/grids/colorPrices")=i18n.__('pls_color_prices')
+      span#nav-text
+        =i18n.__('Template')
+      img.loader-ico(src="/assets/images/loader_ico.GIF")
+  .main-content
+    .group-list
+      if (groups.length > 0)
+        each group in groups
+          .group-row(style="font-weight: bold;")
+            .group-content             
+              .group-name
+                =group.name
+            .btns-block
+              .btn-show-more(data-group=group.id)
+          .templates-list(data-group=group.id style="display: none;")
+            .btn-add-template(data-group=group.id)
+              =i18n.__('Add new template')
+            if (group.templates.length > 0)
+              each template in group.templates
+                .template-row
+                  .template-content 
+                    .template-img
+                      img(src=template.img)
+                    .template-name
+                      =template.name
+                  .btns-block
+                    .btn-active-template.btn-active(data-template=template.id class=!template.is_active ? 'btn-unactive' : 'btn-active')
+                    .btn-edit-item(data-template=template.id)
+                    .btn-delete-item(data-template=template.id)
+
+  include popups/add_template.pug
+  include popups/edit_template.pug
+  include popups/delete_template.pug
+  

@@ -97,4 +97,12 @@ module.exports = function(app) {
   app.use('/base/shields/rolet/controls', require('./base/shields/rolet/controls'));
   app.use('/base/shields/rolet/controlBoxSizes', require('./base/shields/rolet/controlBoxSizes'));
   app.use('/base/shields/rolet/addElements', require('./base/shields/rolet/addElements'));
+  
+  app.use('/base/shields/grids/elements', require('./base/shields/grids/elements'));
+  app.use('/base/shields/grids/profiles', require('./base/shields/grids/profiles'));
+  app.use('/base/shields/grids/grids', require('./base/shields/grids/grids'));
+  app.use('/base/shields/grids/systems', require('./base/shields/grids/systems'));
+  app.use('/base/shields/grids/colors', require('./base/shields/grids/colors'));
+  app.use('/base/shields/grids/colorPrices', require('./base/shields/grids/colorPrices'));
+  app.use('/base/shields/grids/templates', require('./base/shields/grids/templates'));
 };

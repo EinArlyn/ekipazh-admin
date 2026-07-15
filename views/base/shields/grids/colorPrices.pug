@@ -1,0 +1,40 @@
+extends ../../layout
+
+block content
+  .main-nav
+    .nav-link
+      a(href="/")= i18n.__('Dashboard') 
+      a(href="/base/shields/grids/elements")=i18n.__('Elements')
+      a(href="/base/shields/grids/profiles")=i18n.__('Profiles')
+      a(href="/base/shields/grids/grids")=i18n.__('Mosquito nets')
+      a(href="/base/shields/grids/systems")=i18n.__('Profile systems')
+      a(href="/base/shields/grids/colors")=i18n.__('Color')
+      span#nav-text
+        =i18n.__('pls_color_prices')
+      a(href="/base/shields/grids/templates")=i18n.__('Template')
+      img.loader-ico(src="/assets/images/loader_ico.GIF")
+  .main-content
+   .price-table 
+      .color-group-box 
+        .header-box
+        each colorGroup in colorGroups
+          .color-group-row(data-id=colorGroup.id)
+            span 
+              =colorGroup.name
+      .system-groups-box 
+        each group in systemGroups
+          .system-group-wrap 
+            .system-group-box-name
+              span 
+                =group.group.name
+            .systems-box
+              each system in group.systems
+                .system-box(data-system-id=system.id) 
+                  .system-name 
+                    =system.name
+                  each colorGroup in colorGroups
+                    .price-field(data-color-group-id=colorGroup.id data-system-id=system.id)
+                      input.input-default.system-color-pls-price-input(type="number" data-color-group-id=colorGroup.id data-system-id=system.id value="" name="")
+                      .percent-indicator
+                        ='%'
+  
