@@ -581,6 +581,10 @@
 	"pls_sliding": "Sliding",
 	"pls_threshold": "Threshold",
 	"pls_stulp_threshold": "Stulp with Threshold",
+	"pls_color_dependency": "Color Dependency",
+	"pls_independent": "Independent",
+	"pls_white_only": "White Only",
+	"pls_color_only": "Colour Only",
 	"menu_roller_shutters": "Roller Shutters",
 
 	"fl_Materials": "Materials",

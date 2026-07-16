@@ -3276,7 +3276,411 @@ module.exports = function (req, res) {
                   .catch(function (err) {
                     callback(err);
                   });
-              }
+              },
+              function (callback) {
+                /** pls_elements */
+                models.sequelize
+                  .query(
+                    `SELECT id,
+                            factory_id,
+                            name,
+                            sku,
+                            price,
+                            waste,
+                            amendment_pruning,
+                            weight,
+                            currency_id,
+                            unit_type_id,
+                            color_dependence
+                    FROM pls_elements
+                    WHERE factory_id = ${factory_id}`
+                  )
+                  .then(function (rows) {
+                    tables.pls_elements = {};
+                    tables.pls_elements.fields = [
+                      'id',
+                      'factory_id',
+                      'name',
+                      'sku',
+                      'price',
+                      'waste',
+                      'amendment_pruning',
+                      'weight',
+                      'currency_id',
+                      'unit_type_id',
+                      'color_dependence'
+                    ];
+                    sortQueries(rows[0], function (values) {
+                      tables.pls_elements.rows = values;
+                      callback(null);
+                    });
+                  })
+                  .catch(function (err) {
+                    callback(err);
+                  });
+              },
+              function (callback) {
+                /** pls_grids */
+                models.sequelize
+                  .query(
+                    `SELECT id,
+                            factory_id,
+                            name,
+                            sku,
+                            price,
+                            weight,
+                            currency_id,
+                            size_wave,
+                            description,
+                            img
+                    FROM pls_grids
+                    WHERE factory_id = ${factory_id}`
+                  )
+                  .then(function (rows) {
+                    tables.pls_grids = {};
+                    tables.pls_grids.fields = [
+                      'id',
+                      'factory_id',
+                      'name',
+                      'sku',
+                      'price',
+                      'weight',
+                      'currency_id',
+                      'size_wave',
+                      'description',
+                      'img'
+                    ];
+                    sortQueries(rows[0], function (values) {
+                      tables.pls_grids.rows = values;
+                      callback(null);
+                    });
+                  })
+                  .catch(function (err) {
+                    callback(err);
+                  });
+              },
+              function (callback) {
+                /** pls_profiles */
+                models.sequelize
+                  .query(
+                    `SELECT id,
+                            factory_id,
+                            name,
+                            sku,
+                            type,
+                            price,
+                            waste,
+                            amendment_pruning,
+                            weight,
+                            currency_id
+                    FROM pls_profiles
+                    WHERE factory_id = ${factory_id}`
+                  )
+                  .then(function (rows) {
+                    tables.pls_profiles = {};
+                    tables.pls_profiles.fields = [
+                      'id',
+                      'factory_id',
+                      'name',
+                      'sku',
+                      'type',
+                      'price',
+                      'waste',
+                      'amendment_pruning',
+                      'weight',
+                      'currency_id'
+                    ];
+                    sortQueries(rows[0], function (values) {
+                      tables.pls_profiles.rows = values;
+                      callback(null);
+                    });
+                  })
+                  .catch(function (err) {
+                    callback(err);
+                  });
+              },
+              function (callback) {
+                /** pls_links: без фильтрации */
+                models.sequelize
+                  .query(
+                    `SELECT L.id,
+                            L.parent_id,
+                            L.element_id,
+                            L.rules_id,
+                            L.rules_value,
+                            L.parent_type_id
+                    FROM pls_links AS L`
+                  )
+                  .then(function (rows) {
+                    tables.pls_links = {};
+                    tables.pls_links.fields = [
+                      'id',
+                      'parent_id',
+                      'element_id',
+                      'rules_id',
+                      'rules_value',
+                      'parent_type_id'
+                    ];
+                    sortQueries(rows[0], function (values) {
+                      tables.pls_links.rows = values;
+                      callback(null);
+                    });
+                  })
+                  .catch(function (err) {
+                    callback(err);
+                  });
+              },
+              function (callback) {
+                /** pls_profile_colors_groups */
+                models.sequelize
+                  .query(
+                    `SELECT id,
+                            factory_id,
+                            is_active,
+                            name,
+                            position
+                    FROM pls_profile_colors_groups
+                    WHERE factory_id = ${factory_id}
+                      AND is_active = 1`
+                  )
+                  .then(function (rows) {
+                    tables.pls_profile_colors_groups = {};
+                    tables.pls_profile_colors_groups.fields = [
+                      'id',
+                      'factory_id',
+                      'is_active',
+                      'name',
+                      'position'
+                    ];
+                    sortQueries(rows[0], function (values) {
+                      tables.pls_profile_colors_groups.rows = values;
+                      callback(null);
+                    });
+                  })
+                  .catch(function (err) {
+                    callback(err);
+                  });
+              },
+              function (callback) {
+                /** pls_profile_colors: только активные */
+                models.sequelize
+                  .query(
+                    `SELECT C.id,
+                            C.group_id,
+                            C.is_active,
+                            C.name,
+                            C.sku,
+                            C.position,
+                            C.img
+                              FROM pls_profile_colors AS C
+                              WHERE C.is_active = 1`
+                  )
+                  .then(function (rows) {
+                    tables.pls_profile_colors = {};
+                    tables.pls_profile_colors.fields = [
+                      'id',
+                      'group_id',
+                      'is_active',
+                      'name',
+                      'sku',
+                      'position',
+                      'img'
+                    ];
+                    sortQueries(rows[0], function (values) {
+                      tables.pls_profile_colors.rows = values;
+                      callback(null);
+                    });
+                  })
+                  .catch(function (err) {
+                    callback(err);
+                  });
+              },
+              function (callback) {
+                /** pls_system_groups */
+                models.sequelize
+                  .query(
+                    `SELECT id,
+                            factory_id,
+                            name,
+                            position,
+                            is_active,
+                            description
+                    FROM pls_system_groups
+                    WHERE factory_id = ${factory_id}
+                      AND is_active = 1`
+                  )
+                  .then(function (rows) {
+                    tables.pls_system_groups = {};
+                    tables.pls_system_groups.fields = [
+                      'id',
+                      'factory_id',
+                      'name',
+                      'position',
+                      'is_active',
+                      'description'
+                    ];
+                    sortQueries(rows[0], function (values) {
+                      tables.pls_system_groups.rows = values;
+                      callback(null);
+                    });
+                  })
+                  .catch(function (err) {
+                    callback(err);
+                  });
+              },
+              function (callback) {
+                /** pls_systems: только активные */
+                models.sequelize
+                  .query(
+                    `SELECT S.id,
+                            S.group_id,
+                            S.name,
+                            S.position,
+                            S.is_active,
+                            S.top_id,
+                            S.right_id,
+                            S.bottom_id,
+                            S.left_id,
+                            S.center_id,
+                            S.sash_id,
+                            S.min_w,
+                            S.max_w,
+                            S.min_h,
+                            S.max_h,
+                            S.edit_grid_w,
+                            S.edit_grid_h,
+                            S.direction,
+                            S.description,
+                            S.img
+                              FROM pls_systems AS S
+                              WHERE S.is_active = 1`
+                  )
+                  .then(function (rows) {
+                    tables.pls_systems = {};
+                    tables.pls_systems.fields = [
+                      'id',
+                      'group_id',
+                      'name',
+                      'position',
+                      'is_active',
+                      'top_id',
+                      'right_id',
+                      'bottom_id',
+                      'left_id',
+                      'center_id',
+                      'sash_id',
+                      'min_w',
+                      'max_w',
+                      'min_h',
+                      'max_h',
+                      'edit_grid_w',
+                      'edit_grid_h',
+                      'direction',
+                      'description',
+                      'img'
+                    ];
+                    sortQueries(rows[0], function (values) {
+                      tables.pls_systems.rows = values;
+                      callback(null);
+                    });
+                  })
+                  .catch(function (err) {
+                    callback(err);
+                  });
+              },
+              function (callback) {
+                /** pls_system_colors_prices: без фильтрации */
+                models.sequelize
+                  .query(
+                    `SELECT SCP.id,
+                            SCP.color_group_id,
+                            SCP.system_id,
+                            SCP.value
+                    FROM pls_system_colors_prices AS SCP`
+                  )
+                  .then(function (rows) {
+                    tables.pls_system_colors_prices = {};
+                    tables.pls_system_colors_prices.fields = [
+                      'id',
+                      'color_group_id',
+                      'system_id',
+                      'value'
+                    ];
+                    sortQueries(rows[0], function (values) {
+                      tables.pls_system_colors_prices.rows = values;
+                      callback(null);
+                    });
+                  })
+                  .catch(function (err) {
+                    callback(err);
+                  });
+              },
+              function (callback) {
+                /** pls_template_system_links: без фильтрации */
+                models.sequelize
+                  .query(
+                    `SELECT L.id,
+                            L.template_id,
+                            L.system_id
+                    FROM pls_template_system_links AS L`
+                  )
+                  .then(function (rows) {
+                    tables.pls_template_system_links = {};
+                    tables.pls_template_system_links.fields = [
+                      'id',
+                      'template_id',
+                      'system_id'
+                    ];
+                    sortQueries(rows[0], function (values) {
+                      tables.pls_template_system_links.rows = values;
+                      callback(null);
+                    });
+                  })
+                  .catch(function (err) {
+                    callback(err);
+                  });
+              },
+              function (callback) {
+                /** pls_templates: только активные */
+                models.sequelize
+                  .query(
+                    `SELECT DISTINCT T.id,
+                                     T.construction_type,
+                                     T.open_type,
+                                     T.name,
+                                     T.position,
+                                     T.is_active,
+                                     T.default_w,
+                                     T.default_h,
+                                     T.work_price,
+                                     T.img
+                    FROM pls_templates AS T
+                    WHERE T.is_active = 1`
+                  )
+                  .then(function (rows) {
+                    tables.pls_templates = {};
+                    tables.pls_templates.fields = [
+                      'id',
+                      'construction_type',
+                      'open_type',
+                      'name',
+                      'position',
+                      'is_active',
+                      'default_w',
+                      'default_h',
+                      'work_price',
+                      'img'
+                    ];
+                    sortQueries(rows[0], function (values) {
+                      tables.pls_templates.rows = values;
+                      callback(null);
+                    });
+                  })
+                  .catch(function (err) {
+                    callback(err);
+                  });
+              },
+              
             ],
             function (err, results) {
               if (err) {

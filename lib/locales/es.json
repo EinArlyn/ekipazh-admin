@@ -653,6 +653,10 @@
 	"pls_sliding": "Corredera",
 	"pls_threshold": "Umbral",
 	"pls_stulp_threshold": "Poste móvil con umbral",
+	"pls_color_dependency": "Dependencia del color",
+	"pls_independent": "No depende",
+	"pls_white_only": "Solo blanco",
+	"pls_color_only": "Solo color",
 	"menu_roller_shutters": "Persianas enrollables",
 
 	"fl_Materials": "Materiales",

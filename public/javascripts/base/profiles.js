@@ -196,6 +196,7 @@ $(function () {
     var profileGroupId = $(this).attr('value');
     $('.add-profile-from-default-pop-up #profile-name-default-select').find('option').remove();
     $.get('/base/profiles/getDefaultProfiles', function(data) {
+      console.log('data', data);
       if (data.status) {
         $('#profile-add-from-default-pop-up-btn').attr('value', profileGroupId);
         for (var i = 0, len = data.profileSystems.length; i < len; i++) {

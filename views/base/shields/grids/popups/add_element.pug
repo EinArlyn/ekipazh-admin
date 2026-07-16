@@ -41,7 +41,17 @@
             =i18n.__('sq. m')
           option(value="4") 
             =i18n.__('unit_kg')
-      
+      .row-color-dependence.pls-row 
+        .title-color-dependence.title
+          =i18n.__('pls_color_dependency')
+          | :
+        select.select-default.select-color-dependence(style="width: 150px;" name="color_dependence" required)
+          option(value="0") 
+            =i18n.__('pls_independent')
+          option(value="1") 
+            =i18n.__('pls_white_only')
+          option(value="2") 
+            =i18n.__('pls_color_only')
       .row-waste.pls-row 
         .title-waste.title
           =i18n.__('Waste') + ' (%)'

@@ -28,6 +28,7 @@ $(function () {
     $(
       '#popup-add-element-pls input:not([type="submit"]):not([type="hidden"]):not([type="button"])'
     ).val('');
+    $('#popup-add-element-pls select[name="color_dependence"]').val('0');
     $('#popup-add-element-pls #pls-currency').find('option').remove();
   
 
@@ -78,6 +79,7 @@ $(function () {
           $('#popup-edit-element-pls #pls-currency').val(element.currency_id);
           $('#popup-edit-element-pls input[name="price"]').val(element.price);
           $('#popup-edit-element-pls select[name="unit_type_id"]').val(element.unit_type_id);
+          $('#popup-edit-element-pls select[name="color_dependence"]').val(element.color_dependence);
           $('#popup-edit-element-pls input[name="waste"]').val(element.waste);
           $('#popup-edit-element-pls input[name="amendment_pruning"]').val(element.amendment_pruning);
           $('#popup-edit-element-pls input[name="weight"]').val(element.weight);

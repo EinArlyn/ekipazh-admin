@@ -1,4 +1,5 @@
 $(function () {
+  let clickCount = 0;
   /** On .btn block hover */
   $('.btn').hover(function () {
     $(this).find('.box-hover').fadeIn(2);
@@ -15,6 +16,14 @@ $(function () {
   });
   $("#shields").click(function () {
     if (!$(this).hasClass('disabled')) {
+      $(".base-shields").toggleClass("shields-menu");
+      $(".base-field").removeClass("base-menu");
+    } else {
+      clickCount++;
+    }
+    if (clickCount === 3) {
+      clickCount = 0;
+      $('#rolet-btn').hide();
       $(".base-shields").toggleClass("shields-menu");
       $(".base-field").removeClass("base-menu");
     }

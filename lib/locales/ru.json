@@ -658,6 +658,10 @@
 	"pls_sliding": "Раздвижная",
 	"pls_threshold": "Порог",
 	"pls_stulp_threshold": "Штульп с порогом",
+	"pls_color_dependency": "Зависимость от цвета",
+	"pls_independent": "Не зависит",
+	"pls_white_only": "Только белый",
+	"pls_color_only": "Только цветной",
 	"menu_roller_shutters": "Ролеты",
 
 	"fl_Materials": "Материалы",

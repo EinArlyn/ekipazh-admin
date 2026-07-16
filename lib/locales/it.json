@@ -661,6 +661,10 @@
 	"pls_sliding": "Scorrevole",
 	"pls_threshold": "Soglia",
 	"pls_stulp_threshold": "Stulp con soglia",
+	"pls_color_dependency": "Dipendenza dal colore",
+	"pls_independent": "Indipendente",
+	"pls_white_only": "Solo bianco",
+	"pls_color_only": "Solo colorato",
 	"menu_roller_shutters": "Tapparelle",
 
 	"fl_Materials": "Materiali",

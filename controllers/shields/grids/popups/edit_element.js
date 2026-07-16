@@ -14,6 +14,7 @@ module.exports = function (req, res) {
           currency_id: parseInt(fields.currency_id, 10),
           price: parseFloat(fields.price) || 0,
           unit_type_id: parseInt(fields.unit_type_id || 1, 10),
+          color_dependence: parseInt(fields.color_dependence || 0, 10),
           waste: parseFloat(fields.waste) || 0,
           amendment_pruning: fields.amendment_pruning ? parseFloat(fields.amendment_pruning) : 0,
           weight: fields.weight ? parseFloat(fields.weight) : 0,
