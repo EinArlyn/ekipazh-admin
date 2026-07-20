@@ -3551,7 +3551,8 @@ module.exports = function (req, res) {
                             S.edit_grid_h,
                             S.direction,
                             S.description,
-                            S.img
+                            S.img,
+                            S.sash_reduction
                               FROM pls_systems AS S
                               WHERE S.is_active = 1`
                   )
@@ -3577,7 +3578,9 @@ module.exports = function (req, res) {
                       'edit_grid_h',
                       'direction',
                       'description',
-                      'img'
+                      'img',
+                      'edit_grid_h',
+                      'sash_reduction'
                     ];
                     sortQueries(rows[0], function (values) {
                       tables.pls_systems.rows = values;

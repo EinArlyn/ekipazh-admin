@@ -28,6 +28,7 @@ module.exports = function (req, res) {
         max_h: Number(fields.max_h) || 0,
         edit_grid_w: Number(fields.edit_grid_w) || 0,
         edit_grid_h: Number(fields.edit_grid_h) || 0,
+        sash_reduction: Number(fields.sash_reduction) || 0,
         description: fields.description || '',
         img: '/local_storage/default.png'
     }).then(function(newSystem) {

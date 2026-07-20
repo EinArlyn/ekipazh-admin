@@ -165,6 +165,7 @@ $(function () {
         $('#popup-edit-system-pls input[name="max_h"]').val(system.max_h);
         $('#popup-edit-system-pls input[name="edit_grid_w"]').val(system.edit_grid_w);
         $('#popup-edit-system-pls input[name="edit_grid_h"]').val(system.edit_grid_h);
+        $('#popup-edit-system-pls input[name="sash_reduction"]').val(system.sash_reduction);
         $.get('/base/shields/grids/systems/getProfiles', function (data) {
           if (data.status) {
             fillProfileSelects('#popup-edit-system-pls', data.profiles);
