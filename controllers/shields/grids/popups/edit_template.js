@@ -20,6 +20,7 @@ module.exports = function (req, res) {
       return template.update({
         name: fields.name,
         open_type: fields.open_type || '',
+        direction: fields.direction || '',
         position: parseInt(fields.position, 10) || 0,
         default_w: parseInt(fields.default_w, 10) || 0,
         default_h: parseInt(fields.default_h, 10) || 0,

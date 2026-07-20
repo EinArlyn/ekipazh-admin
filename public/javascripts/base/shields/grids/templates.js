@@ -128,6 +128,7 @@ $(function () {
         $('#popup-edit-template-pls input[name="default_h"]').val(data.template.default_h);
         $('#popup-edit-template-pls input[name="work_price"]').val(data.template.work_price);
         $('#popup-edit-template-pls select[name="open_type"]').val(data.template.open_type);
+        $('#popup-edit-template-pls select[name="direction"]').val(data.template.direction);
 
         const linksContainer = $('#popup-edit-template-pls .row-templates-links');
         linksContainer.empty();

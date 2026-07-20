@@ -15,6 +15,7 @@ module.exports = function (req, res) {
         is_active: 1,
         construction_type: fields.group_id || '',
         open_type: fields.open_type || '',
+        direction: fields.direction || '',
         position: parseInt(fields.position, 10) || 0,
         default_w: parseInt(fields.default_w, 10) || 0,
         default_h: parseInt(fields.default_h, 10) || 0,

@@ -37,6 +37,16 @@
           option(value="3")=i18n.__('pls_sliding')
           option(value="4")=i18n.__('pls_threshold')
           option(value="5")=i18n.__('pls_stulp_threshold')
+      .row-direction.pls-row 
+        .title-direction.title
+          =i18n.__('Direction of opening')
+          | :
+        select.select-default.select-direction(style="width: 500px;" name="direction" required)
+          option(value="1")=i18n.__('pls_left')
+          option(value="2")=i18n.__('pls_right')
+          option(value="3")=i18n.__('pls_sides')
+          option(value="4")=i18n.__('pls_center')
+          option(value="5")=i18n.__('pls_down')
       
       .row-default-w.pls-row 
         .title-default-w.title

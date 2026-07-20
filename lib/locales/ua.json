@@ -669,6 +669,11 @@
 	"pls_independent": "Не залежить",
 	"pls_white_only": "Тільки білий",
 	"pls_color_only": "Тільки кольоровий",
+	"pls_left": "Ліворуч",
+	"pls_right": "Праворуч",
+	"pls_sides": "У сторони",
+	"pls_center": "До середини",
+	"pls_down": "Вниз",
 	"menu_roller_shutters": "Ролети",
 
 	"fl_Materials": "Матеріали",

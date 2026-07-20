@@ -657,6 +657,11 @@
 	"pls_independent": "No depende",
 	"pls_white_only": "Solo blanco",
 	"pls_color_only": "Solo color",
+	"pls_left": "Hacia la izquierda",
+	"pls_right": "Hacia la derecha",
+	"pls_sides": "Hacia los lados",
+	"pls_center": "Hacia el centro",
+	"pls_down": "Hacia abajo",
 	"menu_roller_shutters": "Persianas enrollables",
 
 	"fl_Materials": "Materiales",

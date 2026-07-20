@@ -585,6 +585,11 @@
 	"pls_independent": "Independent",
 	"pls_white_only": "White Only",
 	"pls_color_only": "Colour Only",
+	"pls_left": "Left",
+	"pls_right": "Right",
+	"pls_sides": "To the Sides",
+	"pls_center": "To the Center",
+	"pls_down": "Down",
 	"menu_roller_shutters": "Roller Shutters",
 
 	"fl_Materials": "Materials",

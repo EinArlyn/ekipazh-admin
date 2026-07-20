@@ -665,6 +665,11 @@
 	"pls_independent": "Indipendente",
 	"pls_white_only": "Solo bianco",
 	"pls_color_only": "Solo colorato",
+	"pls_left": "Verso sinistra",
+	"pls_right": "Verso destra",
+	"pls_sides": "Verso i lati",
+	"pls_center": "Verso il centro",
+	"pls_down": "Verso il basso",
 	"menu_roller_shutters": "Tapparelle",
 
 	"fl_Materials": "Materiali",
