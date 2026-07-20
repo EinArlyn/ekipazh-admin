@@ -3579,7 +3579,6 @@ module.exports = function (req, res) {
                       'direction',
                       'description',
                       'img',
-                      'edit_grid_h',
                       'sash_reduction'
                     ];
                     sortQueries(rows[0], function (values) {
