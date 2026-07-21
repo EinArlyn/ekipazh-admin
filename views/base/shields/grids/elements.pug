@@ -42,7 +42,7 @@ block content
             .element-price
               =elem.price + (elem.currency_id === 102 ? ' ₴' : elem.currency_id === 685 ? ' $' : elem.currency_id === 684 ? ' €' : '')
             .element-unit-type
-              =(elem.unit_type_id === 1 ? i18n.__('pcs') : elem.unit_type_id === 2 ? i18n.__('m') : elem.unit_type_id === 3 ? i18n.__('sq. m') : elem.unit_type_id === 4 ? i18n.__('unit_kg') : '')
+              =(elem.unit_type_id === 1 ? i18n.__('pcs') : elem.unit_type_id === 2 ? i18n.__('m') : elem.unit_type_id === 3 ? i18n.__('sq. m') : elem.unit_type_id === 4 ? i18n.__('unit_kg') : elem.unit_type_id === 5 ? i18n.__('Perimeter2') : '')
             .element-weight
               =elem.weight + ' ' + i18n.__('unit_kg')
           .btns-block
