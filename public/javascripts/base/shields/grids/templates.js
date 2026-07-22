@@ -96,7 +96,22 @@ $(function () {
           });
         }
 
-        $('#popup-add-template-pls').popup('show');
+      $.get('/base/shields/grids/templates/getCurrencies',{}, function(data) {
+        if (data.status) {
+          data.currencies.sort((a, b) => a.id - b.id);
+          for (var i = 0, len = data.currencies.length; i < len; i++) {
+            const currency = data.currencies[i];
+            $('#popup-add-template-pls #pls-currency').append(
+              '<option value="' + currency.id + '">' + currency.name + '</option>'
+            );
+          }
+        }
+
+        setTimeout(function(){
+          $('#popup-add-template-pls').popup('show');
+        },200)
+      })
+
       }
     });
   });
@@ -165,7 +180,21 @@ $(function () {
             });
           }
 
-          $('#popup-edit-template-pls').popup('show');
+          $.get('/base/shields/grids/templates/getCurrencies', {}, function(currencyData) {
+            if (currencyData.status) {
+              $('#popup-edit-template-pls #pls-currency').find('option').remove();
+              currencyData.currencies.sort((a, b) => a.id - b.id);
+              for (var i = 0, len = currencyData.currencies.length; i < len; i++) {
+                const currency = currencyData.currencies[i];
+                $('#popup-edit-template-pls #pls-currency').append(
+                  '<option value="' + currency.id + '">' + currency.name + '</option>'
+                );
+              }
+              $('#popup-edit-template-pls #pls-currency').val(data.template.currency_id);
+            }
+            $('#popup-edit-template-pls').popup('show');
+          });
+
         });
       }
     });

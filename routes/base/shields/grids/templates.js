@@ -10,6 +10,7 @@ router.post('/deleteTemplate', isAuthenticated, grids.deleteTemplate);
 router.get('/getTemplate/:id', isAuthenticated, getTemplate);
 router.get('/getSystems', isAuthenticated, getSystems);
 router.post('/active/:id', isAuthenticated, activeTemplate);
+router.get('/getCurrencies', isAuthenticated, getCurrencies);
 
 function activeTemplate(req, res) {
     models.pls_templates.findOne({
@@ -41,7 +42,13 @@ function getTemplate(req,res) {
     });
 }
 
-
+function getCurrencies(req,res) {
+    models.currencies.findAll({
+        where: { factory_id: req.session.user.factory_id, id: [102, 684, 685] }
+    }).then(function(currencies) {
+        res.send({status: true, currencies: currencies});
+    })
+}
 
 
 module.exports = router;

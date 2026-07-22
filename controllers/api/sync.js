@@ -3656,7 +3656,8 @@ module.exports = function (req, res) {
                                      T.default_h,
                                      T.work_price,
                                      T.img,
-                                     T.direction
+                                     T.direction,
+                                     T.currency_id
                     FROM pls_templates AS T
                     WHERE T.is_active = 1`
                   )
@@ -3673,7 +3674,8 @@ module.exports = function (req, res) {
                       'default_h',
                       'work_price',
                       'img',
-                      'direction'
+                      'direction',
+                      'currency_id'
                     ];
                     sortQueries(rows[0], function (values) {
                       tables.pls_templates.rows = values;

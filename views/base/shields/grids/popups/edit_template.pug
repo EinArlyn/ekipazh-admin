@@ -28,6 +28,11 @@
           =i18n.__('pls_make_price')
           | :
         input.input-default.text-work-price(style="width: 50px;" type="number" value="" name="work_price" step="0.01")
+      .row-currency.pls-row 
+        .title-currency.title
+          =i18n.__('Currency')
+          | :
+        select.select-default.input-margin#pls-currency(style="width: 150px;" name="currency_id")
       .row-open-type.pls-row 
         .title-open-type.title
           =i18n.__('pls_open_type')
