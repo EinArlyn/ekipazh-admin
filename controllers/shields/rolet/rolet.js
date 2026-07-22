@@ -1,6 +1,5 @@
 'use strict';
 
-var i18n = require('i18n');
 var models = require('../../../lib/models');
 
 module.exports = function (req, res) {
@@ -30,7 +29,7 @@ module.exports = function (req, res) {
     }).then(function(countries) {
       
       res.render('base/shields/rolet/rolet', {
-        i18n: i18n,
+        i18n: res.locals.i18n,
         title: 'Rolet',
         groupSystems: groupSystems,
         countries: countries,

@@ -1,7 +1,6 @@
 var express = require('express');
 var router = express.Router();
 var parseForm = require('../../lib/services/formParser').parseForm;
-var i18n = require('i18n');
 var fs = require('fs');
 
 var models = require('../../lib/models');
@@ -138,7 +137,7 @@ function isProfileFolderAvailableAsPush (req, res) {
     if (groups && groups.length) {return res.send({
       status: true,
       isAvailable: false,
-      message: i18n.__('Unavailable Push') + ' ' + groups[0].name
+      message: res.__('Unavailable Push') + ' ' + groups[0].name
     });}
 
     res.send({ status: true, isAvailable: true });
@@ -249,8 +248,8 @@ GROUP BY
                 attributes: ["id", "name"]
               }).then(function(countries) {                                     
                   res.render('base/profiles', {
-                    i18n                 : i18n,
-                    title                : i18n.__('Profiles'),
+                    i18n: res.locals.i18n,
+                    title                : res.__('Profiles'),
                     profileSystemFolders : profileSystemFolders[0],
                     frameLists           : frameLists,
                     frameWithSillLists   : frameWithSillLists,
@@ -881,8 +880,8 @@ function editLaminationDependency(req, res) {
       id: req.body.dependencyId
     }
   }).then(function(laminationDependency) {
-    if (req.body.field === 'lamination_in_id' && parseInt(req.body.value, 10) === 1 && laminationDependency.lamination_out_id === 1) {return res.send({status: false, error: i18n.__('Current dependency is exist')});}
-    if (req.body.field === 'lamination_out_id' && parseInt(req.body.value, 10) === 1 && laminationDependency.lamination_in_id === 1) {return res.send({status: false, error: i18n.__('Current dependency is exist')});}
+    if (req.body.field === 'lamination_in_id' && parseInt(req.body.value, 10) === 1 && laminationDependency.lamination_out_id === 1) {return res.send({status: false, error: res.__('Current dependency is exist')});}
+    if (req.body.field === 'lamination_out_id' && parseInt(req.body.value, 10) === 1 && laminationDependency.lamination_in_id === 1) {return res.send({status: false, error: res.__('Current dependency is exist')});}
 
     var updateObj = {};
     updateObj[req.body.field] = req.body.value;
@@ -893,12 +892,12 @@ function editLaminationDependency(req, res) {
       })
       .catch(function(err) {
         console.log(err);
-        if (err.message === 'Validation error') {return res.send({status: false, error: i18n.__('Current dependency is exist')});}
-        res.send({status: false, error: i18n.__('Internal server error')});
+        if (err.message === 'Validation error') {return res.send({status: false, error: res.__('Current dependency is exist')});}
+        res.send({status: false, error: res.__('Internal server error')});
       });
   }).catch(function(err) {
     console.log(err);
-    res.send({status: false, error: i18n.__('Internal server error')});
+    res.send({status: false, error: res.__('Internal server error')});
   });
 }
 

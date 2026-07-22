@@ -1,6 +1,5 @@
 var async = require('async');
 var _ = require('lodash');
-var i18n = require('i18n');
 var config = require('../../lib/config');
 
 var getIncludedUsers = require('../../lib/services/helpers').getIncludedUsers;
@@ -56,8 +55,8 @@ module.exports = function (req, res) {
         }
       }).then(function (factoryIdentificators) {
         res.render('mynetwork/index', {
-          i18n: i18n,
-          title: i18n.__('My network'),
+          i18n: res.locals.i18n,
+          title: res.__('My network'),
           thisPageLink  : '/mynetwork/',
           from: from,
           to: to,

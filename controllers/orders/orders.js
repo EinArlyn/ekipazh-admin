@@ -1,4 +1,3 @@
-var i18n = require('i18n');
 var models = require('../../lib/models');
 var config = require('../../lib/config');
 var ORDER_BY = 'created';
@@ -90,8 +89,8 @@ module.exports = function (req, res) {
           }) 
           
           res.render('orders', {
-            i18n          : i18n,
-            title         : i18n.__('Orders history'),
+            i18n: res.locals.i18n,
+            title         : res.__('Orders history'),
             olderOrder    : olderOrder,
             orders        : result.rows,
             totalPages    : totalPages,

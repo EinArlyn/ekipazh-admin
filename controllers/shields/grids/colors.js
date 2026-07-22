@@ -1,6 +1,5 @@
 'use strict';
 
-var i18n = require('i18n');
 var models = require('../../../lib/models');
 
 module.exports = function (req, res) {
@@ -19,7 +18,7 @@ module.exports = function (req, res) {
       
       
       res.render('base/shields/grids/colors', {
-        i18n: i18n,
+        i18n: res.locals.i18n,
         title: 'Colors',
         groups: groups,
         cssSrcs: ['/assets/stylesheets/base/shields/grids.css'],

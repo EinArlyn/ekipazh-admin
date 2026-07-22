@@ -16,9 +16,10 @@ module.exports = function (req, res) {
   var lang = 'ua';
   var additionalProductsIds = [];
 
+  // The locale is set on the global i18n singleton (not per-request) because
+  // PDFKit builds the document from module-level helpers with no access to
+  // req/res. This is intentionally NOT persisted to the UI language cookie.
   i18n.setLocale(lang);
-  // document.cookie = "i18next=" + lang + ";path=/;expires=Fri, 31 Dec 9999 23:59:59 GMT";
-  res.cookie('i18next', lang, { maxAge: 900000, httpOnly: false, path: '/' });
 
   models.users.find({
     where: {

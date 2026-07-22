@@ -1,5 +1,4 @@
 var models = require('../../../lib/models');
-var i18n = require('i18n');
 
 /** TODO: Get types from DB */
 var allTypesOfElements = [1, 2, 3, 5, 6, 8, 9, 10, 16, 17, 18, 19, 21, 15, 0, 22];
@@ -90,8 +89,8 @@ module.exports = function (req, res) {
       }
 
       res.render('base/elements', {
-        i18n          : i18n,
-        title         : i18n.__('Elements list'),
+        i18n: res.locals.i18n,
+        title         : res.__('Elements list'),
         elements      : result,
         totalPages    : totalPages,
         currentPage   : currentPage,

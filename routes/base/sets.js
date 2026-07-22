@@ -1,6 +1,5 @@
 var express = require('express');
 var router = express.Router();
-var i18n = require('i18n');
 
 var models = require('../../lib/models');
 var isAuthenticated = require('../../lib/services/authentication').isAdminAuth;
@@ -74,8 +73,8 @@ function getSetsList(req, res) {
       }
 
       res.render('base/sets', {
-        i18n          : i18n,
-        title         : i18n.__('Sets list'),
+        i18n: res.locals.i18n,
+        title         : res.__('Sets list'),
         lists         : result,
         totalPages    : totalPages,
         currentPage   : currentPage,

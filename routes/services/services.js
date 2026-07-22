@@ -1,7 +1,6 @@
 var express = require('express');
 var router = express.Router();
 var models = require('../../lib/models');
-var i18n = require('i18n');
 var md5 = require('md5');
 var isAuthenticated = require('../../lib/services/authentication').isAdminAuth;
 
@@ -21,8 +20,8 @@ function activateAccount(req, res) {
       locked: 1
     }).then(function() {
       res.render('services/activate-account', {
-        title: i18n.__('Activating account'),
-        i18n: i18n,
+        title: res.__('Activating account'),
+        i18n: res.locals.i18n,
         cssSrc: '/assets/stylesheets/services/activate-account.css',
         scriptSrcs: ['/assets/javascripts/services/activate-account.js']
       });

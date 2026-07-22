@@ -75,46 +75,52 @@ app.use(function (req, res, next) {
 
 i18n.configure({
   locales: ["ru", "en", "de", "ua", "es", "it"],
+  // Browsers send "uk" for Ukrainian; our locale file is named "ua".
+  fallbacks: { uk: "ua" },
   directory: __dirname + "/lib/locales",
   defaultLocale: "ru",
+  // Resolve the locale per request from (in priority order) the `lang` query
+  // parameter, the `i18next` cookie and the Accept-Language header.
+  queryParameter: "lang",
+  cookie: "i18next",
+  // Never let missing keys be written back into the locale files at runtime.
+  updateFiles: false,
+  autoReload: false,
 });
 
 app.use(i18n.init);
 
-const supportedLocales = ["ru", "en", "de", "uk", "es", "it"];
-const localeMapping = {
-  uk: "ua", // добавим маппинг для преобразования языка
-};
-
-function determineLanguage(req) {
-  const acceptLanguage = req.headers["accept-language"];
-
-  if (acceptLanguage) {
-    const languages = acceptLanguage
-      .split(",")
-      .map((lang) => lang.split(";")[0].trim());
-
-    const language = languages.find((lang) => supportedLocales.includes(lang));
-
-    if (language) {
-      return localeMapping[language] || language;
-    }
-  }
-
-  return null;
-}
-
+// Per-request locale binding.
+//
+// i18n.init (above) already resolves and stores the locale on `req`/`res` for
+// THIS request only. The important part is that templates must use that
+// request-scoped translator instead of the shared global `i18n` singleton —
+// otherwise one user's language selection mutates the global locale and leaks
+// into every other concurrent request (the "language switches by itself" bug).
+//
+// We expose `res.locals.i18n` (a request-scoped translator) and `res.locals.lang`
+// so every rendered view is isolated. We also let a logged-in user's stored
+// choice win over the Accept-Language header when there is no explicit override.
 app.use(function (req, res, next) {
-  if (req.url === "/login") {
-    const language = determineLanguage(req);
-    if (language) {
-      i18n.setLocale(language);
-      res.cookie('i18next', language, { maxAge: 900000, httpOnly: false, path: '/' });
-    } else {
-      i18n.setLocale('en');
-      res.cookie('i18next', 'en', { maxAge: 900000, httpOnly: false, path: '/' });
-    }
+  if (
+    !req.query.lang &&
+    req.session &&
+    req.session.lang &&
+    req.session.lang !== res.getLocale() &&
+    i18n.getLocales().indexOf(req.session.lang) !== -1
+  ) {
+    req.setLocale(req.session.lang);
+    res.setLocale(req.session.lang);
   }
+
+  res.locals.lang = res.getLocale();
+  res.locals.i18n = {
+    __: res.__,
+    __n: res.__n,
+    getLocale: res.getLocale,
+    copyright: i18n.copyright,
+    version: i18n.version,
+  };
 
   next();
 });

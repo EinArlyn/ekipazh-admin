@@ -1,6 +1,5 @@
 'use strict';
 
-var i18n = require('i18n');
 var models = require('../../../lib/models');
 var parseForm = require('../../../lib/services/formParser.js').parseForm;
 var loadImage = require('../../../lib/services/imageLoader.js').loadImage;

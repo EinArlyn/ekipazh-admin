@@ -1,6 +1,5 @@
 'use strict';
 
-const i18n = require('i18n');
 const models = require('../../../lib/models');
 
 module.exports = function (req, res) {
@@ -59,7 +58,7 @@ module.exports = function (req, res) {
         });
 
         res.render('base/shields/grids/grids', {
-          i18n: i18n,
+          i18n: res.locals.i18n,
           title: 'Grids',
           grids: grids,
           rulesData: rulesData,

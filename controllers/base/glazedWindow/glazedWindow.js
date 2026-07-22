@@ -1,5 +1,4 @@
 var models = require('../../../lib/models');
-var i18n = require('i18n');
 
 /**
  * Get glazed window dependencies
@@ -14,8 +13,8 @@ module.exports = function (req, res) {
     }]
   }).then(function (profile_systems) {
     res.render('base/glazedWindow', {
-      title           : i18n.__('Window glasses'),
-      i18n            : i18n,
+      title           : res.__('Window glasses'),
+      i18n: res.locals.i18n,
       profileSystems  : profile_systems,
       cssSrcs         : ['/assets/stylesheets/base/glazedWindow.css'],
       scriptSrcs      : ['/assets/javascripts/base/glazedWindow.js']
