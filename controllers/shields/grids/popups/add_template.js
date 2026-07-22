@@ -20,6 +20,7 @@ module.exports = function (req, res) {
         default_w: parseInt(fields.default_w, 10) || 0,
         default_h: parseInt(fields.default_h, 10) || 0,
         work_price: Number(fields.work_price) || 0,
+        currency_id: parseInt(fields.currency_id, 10),
         img: '/local_storage/default.png'
     }).then(function(newTemplate) {
       const systemLinks = JSON.parse(fields.system_links || '[]');
