@@ -55,7 +55,7 @@ module.exports = function (req, res) {
           }
         });
       });
-    });
+    }, res.getLocale());
   }).catch(function (err) {
     console.log(err);
     res.send({status: false});

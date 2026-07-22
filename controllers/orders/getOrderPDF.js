@@ -194,13 +194,13 @@ module.exports = function (req, res) {
                 extraPrice: result.extraPriceGlobal,
                 lang: lang,
                 svg_qr: qrBase64,
-                url: url 
+                url: url
               });
             });}).catch(function (err) {
               console.log(err);
               res.send('Internal server error');
             });
-          });
+          }, lang);
         }
       }).catch(function (err) {
         console.log(err);
