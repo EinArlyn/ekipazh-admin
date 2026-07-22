@@ -2,7 +2,6 @@ var express = require('express');
 var router = express.Router();
 var parseForm = require('../../lib/services/formParser').parseForm;
 var fs = require('fs');
-var i18n = require('i18n');
 var async = require('async');
 
 var loadImage = require('../../lib/services/imageLoader').loadImage;
@@ -100,7 +99,7 @@ function isHardwareGroupAvailableAsPush (req, res) {
     if (groups && groups.length) {return res.send({
       status: true,
       isAvailable: false,
-      message: i18n.__('Unavailable Push') + ' ' + groups[0].name
+      message: res.__('Unavailable Push') + ' ' + groups[0].name
     });}
 
     res.send({ status: true, isAvailable: true });
@@ -167,8 +166,8 @@ function getHardwares (req, res) {
                   });
 
                 res.render('base/hardware', {
-                title               : i18n.__('Hardware'),
-                i18n                : i18n,
+                title               : res.__('Hardware'),
+                i18n: res.locals.i18n,
                 hardwareFolders     : hardwareFolders,
                 defaultFolder       : defaultFolder,
                 countries           : countries,
@@ -202,8 +201,8 @@ function getHardwares (req, res) {
 //      include: [{model: models.window_hardware_groups, order: 'name'}]
 //    }).then(function (hardwareFolders) {
 //      res.render('base/hardware', {
-//        title               : i18n.__('Hardware'),
-//        i18n                : i18n,
+//        title               : res.__('Hardware'),
+//        i18n: res.locals.i18n,
 //        hardwareFolders     : hardwareFolders,
 //        defaultFolder       : defaultFolder,
 //        thisPageLink        : '/base/hardware/',

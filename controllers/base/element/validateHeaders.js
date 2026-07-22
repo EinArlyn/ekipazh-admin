@@ -1,5 +1,4 @@
 var models = require('../../../lib/models');
-var i18n = require('i18n');
 
 /**
  * Validate headers before creating element
@@ -13,7 +12,7 @@ module.exports = function (req, res) {
   var name = req.query.name;
   var factoryId = req.session.user.factory_id;
 
-  __validateHeaders(elementId, sku, name, factoryId, function (error, data) {
+  __validateHeaders(res, elementId, sku, name, factoryId, function (error, data) {
     if (error) {return res.send({
       status: false,
       error: error
@@ -31,7 +30,7 @@ module.exports = function (req, res) {
 /**
  * [1] Validate headers
  */
-function __validateHeaders (elementId, sku, name, factoryId, callback) {
+function __validateHeaders (res, elementId, sku, name, factoryId, callback) {
   models.elements.findAll({
     where: {
       id: {
@@ -46,7 +45,7 @@ function __validateHeaders (elementId, sku, name, factoryId, callback) {
       callback(null, {
         status: true,
         validate: false,
-        notvalid: i18n.__('Element with current sku already exists')
+        notvalid: res.__('Element with current sku already exists')
       });
     } else {
       models.elements.findAll({
@@ -63,7 +62,7 @@ function __validateHeaders (elementId, sku, name, factoryId, callback) {
           callback(null, {
             status: true,
             validate: false,
-            notvalid: i18n.__('Element with current sku already exists')
+            notvalid: res.__('Element with current sku already exists')
           });
         } else {
           callback(null, {

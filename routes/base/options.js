@@ -1,6 +1,5 @@
 var express = require('express');
 var router = express.Router();
-var i18n = require('i18n');
 var parseForm = require('../../lib/services/formParser').parseForm;
 var async = require('async');
 
@@ -167,8 +166,8 @@ function getLaminations (req, res) {
               // console.log("lamination_factory",lamination_factory)
               // console.log("lamination_folders", lamination_folders)
               res.render('base/options/laminations', {
-                i18n               : i18n,
-                title              : i18n.__('Options'),
+                i18n: res.locals.i18n,
+                title              : res.__('Options'),
                 laminationsDefault : lamination_default,
                 laminationsFactory : lamination_factory,
                 lamination_folders : lamination_folders,
@@ -690,8 +689,8 @@ function isSlidingPreset(req, res) {
 function getDiscounts (req, res) {
   models.options_discounts.find({ where: {factory_id: req.session.user.factory_id} }).then(function (discounts) {
     res.render('base/options/discounts', {
-      i18n               : i18n,
-      title              : i18n.__('Options'),
+      i18n: res.locals.i18n,
+      title              : res.__('Options'),
       discounts          : discounts,
       thisPageLink       : '/base/options/',
       cssSrcs            : ['/assets/stylesheets/base/options.css'],
@@ -704,8 +703,8 @@ function getDiscounts (req, res) {
 function getCoefficients(req, res) {
   models.options_coefficients.find({ where: {factory_id: req.session.user.factory_id} }).then(function (coeffs) {
     res.render('base/options/coefficients', {
-      i18n               : i18n,
-      title              : i18n.__('Options'),
+      i18n: res.locals.i18n,
+      title              : res.__('Options'),
       coeffs             : coeffs,
       thisPageLink       : '/base/options/',
       cssSrcs            : ['/assets/stylesheets/base/options.css'],
@@ -741,8 +740,8 @@ function getGlazedWindow(req, res) {
 
         // console.log('I AM GLASSFOLDERS........',glassFolders)
         res.render('base/options/glazed-window', {
-          i18n               : i18n,
-          title              : i18n.__('Options'),
+          i18n: res.locals.i18n,
+          title              : res.__('Options'),
           glassFolders       : glassFolders,
           countries          : countries,
           thisPageLink       : '/base/options/',
@@ -1123,8 +1122,8 @@ function removeGlassFolder(req, res) {
 //     where: {factory_id: req.session.user.factory_id, addition_type_id: 8}
 //   }).then(function(sillsFolders) {
 //     res.render('base/options/window-sills', {
-//       i18n               : i18n,
-//       title              : i18n.__('Options'),
+//       i18n: res.locals.i18n,
+//       title              : res.__('Options'),
 //       sillsFolders       : sillsFolders,
 //       thisPageLink       : '/base/options/',
 //       cssSrcs            : ['/assets/stylesheets/base/options.css'],
@@ -1163,8 +1162,8 @@ function getWindowSills (req, res) {
             });
           
           res.render('base/options/window-sills', {
-            i18n                : i18n,
-            title               : i18n.__('Options'),
+            i18n: res.locals.i18n,
+            title               : res.__('Options'),
             sillsFolders        : sillsFolders,
             sillsColorsFolders  : sillsColorsFolders,
             countries           : countries,
@@ -1376,8 +1375,8 @@ function saveSillFolder(req, res) {
 //     where: {factory_id: req.session.user.factory_id, addition_type_id: 9}
 //   }).then(function(spillwaysFolders) {
 //     res.render('base/options/spillways', {
-//       i18n               : i18n,
-//       title              : i18n.__('Options'),
+//       i18n: res.locals.i18n,
+//       title              : res.__('Options'),
 //       spillwaysFolders   : spillwaysFolders,
 //       thisPageLink       : '/base/options/',
 //       cssSrcs            : ['/assets/stylesheets/base/options/spillways.css'],
@@ -1417,8 +1416,8 @@ function getSpillways(req, res) {
           });
 
           res.render('base/options/spillways', {
-            i18n                    : i18n,
-            title                   : i18n.__('Options'),
+            i18n: res.locals.i18n,
+            title                   : res.__('Options'),
             spillwaysFolders        : spillwaysFolders,
             spillwaysColorsFolders  : spillwaysColorsFolders,
             countries               : countries,
@@ -1646,8 +1645,8 @@ function getVisors(req, res) {
             });
 
           res.render('base/options/visors', {
-            i18n               : i18n,
-            title              : i18n.__('Options'),
+            i18n: res.locals.i18n,
+            title              : res.__('Options'),
             visorsFolders      : visorsFolders,
             visorsColorsFolders: visorsColorsFolders,
             countries          : countries,
@@ -1850,8 +1849,8 @@ function getSuppliers(req, res) {
     where: {factory_id: req.session.user.factory_id}
   }).then(function(suppliers) {
     res.render('base/options/suppliers', {
-      i18n: i18n,
-      title: i18n.__('Suppliers'),
+      i18n: res.locals.i18n,
+      title: res.__('Suppliers'),
       suppliers: suppliers,
       cssSrcs: ['/assets/stylesheets/base/options/suppliers.css'],
       scriptSrcs: ['/assets/javascripts/vendor/localizer/i18next-1.10.1.min.js', '/assets/javascripts/base/options/suppliers.js']
@@ -1964,8 +1963,8 @@ function getCurrency(req, res) {
     order: ['id']
   }).then(function(currencies) {
     res.render('base/options/currency', {
-      i18n: i18n,
-      title: i18n.__('Currency'),
+      i18n: res.locals.i18n,
+      title: res.__('Currency'),
       currencies: currencies,
       cssSrcs: ['/assets/stylesheets/base/options/currency.css'],
       scriptSrcs: ['/assets/javascripts/vendor/localizer/i18next-1.10.1.min.js', '/assets/javascripts/base/options/currency.js']
@@ -2058,11 +2057,11 @@ function editCurrencyName(req, res) {
       res.send(name);
     }).catch(function(err) {
       console.log(err);
-      res.send(i18n.__('Error'));
+      res.send(res.__('Error'));
     });
   }).catch(function(err) {
     console.log(err);
-    res.send(i18n.__('Error'));
+    res.send(res.__('Error'));
   });
 }
 
@@ -2084,11 +2083,11 @@ function editCurrencyValue(req, res) {
       res.send(parseFloat(value).toFixed(2));
     }).catch(function(err) {
       console.log(err);
-      res.send(i18n.__('Error'));
+      res.send(res.__('Error'));
     });
   }).catch(function(err) {
     console.log(err);
-    res.send(i18n.__('Error'));
+    res.send(res.__('Error'));
   });
 }
 
@@ -2169,8 +2168,8 @@ function getGeneralOptions(req, res) {
 
 
           res.render('base/options/general', {
-            i18n: i18n,
-            title: i18n.__('General options'),
+            i18n: res.locals.i18n,
+            title: res.__('General options'),
             factory: factory,
             factoryIdentificators: factoryIdentificators,
             factoryOrderFolders: factoryOrderFolders,
@@ -2335,8 +2334,8 @@ function getApplicationOptions(req, res) {
       attributes: ['link']
     }).then(function(factory) {
       res.render('base/options/app', {
-        i18n: i18n,
-        title: i18n.__('Application options'),
+        i18n: res.locals.i18n,
+        title: res.__('Application options'),
         backgroundTemplates: backgroundTemplates,
         appLink: factory.link,
         cssSrcs: ['/assets/stylesheets/base/options/app.css'],
@@ -2510,8 +2509,8 @@ function getConnectors (req, res) {
               });
             
               res.render('base/options/connectors', {
-                i18n: i18n,
-                title: i18n.__('Connectors'),
+                i18n: res.locals.i18n,
+                title: res.__('Connectors'),
                 connectorsFolders      : connectorsFolders,
                 connectorsColorsFolders: connectorsColorsFolders,
                 countries              : countries,
@@ -2561,8 +2560,8 @@ function getMosquitos (req, res) {
             });
 
           res.render('base/options/mosquitos', {
-            i18n: i18n,
-            title: i18n.__('Connectors'),
+            i18n: res.locals.i18n,
+            title: res.__('Connectors'),
             mosquitosFolders        : mosquitosFolders,
             mosquitosColorsFolders  : mosquitosColorsFolders,
             countries               : countries,
@@ -2611,8 +2610,8 @@ function doorsHandles (req, res) {
           });
         
           res.render('base/options/doorhandles', {
-            i18n                : i18n,
-            title               : i18n.__('Connectors'),
+            i18n: res.locals.i18n,
+            title               : res.__('Connectors'),
             doorhandlesFolders  : doorhandlesFolders,
             handleColorsFolders : handleColorsFolders,
             countries           : countries,
@@ -2658,8 +2657,8 @@ function otherElems (req, res) {
           });
         
           res.render('base/options/otherelems', {
-            i18n                : i18n,
-            title               : i18n.__('Others'),
+            i18n: res.locals.i18n,
+            title               : res.__('Others'),
             otherElemsFolders   : otherElemsFolders,
             otherElemsColors    : otherElemsColors,
             countries           : countries,
@@ -2706,8 +2705,8 @@ function holesElems (req, res) {
           });
         
           res.render('base/options/holes', {
-            i18n                : i18n,
-            title               : i18n.__('Technological holes'),
+            i18n: res.locals.i18n,
+            title               : res.__('Technological holes'),
             holesElemsFolders   : holesElemsFolders,
             // otherElemsColors    : otherElemsColors,
             countries           : countries,
@@ -2733,8 +2732,8 @@ function getDecors (req, res) {
       res.send('Internal server error.');
     } else {        
           res.render('base/options/decors', {
-            i18n                : i18n,
-            title               : i18n.__('Connectors'),
+            i18n: res.locals.i18n,
+            title               : res.__('Connectors'),
             decorsColorsFolders : decorsColorsFolders,
             // folderTypeId        : folderTypeId,
             colorTypeId         : colorTypeId,
@@ -2778,8 +2777,8 @@ function getPresets (req, res) {
               })
 
               res.render('base/options/presets', {
-                i18n               : i18n,
-                title              : i18n.__('Options'),
+                i18n: res.locals.i18n,
+                title              : res.__('Options'),
                 presetsFolders     : categories_sets,
                 presetsSets        : sets,
                 presetsConfig      : set_data,
@@ -2823,8 +2822,8 @@ function getReinforcement (req, res) {
         
 
               res.render('base/options/reinforcement', {
-                i18n                  : i18n,
-                title                 : i18n.__('Options'),
+                i18n: res.locals.i18n,
+                title                 : res.__('Options'),
                 content               : content,
                 armir_list            : armir_list,
                 profile_systems       : profile_systems,
@@ -2876,8 +2875,8 @@ function removeReinforcement(req, res) {
 //     where: {factory_id: req.session.user.factory_id, addition_type_id: 8}
 //   }).then(function(sillsFolders) {
 //     res.render('base/options/window-sills', {
-//       i18n               : i18n,
-//       title              : i18n.__('Options'),
+//       i18n: res.locals.i18n,
+//       title              : res.__('Options'),
 //       sillsFolders       : sillsFolders,
 //       thisPageLink       : '/base/options/',
 //       cssSrcs            : ['/assets/stylesheets/base/options.css'],
@@ -2893,8 +2892,8 @@ function removeReinforcement(req, res) {
 //     where: {factory_id: req.session.user.factory_id, addition_type_id: 9}
 //   }).then(function(spillwaysFolders) {
 //     res.render('base/options/spillways', {
-//       i18n               : i18n,
-//       title              : i18n.__('Options'),
+//       i18n: res.locals.i18n,
+//       title              : res.__('Options'),
 //       spillwaysFolders   : spillwaysFolders,
 //       thisPageLink       : '/base/options/',
 //       cssSrcs            : ['/assets/stylesheets/base/options/spillways.css'],

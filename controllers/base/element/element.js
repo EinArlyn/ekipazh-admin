@@ -1,5 +1,4 @@
 var models = require('../../../lib/models');
-var i18n = require('i18n');
 
 /**
  * Get element
@@ -80,8 +79,8 @@ module.exports = function (req, res) {
                           });                      
 
                         res.render('base/element', {
-                          i18n                    : i18n,
-                          title                   : i18n.__('Edit element'),
+                          i18n: res.locals.i18n,
+                          title                   : res.__('Edit element'),
                           element                 : element,
                           elements_groups         : elements_groups,
                           lists                   : lists,

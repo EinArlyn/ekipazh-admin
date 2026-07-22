@@ -14,25 +14,25 @@ html
             .curr-lang
               =lang
             #lang-selector
-              a#lang-rus(href="/?lang=ru" class=(lang === 'ru' ? 'selected': ''))
+              a#lang-rus(href="/set-language?locale=ru" class=(lang === 'ru' ? 'selected': ''))
                 | Ru
               | &nbsp;&nbsp;
 
-              a#lang-ua(href="/?lang=ua" class=(lang === 'ua' ? 'selected': ''))
+              a#lang-ua(href="/set-language?locale=ua" class=(lang === 'ua' ? 'selected': ''))
                 | Ua
               | &nbsp;&nbsp;
 
-              a#lang-en(href="/?lang=en" class=(lang === 'en' ? 'selected': ''))
+              a#lang-en(href="/set-language?locale=en" class=(lang === 'en' ? 'selected': ''))
                 | En
               | &nbsp;&nbsp;
 
-              a#lang-it(href="/?lang=it" class=(lang === 'it' ? 'selected': ''))
+              a#lang-it(href="/set-language?locale=it" class=(lang === 'it' ? 'selected': ''))
                 | It
               | &nbsp;&nbsp;&nbsp;
-              a#lang-es(href="/?lang=es" class=(lang === 'es' ? 'selected': ''))
+              a#lang-es(href="/set-language?locale=es" class=(lang === 'es' ? 'selected': ''))
                 | Es
               | &nbsp;&nbsp;&nbsp;
-              a#lang-de(href="/?lang=de" class=(lang === 'de' ? 'selected': ''))
+              a#lang-de(href="/set-language?locale=de" class=(lang === 'de' ? 'selected': ''))
                 | De
               | &nbsp;&nbsp;&nbsp;
             #nav-logout-button

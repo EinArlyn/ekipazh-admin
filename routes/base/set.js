@@ -2,7 +2,6 @@ var express = require('express');
 var router = express.Router();
 var parseForm = require('../../lib/services/formParser').parseForm;
 var fs = require('fs');
-var i18n = require('i18n');
 
 var loadImage = require('../../lib/services/imageLoader').loadImage;
 var models = require('../../lib/models');
@@ -226,8 +225,8 @@ function getSet (req, res) {
                                       });                            
 
                                     res.render('base/set', {
-                                      i18n               : i18n,
-                                      title              : i18n.__('Edit set'),
+                                      i18n: res.locals.i18n,
+                                      title              : res.__('Edit set'),
                                       list               : list,
                                       profile_systems    : profile_systems,
                                       filteredByProfiles : filteredByProfiles,
@@ -624,7 +623,7 @@ function checkListAvalabilityAsPush (req, res) {
     if (lists && lists[0] && lists[0][0]) {return res.send({
       status: true,
       isAvailable: false,
-      message: i18n.__('Unavailable Push') + ' ' + lists[0][0].name
+      message: res.__('Unavailable Push') + ' ' + lists[0][0].name
     });}
 
     res.send({ status: true, isAvailable: true });

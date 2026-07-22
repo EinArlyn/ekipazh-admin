@@ -1,6 +1,5 @@
 'use strict';
 
-var i18n = require('i18n');
 var models = require('../../../lib/models');
 
 module.exports = function (req, res) {
@@ -9,7 +8,7 @@ module.exports = function (req, res) {
   }).then(function(endLists) {
     endLists.sort((a,b) => a.position - b.position);
     res.render('base/shields/rolet/endLists', {
-          i18n: i18n,
+          i18n: res.locals.i18n,
           title: 'End Lists',
           endLists: endLists,
           cssSrcs: ['/assets/stylesheets/base/shields/rolet.css'],

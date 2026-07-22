@@ -1,6 +1,5 @@
 var express = require('express');
 var router = express.Router();
-var i18n = require('i18n');
 var analitics = require('../controllers/analitics');
 
 var models = require('../lib/models');
@@ -14,8 +13,8 @@ router.get('/getAnaliticsEffectiveBySeller/:from/:to', analitics.getAnaliticsEff
 
 function getAnalytics (req, res) {
   res.render('analytics', {
-    title: i18n.__('Analytics'),
-    i18n: i18n,
+    title: res.__('Analytics'),
+    i18n: res.locals.i18n,
     cssSrcs: ['/assets/stylesheets/analytics.css'],
     scriptSrcs: ['/assets/javascripts/analytics.js']
   });

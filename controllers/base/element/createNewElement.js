@@ -1,5 +1,4 @@
 var models = require('../../../lib/models');
-var i18n = require('i18n');
 
 /**
  * Create new element
@@ -35,7 +34,7 @@ module.exports = function (req, res) {
             }).then(function (defaultLaminations) {
               models.glass_folders.findAll().then(function (glass_folders) {
                 res.render('base/element-add-new', {
-                  i18n               : i18n,
+                  i18n: res.locals.i18n,
                   title              : 'Создание элемента',
                   elements_groups    : elements_groups,
                   type               : type,

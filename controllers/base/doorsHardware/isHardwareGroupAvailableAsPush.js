@@ -1,7 +1,6 @@
 'use strict';
 
 var models = require('../../../lib/models');
-var i18n = require('i18n');
 
 /** Is hardware group is available as a Push popup */
 module.exports = function (req, res) {
@@ -17,7 +16,7 @@ module.exports = function (req, res) {
     if (hardwareGroup) {return res.send({
       status: true,
       isAvailable: false,
-      message: i18n.__('Unavailable Push') + ' ' + hardwareGroup.name
+      message: res.__('Unavailable Push') + ' ' + hardwareGroup.name
     });}
 
     res.send({ status: true, isAvailable: true });

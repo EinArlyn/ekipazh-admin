@@ -1,4 +1,3 @@
-var i18n = require('i18n');
 var crypto = require('crypto');
 var auth = require('../../lib/services/authentication');
 var models = require('../../lib/models');
@@ -12,13 +11,6 @@ var iv = '1234567890123456';
 
 
 module.exports = function(req, res) {
-  if (req.query.lang !== undefined) {
-    i18n.setLocale(req.query.lang);
-    res.cookie('i18next', req.query.lang, { maxAge: 900000, httpOnly: false, path: '/' });
-
-  }
-
-
   if (auth.checkAuth(req, res)) {
     /** Get accessible routes */
     models.users_accesses.findAll({
@@ -32,8 +24,8 @@ module.exports = function(req, res) {
       var urlKey = nodeEncrypt(req.session.user.id.toString(), key, iv);
       models.cities.find({ where: {id: req.session.user.city_id} }).then(function (city) {
         res.render('dashboard', {
-          i18n: i18n,
-          title: i18n.__('Dashboard'),
+          i18n: res.locals.i18n,
+          title: res.__('Dashboard'),
           userName : req.session.user.name,
           userAvatar : req.session.user.avatar,
           userCity : city,
@@ -45,7 +37,7 @@ module.exports = function(req, res) {
           documentsUrl: config.documentsUrl,
           statisticLink: config.statisticLink,
           accesses: accesses,
-          lang: i18n.getLocale(),
+          lang: res.locals.lang,
           cssSrcs: ['/assets/stylesheets/dashboard.css'],
           scriptSrcs: ['/assets/javascripts/dashboard.js']
         });

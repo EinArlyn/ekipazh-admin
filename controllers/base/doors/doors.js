@@ -1,6 +1,5 @@
 'use strict';
 
-var i18n = require('i18n');
 var models = require('../../../lib/models');
 var _getAvailableSets = require('./utils')._getAvailableSets;
 
@@ -29,8 +28,8 @@ module.exports = function (req, res) {
         if (err) {return res.send('Internal server error.');}
 
         res.render('base/doors', {
-          i18n: i18n,
-          title: i18n.__('Doors'),
+          i18n: res.locals.i18n,
+          title: res.__('Doors'),
           doorFolders: doorFolders,
           doorGroups: doorGroups,
           defaultFolderId: defaultFolderId,

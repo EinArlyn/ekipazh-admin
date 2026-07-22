@@ -1,6 +1,5 @@
 var express = require('express');
 var router = express.Router();
-var i18n = require('i18n');
 
 var models = require('../../lib/models');
 var isAuthenticated = require('../../lib/services/authentication').isAdminAuth;
@@ -27,7 +26,7 @@ function getSills(req, res) {
       include: {model: models.elements, where: {factory_id: factoryId}}
     }).then(function(sills) {
       res.render('base/sills', {
-        i18n: i18n,
+        i18n: res.locals.i18n,
         title: 'Подоконники',
         sillsGroups: sillsGroups,
         sills: sills,
