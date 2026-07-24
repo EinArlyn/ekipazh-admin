@@ -48,7 +48,44 @@ block content
           .btns-block
             .btn-edit-item(data-element=elem.id)
             .btn-delete-item(data-element=elem.id)
+            .btn-show-more(data-element=elem.id)
+        
+        .elements-elements(data-element=elem.id style="display: none;")
+          .wrap
+            .elements-info-text
+              =i18n.__('Elements') + ': '
+            .add-element-to-element(data-element=elem.id)
+              =i18n.__('Add element')
+          .elements-elements-header
+            .elements-elements-content
+              .elements-elements-name
+                =i18n.__('Name')
+              .elements-elements-article
+                =i18n.__('SKU')
+              .elements-elements-rules-name
+                =i18n.__('Rule')
+              .elements-elements-rules-value
+                =i18n.__('Value')
+            .btns-block
+          if (elem.elements.length > 0)
+            each subElem in elem.elements
+              .elements-elements-row
+                .elements-elements-content
+                  .elements-elements-name
+                    =subElem.name
+                  .elements-elements-article
+                    =subElem.sku
+                  .elements-elements-rules-name
+                    =rulesData[subElem.rules_id - 1] ? rulesData[subElem.rules_id - 1].name : 'Ошибка правила'
+                  .elements-elements-rules-value
+                    =subElem.rules_value
+                .btns-block
+                  .btn-edit-item(data-element=elem.id, data-sub-element=subElem.id)
+                  .btn-delete-item(data-element=elem.id, data-sub-element=subElem.id)
   include popups/add_element.pug
   include popups/edit_element.pug
   include popups/delete_element.pug
+  include popups/add_link_element.pug
+  include popups/edit_link_element.pug
+  include popups/delete_link_element.pug
   

@@ -58,6 +58,7 @@ input[type="number"]::-webkit-outer-spin-button {
 .btn-add-color,
 .btn-add-template,
 .add-element-to-profile,
+.add-element-to-element,
 .add-element-to-grid {
   width: 20%;
   background-color: black;
@@ -251,6 +252,7 @@ input[type="number"]::-webkit-outer-spin-button {
 }
 
 .profile-elements,
+.elements-elements,
 .grid-elements {
   /* border-bottom: 5px solid black; */
   background-color: #dadada;
@@ -261,7 +263,7 @@ input[type="number"]::-webkit-outer-spin-button {
     align-items: center;
   }
   .profile-elements-header,
-  .profile-elements-header,
+  .elements-elements-header,
   .grid-elements-header,
   .elements-info-text {
     font-size: 14px;
@@ -269,7 +271,9 @@ input[type="number"]::-webkit-outer-spin-button {
   }
   .profile-elements-header,
   .grid-elements-header,
+  .elements-elements-header,
   .profile-elements-row,
+  .elements-elements-row,
   .grid-elements-row {
     display: flex;
     background-color: white;
@@ -278,6 +282,7 @@ input[type="number"]::-webkit-outer-spin-button {
     margin: 10px 0;
     border: 1px solid lightgray;
     .profile-elements-content,
+    .elements-elements-content,
     .grid-elements-content {
       display: flex;
       align-items: center;
@@ -285,6 +290,7 @@ input[type="number"]::-webkit-outer-spin-button {
       gap: 10px;
       width: 90%;
       .profile-elements-name,
+      .elements-elements-name,
       .grid-elements-name {
         width: 30%;
         overflow: hidden;
@@ -293,6 +299,7 @@ input[type="number"]::-webkit-outer-spin-button {
         border-right: 1px solid lightgray;
       }
       .profile-elements-article,
+      .elements-elements-article,
       .grid-elements-article {
         width: 30%;
         overflow: hidden;
@@ -301,11 +308,13 @@ input[type="number"]::-webkit-outer-spin-button {
         border-right: 1px solid lightgray;
       }
       .profile-elements-rules-name,
+      .elements-elements-rules-name,
       .grid-elements-rules-name {
         width: 20%;
         border-right: 1px solid lightgray;
       }
       .profile-elements-rules-value,
+      .elements-elements-rules-value,
       .grid-elements-rules-value {
         width: 6%;
         border-right: 1px solid lightgray;
