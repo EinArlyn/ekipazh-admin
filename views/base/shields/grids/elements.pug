@@ -80,8 +80,8 @@ block content
                   .elements-elements-rules-value
                     =subElem.rules_value
                 .btns-block
-                  .btn-edit-item(data-element=elem.id, data-sub-element=subElem.id)
-                  .btn-delete-item(data-element=elem.id, data-sub-element=subElem.id)
+                  .btn-edit-item(data-element=elem.id, data-sub-element=subElem.id, data-link=subElem.link_id)
+                  .btn-delete-item(data-element=elem.id, data-sub-element=subElem.id, data-link=subElem.link_id)
   include popups/add_element.pug
   include popups/edit_element.pug
   include popups/delete_element.pug

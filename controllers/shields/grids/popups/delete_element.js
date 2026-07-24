@@ -7,15 +7,24 @@ module.exports = function (req, res) {
     models.pls_elements.findOne({
       where: {id: fields.element_id}
     }).then(function(element) {
-      if (element) {
-        element.destroy().then(function() {
-          res.send({ status: true });
-        }).catch(function() {
-          res.send({status: false})
-        });
-      } else {
-        res.send({status: false, message: 'Element not found'});
-      }
+      models.pls_links.destroy({
+        where: {
+          parent_id: fields.element_id,
+          parent_type_id: 3
+        }
+      }).then(function () {
+        if (element) {
+          element.destroy().then(function() {
+            res.send({ status: true });
+          }).catch(function() {
+            res.send({status: false})
+          });
+        } else {
+          res.send({status: false, message: 'Element not found'});
+        }
+      }).catch(function() {
+        res.send({status: false});
+      });
     });
   });
 };

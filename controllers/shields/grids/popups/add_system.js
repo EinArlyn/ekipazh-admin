@@ -32,8 +32,18 @@ module.exports = function (req, res) {
         description: fields.description || '',
         img: '/local_storage/default.png'
     }).then(function(newSystem) {
+      const gridLinks = JSON.parse(fields.grid_links || '[]');
+      const createLinksPromise = Promise.all(gridLinks.map(function (gridId) {
+        return models.pls_system_grid_links.create({
+          system_id: newSystem.id,
+          grid_id: gridId
+        });
+      }));
+
       if (!(files && files.pls_img && files.pls_img.name && files.pls_img.path)) {
-        return res.send({ status: true });
+        return createLinksPromise.then(function () {
+          res.send({ status: true });
+        });
       }
 
       const imageUrl = '/local_storage/pls_grid/' + Math.floor(Math.random() * 1000000) + files.pls_img.name;
@@ -42,7 +52,7 @@ module.exports = function (req, res) {
         ? maybePromise
         : Promise.resolve();
 
-      waitLoad.then(function () {
+      Promise.all([createLinksPromise, waitLoad]).then(function () {
         return newSystem.updateAttributes({
           img: imageUrl
         });

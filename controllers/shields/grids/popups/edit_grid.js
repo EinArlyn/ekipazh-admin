@@ -23,6 +23,8 @@ module.exports = function (req, res) {
         price: parseFloat(fields.price) || 0,
         size_wave: parseFloat(fields.size_wave) || 0,
         weight: parseFloat(fields.weight) || 0,
+        position: parseInt(fields.position, 10) || 0,
+        waste: parseFloat(fields.waste) || 0,
         currency_id: parseInt(fields.currency_id, 10),
         description: fields.description || ''
       }).then(function () {

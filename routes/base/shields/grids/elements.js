@@ -13,7 +13,7 @@ router.post('/deleteLinkElement', isAuthenticated, grids.deleteLinkElement);
 router.get('/getCurrencies', isAuthenticated, getCurrencies);
 router.get('/getElement/:id', isAuthenticated, getElement);
 router.get('/getElements', isAuthenticated, getElements);
-router.get('/getLinkElements/:elementId/:subElementId', isAuthenticated, getLinkElements);
+router.get('/getLinkElements/:elementId/:subElementId/:linkId', isAuthenticated, getLinkElements);
 
 
 function getCurrencies(req,res) {
@@ -44,6 +44,7 @@ function getElements(req,res) {
 function getLinkElements(req,res) {
     models.pls_links.findOne({
         where: {
+            id: req.params.linkId,
             parent_id: req.params.elementId,
             element_id: req.params.subElementId,
             parent_type_id: 3

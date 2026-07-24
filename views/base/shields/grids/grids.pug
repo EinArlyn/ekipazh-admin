@@ -79,8 +79,8 @@ block content
                   .grid-elements-rules-value
                     =elem.rules_value
                 .btns-block
-                  .btn-edit-item(data-grid=grid.id, data-element=elem.id)
-                  .btn-delete-item(data-grid=grid.id, data-element=elem.id)
+                  .btn-edit-item(data-grid=grid.id, data-element=elem.id, data-link=elem.link_id)
+                  .btn-delete-item(data-grid=grid.id, data-element=elem.id, data-link=elem.link_id)
   include popups/add_grid.pug
   include popups/edit_grid.pug
   include popups/delete_grid.pug

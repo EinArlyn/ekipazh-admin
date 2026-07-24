@@ -7,15 +7,19 @@ module.exports = function (req, res) {
     models.pls_systems.findOne({
       where: {id: fields.system_id}
     }).then(function(system) {
-      if (system) {
-          system.destroy().then(function() {
-            res.send({ status: true });
-        }).catch(function() {
-          res.send({status: false});
+      models.pls_system_grid_links.destroy({
+        where: { system_id: fields.system_id }
+      }).then(function() {
+        if (system) {
+            system.destroy().then(function() {
+              res.send({ status: true });
+          }).catch(function() {
+            res.send({status: false});
+          });
+        } else {
+          res.send({status: false, message: 'System not found'});
+        }
         });
-      } else {
-        res.send({status: false, message: 'System not found'});
-      }
     });
   });
 };

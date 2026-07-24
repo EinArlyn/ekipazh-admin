@@ -132,9 +132,10 @@ $(function () {
 
     const elementId = $(this).data('element');
     const subElementId = $(this).data('sub-element');
+    const linkId = $(this).data('link');
 
-    if (elementId && subElementId) {
-      openEditLinkedElement(elementId, subElementId);
+    if (elementId && subElementId && linkId) {
+      openEditLinkedElement(elementId, subElementId, linkId);
       return;
     }
 
@@ -181,8 +182,8 @@ $(function () {
     });
   }
 
-  function openEditLinkedElement(elementId, subElementId) {
-    $.get('/base/shields/grids/elements/getLinkElements/' + elementId + '/' + subElementId, function(data) {
+  function openEditLinkedElement(elementId, subElementId, linkId) {
+    $.get('/base/shields/grids/elements/getLinkElements/' + elementId + '/' + subElementId + '/' + linkId, function(data) {
       if (data.status && data.linkElement) {
         const linkElement = data.linkElement;
         $('#popup-edit-link-element-pls input[name="link_id"]').val(linkElement.id);

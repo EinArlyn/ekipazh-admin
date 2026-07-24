@@ -13,6 +13,7 @@ router.post('/deleteSystem', isAuthenticated, grids.deleteSystem);
 router.get('/getGroup/:id', isAuthenticated, getGroup);
 router.get('/getSystem/:id', isAuthenticated, getSystem);
 router.get('/getProfiles', isAuthenticated, getProfiles);
+router.get('/getGrids', isAuthenticated, getGrids);
 router.post('/group/active/:id', isAuthenticated, activeGroup);
 router.post('/system/active/:id', isAuthenticated, activeSystem);
 
@@ -51,9 +52,14 @@ function getSystem(req,res) {
     models.pls_systems.findOne({
         where: {id: req.params.id}
     }).then(function(system) {
-        res.send({status: true, system: system});
+        models.pls_system_grid_links.findAll({
+            where: { system_id: req.params.id }
+        }).then(function(links) {
+            res.send({status: true, system: system, links: links});
+        });
     });
 }
+
 
 function getProfiles(req,res) {
     models.pls_profiles.findAll({
@@ -61,6 +67,12 @@ function getProfiles(req,res) {
     }).then(function(profiles) {
         profiles.sort((a, b) => a.name.localeCompare(b.name));
         res.send({status: true, profiles: profiles});
+    });
+}
+
+function getGrids(req,res) {
+    models.pls_grids.findAll({}).then(function(grids) {
+        res.send({status: true, grids: grids});
     });
 }
 

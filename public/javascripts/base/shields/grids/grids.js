@@ -126,9 +126,10 @@ $(function () {
 
     const gridId = $(this).data('grid');
     const elementId = $(this).data('element');
+    const linkId = $(this).data('link');
 
-    if (gridId && elementId) {
-      openEditLinkedElement(gridId, elementId);
+    if (gridId && elementId && linkId) {
+      openEditLinkedElement(gridId, elementId, linkId);
       return;
     }
 
@@ -156,9 +157,11 @@ $(function () {
           $('#popup-edit-grid-pls input[name="grid_id"]').val(grid.id);
 
           $('#popup-edit-grid-pls input[name="name"]').val(grid.name);
+          $('#popup-edit-grid-pls input[name="position"]').val(grid.position);
           $('#popup-edit-grid-pls input[name="sku"]').val(grid.sku);
           $('#popup-edit-grid-pls #pls-currency').val(grid.currency_id);
           $('#popup-edit-grid-pls input[name="price"]').val(grid.price);
+          $('#popup-edit-grid-pls input[name="waste"]').val(grid.waste);
           $('#popup-edit-grid-pls input[name="size_wave"]').val(grid.size_wave);
           $('#popup-edit-grid-pls input[name="weight"]').val(grid.weight);
           $('#popup-edit-grid-pls img.pls-image').attr('src', grid.img);
@@ -172,8 +175,8 @@ $(function () {
     });
   }
 
-  function openEditLinkedElement(profileId, elementId) {
-    $.get('/base/shields/grids/grids/getLinkElements/' + profileId + '/' + elementId, function(data) {
+  function openEditLinkedElement(gridId, elementId, linkId) {
+    $.get('/base/shields/grids/grids/getLinkElements/' + gridId + '/' + elementId + '/' + linkId, function(data) {
       if (data.status && data.linkElement) {
         const linkElement = data.linkElement;
         $('#popup-edit-link-element-pls input[name="link_id"]').val(linkElement.id);

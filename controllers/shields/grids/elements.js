@@ -41,6 +41,7 @@ module.exports = function (req, res) {
           }
 
           return Object.assign({}, element, {
+            link_id: link.id,
             rules_id: link.rules_id,
             rules_value: link.rules_value
           });

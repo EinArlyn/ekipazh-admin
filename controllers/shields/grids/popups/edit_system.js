@@ -35,8 +35,45 @@ module.exports = function (req, res) {
         sash_reduction: Number(fields.sash_reduction) || 0,
         description: fields.description || '',
       }).then(function () {
+        const gridLinks = JSON.parse(fields.grid_links || '[]');
+
+        const syncLinksPromise = models.pls_system_grid_links.findAll({
+          where: { system_id: fields.system_id }
+        }).then(function (existingLinks) {
+          const incomingGridIds = gridLinks.map(function (id) {
+            return parseInt(id, 10);
+          });
+
+          const existingGridIds = existingLinks.map(function (link) {
+            return link.grid_id;
+          });
+
+          const gridIdsToCreate = incomingGridIds.filter(function (gridId) {
+            return existingGridIds.indexOf(gridId) === -1;
+          });
+
+          const linksToDelete = existingLinks.filter(function (link) {
+            return incomingGridIds.indexOf(link.grid_id) === -1;
+          });
+
+          const createPromises = gridIdsToCreate.map(function (gridId) {
+            return models.pls_system_grid_links.create({
+              system_id: fields.system_id,
+              grid_id: gridId
+            });
+          });
+
+          const deletePromises = linksToDelete.map(function (link) {
+            return link.destroy();
+          });
+
+          return Promise.all(createPromises.concat(deletePromises));
+        });
+
         if (!(files && files.pls_img && files.pls_img.name && files.pls_img.path)) {
-          return res.send({ status: true });
+          return syncLinksPromise.then(function () {
+            res.send({ status: true });
+          });
         }
 
         const imageUrl = '/local_storage/pls_grid/' + Math.floor(Math.random() * 1000000) + files.pls_img.name;
@@ -45,7 +82,7 @@ module.exports = function (req, res) {
           ? maybePromise
           : Promise.resolve();
 
-        return waitLoad.then(function () {
+        return Promise.all([syncLinksPromise, waitLoad]).then(function () {
           return system.updateAttributes({ img: imageUrl });
         }).then(function () {
           res.send({ status: true });

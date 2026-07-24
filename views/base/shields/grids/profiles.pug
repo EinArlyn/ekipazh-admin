@@ -79,8 +79,8 @@ block content
                   .profile-elements-rules-value
                     =elem.rules_value
                 .btns-block
-                  .btn-edit-item(data-profile=profile.id, data-element=elem.id)
-                  .btn-delete-item(data-profile=profile.id, data-element=elem.id)
+                  .btn-edit-item(data-profile=profile.id, data-element=elem.id, data-link=elem.link_id)
+                  .btn-delete-item(data-profile=profile.id, data-element=elem.id, data-link=elem.link_id)
   include popups/add_profile.pug
   include popups/edit_profile.pug
   include popups/delete_profile.pug

@@ -18,6 +18,11 @@
           =i18n.__('Name')
           | :
         input.input-default.text-name(type="text" value="" name="name" required)
+      .row-position.pls-row 
+        .title-position.title
+          =i18n.__('Position')
+          | :
+        input.input-default.text-position(style="width: 50px;" type="number" value="" name="position" required)
       .row-sku.pls-row 
         .title-sku.title
           =i18n.__('SKU')
@@ -34,7 +39,11 @@
           =i18n.__('Currency')
           | :
         select.select-default.input-margin#pls-currency(style="width: 150px;" name="currency_id")
-      
+      .row-waste.pls-row 
+        .title-waste.title
+          =i18n.__('Waste') + ' (%)'
+          | :
+        input.input-default.text-waste(style="width: 50px;" type="number" value="" name="waste" step="0.01" required)
       .row-size-wave.pls-row 
         .title-size-wave.title
           =i18n.__('pls_pleat_pitch') + ' ' + i18n.__('mm')

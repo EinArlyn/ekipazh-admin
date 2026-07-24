@@ -92,7 +92,37 @@ $(function () {
       if (data.status) {
         fillProfileSelects('#popup-add-system-pls', data.profiles);
 
-        $('#popup-add-system-pls').popup('show');
+        $.get('/base/shields/grids/systems/getGrids', function (data) {
+          if (data.status) {
+            const linksContainer = $('#popup-add-system-pls .row-system-links');
+            linksContainer.empty();
+
+            if (data.grids && Array.isArray(data.grids)) {
+              data.grids.forEach(function (grid) {
+                const gridBlock = $('<div class="grid-checkbox-block"></div>');
+                const checkboxId = 'grid-checkbox-' + grid.id;
+                const checkbox = $(
+                  '<input type="checkbox" id="' +
+                    checkboxId +
+                    '" name="grid_links[]" value="' +
+                    grid.id +
+                    '" data-grid-id="' +
+                    grid.id +
+                    '">'
+                );
+                const label = $(
+                  '<label for="' + checkboxId + '">' + grid.name + '</label>'
+                );
+
+                gridBlock.append(checkbox);
+                gridBlock.append(' ');
+                gridBlock.append(label);
+                linksContainer.append(gridBlock);
+              });
+            }
+            $('#popup-add-system-pls').popup('show');
+          }
+        });
       }
     });
   });
@@ -152,9 +182,9 @@ $(function () {
     ).val('');
     $('#popup-edit-system-pls input[name="system_id"]').val(systemId);
 
-    $.get('/base/shields/grids/systems/getSystem/' + systemId, function (data) {
-      if (data.status) {
-        const system = data.system;
+    $.get('/base/shields/grids/systems/getSystem/' + systemId, function (dataSystem) {
+      if (dataSystem.status) {
+        const system = dataSystem.system;
         $('#popup-edit-system-pls input[name="name"]').val(system.name);
         $('#popup-edit-system-pls input[name="position"]').val(system.position);
         $('#popup-edit-system-pls textarea[name="description"]').val(system.description);
@@ -166,9 +196,9 @@ $(function () {
         $('#popup-edit-system-pls input[name="edit_grid_w"]').val(system.edit_grid_w);
         $('#popup-edit-system-pls input[name="edit_grid_h"]').val(system.edit_grid_h);
         $('#popup-edit-system-pls input[name="sash_reduction"]').val(system.sash_reduction);
-        $.get('/base/shields/grids/systems/getProfiles', function (data) {
-          if (data.status) {
-            fillProfileSelects('#popup-edit-system-pls', data.profiles);
+        $.get('/base/shields/grids/systems/getProfiles', function (dataProfiles) {
+          if (dataProfiles.status) {
+            fillProfileSelects('#popup-edit-system-pls', dataProfiles.profiles);
 
             $('#popup-edit-system-pls select[name="top_id"]').val(String(system.top_id || 0));
             $('#popup-edit-system-pls select[name="right_id"]').val(String(system.right_id || 0));
@@ -177,7 +207,43 @@ $(function () {
             $('#popup-edit-system-pls select[name="center_id"]').val(String(system.center_id || 0));
             $('#popup-edit-system-pls select[name="sash_id"]').val(String(system.sash_id || 0));
           }
-          $('#popup-edit-system-pls').popup('show');
+
+          const linksContainer = $('#popup-edit-system-pls .row-system-links');
+          linksContainer.empty();
+
+          const selectedGridIds = (dataSystem.links || []).map(function (link) {
+            return String(link.grid_id);
+          });
+
+          $.get('/base/shields/grids/systems/getGrids', function (gridData) {
+            if (gridData.status && Array.isArray(gridData.grids)) {
+              gridData.grids.forEach(function (grid) {
+                const gridBlock = $('<div class="grid-checkbox-block"></div>');
+                const checkboxId = 'edit-grid-checkbox-' + grid.id;
+                const isChecked = selectedGridIds.indexOf(String(grid.id)) !== -1;
+                const checkbox = $(
+                  '<input type="checkbox" id="' +
+                    checkboxId +
+                    '" name="grid_links[]" value="' +
+                    grid.id +
+                    '" data-grid-id="' +
+                    grid.id +
+                    '"' +
+                    (isChecked ? ' checked' : '') +
+                    '>'
+                );
+                const label = $(
+                  '<label for="' + checkboxId + '">' + grid.name + '</label>'
+                );
+
+                gridBlock.append(checkbox);
+                gridBlock.append(' ');
+                gridBlock.append(label);
+                linksContainer.append(gridBlock);
+              });
+            }
+            $('#popup-edit-system-pls').popup('show');
+          });
         });
       }
     });
@@ -280,6 +346,13 @@ $(function () {
     var formData = new FormData(this);
     var formAction = $(this).attr('action');
 
+    var gridLinks = [];
+    $('#popup-add-system-pls input[name="grid_links[]"]:checked').each(function () {
+      gridLinks.push($(this).val());
+    });
+
+    formData.append('grid_links', JSON.stringify(gridLinks));
+
     submitForm({ action: formAction, data: formData }, onResponse);
 
     function onResponse(data) {
@@ -302,6 +375,13 @@ $(function () {
 
     var formData = new FormData(this);
     var formAction = $(this).attr('action');
+    
+    var gridLinks = [];
+    $('#popup-edit-system-pls input[name="grid_links[]"]:checked').each(function () {
+      gridLinks.push($(this).val());
+    });
+
+    formData.append('grid_links', JSON.stringify(gridLinks));
 
     submitForm({ action: formAction, data: formData }, onResponse);
 

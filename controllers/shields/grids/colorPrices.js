@@ -24,6 +24,7 @@ module.exports = function (req, res) {
               }
               systemGroups.push(objGr);
             })      
+            dataColorGroups.sort((a, b) => a.position - b.position);
             
           res.render('base/shields/grids/colorPrices', {
             i18n: res.locals.i18n,

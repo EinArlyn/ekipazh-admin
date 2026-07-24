@@ -51,11 +51,13 @@ module.exports = function (req, res) {
             }
 
             return Object.assign({}, element, {
+              link_id: link.id,
               rules_id: link.rules_id,
               rules_value: link.rules_value
             });
           }).filter(Boolean);
         });
+        grids.sort((a, b) => a.position - b.position);
 
         res.render('base/shields/grids/grids', {
           i18n: res.locals.i18n,

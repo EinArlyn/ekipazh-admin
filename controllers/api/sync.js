@@ -3332,7 +3332,9 @@ module.exports = function (req, res) {
                             currency_id,
                             size_wave,
                             description,
-                            img
+                            img,
+                            waste,
+                            position
                     FROM pls_grids
                     WHERE factory_id = ${factory_id}`
                   )
@@ -3348,7 +3350,9 @@ module.exports = function (req, res) {
                       'currency_id',
                       'size_wave',
                       'description',
-                      'img'
+                      'img',
+                      'waste',
+                      'position'
                     ];
                     sortQueries(rows[0], function (values) {
                       tables.pls_grids.rows = values;
@@ -3635,6 +3639,31 @@ module.exports = function (req, res) {
                     ];
                     sortQueries(rows[0], function (values) {
                       tables.pls_template_system_links.rows = values;
+                      callback(null);
+                    });
+                  })
+                  .catch(function (err) {
+                    callback(err);
+                  });
+              },
+              function (callback) {
+                /** pls_system_grid_links: без фильтрации */
+                models.sequelize
+                  .query(
+                    `SELECT L.id,
+                            L.system_id,
+                            L.grid_id
+                    FROM pls_system_grid_links AS L`
+                  )
+                  .then(function (rows) {
+                    tables.pls_system_grid_links = {};
+                    tables.pls_system_grid_links.fields = [
+                      'id',
+                      'system_id',
+                      'grid_id'
+                    ];
+                    sortQueries(rows[0], function (values) {
+                      tables.pls_system_grid_links.rows = values;
                       callback(null);
                     });
                   })

@@ -121,9 +121,10 @@ $(function () {
 
     const profileId = $(this).data('profile');
     const elementId = $(this).data('element');
+    const linkId = $(this).data('link');
 
-    if (profileId && elementId) {
-      openEditLinkedElement(profileId, elementId);
+    if (profileId && elementId && linkId) {
+      openEditLinkedElement(profileId, elementId, linkId);
       return;
     }
 
@@ -167,8 +168,8 @@ $(function () {
     });
   }
 
-  function openEditLinkedElement(profileId, elementId) {
-    $.get('/base/shields/grids/profiles/getLinkElements/' + profileId + '/' + elementId, function(data) {
+  function openEditLinkedElement(profileId, elementId, linkId) {
+    $.get('/base/shields/grids/profiles/getLinkElements/' + profileId + '/' + elementId + '/' + linkId, function(data) {
       if (data.status && data.linkElement) {
         const linkElement = data.linkElement;
         $('#popup-edit-link-element-pls input[name="link_id"]').val(linkElement.id);
