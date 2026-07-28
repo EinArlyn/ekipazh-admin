@@ -931,7 +931,8 @@ hr {
       margin-right: 20px; 
     }
   }
-  .rolet-description {
+  .rolet-description,
+  .pls-grid-description {
     width: 45%;
     .info-titel {
       font-size: 14px;
@@ -966,12 +967,14 @@ hr {
     }
   }
 
-  .rolet-comment-title {
+  .rolet-comment-title,
+  .pls-grid-comment-title {
     font-size: 14px;
     font-weight: bold;
     margin: 5px 0;
   }
-  .rolet-comment-text {
+  .rolet-comment-text,
+  .pls-grid-comment-text {
     font-size: 12px;
   }
 }
@@ -1138,6 +1141,177 @@ hr {
           }
       }
   }
+}
+
+.main-pls-grid-img {
+    display: flex;
+    width: 240px;
+    height: 160px;
+    /* background-color: lightseagreen; */
+    transition: 0.5s;
+    font-size: 16px;
+    justify-content: center;
+    line-height: 1;
+    box-sizing: border-box;
+    margin: 40px 0;
+    .pls-img-parts {
+        position: relative;
+        width: 160px;
+        height: 160px;
+        transition: 0.5s;
+        .size-width {
+            position: absolute;
+            top: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 14px;
+        }
+        .size-height {
+            position: absolute;
+            top: 50%;
+            left: -30px;
+            transform: translateY(-50%) rotate(-90deg);
+            font-size: 14px;
+        }
+        .main-frame-out {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            box-shadow: 0 0 0 1px rgba(0, 0, 0, .15), 1px 0 6px rgba(0, 0, 0, .04), -1px 0 6px rgba(0, 0, 0, .04);
+            .main-frame-in {
+                position: absolute;
+                width: 100%;
+                height: 100%;
+                border: 7px solid white;
+                box-sizing: border-box;
+                z-index: 1;
+                box-shadow: inset 0px 0 3px rgba(0, 0, 0, .3), inset 0 1px 3px rgba(0, 0, 0, .3), inset 2px 0 3px rgba(255, 255, 255, .3), inset 0 -2px 3px rgba(255, 255, 255, .3);
+                &.sill {
+                    border-bottom: 5px solid black;
+                }
+            }
+            .pls-grid-sash-left {
+                position: absolute;
+                width: 30%;
+                height: 100%;
+                left: 0;
+                background-color: rgba(0, 0, 0, .1);
+                background-image:
+                linear-gradient(to right, rgba(0, 0, 0, 0.1) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(0, 0, 0, 0.1) 1px, transparent 1px);
+                background-size: 5px 5px;
+                .sash {
+                    position: absolute;
+                    width: 7px;
+                    height: 100%;
+                    right: 0;
+                    background-color: white;
+                    border-right: 1px solid gray;
+                    border-left: 1px solid gray;
+                    .left-handle {
+                        position: absolute;
+                        width: 100%;
+                        height: 20px;
+                        top: 50%;
+                        transform: translateY(-50%);
+                        background-color: rgba(0, 0, 0, .2);
+                    }
+                }
+            }
+            .pls-grid-sash-right {
+                position: absolute;
+                width: 30%;
+                height: 100%;
+                right: 0;
+                background-color: rgba(0, 0, 0, .1);
+                background-image:
+                linear-gradient(to right, rgba(0, 0, 0, 0.1) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(0, 0, 0, 0.1) 1px, transparent 1px);
+                background-size: 5px 5px;
+                .sash {
+                    position: absolute;
+                    width: 7px;
+                    height: 100%;
+                    left: 0;
+                    background-color: white;
+                    border-right: 1px solid gray;
+                    border-left: 1px solid gray;
+                    .right-handle {
+                        position: absolute;
+                        width: 100%;
+                        height: 20px;
+                        top: 50%;
+                        transform: translateY(-50%);
+                        background-color: rgba(0, 0, 0, .2);
+                    }
+                }
+            }
+
+            &.toright {
+                .pls-grid-sash-right {
+                    display: none;
+                }
+            }
+            &.toleft {
+                .pls-grid-sash-left {
+                    display: none;
+                }
+            }
+            &.outSide {
+                .pls-grid-sash-left {
+                    left: 20%;
+                    .sash {
+                        left: 0;
+                        right: auto;
+                    }
+                }
+                .pls-grid-sash-right {
+                    right: 20%;
+                    .sash {
+                        right: 0;
+                        left: auto;
+                    }
+                }
+            }
+            &.bottom {
+                .pls-grid-sash-left {
+                    display: none;
+                }
+                .pls-grid-sash-right {
+                    width: 100%;
+                    height: 30%;
+                    top: 0;
+                    .sash {
+                        width: 100%;
+                        height: 7px;
+                        top: 100%;
+                        left: 0;
+                        border-top: 1px solid gray;
+                        border-bottom: 1px solid gray;
+                        .right-handle {
+                            position: absolute;
+                            width: 20px;
+                            height: 100%;
+                            top: 0;
+                            left: 50%;
+                            transform: translate(-50%, 0);
+                            background-color: rgba(0, 0, 0, .2);
+                        }
+                    }
+                }
+            }
+            
+            /* .center-frame {
+                position: absolute;
+                width: 33.33%;
+                height: 100%;
+                top: 0;
+                left: 33.33%;
+                border-left: 1px solid black;
+                border-right: 1px solid black;
+            } */
+        }
+    }
 }
 
 
