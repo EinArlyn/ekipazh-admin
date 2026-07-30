@@ -3715,6 +3715,142 @@ module.exports = function (req, res) {
                     callback(err);
                   });
               },
+              function (callback) {
+                /** muntins: шпросы фабрики */
+                models.sequelize
+                  .query(
+                    `SELECT
+                      M.id,
+                      M.type_id,
+                      M.factory_id,
+                      M.name,
+                      M.position,
+                      M.price,
+                      M.is_active,
+                      M.min_gap,
+                      M.img,
+                      M.description,
+                      M.currency_id
+                    FROM muntins AS M
+                    WHERE M.factory_id = ${factory_id}
+                      AND M.is_active = 1`
+                  )
+                  .then(function (rows) {
+                    tables.muntins = {};
+                    tables.muntins.fields = [
+                      "id",
+                      "type_id",
+                      "factory_id",
+                      "name",
+                      "position",
+                      "price",
+                      "is_active",
+                      "min_gap",
+                      "img",
+                      "description",
+                      "currency_id"
+                    ];
+                    sortQueries(rows[0], function (values) {
+                      tables.muntins.rows = values;
+                      callback(null);
+                    });
+                  })
+                  .catch(function (err) {
+                    callback(err);
+                  });
+              },
+              function (callback) {
+                /** muntins_widths: ширины шпросов фабрики */
+                models.sequelize
+                  .query(
+                    `SELECT
+                      MW.id,
+                      MW.muntins_id,
+                      MW.width,
+                      MW.price
+                    FROM muntins_widths AS MW
+                    INNER JOIN muntins AS M
+                      ON M.id = MW.muntins_id
+                    WHERE M.factory_id = ${factory_id}
+                      AND M.is_active = 1`
+                  )
+                  .then(function (rows) {
+                    tables.muntins_widths = {};
+                    tables.muntins_widths.fields = [
+                      "id",
+                      "muntins_id",
+                      "width",
+                      "price"
+                    ];
+                    sortQueries(rows[0], function (values) {
+                      tables.muntins_widths.rows = values;
+                      callback(null);
+                    });
+                  })
+                  .catch(function (err) {
+                    callback(err);
+                  });
+              },
+              function (callback) {
+                /** muntins_pt_profile_links: связи шпросов и pt профилей */
+                models.sequelize
+                  .query(
+                    `SELECT
+                      MPPL.id,
+                      MPPL.muntins_id,
+                      MPPL.pt_profile_id
+                    FROM muntins_pt_profile_links AS MPPL
+                    INNER JOIN muntins AS M
+                      ON M.id = MPPL.muntins_id
+                    WHERE M.factory_id = ${factory_id}
+                      AND M.is_active = 1`
+                  )
+                  .then(function (rows) {
+                    tables.muntins_pt_profile_links = {};
+                    tables.muntins_pt_profile_links.fields = [
+                      "id",
+                      "muntins_id",
+                      "pt_profile_id"
+                    ];
+                    sortQueries(rows[0], function (values) {
+                      tables.muntins_pt_profile_links.rows = values;
+                      callback(null);
+                    });
+                  })
+                  .catch(function (err) {
+                    callback(err);
+                  });
+              },
+              function (callback) {
+                /** muntins_profile_links: связи шпросов и профилей */
+                models.sequelize
+                  .query(
+                    `SELECT
+                      MPL.id,
+                      MPL.muntins_id,
+                      MPL.profile_id
+                    FROM muntins_profile_links AS MPL
+                    INNER JOIN muntins AS M
+                      ON M.id = MPL.muntins_id
+                    WHERE M.factory_id = ${factory_id}
+                      AND M.is_active = 1`
+                  )
+                  .then(function (rows) {
+                    tables.muntins_profile_links = {};
+                    tables.muntins_profile_links.fields = [
+                      "id",
+                      "muntins_id",
+                      "profile_id"
+                    ];
+                    sortQueries(rows[0], function (values) {
+                      tables.muntins_profile_links.rows = values;
+                      callback(null);
+                    });
+                  })
+                  .catch(function (err) {
+                    callback(err);
+                  });
+              },
               
             ],
             function (err, results) {

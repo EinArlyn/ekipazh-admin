@@ -1,0 +1,100 @@
+.pop-up.pop-up-muntins#popup-add-muntins
+  form#add-muntins-form(method="POST" action="/base/muntins/muntins/add" enctype="multipart/form-data")
+    input(type="hidden" name="type_id" value='' required)
+    .pop-up-close-wrap
+      a(class="pop-up-close", href="#")
+    span.pop-up-header
+      =i18n.__("Add")
+    .row-muntins-img
+      .img-wrap
+        .img-block
+          img.muntins-image(src="/local_storage/default.png")
+        .add-img-block
+          input.hidden.muntins-image-file(type="file" name="muntins_img")
+          input.add-image-btn(type="button" value=i18n.__('Add'))
+    .pop-up-muntins-rows 
+      .row-name.muntins-row 
+        .title-name.title
+          =i18n.__('Name')
+          | :
+        input.input-default.text-name(type="text" value="" name="name" required)
+      .row-position.muntins-row 
+        .title-position.title
+          =i18n.__('Position')
+          | :
+        input.input-default.text-position(type="number" value="" name="position" required)
+      .row-currency.muntins-row 
+        .title-currency.title
+          =i18n.__('Currency')
+          | :
+        select.select-default.input-margin#muntins-currency(name="currency_id" style="width: 230px;")
+      .row-min-gap.muntins-row 
+        .title-min-gap.title
+          =i18n.__('sh_min_gap') + ' ' + i18n.__('mm')
+          | :
+        input.input-default.text-position(type="number" value="" name="min_gap" required)
+      .row-muntins-price.muntins-row 
+        .title-muntins-price.title
+          =i18n.__('production_cost')
+          | :
+        input.input-default.text-muntins-price(type="number" value="" name="price" step="0.01")
+      .row-width.muntins-row 
+        .title-width
+          =' 1 ' + i18n.__('Width') + ' ' + i18n.__('mm')
+          | :
+        input.input-default.text-position(type="number" value="" name="width_1")
+        .title-price
+          =' 1 ' + i18n.__('Price') + ' ' + i18n.__('sh_lm')
+          | :
+        input.input-default.text-position(type="number" value="" name="price_1")
+      .row-width.muntins-row 
+        .title-width
+          =' 2 ' + i18n.__('Width') + ' ' + i18n.__('mm')
+          | :
+        input.input-default.text-position(type="number" value="" name="width_2")
+        .title-price
+          =' 2 ' + i18n.__('Price') + ' ' + i18n.__('sh_lm')
+          | :
+        input.input-default.text-position(type="number" value="" name="price_2")
+      .row-width.muntins-row 
+        .title-width
+          =' 3 ' + i18n.__('Width') + ' ' + i18n.__('mm')
+          | :
+        input.input-default.text-position(type="number" value="" name="width_3")
+        .title-price
+          =' 3 ' + i18n.__('Price') + ' ' + i18n.__('sh_lm')
+          | :
+        input.input-default.text-position(type="number" value="" name="price_3")
+      .row-width.muntins-row 
+        .title-width
+          =' 4 ' + i18n.__('Width') + ' ' + i18n.__('mm')
+          | :
+        input.input-default.text-position(type="number" value="" name="width_4")
+        .title-price
+          =' 4 ' + i18n.__('Price') + ' ' + i18n.__('sh_lm')
+          | :
+        input.input-default.text-position(type="number" value="" name="price_4")
+      .row-width.muntins-row 
+        .title-width
+          =' 5 ' + i18n.__('Width') + ' ' + i18n.__('mm')
+          | :
+        input.input-default.text-position(type="number" value="" name="width_5")
+        .title-price
+          =' 5 ' + i18n.__('Price') + ' ' + i18n.__('sh_lm')
+          | :
+        input.input-default.text-position(type="number" value="" name="price_5")
+    .row-links-title
+      .row-links-text
+        =i18n.__('sh_link_elem')
+      .row-links-text
+        =i18n.__('sh_link_table')
+    .row-links
+      .row-profile-links
+      .row-pt-profile-links
+    .row-description
+      .title-description
+        =i18n.__('Description')
+        | :
+      textarea.input-default.text-description(name="description")  
+    .row.block-center.text-center
+      input.btn-submit(type="submit" value=i18n.__('Save'))

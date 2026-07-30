@@ -745,6 +745,16 @@
 	"min_length":"Longitud mín.",
 	"max_length":"Longitud máx.",
 	"width_step":"Paso de ancho",
-	"length_step":"Paso de longitud"
+	"length_step":"Paso de longitud",
+
+	"production_cost": "Coste de producción",
+	"sh_min_gap": "Espaciado mínimo",
+	"sh_link_elem": "Vinculación con perfiles por elemento",
+	"sh_link_table": "Vinculación con perfiles por tablas",
+	"sh_internal": "Internos",
+	"sh_external": "Superpuestos",
+	"sh_struct": "Estructurales",
+	"sh_muntins": "Junquillos",
+	"sh_lm": "ml"
 
 }

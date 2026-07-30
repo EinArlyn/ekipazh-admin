@@ -753,6 +753,16 @@
 	"min_length":"Lunghezza min.",
 	"max_length":"Lunghezza max.",
 	"width_step":"Passo larghezza",
-	"length_step":"Passo lunghezza"
+	"length_step":"Passo lunghezza",
+
+	"production_cost": "Costo di produzione",
+	"sh_min_gap": "Distanza minima",
+	"sh_link_elem": "Collegamento ai profili per elemento",
+	"sh_link_table": "Collegamento ai profili tramite tabelle",
+	"sh_internal": "Interni",
+	"sh_external": "Applicati",
+	"sh_struct": "Strutturali",
+	"sh_muntins": "Muntin",
+	"sh_lm": "ml"
 
 }

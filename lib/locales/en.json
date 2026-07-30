@@ -673,6 +673,16 @@
 	"min_length":"Min. length",
 	"max_length":"Max. length",
 	"width_step":"Width step",
-	"length_step":"Length step"
+	"length_step":"Length step",
+
+	"production_cost": "Production cost",
+	"sh_min_gap": "Minimum spacing",
+	"sh_link_elem": "Per-element profile link",
+	"sh_link_table": "Table-based profile link",
+	"sh_internal": "Internal",
+	"sh_external": "External",
+	"sh_struct": "Structural",
+	"sh_muntins": "Muntins",
+	"sh_lm": "lm"
 
 }

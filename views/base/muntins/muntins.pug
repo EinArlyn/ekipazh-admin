@@ -1,0 +1,45 @@
+extends ../layout
+
+block content
+  .main-nav
+    .nav-link-title
+      a.link-block-back(href="/")
+        .icon-back
+          img(src="/assets/images/back-step-arrow.png", alt="")
+        =i18n.__('sh_muntins')
+    .nav-link
+      //- span#nav-text
+        =i18n.__('sh_muntins')
+      img.loader-ico(src="/assets/images/loader_ico.GIF")
+    //- .nav-link-info
+     =i18n.__('ptProfileGroupsDescription')
+  .main-content
+    .block-groups
+      each type in types
+        .group-muntins.main-group
+          .group-name
+            =type.name
+        .block-muntins
+          if (type.muntins && type.muntins.length > 0)
+            each muntin in type.muntins
+              .muntins-item  
+                .muntins-img
+                  img(src=(muntin.img ? muntin.img : '/local_storage/default.png'), alt="")
+                .muntins-name
+                  =muntin.name
+                .btns-block-item
+                  .btn-active-system.btn-active(data-system=muntin.id class=!muntin.is_active ? 'btn-unactive' : 'btn-active') 
+                  .btn-edit-system.btn-system(data-system=muntin.id)
+                  .btn-delete-system.btn-system(data-system=muntin.id)
+          .muntins-item.btn-add-system(data-type=type.id)
+            div.btn-add-text-plus
+              ='+'
+            .btn-add-text 
+              =i18n.__('Add +')
+    //- .btn-add-group
+      =i18n.__('Add group +')
+  include popups/add-new-muntins.pug
+  include popups/edit-muntins.pug
+  include popups/delete-muntins.pug
+  
+  

@@ -703,5 +703,15 @@
 	"min_length": "Min. Länge",
 	"max_length": "Max. Länge",
 	"width_step": "Breitenschritt",
-	"length_step": "Längenschritt"
+	"length_step": "Längenschritt",
+
+	"production_cost": "Herstellungskosten",
+	"sh_min_gap": "Mindestabstand",
+	"sh_link_elem": "Verknüpfung mit Profilen pro Element",
+	"sh_link_table": "Verknüpfung mit Profilen über Tabellen",
+	"sh_internal": "Helima Sprosse",
+	"sh_external": "Wiener Sprosse",
+	"sh_struct": "Glasteilende Sprosse",
+	"sh_muntins": "Sprossen",
+	"sh_lm": "lfm"
 }
