@@ -820,6 +820,28 @@ $(function() {
             element.attr('fill', fillValue)
               .attr('stroke', '#363636');
           });
+
+    svg.selectAll('[item_type="shprosH"]')
+          .each(function() {
+            const element = d3.select(this);
+              
+            let fillValue = "url(#bead_fp3)";
+        
+            // Назначаем fill и stroke
+            element.attr('fill', fillValue)
+              .attr('stroke', '#363636');
+          });
+
+    svg.selectAll('[item_type="shprosV"]')
+          .each(function() {
+            const element = d3.select(this);
+              
+            let fillValue = "url(#bead_fp2)";
+        
+            // Назначаем fill и stroke
+            element.attr('fill', fillValue)
+              .attr('stroke', '#363636');
+          });
         
     svg.selectAll('[item_type="impost"]')
           .each(function() {
@@ -1445,6 +1467,171 @@ $(function() {
 
   }
 
+      // Шпросы начало ------------------------------
+
+      function getShprosBlockBounds(blockPoints) {
+        const bounds = {
+          minX: 0,
+          maxX: 0,
+          minY: 0,
+          maxY: 0,
+          width: 0,
+          height: 0,
+        };
+        if (!blockPoints || !blockPoints.length) {
+          return bounds;
+        }
+
+        const xList = blockPoints.map(function (point) {
+          return point.x;
+        });
+        const yList = blockPoints.map(function (point) {
+          return point.y;
+        });
+
+        bounds.minX = Math.min.apply(null, xList);
+        bounds.maxX = Math.max.apply(null, xList);
+        bounds.minY = Math.min.apply(null, yList);
+        bounds.maxY = Math.max.apply(null, yList);
+        bounds.width = bounds.maxX - bounds.minX;
+        bounds.height = bounds.maxY - bounds.minY;
+
+        return bounds;
+      }
+
+      function getShprosOffsets(blockSize, shprosWidth, shprosQty, minGap) {
+        const offsets = [];
+        if (!shprosQty || shprosQty < 1) {
+          return offsets;
+        }
+        if (!blockSize || !shprosWidth) {
+          return offsets;
+        }
+
+        const freeSize = blockSize - shprosWidth * shprosQty;
+        if (freeSize <= 0) {
+          return offsets;
+        }
+
+        const gap = freeSize / (shprosQty + 1);
+        const minGapValue = minGap > 0 ? minGap : 0;
+        if (gap < minGapValue) {
+          GlobalStor.global.isShprosGapError = 1;
+          return offsets;
+        }
+
+        let i;
+        for (i = 0; i < shprosQty; i += 1) {
+          offsets.push(gap + shprosWidth / 2 + i * (gap + shprosWidth));
+        }
+
+        return offsets;
+      }
+
+      function cloneDeepValue(value) {
+        if (value === null || value === undefined) {
+          return value;
+        }
+
+        if (typeof structuredClone === 'function') {
+          try {
+            return structuredClone(value);
+          } catch (e) {
+            // Fallback for non-serializable values in older runtimes.
+          }
+        }
+
+        if (typeof value === 'object') {
+          return JSON.parse(JSON.stringify(value));
+        }
+
+        return value;
+      }
+
+      function buildShprosPartByTemplate(
+        templatePart,
+        bounds,
+        offset,
+        isVertical,
+        shprosWidth,
+        shprosOrient,
+      ) {
+        const shprosPart = cloneDeepValue(templatePart);
+        const left = bounds.minX,
+          right = bounds.maxX,
+          top = bounds.minY,
+          bottom = bounds.maxY;
+        let leftX, rightX, topY, bottomY;
+
+        if (isVertical) {
+          leftX = bounds.minX + offset - shprosWidth / 2;
+          rightX = bounds.minX + offset + shprosWidth / 2;
+          topY = top;
+          bottomY = bottom;
+        } else {
+          leftX = left;
+          rightX = right;
+          topY = bounds.minY + offset - shprosWidth / 2;
+          bottomY = bounds.minY + offset + shprosWidth / 2;
+        }
+
+        // Порядок точек: нижняя правая, нижняя левая, верхняя левая, верхняя правая.
+        shprosPart.points[0].x = rightX;
+        shprosPart.points[0].y = bottomY;
+        shprosPart.points[1].x = leftX;
+        shprosPart.points[1].y = bottomY;
+        shprosPart.points[2].x = leftX;
+        shprosPart.points[2].y = topY;
+        shprosPart.points[3].x = rightX;
+        shprosPart.points[3].y = topY;
+
+        shprosPart.path = assamblingPath(shprosPart.points);
+        shprosPart.type = shprosOrient || (isVertical ? 'shprosV' : 'shprosH');
+
+        return shprosPart;
+      }
+
+      function createShprosParts(
+        templatePart,
+        blockPointsIn,
+        isVertical,
+        shprosWidth,
+        shprosOrient,
+        shprosQty,
+        minGap,
+      ) {
+        const shprosParts = [];
+        if (!templatePart || !templatePart.points || templatePart.points.length < 4) {
+          return shprosParts;
+        }
+
+        const bounds = getShprosBlockBounds(blockPointsIn);
+        const blockSize = isVertical ? bounds.width : bounds.height;
+        const templateWidth = isVertical
+          ? Math.abs(templatePart.points[0].x - templatePart.points[1].x)
+          : Math.abs(templatePart.points[0].y - templatePart.points[3].y);
+        const currentShprosWidth = shprosWidth > 0 ? shprosWidth : templateWidth;
+        const offsets = getShprosOffsets(blockSize, currentShprosWidth, shprosQty, minGap);
+        let i;
+
+        for (i = 0; i < offsets.length; i += 1) {
+          shprosParts.push(
+            buildShprosPartByTemplate(
+              templatePart,
+              bounds,
+              offsets[i],
+              isVertical,
+              currentShprosWidth,
+              shprosOrient,
+            ),
+          );
+        }
+
+        return shprosParts;
+      }
+
+      // Шпросы конец ------------------------------
+
       function createSVGTemplate(sourceObj, depths, width, height, elem, sizeConstr) {
         var thisObj = {};
 
@@ -1542,6 +1729,45 @@ $(function() {
                 thisObj.details[i].parts.push(setGlass(thisObj.details[i].glassPoints, thisObj.priceElements));
                 $.merge(thisObj.details[i].parts, setParts(thisObj.details[i].beadPointsOut, thisObj.details[i].beadPointsIn, thisObj.priceElements));
 
+                // Шпросы для фрейма
+
+                const sortBead = thisObj.details[i].parts.filter(
+                  (part) => part.type === 'bead',
+                );
+
+                if (sourceObj.shprosData.type) {
+                  
+                  const shprosWidth = sourceObj.shprosData.width || 0;
+                  const minGap = sourceObj.shprosData.curShpros.min_gap || 100;
+  
+                  const findShpros = sourceObj.shprosData.shprosConfig.filter(shpros => shpros.name === thisObj.details[i].id);
+
+                  if (findShpros.length) {
+                    const shprosHParts = createShprosParts(
+                      cloneDeepValue(sortBead[0]),
+                      thisObj.details[i].beadPointsIn,
+                      0,
+                      shprosWidth,
+                      'shprosH',
+                      findShpros[0].qtyH,
+                      minGap
+                    );
+                    const shprosVParts = createShprosParts(
+                      cloneDeepValue(sortBead[3]),
+                      thisObj.details[i].beadPointsIn,
+                      1,
+                      shprosWidth,
+                      'shprosV',
+                      findShpros[0].qtyV,
+                      minGap
+                    );
+
+                    // ProductStor.product.curShprosSet.curLength += (sortBead[0].size * findShpros[0].qtyH + sortBead[3].size * findShpros[0].qtyV)/1000;
+                    $.merge(thisObj.details[i].parts, shprosHParts);
+                    $.merge(thisObj.details[i].parts, shprosVParts);
+                  }
+                }
+
               } else if(thisObj.details[i].blockType === 'sash') {
                 thisObj.details[i].sashPointsOut = copyPointsOut(setPointsIn(thisObj.details[i].linesIn, depths, 'sash-out'), 'sash');
                 thisObj.details[i].sashLinesOut = setLines(thisObj.details[i].sashPointsOut);
@@ -1567,6 +1793,45 @@ $(function() {
                 //----- set openPoints for sash
                 thisObj.details[i].sashOpenDir = setOpenDir(thisObj.details[i].openDir, thisObj.details[i].beadLinesIn);
                 setSashePropertyXPrice(thisObj.details[i].openDir, thisObj.details[i].hardwareLines, thisObj.priceElements);
+
+                // Шпросы для створки
+
+                const sortBead = thisObj.details[i].parts.filter(
+                  (part) => part.type === 'bead',
+                );
+
+                if (sourceObj.shprosData.type) {
+
+                  const shprosWidth = sourceObj.shprosData.width || 0;
+                  const minGap = sourceObj.shprosData.curShpros.min_gap || 100;
+  
+                  const findShpros = sourceObj.shprosData.shprosConfig.filter(shpros => shpros.name === thisObj.details[i].id);
+
+                  if (findShpros.length) {
+                    const shprosHParts = createShprosParts(
+                      cloneDeepValue(sortBead[0]),
+                      thisObj.details[i].beadPointsIn,
+                      0,
+                      shprosWidth,
+                      'shprosH',
+                      findShpros[0].qtyH,
+                      minGap
+                    );
+                    const shprosVParts = createShprosParts(
+                      cloneDeepValue(sortBead[3]),
+                      thisObj.details[i].beadPointsIn,
+                      1,
+                      shprosWidth,
+                      'shprosV',
+                      findShpros[0].qtyV,
+                      minGap
+                    );
+                    
+                    // ProductStor.product.curShprosSet.curLength += (sortBead[0].size * findShpros[0].qtyH + sortBead[3].size * findShpros[0].qtyV)/1000;
+                    $.merge(thisObj.details[i].parts, shprosHParts);
+                    $.merge(thisObj.details[i].parts, shprosVParts);
+                  }
+                }
               }
             }
             setPointsXChildren(thisObj.details[i], thisObj.details, depths);
