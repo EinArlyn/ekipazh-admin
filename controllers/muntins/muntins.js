@@ -1,14 +1,14 @@
 'use strict';
 
-var i18n = require('i18n');
+// var i18n = require('i18n');
 var models = require('../../lib/models');
 
 module.exports = function (req, res) {
 
       const types = [
-        { id: 1, name: i18n.__('sh_internal') },
-        { id: 2, name: i18n.__('sh_external') },
-        { id: 3, name: i18n.__('sh_struct') },
+        { id: 1, name: res.__('sh_internal') },
+        { id: 2, name: res.__('sh_external') },
+        { id: 3, name: res.__('sh_struct') },
       ]
 
       models.muntins.findAll({
@@ -18,7 +18,7 @@ module.exports = function (req, res) {
           type.muntins = muntins.filter(muntin => muntin.type_id === type.id).sort((a, b) => a.position - b.position);
         })
         res.render('base/muntins/muntins', {
-          i18n: i18n,
+          i18n: res.locals.i18n,
           title: 'Muntins',
           types: types,
           cssSrcs: ['/assets/stylesheets/base/muntins.css'],
