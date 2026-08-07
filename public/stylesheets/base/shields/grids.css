@@ -425,7 +425,7 @@ input[type="number"]::-webkit-outer-spin-button {
 .pop-up {
   display: none;
   &.pop-up-pls {
-    width: 500px;
+    width: 600px;
     height: auto;
     background-color: white;
     border: 1px solid black;
