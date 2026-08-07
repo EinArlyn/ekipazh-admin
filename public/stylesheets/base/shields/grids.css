@@ -176,6 +176,10 @@ input[type="number"]::-webkit-outer-spin-button {
     padding: 5px 10px;
     margin: 10px 0;
     border: 1px solid lightgray;
+    cursor: pointer;
+    &:hover {
+      background-color: #f0f0f0;
+    }
     &.opacity-content {
       background-color: #f0f0f0;
     }
@@ -281,6 +285,10 @@ input[type="number"]::-webkit-outer-spin-button {
     padding: 5px 10px;
     margin: 10px 0;
     border: 1px solid lightgray;
+    cursor: pointer;
+    &:hover {
+      background-color: #f0f0f0;
+    }
     .profile-elements-content,
     .elements-elements-content,
     .grid-elements-content {
