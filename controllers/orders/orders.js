@@ -1,5 +1,6 @@
 var models = require('../../lib/models');
 var config = require('../../lib/config');
+var isAllowedHomefashUser = require('../../lib/services/homefash').isAllowedUser;
 var ORDER_BY = 'created';
 var ITEMS_PER_PAGE = 7;
 
@@ -105,7 +106,8 @@ module.exports = function (req, res) {
                               id: currUser.id,
                               isBuch: currUser.is_buch,
                               isTo: currUser.is_to,
-                              codeSync: currUser.code_sync
+                              codeSync: currUser.code_sync,
+                              canSendHomefash: isAllowedHomefashUser(req.session.user)
                             },
             thisPageLink  : '/orders/',
             cssSrcs       : ['/assets/stylesheets/orders.css'],

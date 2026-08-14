@@ -1,6 +1,23 @@
 var router = require('express').Router();
 var orderController = require('../controllers/orders');
 var isAuthenticated = require('../lib/services/authentication').isAdminAuth;
+var isAllowedUser = require('../lib/services/homefash').isAllowedUser;
+
+/**
+ * Отправка в Homefash доступна не всем: кнопку видит только разрешённый
+ * дилер, но прятать её в интерфейсе мало — маршрут проверяет сам.
+ */
+function canSendToHomefash(req, res, next) {
+  if (isAllowedUser(req.session && req.session.user)) {
+    return next();
+  }
+
+  res.status(403).send({
+    status: false,
+    code: 'forbidden',
+    error: res.__('Sending to Homefash is not available for this account'),
+  });
+}
 
 router.get('/', isAuthenticated, orderController.index);
 router.get('/:page', isAuthenticated, orderController.index);
@@ -15,5 +32,6 @@ router.post('/changeOrderState/', isAuthenticated, orderController.changeOrderSt
 router.get('/getScheme/:id', orderController.getScheme);
 router.get('/get-amount-of-orders/:id', isAuthenticated, orderController.getAmountOfOrders);
 router.post('/change-factory-number/:id', isAuthenticated, orderController.changeFactoryNumber);
+router.post('/send-to-homefash/:id', isAuthenticated, canSendToHomefash, orderController.sendToHomefash);
 
 module.exports = router;

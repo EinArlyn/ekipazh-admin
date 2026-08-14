@@ -755,6 +755,7 @@
 	"sh_external": "Superpuestos",
 	"sh_struct": "Estructurales",
 	"sh_muntins": "Junquillos",
-	"sh_lm": "ml"
-
+	"sh_lm": "ml",
+	"Send order to Homefash?": "¿Enviar el pedido a Homefash?",
+	"Sending to Homefash is not available for this account": "El envío a Homefash no está disponible para esta cuenta"
 }

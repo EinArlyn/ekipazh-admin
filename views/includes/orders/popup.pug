@@ -11,6 +11,11 @@
     a(id="pop-up-export-order", href=EXPORT_LINK)
       .text-center
         =i18n.__('Export')
+  if currentUser.canSendHomefash
+    #pop-up-homefash-order-wrap(data="")
+      a(id="pop-up-homefash-order", href="#")
+        .text-center
+          | TopKontor
   #pop-up-acount-price-order-wrap
     a(id="pop-up-acount-price-order", href="#" download)
       .text-center

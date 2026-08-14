@@ -766,6 +766,7 @@
 	"sh_external": "Накладні",
 	"sh_struct": "Конструктивні",
 	"sh_muntins": "Шпроси",
-	"sh_lm": "п.м."
-	
+	"sh_lm": "п.м.",
+	"Send order to Homefash?": "Відправити замовлення в Homefash?",
+	"Sending to Homefash is not available for this account": "Відправка в Homefash недоступна для цього облікового запису"
 }

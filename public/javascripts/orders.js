@@ -63,6 +63,7 @@ $(function () {
 
       $('#pop-up-delete-order-wrap').attr('data', data.order.order.id);
       $('#pop-up-report-order-wrap').attr('data', data.order.order.id);
+      $('#pop-up-homefash-order-wrap').attr('data', data.order.order.id);
       $('#pop-up-factory-number-submit').attr('data-order', data.order.order.id);
       $('#pop-up-delete-order-wrap').removeClass('disabled');
       $('#pop-up-acount-price-order, #pop-up-specification-order').removeAttr('download').attr('href', '#').parent().addClass('disabled');
@@ -211,6 +212,77 @@ $(function () {
           $('.factory-number[data-order="' + orderId + '"]').text(newFactoryNumber);
         }
       })
+    });
+
+  /** Send order to Homefash — ask first */
+  var homefashForce = false;
+
+  $('#pop-up-homefash-order').click(function (e) {
+    e.preventDefault();
+
+    var orderId = $('#pop-up-homefash-order-wrap').attr('data');
+
+    if (!orderId) {return;}
+
+    /* Переотправку предлагаем только после отказа по дублю */
+    homefashForce = false;
+    $('#homefash-action-type').text(i18n.t('Send order to Homefash?'));
+
+    $('.pop-up').popup('hide');
+    $('.alert-homefash').popup('show');
+  });
+
+    function showHomefashToast (text, isError) {
+      $.toast({
+        text : text,
+        showHideTransition: 'fade',
+        allowToastClose: true,
+        hideAfter: isError ? 5000 : 3000,
+        stack: 5,
+        position: {top: '60px', right: '30px'},
+        bgColor: isError ? '#FF6633' : undefined,
+        textColor: isError ? '#fff' : undefined
+      });
+    }
+
+    /** Submit sending */
+    $('#send-homefash-btn').click(function (e) {
+      e.preventDefault();
+
+      var $button = $(this);
+      var orderId = $('#pop-up-homefash-order-wrap').attr('data');
+
+      $button.prop('disabled', true);
+
+      $.post('/orders/send-to-homefash/' + orderId, {force: homefashForce}, function (data) {
+        $button.prop('disabled', false);
+
+        if (data.status) {
+          homefashForce = false;
+          $('.alert-homefash').popup('hide');
+          showHomefashToast(data.dryRun ? i18n.t('Order prepared for sending (test mode)') : i18n.t('Order has been sent to Homefash'), false);
+          return;
+        }
+
+        /* Заказ уже уходил партнёру — спрашиваем, слать ли повторно */
+        if (data.code === 'duplicate') {
+          var sentAt = data.sentAt ? new Date(data.sentAt).toLocaleString() : '';
+
+          homefashForce = true;
+          $('#homefash-action-type').text((sentAt ? sentAt + '. ' : '') + i18n.t('Order has already been sent. Send it again?'));
+          return;
+        }
+
+        homefashForce = false;
+        $('.alert-homefash').popup('hide');
+        showHomefashToast(data.error, true);
+      }).fail(function (xhr) {
+        $button.prop('disabled', false);
+        homefashForce = false;
+        $('.alert-homefash').popup('hide');
+
+        showHomefashToast((xhr.responseJSON && xhr.responseJSON.error) || i18n.t('Order has not been sent to Homefash'), true);
+      });
     });
 
   /**
@@ -520,6 +592,12 @@ $(function () {
     transition: 'all 0.3s'
   });
   $('.alert-send-order').popup({
+    type: 'overlay',
+    autoopen: false,
+    scrolllock: true,
+    transition: 'all 0.3s'
+  });
+  $('.alert-homefash').popup({
     type: 'overlay',
     autoopen: false,
     scrolllock: true,

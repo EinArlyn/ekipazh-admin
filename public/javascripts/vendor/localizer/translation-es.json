@@ -113,6 +113,11 @@
     "Send order to factory for invoicing?": "¿Enviar pedido a la fábrica para facturación?",
     "Attention! Unchecking this box does not cancel the processing of the previously sent order by the factory. Uncheck the box?": "¡Atención! Desmarcar esta casilla no cancela el procesamiento del pedido previamente enviado a la fábrica. ¿Desmarcar la casilla?",
     "Yes": "Sí",
-    "No": "No"
+    "No": "No",
+    "Order has been sent to Homefash": "El pedido ha sido enviado a Homefash.",
+    "Order prepared for sending (test mode)": "Pedido preparado para el envío (modo de prueba).",
+    "Order has not been sent to Homefash": "El pedido no ha sido enviado a Homefash.",
+    "Send order to Homefash?": "¿Enviar el pedido a Homefash?",
+    "Order has already been sent. Send it again?": "El pedido ya ha sido enviado. ¿Enviarlo de nuevo?"
 }
 

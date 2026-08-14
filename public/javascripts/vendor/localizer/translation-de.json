@@ -113,5 +113,10 @@
   "No": "Nein",
   "Confirm action": "Aktion bestätigen",
   "Send order to factory for invoicing?": "Bestellung zur Rechnungsstellung an das Werk senden?",
-  "Attention! Unchecking this box does not cancel the processing of the previously sent order by the factory. Uncheck the box?": "Achtung! Das Entfernen dieses Hakens hebt die Bearbeitung einer zuvor gesendeten Bestellung nicht auf. Haken entfernen?"
+  "Attention! Unchecking this box does not cancel the processing of the previously sent order by the factory. Uncheck the box?": "Achtung! Das Entfernen dieses Hakens hebt die Bearbeitung einer zuvor gesendeten Bestellung nicht auf. Haken entfernen?",
+  "Order has been sent to Homefash": "Bestellung wurde an Homefash gesendet.",
+  "Order prepared for sending (test mode)": "Bestellung zum Senden vorbereitet (Testmodus).",
+  "Order has not been sent to Homefash": "Bestellung wurde nicht an Homefash gesendet.",
+  "Send order to Homefash?": "Bestellung an Homefash senden?",
+  "Order has already been sent. Send it again?": "Bestellung wurde bereits gesendet. Erneut senden?"
 }

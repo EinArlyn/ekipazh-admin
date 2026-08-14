@@ -113,5 +113,10 @@
 	"No": "Нет",
 	"Confirm action": "Подтвердите действие",
 	"Send order to factory for invoicing?": "Отправить заказ на завод для выставления счёта?",
-	"Attention! Unchecking this box does not cancel the processing of the previously sent order by the factory. Uncheck the box?": "Внимание! Снятие данной отметки не отменяет обработку заводом отправленного ранее заказа. Снять отметку?"
+	"Attention! Unchecking this box does not cancel the processing of the previously sent order by the factory. Uncheck the box?": "Внимание! Снятие данной отметки не отменяет обработку заводом отправленного ранее заказа. Снять отметку?",
+	"Order has been sent to Homefash": "Заказ отправлен в Homefash.",
+	"Order prepared for sending (test mode)": "Заказ подготовлен к отправке (тестовый режим).",
+	"Order has not been sent to Homefash": "Заказ не отправлен в Homefash.",
+	"Send order to Homefash?": "Отправить заказ в Homefash?",
+	"Order has already been sent. Send it again?": "Заказ уже отправлен. Отправить повторно?"
 }
