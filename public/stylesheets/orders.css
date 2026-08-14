@@ -427,6 +427,16 @@
     left: 145px;
   }
 
+  #pop-up-homefash-order-wrap {
+    width: 85px;
+    height: 25px;
+    background-image: url('/assets/images/ok_active.png');
+    background-size: 85px 25px;
+    position: absolute;
+    top: 5px;
+    left: 215px;
+  }
+
   #pop-up-acount-price-order-wrap {
     width: 55px;
     height: 25px;
@@ -450,6 +460,7 @@
   #pop-up-delete-order-wrap:hover,
   #pop-up-report-order-wrap:hover,
   #pop-up-export-order-wrap:hover,
+  #pop-up-homefash-order-wrap:hover,
   #pop-up-acount-price-order-wrap:hover,
   #pop-up-specification-order-wrap:hover {
     background-image: url('/assets/images/ok_inactive.png');
@@ -463,6 +474,7 @@
     a#pop-up-delete-order,
     a#pop-up-report-order,
     a#pop-up-export-order,
+    a#pop-up-homefash-order,
     a#pop-up-acount-price-order,
     a#pop-up-specification-order {
       position: absolute;
@@ -473,6 +485,11 @@
       text-decoration: none;
       font-size: 12px;
       color: #ffffff;
+    }
+
+    /* Подпись длиннее остальных — плашка шире, ссылка тоже */
+    a#pop-up-homefash-order {
+      width: 75px;
     }
 
   .pop-up-close-wrap {
@@ -827,7 +844,8 @@ input[type=checkbox]:not(old):disabled + label {
   opacity: 0.5;
 }
 
-.alert-send-order {
+.alert-send-order,
+.alert-homefash {
   width: 220px;
   border: 1px solid #e5e5e5;
   border-radius: 5px;
@@ -835,3 +853,4 @@ input[type=checkbox]:not(old):disabled + label {
   padding: 0 30px;
   font-size: 12px;
 }
+

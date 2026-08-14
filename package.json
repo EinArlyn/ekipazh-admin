@@ -11,7 +11,8 @@
     "lint:js": "eslint controllers/ lib/ routes/ app.js --ext .js --cache --cache-location .eslintcache",
     "lint:pug": "node ./scripts/check-templates.js && pug-lint views/",
     "lint:fix": "eslint controllers/ lib/ routes/ app.js --ext .js --fix",
-    "format": "prettier --write controllers/ lib/ routes/ app.js"
+    "format": "prettier --write controllers/ lib/ routes/ app.js",
+    "homefash:payload": "node ./scripts/homefash-payload.js"
   },
   "dependencies": {
     "async": "^3.2.6",

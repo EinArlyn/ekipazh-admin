@@ -763,6 +763,7 @@
 	"sh_external": "Applicati",
 	"sh_struct": "Strutturali",
 	"sh_muntins": "Muntin",
-	"sh_lm": "ml"
-
+	"sh_lm": "ml",
+	"Send order to Homefash?": "Inviare l'ordine a Homefash?",
+	"Sending to Homefash is not available for this account": "L'invio a Homefash non è disponibile per questo account"
 }

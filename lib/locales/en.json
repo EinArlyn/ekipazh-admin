@@ -683,6 +683,7 @@
 	"sh_external": "External",
 	"sh_struct": "Structural",
 	"sh_muntins": "Muntins",
-	"sh_lm": "lm"
-
+	"sh_lm": "lm",
+	"Send order to Homefash?": "Send order to Homefash?",
+	"Sending to Homefash is not available for this account": "Sending to Homefash is not available for this account"
 }

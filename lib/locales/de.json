@@ -713,5 +713,7 @@
 	"sh_external": "Wiener Sprosse",
 	"sh_struct": "Glasteilende Sprosse",
 	"sh_muntins": "Sprossen",
-	"sh_lm": "lfm"
+	"sh_lm": "lfm",
+	"Send order to Homefash?": "Bestellung an Homefash senden?",
+	"Sending to Homefash is not available for this account": "Das Senden an Homefash ist für dieses Konto nicht verfügbar"
 }

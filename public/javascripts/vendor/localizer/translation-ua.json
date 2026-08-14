@@ -113,5 +113,10 @@
   "Send order to factory for invoicing?": "Відправити замовлення на завод для виставлення рахунка?",
   "Attention! Unchecking this box does not cancel the processing of the previously sent order by the factory. Uncheck the box?": "Увага! Зняття цієї відмітки не скасовує обробку раніше відправленого замовлення заводом. Зняти відмітку?",
   "Yes": "Так",
-  "No": "Ні"
+  "No": "Ні",
+  "Order has been sent to Homefash": "Замовлення надіслано в Homefash.",
+  "Order prepared for sending (test mode)": "Замовлення підготовлено до відправки (тестовий режим).",
+  "Order has not been sent to Homefash": "Замовлення не надіслано в Homefash.",
+  "Send order to Homefash?": "Відправити замовлення в Homefash?",
+  "Order has already been sent. Send it again?": "Замовлення вже надіслано. Надіслати повторно?"
 }

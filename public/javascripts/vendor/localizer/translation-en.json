@@ -113,6 +113,11 @@
     "Send order to factory for invoicing?": "Send order to factory for invoicing?",
     "Attention! Unchecking this box does not cancel the processing of the previously sent order by the factory. Uncheck the box?": "Attention! Unchecking this box does not cancel the processing of the previously sent order by the factory. Uncheck the box?",
     "Yes": "Yes",
-    "No": "No"
+    "No": "No",
+    "Order has been sent to Homefash": "Order has been sent to Homefash.",
+    "Order prepared for sending (test mode)": "Order prepared for sending (test mode).",
+    "Order has not been sent to Homefash": "Order has not been sent to Homefash.",
+    "Send order to Homefash?": "Send order to Homefash?",
+    "Order has already been sent. Send it again?": "Order has already been sent. Send it again?"
 }
 

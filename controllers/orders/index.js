@@ -11,3 +11,4 @@ exports.deleteOrder = require('./deleteOrder.js');
 exports.getScheme = require('./getScheme.js');
 exports.getAmountOfOrders = require('./getAmountOfOrders.js');
 exports.changeFactoryNumber = require('./changeFactoryNumber.js');
+exports.sendToHomefash = require('./sendToHomefash.js');

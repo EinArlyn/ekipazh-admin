@@ -5,7 +5,7 @@ var path = require("path");
 var favicon = require("serve-favicon");
 var logger = require("morgan");
 var cookieParser = require("cookie-parser");
-var i18n = require("i18n");
+var i18n = require("./lib/i18n");
 var flash = require("express-flash");
 var pjson = require("./package.json");
 var git = require("git-rev");
@@ -13,29 +13,7 @@ git.short(function (str) {
   i18n.copyright = "(c) 2024 " + pjson.version;
   i18n.version = "";
 });
-// Compatibility patch: Sequelize v3 expects pg to return an EventEmitter from
-// client.query() (using .on('row'/.on('end')), but pg v8 returns a Promise.
-// This patch wraps pg v8's Promise result in an EventEmitter so Sequelize v3
-// can attach its .on() listeners without modification.
-var EventEmitter = require("events");
-var pg = require("pg");
-var _pgQuery = pg.Client.prototype.query;
-pg.Client.prototype.query = function (config, values, callback) {
-  var result = _pgQuery.call(this, config, values, callback);
-  if (result && typeof result.then === "function" && typeof result.on !== "function") {
-    var emitter = new EventEmitter();
-    result.then(function (res) {
-      if (res && res.rows) {
-        res.rows.forEach(function (row) { emitter.emit("row", row); });
-      }
-      emitter.emit("end", res);
-    }).catch(function (err) {
-      emitter.emit("error", err);
-    });
-    return emitter;
-  }
-  return result;
-};
+require("./lib/pg-compat");
 
 var models = require("./lib/models");
 var relationships = require("./lib/relationships");
@@ -73,20 +51,7 @@ app.use(function (req, res, next) {
   next();
 });
 
-i18n.configure({
-  locales: ["ru", "en", "de", "ua", "es", "it"],
-  // Browsers send "uk" for Ukrainian; our locale file is named "ua".
-  fallbacks: { uk: "ua" },
-  directory: __dirname + "/lib/locales",
-  defaultLocale: "ru",
-  // Resolve the locale per request from (in priority order) the `lang` query
-  // parameter, the `i18next` cookie and the Accept-Language header.
-  queryParameter: "lang",
-  cookie: "i18next",
-  // Never let missing keys be written back into the locale files at runtime.
-  updateFiles: false,
-  autoReload: false,
-});
+// Настройка i18n — в ./lib/i18n, она нужна не только веб-серверу
 
 app.use(i18n.init);
 
