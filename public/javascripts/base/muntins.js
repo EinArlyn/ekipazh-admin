@@ -145,6 +145,9 @@ $(function () {
           $('#popup-edit-muntins input[name="min_gap"]').val(
             data.system.min_gap,
           );
+          $('#popup-edit-muntins input[name="price"]').val(
+            data.system.price,
+          );
           $('#popup-edit-muntins textarea[name="description"]').val(
             data.system.description,
           );
