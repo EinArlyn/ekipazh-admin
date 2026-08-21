@@ -1,6 +1,8 @@
 $(function () {
   var localizerOption = { resGetPath: '/assets/javascripts/vendor/localizer/__ns__-__lng__.json'};
   var datepickerState = false;
+  var muntinsReportHeaders = ['Название', 'Артикул', 'Кол-во', 'Размер', 'Вес', 'Валюта', 'Цена за ед.', 'Общая цена'];
+  var exportOrderBaseLink = $('#pop-up-export-order').attr('href');
 
   i18n.init(localizerOption);
 
@@ -53,6 +55,9 @@ $(function () {
     e.preventDefault();
     startLoader();
 
+    $('.export-muntins-report').hide().removeData('tableData');
+    $('#pop-up-export-muntins-report').attr('href', '#');
+
     var orderId = $(this).attr('value');
     $.get('/orders/getOrder/' + orderId, function (data) {
       var perimeter = square = 0.0;
@@ -60,7 +65,6 @@ $(function () {
       var hardwares = '';
       var laminations = '';
       var created = new Date(data.order.order.created);
-
       $('#pop-up-delete-order-wrap').attr('data', data.order.order.id);
       $('#pop-up-report-order-wrap').attr('data', data.order.order.id);
       $('#pop-up-homefash-order-wrap').attr('data', data.order.order.id);
@@ -143,9 +147,7 @@ $(function () {
       }
 
       /** Append id to specified export link */
-      $('#pop-up-export-order').attr('href', function (i, val) {
-        return val + data.order.order.id;
-      });
+      $('#pop-up-export-order').attr('href', exportOrderBaseLink + data.order.order.id);
 
       if (!data.user.code_kb) {
         $('#pop-up-specification-order-wrap').hide();
@@ -182,6 +184,45 @@ $(function () {
       $('#pop-up-seller-email').text(data.order.user.name);
       $('#pop-up-purchase-price').text(parseFloat(data.order.purchase_price/currency_value).toFixed(2));
       $('#pop-up-sale-price').text(parseFloat(data.order.sale_price/currency_value).toFixed(2));
+
+      let muntins = data.order.order.order_products.filter(prod => prod.is_addelem_only === 5);
+      const tableData = muntins.map(function (prod) {
+        var template = JSON.parse(prod.template_source);
+        var reportRows = Array.isArray(template.report) ? template.report : [];
+        var colorName = template.color && template.color.name ? template.color.name : 'белый';
+
+        return {
+          title: 'Шаблон: ' + template.template.name + ' | ' +
+            'Ширина: ' + template.width + ' мм | ' +
+            'Высота: ' + template.height + ' мм | ' +
+            'Цвет: ' + colorName + ' | ' +
+            'Кол-во: ' + prod.product_qty + ' шт | ' +
+            'Сетка: ' + template.grid.name + ' | ' +
+            'Система: ' + template.system.name,
+          headers: muntinsReportHeaders.slice(),
+          rows: reportRows.map(function (el) {
+            return [
+              el.name,
+              el.sku,
+              el.qty,
+              el.size,
+              el.weight,
+              el.currency,
+              el.basePrice,
+              el.totalPrice
+            ];
+          })
+        };
+      }).filter(function (section) {
+        return section.rows.length > 0;
+      });
+
+      $('.export-muntins-report')
+        .data('tableData', tableData)
+        .toggle(tableData.length > 0);
+
+      $('#pop-up-export-muntins-report').attr('href', '/orders/export-muntins-report/' + data.order.order.id);
+
       $('.pop-up').popup('show');
       stopLoader();
     });

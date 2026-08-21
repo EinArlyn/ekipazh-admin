@@ -12,3 +12,4 @@ exports.getScheme = require('./getScheme.js');
 exports.getAmountOfOrders = require('./getAmountOfOrders.js');
 exports.changeFactoryNumber = require('./changeFactoryNumber.js');
 exports.sendToHomefash = require('./sendToHomefash.js');
+exports.exportMuntinsReport = require('./exportMuntinsReport.js');

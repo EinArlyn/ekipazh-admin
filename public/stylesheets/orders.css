@@ -427,6 +427,18 @@
     left: 145px;
   }
 
+  #pop-up-export-muntins-report-wrap {
+    width: 70px;
+    height: 25px;
+    background-image: url('/assets/images/ok_active.png');
+    background-size: 70px 25px;
+    position: absolute;
+    top: 5px;
+    left: 225px;
+    color: white;
+    font-size: 12px;
+  }
+
   #pop-up-homefash-order-wrap {
     width: 85px;
     height: 25px;
@@ -460,6 +472,7 @@
   #pop-up-delete-order-wrap:hover,
   #pop-up-report-order-wrap:hover,
   #pop-up-export-order-wrap:hover,
+  #pop-up-export-muntins-report-wrap:hover,
   #pop-up-homefash-order-wrap:hover,
   #pop-up-acount-price-order-wrap:hover,
   #pop-up-specification-order-wrap:hover {
@@ -474,6 +487,7 @@
     a#pop-up-delete-order,
     a#pop-up-report-order,
     a#pop-up-export-order,
+    a#pop-up-export-muntins-report,
     a#pop-up-homefash-order,
     a#pop-up-acount-price-order,
     a#pop-up-specification-order {
@@ -490,6 +504,10 @@
     /* Подпись длиннее остальных — плашка шире, ссылка тоже */
     a#pop-up-homefash-order {
       width: 75px;
+    }
+
+    a#pop-up-export-muntins-report {
+      width: 60px;
     }
 
   .pop-up-close-wrap {

@@ -11,6 +11,10 @@
     a(id="pop-up-export-order", href=EXPORT_LINK)
       .text-center
         =i18n.__('Export')
+  #pop-up-export-muntins-report-wrap.export-muntins-report(style="display: none;")
+    a(id="pop-up-export-muntins-report", href="#")
+      .text-center
+        ='GridExp'
   if currentUser.canSendHomefash
     #pop-up-homefash-order-wrap(data="")
       a(id="pop-up-homefash-order", href="#")

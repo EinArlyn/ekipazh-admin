@@ -27,6 +27,7 @@ router.get('/get-order-pdf-ua/:id', orderController.getOrderPDFua);
 router.get('/get-order-pdf-okoshko/:id', orderController.getOrderPDFokoshko);
 router.get('/get-invoice-pdf-okoshko/:id', orderController.getInvoicePDFokoshko);
 router.get('/get-order-report/:id', orderController.getOrderReport);
+router.get('/export-muntins-report/:id', isAuthenticated, orderController.exportMuntinsReport);
 router.post('/deleteOrder/', isAuthenticated, orderController.deleteOrder);
 router.post('/changeOrderState/', isAuthenticated, orderController.changeOrderState);
 router.get('/getScheme/:id', orderController.getScheme);
