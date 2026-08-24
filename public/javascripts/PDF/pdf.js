@@ -1735,7 +1735,7 @@ $(function() {
                   (part) => part.type === 'bead',
                 );
 
-                if (sourceObj.shprosData.type) {
+                if (sourceObj.shprosData && sourceObj.shprosData.type) {
                   
                   const shprosWidth = sourceObj.shprosData.width || 0;
                   const minGap = sourceObj.shprosData.curShpros.min_gap || 100;
@@ -1800,7 +1800,7 @@ $(function() {
                   (part) => part.type === 'bead',
                 );
 
-                if (sourceObj.shprosData.type) {
+                if (sourceObj.shprosData && sourceObj.shprosData.type) {
 
                   const shprosWidth = sourceObj.shprosData.width || 0;
                   const minGap = sourceObj.shprosData.curShpros.min_gap || 100;
