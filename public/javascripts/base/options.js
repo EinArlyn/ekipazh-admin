@@ -61,6 +61,9 @@ $(function () {
     } else if (selectedOption == 19) {
       $('.checked-option').addClass('disabled');
       window.location.href = '/base/options/reinforcement';
+    } else if (selectedOption == 20) {
+      $('.checked-option').addClass('disabled');
+      window.location.href = '/base/options/country-nds';
     }
   });
   // work with color for window sill
@@ -2181,4 +2184,78 @@ $(function () {
 
 
 
+    /** country NDS */
+    var countryNdsTimers = {};
+
+    function normalizeCountryNdsValue(value) {
+      var normalized = String(value || '').replace(',', '.').trim();
+      if (normalized === '') {
+        return null;
+      }
+
+      var parsed = parseFloat(normalized);
+      if (isNaN(parsed)) {
+        return null;
+      }
+
+      return parsed;
+    }
+
+    function saveCountryNds($input) {
+      var countryId = $input.attr('data-country-id');
+      var normalizedValue = normalizeCountryNdsValue($input.val());
+      var lastSavedValue = normalizeCountryNdsValue($input.attr('data-last-value'));
+
+      if (!countryId || normalizedValue === null) {
+        return;
+      }
+
+      if (lastSavedValue !== null && lastSavedValue === normalizedValue) {
+        return;
+      }
+
+      $.post('/base/options/country-nds/set-nds', {
+        countryId: countryId,
+        nds: normalizedValue
+      }, function(data) {
+        if (data && data.success) {
+          $input.val(normalizedValue);
+          $input.attr('data-last-value', normalizedValue);
+        }
+      });
+    }
+
+    function scheduleCountryNdsSave($input, immediate) {
+      var countryId = $input.attr('data-country-id');
+
+      if (!countryId) {
+        return;
+      }
+
+      clearTimeout(countryNdsTimers[countryId]);
+
+      if (immediate) {
+        saveCountryNds($input);
+        return;
+      }
+
+      countryNdsTimers[countryId] = setTimeout(function() {
+        saveCountryNds($input);
+      }, 500);
+    }
+
+    $('.country-nds input').on('input change', function() {
+      scheduleCountryNdsSave($(this), false);
+    });
+
+    $('.country-nds input').on('blur', function() {
+      var $input = $(this);
+
+      if (String($input.val() || '').trim() === '') {
+        $input.val($input.attr('data-last-value') || 0);
+        return;
+      }
+
+      scheduleCountryNdsSave($input, true);
+    });
 });

@@ -14,7 +14,7 @@ block content
       option(value="1")=i18n.__('Lamination')
       option(value="2")=i18n.__('Discounts')
       option(value="3")=i18n.__('Coefficients')
-      option(value="8" selected)=i18n.__('Suppliers')
+      option(value="8")=i18n.__('Suppliers')
       option(value="9")=i18n.__('Currency')
       option(value="10")=i18n.__('General options')
       option(value="11")=i18n.__('Application options')
@@ -31,32 +31,15 @@ block content
       option(value="16")=i18n.__('Others')
       option(value="18")=i18n.__('Presets')
       option(value="19")=i18n.__('Reinforcement')
-      option(value="20")='Country NDS'
-      
-  .suppliers-option.checked-option
-    .main-content
-      .content-wrap
-        table.suppliers-table(cellspacing="0", cellpadding="0", border="0")
-          tr
-            td.table-supplier-id.tr-header
-              | ID
-            td.table-supplier-name.tr-header
-              =i18n.__('Name')
-          if (suppliers.length)
-            each supplier in suppliers
-              tr.supplier-table-tr(data-supplier=supplier.id)
-                td.table-supplier-id
-                  =supplier.id
-                td.table-name-td
-                  .editable-name(id=supplier.id)
-                    =supplier.name
-                  .btn-remove(data-supplier=supplier.id)
-          else
-            tr.supplier-table-empty-tr
-                td(colspan="2")
-                  =i18n.__('Empty')
-          tr.add-suplier-tr
-            td#add-supplier.add-suplier-td(colspan="2")
-              =i18n.__('Add +')
-  include includes/options-add-new-supplier.pug
-  include includes/alert-delete-supplier.pug
+      option(value="20" selected)=i18n.__('Country NDS')
+
+  .main-content-nds
+    if countries.length > 0
+        each country in countries
+          .country-nds
+            .country-name= country.name
+            .country-nds-input
+              input(type="number", value=country.nds, class="country-nds-value", data-country-id=country.id, data-last-value=country.nds)
+              span.country-nds-sign %
+    else
+      p= i18n.__('Empty')

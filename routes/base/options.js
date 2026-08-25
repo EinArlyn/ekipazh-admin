@@ -112,6 +112,11 @@ router.post('/reinforcement/save-parametr', isAuthenticated, saveReinforcementPa
 router.post('/reinforcement/save-armir-name', isAuthenticated, saveReinforcementName);
 router.post('/reinforcement/save-armir-priority', isAuthenticated, saveReinforcementPriority);
 
+/** Country NDS */
+router.get('/country-nds', isAuthenticated, getCountryNds);
+router.post('/country-nds/set-nds', isAuthenticated, setCountryNds);
+
+
 // for all checkboxes country in addElems 
 router.post('/getAddElemsCountry/:id', isAuthenticated, getAddElemsCountry);
 
@@ -3123,6 +3128,61 @@ function _destroyAddElemsSystem(addElemsId, countryId) {
     result.destroy().then(function () {
       return;
     });
+  });
+}
+
+// country NDS
+function getCountryNds (req, res) {
+  models.countries.findAll({
+    attributes: ["id", "name"]
+  }).then(function(countries){
+    models.country_nds.findAll({
+      }).then(function(country_nds){
+
+        countries.forEach(country => {
+          let findNds = country_nds.find(nds => nds.country_id === country.id);
+          country.nds = findNds ? findNds.nds : 0;
+        })
+        
+        res.render('base/options/country-nds', {
+          i18n: res.locals.i18n,
+          title                 : res.__('Options'),
+          countries             : countries,
+          thisPageLink          : '/base/options/',
+          cssSrcs               : ['/assets/stylesheets/base/options.css'],
+          scriptSrcs            : ['/assets/javascripts/vendor/localizer/i18next-1.10.1.min.js', '/assets/javascripts/base/options.js']
+        });
+    });
+  });
+}
+
+function setCountryNds (req, res) {
+  var countryId = req.body.countryId;
+  var nds = parseFloat(String(req.body.nds || '').replace(',', '.'));
+
+  if (isNaN(nds)) {
+    return res.send({success: false});
+  }
+
+  models.country_nds.findOne({
+    where: {
+      country_id: countryId
+    }
+  }).then(function (result) {
+    if (result) {
+      result.update({
+        nds: nds
+      }).then(function (updated) {
+        res.send({success: true});
+      });
+    } else {
+      models.country_nds.create({
+        country_id: parseInt(countryId, 10),
+        nds: nds
+      }).then(function (created) {
+        res.send({success: true});
+      });
+    }
   });
 }
 

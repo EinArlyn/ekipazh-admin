@@ -62,6 +62,9 @@ $(function () {
     } else if (selectedOption == 19) {
       $('.checked-option').addClass('disabled');
       window.location.href = '/base/options/reinforcement';
+    } else if (selectedOption == 20) {
+      $('.checked-option').addClass('disabled');
+      window.location.href = '/base/options/country-nds';
     }
   });
 

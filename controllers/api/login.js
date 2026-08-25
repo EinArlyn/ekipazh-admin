@@ -1,4 +1,5 @@
 var models = require('../../lib/models');
+var getCountryNdsByCityId = require('../../lib/services/locationService').getCountryNdsByCityId;
 
 module.exports = function(req, res) {
   var type = req.query.type;
@@ -16,9 +17,16 @@ module.exports = function(req, res) {
     attributes: ['id', 'email', 'password', 'short_id', 'factory_id', 'name', 'phone', 'locked', 'user_type', 'city_phone', 'city_id', 'avatar', 'birthday', 'sex', 'device_code', 'modified', 'address', 'last_sync', 'code_sync', 'currencies_id']
   }).then(function(user) {
     if (user) {
-      res.send({
-        status: true,
-        user: user
+      getCountryNdsByCityId(user.city_id).then(function (countryNds) {
+        user.setDataValue('country_nds', countryNds);
+
+        res.send({
+          status: true,
+          user: user
+        });
+      }).catch(function (error) {
+        console.log(error);
+        res.send({status: false});
       });
     } else {
       res.send({status: false});
