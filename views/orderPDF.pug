@@ -246,8 +246,15 @@ html
               .price-addservice-name
                 =i18n.__('Additional services')
               .price-total-name
-                =i18n.__('TOTAL')
+                =i18n.__('TOTAL') + ' ' + (nds ? i18n.__('net') : '')
                 | :
+              if (nds)
+                .price-total-name
+                  =i18n.__('tax') + ' ' + i18n.__('vat')
+                  | :
+                .price-total-name
+                  =i18n.__('TOTAL') + ' ' + i18n.__('gross')
+                  | :
             .row2-price
               .price-constructions-value 
                 =parseFloat(basePrice).toFixed(2)
@@ -291,6 +298,14 @@ html
                 =parseFloat(total + extraPrice).toFixed(2)
                 | 
                 =currency
+              if (nds)
+                .price-total-value
+                  =parseFloat((total + extraPrice) * (nds / 100)).toFixed(2)
+                  | 
+                .price-total-value
+                  =parseFloat((total + extraPrice) * (1 + nds / 100)).toFixed(2)
+                  | 
+                  =currency
       //- .logo-wrapper-header-pdf
       div(id="products")
          != products

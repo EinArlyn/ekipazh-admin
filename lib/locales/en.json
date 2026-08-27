@@ -685,5 +685,10 @@
 	"sh_muntins": "Muntins",
 	"sh_lm": "lm",
 	"Send order to Homefash?": "Send order to Homefash?",
-	"Sending to Homefash is not available for this account": "Sending to Homefash is not available for this account"
+	"Sending to Homefash is not available for this account": "Sending to Homefash is not available for this account",
+
+	"net": "Net",
+	"gross": "Gross",
+	"tax": "Tax",
+	"vat": "VAT"
 }

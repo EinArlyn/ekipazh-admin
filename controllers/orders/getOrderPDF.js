@@ -4,6 +4,7 @@ var _ = require('lodash');
 
 var models = require('../../lib/models');
 var formContent = require('../../lib/services/PDFKit').formContent;
+var getCountryNdsByCityId = require('../../lib/services/locationService').getCountryNdsByCityId;
 var qr = require('qr-image');
 
 /**
@@ -31,9 +32,12 @@ module.exports = function (req, res) {
       model: models.cities
     }]
   }).then(function (user) {
-    var factory = user.factory_id;
+    getCountryNdsByCityId(user.city_id).then(function (countryNds) {
+      user.setDataValue('country_nds', countryNds);
+      
+      var factory = user.factory_id;
 
-    models.order_prices.find({
+      models.order_prices.find({
       where: {
         order_id: orderId,
         user_id: userId
@@ -62,6 +66,7 @@ module.exports = function (req, res) {
       order.order.order_products = order.order.order_products.sort(function (a, b) {
         return a.product_id - b.product_id;
       });
+      order.user.country_nds = user.dataValues.country_nds;
 
       models.users_discounts.find({
         where: {
@@ -170,7 +175,6 @@ module.exports = function (req, res) {
                 qrBase64 = `data:image/svg+xml;base64,${qrBase64}`
               }
 
-                            
               res.render('orderPDF', {
                 i18n: i18n,
                 user: user,
@@ -194,7 +198,8 @@ module.exports = function (req, res) {
                 extraPrice: result.extraPriceGlobal,
                 lang: lang,
                 svg_qr: qrBase64,
-                url: url
+                url: url,
+                nds: user.dataValues.country_nds
               });
             });}).catch(function (err) {
               console.log(err);
@@ -205,6 +210,10 @@ module.exports = function (req, res) {
       }).catch(function (err) {
         console.log(err);
         res.send({ status: false });
+      });
+      }).catch(function (err) {
+        console.log(err);
+        res.send('Internal server error');
       });
     }).catch(function (err) {
       console.log(err);

@@ -762,5 +762,10 @@
 	"sh_muntins": "Шпросы",
 	"sh_lm": "м.п.",
 	"Send order to Homefash?": "Отправить заказ в Homefash?",
-	"Sending to Homefash is not available for this account": "Отправка в Homefash недоступна для этой учётной записи"
+	"Sending to Homefash is not available for this account": "Отправка в Homefash недоступна для этой учётной записи",
+
+	"net": "Нетто",
+	"gross": "Брутто",
+	"tax": "Налог",
+	"vat": "НДС"
 }
