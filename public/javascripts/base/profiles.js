@@ -590,6 +590,12 @@ $(function () {
     scrolllock: true,
     transition: 'all 0.3s'
   });
+  $('.edit-profile-system-curve-rules-pop-up').popup({
+    type: 'overlay',
+    autoopen: false,
+    scrolllock: true,
+    transition: 'all 0.3s'
+  });
   $('.add-profile-from-default-pop-up').popup({
     type: 'overlay',
     autoopen: false,
@@ -670,6 +676,78 @@ $(function () {
       });
     }
   });
+
+  $('.profile-system-curve').click(function() {
+    var profileSystemId = $(this).attr('data-profile-id');
+    if (profileSystemId) {
+      $.get('/base/profiles/getProfileCurveData/' + profileSystemId, function(data) {
+        if (data.status) {
+          const curPopup = $('.edit-profile-system-curve-rules-pop-up');
+          curPopup.find('input[name="profile_system_id"]').val(profileSystemId);
+          curPopup.find('#curve-price-currency').find('option').remove();
+
+          for (var i = 0, len = data.currencies.length; i < len; i++) {
+            const currency = data.currencies[i];
+            const selectedCurrency = data.profileCurvePrice ? data.profileCurvePrice.currency_id : null;
+            curPopup.find('#curve-price-currency').append(
+              '<option value="' +
+                currency.id +
+                '"' +
+                (selectedCurrency === currency.id ? ' selected' : '') +
+                '>' +
+                currency.name +
+                '</option>',
+            );
+          }
+
+          curPopup.find('input[name="arc_frame_price"]').val(data.profileCurvePrice ? data.profileCurvePrice.arc_frame_price : 0);
+          curPopup.find('input[name="arc_sash_price"]').val(data.profileCurvePrice ? data.profileCurvePrice.arc_sash_price : 0);
+          curPopup.find('input[name="arc_impost_price"]').val(data.profileCurvePrice ? data.profileCurvePrice.arc_impost_price : 0);
+          curPopup.find('input[name="corner_frame_price"]').val(data.profileCurvePrice ? data.profileCurvePrice.corner_frame_price : 0);
+          curPopup.find('input[name="corner_sash_price"]').val(data.profileCurvePrice ? data.profileCurvePrice.corner_sash_price : 0);
+          curPopup.find('input[name="corner_impost_price"]').val(data.profileCurvePrice ? data.profileCurvePrice.corner_impost_price : 0);
+          curPopup.find('input[name="corner_not_four_price"]').val(data.profileCurvePrice ? data.profileCurvePrice.corner_not_four_price : 0);
+          
+          curPopup.find('input[name="min_radius_frame"]').val(data.profileCurveRules ? data.profileCurveRules.min_radius_frame : 0);
+          curPopup.find('input[name="min_radius_sash"]').val(data.profileCurveRules ? data.profileCurveRules.min_radius_sash : 0);
+          curPopup.find('input[name="min_radius_impost"]').val(data.profileCurveRules ? data.profileCurveRules.min_radius_impost : 0);
+          curPopup.find('input[name="min_corner_frame"]').val(data.profileCurveRules ? data.profileCurveRules.min_corner_frame : 0);
+          curPopup.find('input[name="min_corner_sash"]').val(data.profileCurveRules ? data.profileCurveRules.min_corner_sash : 0);
+          curPopup.find('input[name="min_corner_impost"]').val(data.profileCurveRules ? data.profileCurveRules.min_corner_impost : 0);
+
+          $(curPopup).popup('show');
+        }
+      });
+    }
+  });
+   $('#profile-system-curve-rules-edit-pop-up-btn').click(function(e) {
+      $('#edit-profile-system-curve-rules-form').submit();
+   });
+   $('#edit-profile-system-curve-rules-form').on('submit', function (e) {
+      e.preventDefault();
+      var formData = new FormData(this);
+
+      $.ajax({
+        type:'POST',
+        url: $(this).attr('action'),
+        data: formData,
+        cache: false,
+        contentType: false,
+        processData: false,
+        success: function(data) {
+          //var groupId = $('#edit-profile-group-id-hidden').val();
+          //$('.profile-group-button[value="' + groupId + '"] .profile-group-button-text').text($('#profile-group-name-edit-input').val());
+          $('.edit-profile-system-curve-rules-pop-up').popup('hide');
+          window.location.reload();
+        },
+        error: function(data){
+          console.log("error");
+          console.log(data);
+        }
+      });
+    });
+
+  // Functions
 
   function escapeBeedInfoHtml(value) {
     return String(value)

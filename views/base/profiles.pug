@@ -66,6 +66,7 @@ block content
                             .coeff-stength
                             -j++
                     .profile-system-edit(value=profileSystem.id)
+                    .profile-system-curve(data-profile-id=profileSystem.id)
                     .profile-system-add-info(data-id=profileSystem.id)
                 tr.country-check
                   if (profileSystem.country_ids)
@@ -199,6 +200,7 @@ block content
                           .coeff-stength
                           -j++
                   .profile-system-edit(value=profileSystem.id)
+                  .profile-system-curve(data-profile-id=profileSystem.id)
                   .profile-system-add-info(data-id=profileSystem.id)
               tr.edit-profile-lists.default-lamination(data-id=profileSystem.id)
                 td(colspan="5" style="width: 920px;")
@@ -281,6 +283,7 @@ block content
           ='x'
   include includes/profiles-add-group
   include includes/profiles-edit-profile-system
+  include includes/profiles-edit-profile-curve-rules
   include includes/profiles-add-from-default
   include includes/profiles-edit-profile-group
   include includes/alert-delete-profile-group

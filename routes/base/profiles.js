@@ -32,6 +32,8 @@ router.post('/getProfileCountry/:id', isAuthenticated, getProfileCountry);
 //router.post('/removeProfileSystem', removeProfileSystem);
 // beed info
 router.get('/getBeedInfo/:id', isAuthenticated, getBeedInfo);
+router.get('/getProfileCurveData/:id', isAuthenticated, getProfileCurveData);
+router.post('/saveProfileCurveData', isAuthenticated, saveProfileCurveData);
 
 function getBeedInfo(req, res) {
   // показ списка штапиков по профильной системе во всех цветах и толщинах стеклопакета
@@ -960,6 +962,90 @@ function _destroyProfileSystem(profileId, countryId) {
     if (!result) {return;}
     result.destroy().then(function () {
       return;
+    });
+  });
+}
+
+function getProfileCurveData(req, res) {
+  const profileId = parseInt(req.params.id);
+  models.currencies.findAll({
+    where: {
+      id: [102,684,685]
+    }
+  }).then(function(currencies) {
+    return models.profile_curve_prices.findOne({
+      where: {
+        profile_systems_id: profileId
+      }
+    }).then(function(profileCurvePrice) {
+      return models.profile_curve_rules.findOne({
+        where: {
+          profile_systems_id: profileId
+        }
+      }).then(function(profileCurveRules) {
+        res.send({
+          status: true,
+          currencies: currencies,
+          profileCurvePrice: profileCurvePrice,
+          profileCurveRules: profileCurveRules
+        });
+      });
+    });
+  }).catch(function(err) {
+    console.log(err);
+    res.send({status: false, error: res.__('Internal server error')});
+  });
+}
+
+function saveProfileCurveData(req, res) {
+  parseForm(req, function(err, fields) {
+    if (err) {
+      console.log(err);
+      return res.send({status: false, error: res.__('Internal server error')});
+    }
+
+    var profileSystemId = parseInt(fields.profile_system_id, 10);
+    if (!profileSystemId) {
+      return res.send({status: false, error: res.__('Internal server error')});
+    }
+
+    var priceData = {
+      profile_systems_id: profileSystemId,
+      currency_id: parseInt(fields.currency_id, 10),
+      arc_frame_price: fields.arc_frame_price,
+      arc_sash_price: fields.arc_sash_price,
+      arc_impost_price: fields.arc_impost_price,
+      corner_frame_price: fields.corner_frame_price,
+      corner_sash_price: fields.corner_sash_price,
+      corner_impost_price: fields.corner_impost_price,
+      corner_not_four_price: fields.corner_not_four_price
+    };
+    var rulesData = {
+      profile_systems_id: profileSystemId,
+      min_radius_frame: fields.min_radius_frame,
+      min_radius_sash: fields.min_radius_sash,
+      min_radius_impost: fields.min_radius_impost,
+      min_corner_frame: fields.min_corner_frame,
+      min_corner_sash: fields.min_corner_sash,
+      min_corner_impost: fields.min_corner_impost
+    };
+
+    function saveRecord(model, data) {
+      return model.findOne({
+        where: {profile_systems_id: profileSystemId}
+      }).then(function(record) {
+        return record ? record.updateAttributes(data) : model.create(data);
+      });
+    }
+
+    Promise.all([
+      saveRecord(models.profile_curve_prices, priceData),
+      saveRecord(models.profile_curve_rules, rulesData)
+    ]).then(function() {
+      res.send({status: true});
+    }).catch(function(err) {
+      console.log(err);
+      res.send({status: false, error: res.__('Internal server error')});
     });
   });
 }

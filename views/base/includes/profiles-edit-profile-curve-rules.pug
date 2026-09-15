@@ -1,0 +1,87 @@
+.pop-up.edit-profile-system-curve-rules-pop-up
+  form#edit-profile-system-curve-rules-form(method="POST" action="/base/profiles/saveProfileCurveData" enctype="multipart/form-data")
+    input.hidden#edit-profile-system-curve-rules-id-input(type="text" name="profile_system_id" value="")
+    .pop-up-close-wrap
+      a.pop-up-close(value=".edit-profile-system-curve-rules-pop-up" href="#")
+    span.pop-up-header
+      ='Цены и правила косых, кривых профилей'
+    .input-title(style="font-weight: bold; font-size: 16px; margin: 10px 0;")
+      ='Цены'
+    .inputs-wrap
+      .row-currency.curve-price-row(style="width: 100%;")
+        .title-currency.title
+          =i18n.__('Currency')
+          | :
+        select.select-default#curve-price-currency(name="currency_id" style="width: 120px;" required)
+      .row-arc-frame-price.curve-price-row
+        .title-arc-frame-price.title
+          ='Арка Рама'
+          | :
+        input.input-default.text-position(type="number" value="" name="arc_frame_price" style="width: 80px;" required)
+      .row-arc-sash-price.curve-price-row
+        .title-arc-sash-price.title
+          ='Арка Створка'
+          | :
+        input.input-default.text-position(type="number" value="" name="arc_sash_price" style="width: 80px;" required)
+      .row-arc-impost-price.curve-price-row
+        .title-arc-impost-price.title
+          ='Арка Импост'
+          | :
+        input.input-default.text-position(type="number" value="" name="arc_impost_price" style="width: 80px;" required)
+      .row-corner-frame-price.curve-price-row
+        .title-corner-frame-price.title
+          ='Угол Рамы'
+          | :
+        input.input-default.text-position(type="number" value="" name="corner_frame_price" style="width: 80px;" required)
+      .row-corner-sash-price.curve-price-row
+        .title-corner-sash-price.title
+          ='Угол Створки'
+          | :
+        input.input-default.text-position(type="number" value="" name="corner_sash_price" style="width: 80px;" required)
+      .row-corner-impost-price.curve-price-row
+        .title-corner-impost-price.title
+          ='Угол Импост'
+          | :
+        input.input-default.text-position(type="number" value="" name="corner_impost_price" style="width: 80px;" required)
+      .row-corner-not-four-price.curve-price-row
+        .title-corner-not-four-price.title
+          ='Не четыре Угла'
+          | :
+        input.input-default.text-position(type="number" value="" name="corner_not_four_price" style="width: 80px;" required)
+    .input-title(style="font-weight: bold; font-size: 16px; margin: 10px 0;")
+      ='Правила'
+    .inputs-wrap
+      .row-min-radius-frame.curve-rules-row
+        .title-min-radius-frame.title
+          ='Мин Радиус Рамы'
+          | :
+        input.input-default.text-position(type="number" value="" name="min_radius_frame" style="width: 80px;" required)
+      .row-min-radius-sash.curve-rules-row
+        .title-min-radius-sash.title
+          ='Мин Радиус Створки'
+          | :
+        input.input-default.text-position(type="number" value="" name="min_radius_sash" style="width: 80px;" required)
+      .row-min-radius-impost.curve-rules-row
+        .title-min-radius-impost.title
+          ='Мин Радиус Импост'
+          | :
+        input.input-default.text-position(type="number" value="" name="min_radius_impost" style="width: 80px;" required)
+      .row-min-corner-frame.curve-rules-row
+        .title-min-corner-frame.title
+          ='Мин Угол Рамы'
+          | :
+        input.input-default.text-position(type="number" value="" name="min_corner_frame" style="width: 80px;" required)
+      .row-min-corner-sash.curve-rules-row
+        .title-min-corner-sash.title
+          ='Мин Угол Створки'
+          | :
+        input.input-default.text-position(type="number" value="" name="min_corner_sash" style="width: 80px;" required)
+      .row-min-corner-impost.curve-rules-row
+        .title-min-corner-impost.title
+          ='Мин Угол Импост'
+          | :
+        input.input-default.text-position(type="number" value="" name="min_corner_impost" style="width: 80px;" required)
+    .pop-up-submit(style="margin-top: 30px;")
+      a.pop-up-submit-btn(id="profile-system-curve-rules-edit-pop-up-btn", href="#", type="button")
+        span.pop-up-submit-btn-text
+          =i18n.__('Save')
