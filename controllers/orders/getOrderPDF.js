@@ -195,7 +195,7 @@ module.exports = function (req, res) {
                 mounting: order.mounting,
                 addServicePrice: addServicePrice,
                 total: order.sale_price,
-                extraPrice: result.extraPriceGlobal,
+                extraPrice: result.extraPriceGlobal || 0,
                 lang: lang,
                 svg_qr: qrBase64,
                 url: url,

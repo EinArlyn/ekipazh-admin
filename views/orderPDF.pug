@@ -245,7 +245,7 @@ html
                 =i18n.__('Mounting')
               .price-addservice-name
                 =i18n.__('Additional services')
-              .price-total-name
+              .price-total-name(style="margin-top: 30px;")
                 =i18n.__('TOTAL') + ' ' + (nds ? i18n.__('net') : '')
                 | :
               if (nds)
@@ -294,7 +294,7 @@ html
                 =parseFloat(addServicePrice).toFixed(2)
                 | 
                 =currency
-              .price-total-value
+              .price-total-value(style="margin-top: 30px;")
                 =parseFloat(total + extraPrice).toFixed(2)
                 | 
                 =currency
