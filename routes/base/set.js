@@ -304,6 +304,7 @@ function saveSet(req, res) {
         e                   : parseFloat(fields.e),
         position            : parseInt(fields.position),
         amendment_pruning   : parseFloat(fields.amendment_pruning),
+        own_width           : parseInt(fields.own_width),
         waste               : parseFloat(fields.waste),
         size                : parseFloat(fields.size),
         link                : fields.link,

@@ -269,6 +269,12 @@ $(function () {
       $("#amendment_pruning").show();
     }
 
+    if (group == 12) {
+      $("#connectors-width").show();
+    } else {
+      $("#connectors-width").hide();
+    }
+
     if (group == 8 || group == 9 || group == 21) {
       $("#size").show();
     } else {

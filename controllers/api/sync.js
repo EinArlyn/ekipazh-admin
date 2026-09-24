@@ -1267,7 +1267,7 @@ module.exports = function (req, res) {
                 /** lists */
                 models.sequelize
                   .query(
-                    "SELECT L.id, L.name, L.list_group_id, L.list_type_id, L.a, L.b, L.c, L.d, L.e, L.parent_element_id, L.position, L.add_color_id, L.modified, L.addition_folder_id, L.amendment_pruning, L.waste, L.cameras, L.link, L.description, L.img, L.beed_lamination_id, L.in_door, L.doorstep_type, L.glass_type, L.glass_image, L.is_push, L.glass_color, L.size " +
+                    "SELECT L.id, L.name, L.list_group_id, L.list_type_id, L.a, L.b, L.c, L.d, L.e, L.parent_element_id, L.position, L.add_color_id, L.modified, L.addition_folder_id, L.amendment_pruning, L.waste, L.cameras, L.link, L.description, L.img, L.beed_lamination_id, L.in_door, L.doorstep_type, L.glass_type, L.glass_image, L.is_push, L.glass_color, L.size, L.own_width " +
                       "FROM lists L " +
                       "JOIN elements E " +
                       "ON L.parent_element_id = E.id " +
@@ -1306,6 +1306,7 @@ module.exports = function (req, res) {
                       "is_push",
                       "glass_color",
                       "size",
+                      "own_width",
                     ];
                     sortQueries(lists[0], function (values) {
                       var listIds = [];

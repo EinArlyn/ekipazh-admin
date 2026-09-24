@@ -767,5 +767,7 @@
 	"net": "Нетто",
 	"gross": "Брутто",
 	"tax": "Налог",
-	"vat": "НДС"
+	"vat": "НДС",
+	"overall_dimensions": "Габаритные размеры",
+  	"construction_extensions": "(конструкция + расширители)"
 }

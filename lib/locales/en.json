@@ -690,5 +690,7 @@
 	"net": "Net",
 	"gross": "Gross",
 	"tax": "Tax",
-	"vat": "VAT"
+	"vat": "VAT",
+	"overall_dimensions": "Overall dimensions",
+  	"construction_extensions": "(construction + extensions)"
 }

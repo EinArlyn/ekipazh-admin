@@ -773,5 +773,7 @@
 	"net": "Нетто",
 	"gross": "Брутто",
 	"tax": "Податок",
-	"vat": "ПДВ"
+	"vat": "ПДВ",
+	"overall_dimensions": "Габаритні розміри",
+	"construction_extensions": "(конструкція + розширювачі)"
 }

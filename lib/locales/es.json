@@ -762,5 +762,7 @@
 	"net": "Neto",
 	"gross": "Bruto",
 	"tax": "Impuesto",
-	"vat": "IVA"
+	"vat": "IVA",
+	"overall_dimensions": "Dimensiones totales",
+  	"construction_extensions": "(construcción + ampliaciones)"
 }

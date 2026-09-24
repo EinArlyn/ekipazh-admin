@@ -856,6 +856,68 @@ $(function() {
           });
   }
 
+  function makeHatchPattern(defs, id, angle) {
+    var pattern = defs.append('pattern')
+        .attr({
+            'id': id,
+            'patternUnits': 'userSpaceOnUse',
+            'width': 26,
+            'height': 26,
+            'patternTransform': 'rotate(' + angle + ')'
+        });
+    pattern.append('rect')
+        .attr({
+            'width': 26,
+            'height': 26,
+            'fill': '#fffefe'
+        });
+    pattern.append('line')
+        .attr({
+            'x1': 0,
+            'y1': 0,
+            'x2': 0,
+            'y2': 26,
+            'stroke': '#ff6200',
+            'stroke-width': 10
+        });
+    return pattern;
+  }
+
+  function setConnectorHatchPattern(defs) {
+    // left/right (vertical elements) и top/bottom (horizontal elements) штрихуются в разные стороны
+    makeHatchPattern(defs, 'connector_hatch_vertical', 45);
+    makeHatchPattern(defs, 'connector_hatch_horizontal', 135);
+  }
+
+  function getConnectorHatchFill(side) {
+    return (side === 'left' || side === 'right')
+      ? 'url(#connector_hatch_vertical)'
+      : 'url(#connector_hatch_horizontal)';
+  }
+
+  // connectorsPoints: [{ pointsOut: [TL, TR, BR, BL], length, side, ... }]
+  function drawConnectorsPoints(elementsGroup, detail, lineCreator) {
+    if (!detail.connectorsPoints || !detail.connectorsPoints.length) {
+        return;
+    }
+
+    elementsGroup.selectAll('path.connector_rect.' + detail.id)
+      .data(detail.connectorsPoints)
+      .enter()
+      .append('path')
+      .classed('connector_rect', true)
+      .attr({
+          'block_id': detail.id,
+          'd': function (d) {
+              var closedPoints = d.pointsOut.concat([d.pointsOut[0]]);
+              return lineCreator(closedPoints);
+          },
+          'fill': function (d) {
+              return getConnectorHatchFill(d.side);
+          }
+      });
+  }
+
 
   function buildSVG(template, widthSVG, heightSVG, elem, depths, sizeConstr, objSource) {
     const buildId = Date.now().toString(36);
@@ -1012,6 +1074,7 @@ $(function() {
             }
           });
 
+        drawConnectorsPoints(elementsGroup, template.details[i], lineCreator);
 
         if(scope.typeConstruction !== 'icon') {
           //----- sash open direction
@@ -1212,6 +1275,7 @@ $(function() {
         setMarker(defs, `handleU${buildId}`, '0 -1 9 32', -10, 10, 270, 29, 49, pathHandle, 'handle-mark');
         setMarker(defs, `handleD${buildId}`, '0 -1 9 32', 20, 10, 270, 29, 49, pathHandle, 'handle-mark');
         
+        setConnectorHatchPattern(defs);
 
         //            console.log('SVG=========dim==', template.dimension);
         for (var dx = 0; dx < dimXQty; dx++) {

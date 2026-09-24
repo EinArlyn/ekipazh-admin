@@ -720,5 +720,7 @@
 	"net": "Netto",
 	"gross": "Brutto",
 	"tax": "Steuer",
-	"vat": "MwSt."
+	"vat": "MwSt.",
+	"overall_dimensions": "Gesamtabmessungen",
+	"construction_extensions": "(Konstruktion + Verbreiterungen)"
 }

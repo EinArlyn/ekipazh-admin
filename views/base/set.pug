@@ -341,6 +341,10 @@ block content
               =i18n.__('Size')
               | : 
               input(class="min-input", type="text", name="size", value=(list.size))
+            span#connectors-width(style="margin-left: 20px;")
+              =i18n.__('Width (mm)')
+              | : 
+              input(style="width: 30px;", class="min-input", type="text", name="own_width", value=(list.own_width))
         .main-furniture
           if (hardwareHandles)
             -var constatValue = hardwareHandles.constant_value

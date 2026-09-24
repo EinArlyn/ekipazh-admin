@@ -28,7 +28,7 @@ module.exports = function (req, res) {
   };
   tables.order_addelements = {
     rows: [],
-    fields: ["block_id", "name", "order_id", "modified", "element_qty", "element_price", "element_height", "element_width", "element_id", "element_type", "product_id", "id"]
+    fields: ["side", "own_width", "block_id", "name", "order_id", "modified", "element_qty", "element_price", "element_height", "element_width", "element_id", "element_type", "product_id", "id"]
   };
 
   models.users.find({

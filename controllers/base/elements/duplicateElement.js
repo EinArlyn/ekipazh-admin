@@ -192,6 +192,7 @@ module.exports = function (req, res) {
       modified: new Date(),
       addition_folder_id: parseInt(list.addition_folder_id),
       amendment_pruning: parseFloat(list.amendment_pruning) || 0.00,
+      own_width: parseInt(list.own_width) || 0,
       waste: parseFloat(list.waste) || 0.00,
       cameras: parseInt(list.cameras) || 1,
       sills_group: parseInt(list.sills_group)

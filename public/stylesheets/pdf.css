@@ -62,6 +62,11 @@
   stroke: none;
 }
 
+.connector_rect {
+  stroke: #070707;
+  stroke-width: 3px;
+}
+
 .handle-mark {
   fill: #f9f9f9;
   stroke: black;

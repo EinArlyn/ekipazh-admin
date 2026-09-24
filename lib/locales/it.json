@@ -770,5 +770,7 @@
 	"net": "Netto",
 	"gross": "Lordo",
 	"tax": "Imposta",
-	"vat": "IVA"
+	"vat": "IVA",
+	"overall_dimensions": "Dimensioni complessive",
+  	"construction_extensions": "(struttura + prolunghe)"
 }
