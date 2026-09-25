@@ -3852,7 +3852,96 @@ module.exports = function (req, res) {
                     callback(err);
                   });
               },
-              
+              function (callback) {
+                /** profile_curve_prices */
+                models.sequelize
+                  .query(
+                    `SELECT
+                      PCP.id,
+                      PCP.profile_systems_id,
+                      PCP.currency_id,
+                      PCP.arc_frame_price,
+                      PCP.arc_sash_price,
+                      PCP.arc_impost_price,
+                      PCP.corner_frame_price,
+                      PCP.corner_sash_price,
+                      PCP.corner_impost_price,
+                      PCP.corner_not_four_price
+                    FROM profile_curve_prices AS PCP
+                    JOIN profile_systems AS S ON S.id = PCP.profile_systems_id
+                    JOIN profile_system_folders AS F ON F.id = S.folder_id
+                    JOIN users AS U ON U.id = ${userId}
+                    JOIN cities AS C ON C.id = U.city_id
+                    JOIN regions AS R ON R.id = C.region_id
+                    JOIN compliance_profile_systems AS CPS ON CPS.country_id = R.country_id
+                    WHERE F.factory_id = ${factory_id} AND S.is_editable = 1 AND S.id = CPS.profile_system_id`
+                  )
+                  .then(function (rows) {
+                    tables.profile_curve_prices = {};
+                    tables.profile_curve_prices.fields = [
+                      "id",
+                      "profile_systems_id",
+                      "currency_id",
+                      "arc_frame_price",
+                      "arc_sash_price",
+                      "arc_impost_price",
+                      "corner_frame_price",
+                      "corner_sash_price",
+                      "corner_impost_price",
+                      "corner_not_four_price"
+                    ];
+                    sortQueries(rows[0], function (values) {
+                      tables.profile_curve_prices.rows = values;
+                      callback(null);
+                    });
+                  })
+                  .catch(function (err) {
+                    callback(err);
+                  });
+              },
+              function (callback) {
+                /** profile_curve_rules */
+                models.sequelize
+                  .query(
+                    `SELECT
+                      PCR.id,
+                      PCR.profile_systems_id,
+                      PCR.min_radius_frame,
+                      PCR.min_radius_sash,
+                      PCR.min_radius_impost,
+                      PCR.min_corner_frame,
+                      PCR.min_corner_sash,
+                      PCR.min_corner_impost
+                    FROM profile_curve_rules AS PCR
+                    JOIN profile_systems AS S ON S.id = PCR.profile_systems_id
+                    JOIN profile_system_folders AS F ON F.id = S.folder_id
+                    JOIN users AS U ON U.id = ${userId}
+                    JOIN cities AS C ON C.id = U.city_id
+                    JOIN regions AS R ON R.id = C.region_id
+                    JOIN compliance_profile_systems AS CPS ON CPS.country_id = R.country_id
+                    WHERE F.factory_id = ${factory_id} AND S.is_editable = 1 AND S.id = CPS.profile_system_id`
+                  )
+                  .then(function (rows) {
+                    tables.profile_curve_rules = {};
+                    tables.profile_curve_rules.fields = [
+                      "id",
+                      "profile_systems_id",
+                      "min_radius_frame",
+                      "min_radius_sash",
+                      "min_radius_impost",
+                      "min_corner_frame",
+                      "min_corner_sash",
+                      "min_corner_impost"
+                    ];
+                    sortQueries(rows[0], function (values) {
+                      tables.profile_curve_rules.rows = values;
+                      callback(null);
+                    });
+                  })
+                  .catch(function (err) {
+                    callback(err);
+                  });
+              },
             ],
             function (err, results) {
               if (err) {
