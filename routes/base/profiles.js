@@ -817,7 +817,8 @@ function _getLaminationInfo(factoryId, cb) {
             models.lamination_factory_colors.findAll({
               where: {
                 factory_id: factoryId
-              }
+              },
+              order: [['name', 'ASC']]
             }).then(function(laminationColors) {
               cb(null, {
                 frameLists           : frameLists,
