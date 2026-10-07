@@ -71,6 +71,366 @@ $(function() {
     d3.selectAll('.schemes .dim_block').classed('dim_hidden', false);
   }
 
+  /**
+   * Счётчик для уникальных id узоров и градиентов: на странице КП схем
+   * несколько, а id в документе общие.
+   * @type {number}
+   */
+  var partFillSeq = 0;
+
+  /**
+   * Дуга окружности по квадратичной кривой.
+   *
+   * Сторону арки модель хранит управляющей точкой квадратичной кривой: она
+   * стоит вдвое дальше вершины, и кривая проходит через вершину на высоте
+   * стрелы. Сама кривая — парабола, а изготавливают дугу окружности. Через
+   * оба конца и вершину проходит ровно одна окружность — её и рисуем, как
+   * калькулятор. У внутренних кромок вершина отступает на толщину профиля, и
+   * их окружности выходят концентрическими с точностью до долей миллиметра.
+   *
+   * @param {{x: number, y: number}} p0 Начало кривой.
+   * @param {{x: number, y: number}} c Управляющая точка.
+   * @param {{x: number, y: number}} p2 Конец кривой.
+   * @returns {?{r: number, cx: number, cy: number, sweep: number, large: number}}
+   *   Дуга либо null, если кривая вырождена в прямую.
+   */
+  function quadArc(p0, c, p2) {
+    var apex = { x: (p0.x + 2 * c.x + p2.x) / 4, y: (p0.y + 2 * c.y + p2.y) / 4 },
+        mid = { x: (p0.x + p2.x) / 2, y: (p0.y + p2.y) / 2 },
+        half = Math.hypot(p2.x - p0.x, p2.y - p0.y) / 2,
+        sagitta = Math.hypot(apex.x - mid.x, apex.y - mid.y);
+
+    if (!half || sagitta < 0.01) {
+      return null;
+    }
+
+    var r = (half * half + sagitta * sagitta) / (2 * sagitta),
+        //------- от вершины к центру — через середину хорды
+        ux = (mid.x - apex.x) / sagitta,
+        uy = (mid.y - apex.y) / sagitta,
+        //------- y экрана смотрит вниз: обход по часовой стрелке даёт sweep 1
+        cross = (p2.x - p0.x) * (apex.y - p0.y) - (p2.y - p0.y) * (apex.x - p0.x);
+
+    return {
+      r: r,
+      cx: apex.x + ux * r,
+      cy: apex.y + uy * r,
+      sweep: cross < 0 ? 1 : 0,
+      large: sagitta > half ? 1 : 0
+    };
+  }
+
+  /**
+   * Команда пути от текущей точки по кривой: дуга окружности, а если кривая
+   * вырождена — прямая.
+   *
+   * @param {{x: number, y: number}} from Текущая точка пути.
+   * @param {{x: number, y: number}} c Управляющая точка.
+   * @param {{x: number, y: number}} to Конец кривой.
+   * @returns {string} Фрагмент атрибута d.
+   */
+  function arcCommand(from, c, to) {
+    var arc = quadArc(from, c, to);
+
+    if (!arc) {
+      return ' L ' + to.x + ',' + to.y;
+    }
+    return ' A ' + arc.r + ' ' + arc.r + ' 0 ' + arc.large + ' ' + arc.sweep + ' ' + to.x + ',' + to.y;
+  }
+
+  /**
+   * Направление детали профиля, в градусах: по более длинной из двух первых
+   * сторон. У рамы, штапика и створки первая сторона — кромка, у импоста
+   * первой может оказаться торец.
+   *
+   * @param {Object} part Деталь.
+   * @returns {number} Угол.
+   */
+  function partAngle(part) {
+    var p = part.points,
+        first = Math.hypot(p[1].x - p[0].x, p[1].y - p[0].y),
+        second = Math.hypot(p[2].x - p[1].x, p[2].y - p[1].y),
+        a = first >= second ? p[0] : p[1],
+        b = first >= second ? p[1] : p[2];
+
+    return Math.atan2(b.y - a.y, b.x - a.x) * 180 / Math.PI;
+  }
+
+  /**
+   * Оси прямой детали профиля: направление, толщина и кромки. Первая
+   * половина точек детали лежит на наружной кромке, вторая — на внутренней.
+   *
+   * @param {Object} part Деталь из четырёх точек.
+   * @returns {?Object} Оси детали либо null.
+   */
+  function partAxis(part) {
+    var points = part && part.points;
+
+    if (!points || points.length !== 4) {
+      return null;
+    }
+
+    var angle = partAngle(part),
+        rad = angle * Math.PI / 180,
+        ux = Math.cos(rad),
+        uy = Math.sin(rad),
+        nx = -uy,
+        ny = ux,
+        minV = Infinity,
+        maxV = -Infinity,
+        sumU = 0;
+
+    points.forEach(function (point) {
+      var v = point.x * nx + point.y * ny;
+      minV = Math.min(minV, v);
+      maxV = Math.max(maxV, v);
+      sumU += point.x * ux + point.y * uy;
+    });
+
+    var thickness = maxV - minV;
+
+    if (!thickness) {
+      return null;
+    }
+
+    var cu = sumU / points.length,
+        cv = (minV + maxV) / 2,
+        outerV = points[0].x * nx + points[0].y * ny,
+        half = thickness / 2 * (outerV < cv ? -1 : 1),
+        center = { x: cu * ux + cv * nx, y: cu * uy + cv * ny };
+
+    return {
+      angle: angle,
+      outer: { x: center.x + nx * half, y: center.y + ny * half },
+      inner: { x: center.x - nx * half, y: center.y - ny * half }
+    };
+  }
+
+  /**
+   * Градиент профиля поперёк косой детали.
+   *
+   * Готовые градиенты профиля заданы в долях габарита детали. У прямой
+   * детали габарит и есть полоса профиля, у косой он много больше, и тёмные
+   * остановки сечения растягиваются на всю деталь — штапик и рама выходят
+   * почти чёрными. Здесь градиент лежит в координатах чертежа, от внутренней
+   * кромки к наружной, а остановки наследуются от готового: у всех градиентов
+   * профиля смещение 0 — внутренняя кромка.
+   *
+   * @param {Object} defs Куда класть градиент.
+   * @param {string} baseId Id готового градиента.
+   * @param {Object} part Деталь.
+   * @returns {?string} Заливка либо null.
+   */
+  function acrossPartGradient(defs, baseId, part) {
+    var axis = partAxis(part);
+
+    if (!axis || !document.getElementById(baseId)) {
+      return null;
+    }
+
+    var id = baseId + '_across_' + (partFillSeq += 1);
+
+    defs.append('linearGradient')
+      .attr('id', id)
+      .attr('xlink:href', '#' + baseId)
+      .attr('gradientUnits', 'userSpaceOnUse')
+      .attr('x1', axis.inner.x)
+      .attr('y1', axis.inner.y)
+      .attr('x2', axis.outer.x)
+      .attr('y2', axis.outer.y);
+
+    return 'url(#' + id + ')';
+  }
+
+  /**
+   * Градиент профиля для гнутой детали: радиальный, от внутреннего радиуса
+   * к наружному, с остановками готового градиента. Линейный в долях габарита
+   * лёг бы поперёк дуги только в её середине.
+   *
+   * @param {Object} defs Куда класть градиент.
+   * @param {string} baseId Id готового градиента.
+   * @param {Object} part Гнутая деталь с дугами part.arcs.
+   * @returns {?string} Заливка либо null.
+   */
+  function radialPartGradient(defs, baseId, part) {
+    var base = document.getElementById(baseId),
+        arcs = (part.arcs || []).filter(Boolean);
+
+    if (!base || arcs.length < 2) {
+      return null;
+    }
+
+    var outer = Math.max(arcs[0].r, arcs[1].r),
+        inner = Math.min(arcs[0].r, arcs[1].r),
+        id = baseId + '_arc_' + (partFillSeq += 1),
+        radial = defs.append('radialGradient')
+          .attr('id', id)
+          .attr('gradientUnits', 'userSpaceOnUse')
+          .attr('cx', arcs[0].cx)
+          .attr('cy', arcs[0].cy)
+          .attr('r', outer)
+          .attr('fr', inner);
+
+    [].slice.call(base.querySelectorAll('stop')).forEach(function (stop) {
+      radial.append('stop')
+        .attr('offset', stop.getAttribute('offset'))
+        .attr('stop-color', stop.getAttribute('stop-color'));
+    });
+
+    return 'url(#' + id + ')';
+  }
+
+  /**
+   * Заливки нестандартных деталей поверх обычной раздачи по сторонам.
+   *
+   * Обычная раздача знает только прямые детали по четырём сторонам. Гнутой
+   * стороне рамы (тип arc) правила нет вовсе, и она оставалась без заливки —
+   * то есть чёрной. Косые детали получали градиент стороны, растянутый по
+   * габариту. Здесь гнутые детали получают радиальный градиент, косые —
+   * градиент поперёк самой детали.
+   *
+   * @param {Object} svg Выборка d3 схемы.
+   * @param {Object} defs Куда класть градиенты.
+   * @returns {void}
+   */
+  function applyShapeFills(svg, defs) {
+    svg.selectAll('[item_type]').each(function (part) {
+      var element = d3.select(this),
+          type = element.attr('item_type'),
+          fill = element.attr('fill');
+
+      if (!part || !part.points || ['frame', 'arc', 'arc-corner', 'corner', 'bead', 'sash'].indexOf(type) === -1) {
+        return;
+      }
+
+      //------- гнутая сторона рамы — тот же профиль, что и верх рамы
+      if (!fill || fill === 'none') {
+        fill = 'url(#frame_fp1)';
+      }
+      if (fill.indexOf('url(#') !== 0) {
+        return;
+      }
+
+      var baseId = fill.slice(5, -1),
+          newFill = null;
+
+      if (part.arcs) {
+        newFill = radialPartGradient(defs, baseId, part);
+      } else if (part.points.length === 4 && Math.round(partAngle(part)) % 90 !== 0) {
+        newFill = acrossPartGradient(defs, baseId, part);
+      }
+
+      element.attr('fill', newFill || fill).attr('stroke', '#363636');
+    });
+  }
+
+  /**
+   * Убирает из точек размеров проёма те, чья координата по оси производная.
+   *
+   * Горизонтальный импост задают высотой, вертикальный — положением по
+   * ширине. Вторая координата его конца — место, где он упёрся в сторону
+   * проёма. У прямоугольника она совпадает с координатой того, во что он
+   * упёрся, и дубликат уходит при чистке. Но если он упёрся в косой импост
+   * или скошенную сторону, координата своя, и размер к ней рвёт цепочку на
+   * отрезки, которые наезжают на соседние. Так же решено в калькуляторе.
+   *
+   * Точки остаются, если без них у проёма по оси не набралось бы двух разных
+   * координат: средней полосе между двумя горизонтальными импостами иначе
+   * нечем было бы показать ширину.
+   *
+   * @param {Object[]} points Точки контура проёма.
+   * @param {string} axis 'x' или 'y'.
+   * @returns {Object[]} Точки для размеров по этой оси.
+   */
+  function withoutDerivedCoords(points, axis) {
+    //------- dimType: 0 — вертикальный импост, его задаёт x; 1 — горизонтальный
+    var ownDimType = axis === 'x' ? 0 : 1,
+        kept = points.filter(function (point) {
+          return !(
+            (point.type === 'impost' || point.type === 'shtulp') &&
+            point.dimType !== undefined &&
+            point.dimType !== ownDimType
+          );
+        }),
+        coords = [];
+
+    kept.forEach(function (point) {
+      if (coords.indexOf(point[axis]) === -1) {
+        coords.push(point[axis]);
+      }
+    });
+
+    return coords.length > 1 ? kept : points;
+  }
+
+  /**
+   * Помечает размеры проёмов, которые складываются из других размеров той же
+   * оси. Размеры строятся по каждому проёму отдельно, а в КП видны все сразу:
+   * размер-сумма лёг бы на ту же линию, что и его части. Одинаковые размеры
+   * соседних проёмов суммой друг друга не считаются.
+   *
+   * @param {Object[]} dims Размеры одной оси.
+   * @returns {void}
+   */
+  function markSumDims(dims) {
+    var inner = dims.filter(function (dim) {
+      return !dim.level;
+    });
+
+    inner.forEach(function (dim) {
+      var parts = inner.filter(function (other) {
+            return other.from >= dim.from && other.to <= dim.to &&
+              !(other.from === dim.from && other.to === dim.to);
+          }),
+          position = dim.from,
+          next;
+
+      do {
+        next = parts.filter(function (part) {
+          return part.from === position;
+        })[0];
+        if (next) {
+          position = next.to;
+        }
+      } while (next && position < dim.to);
+
+      dim.isSum = position === dim.to && dim.from !== dim.to;
+    });
+  }
+
+  /**
+   * Раскладывает размеры проёмов по рядам, чтобы подписи не наезжали.
+   *
+   * Размер уходит в первый ряд, где он ни с чем не перекрывается частично;
+   * одинаковые размеры соседних проёмов остаются в одном ряду — они и так
+   * рисуются в одном месте. Суммы в раскладке не участвуют, их не рисуют.
+   *
+   * @param {Object[]} dims Размеры одной оси.
+   * @returns {void}
+   */
+  function setDimLanes(dims) {
+    var rows = [];
+
+    dims.forEach(function (dim) {
+      if (dim.level || dim.isSum) {
+        return;
+      }
+
+      var a = Math.min(dim.from, dim.to),
+          b = Math.max(dim.from, dim.to),
+          row = 0,
+          clashes = function (other) {
+            return a < other.b && other.a < b && !(a === other.a && b === other.b);
+          };
+
+      while (rows[row] && rows[row].some(clashes)) {
+        row += 1;
+      }
+      (rows[row] = rows[row] || []).push({ a: a, b: b });
+      dim.lane = row;
+    });
+  }
+
   function applyGradientsToTemplate(svgId, template, door_type) {
     const svg = d3.select(`#${svgId}`);
 
@@ -854,6 +1214,9 @@ $(function() {
             element.attr('fill', fillValue)
               .attr('stroke', '#363636');
           });
+
+    //------- гнутые и косые детали: поверх раздачи по сторонам
+    applyShapeFills(svg, defs);
   }
 
   function makeHatchPattern(defs, id, angle) {
@@ -1279,12 +1642,19 @@ $(function() {
 
         //            console.log('SVG=========dim==', template.dimension);
         for (var dx = 0; dx < dimXQty; dx++) {
+          //------- размер, сложенный из соседних, лёг бы поверх них
+          if (template.dimension.dimX[dx].isSum) {
+            continue;
+          }
           createDimension(0, template.dimension.dimX[dx], dimGroup, lineCreator, 0, sizeConstr);
           if(template.dimension.dimX[dx].blockId == 'block_1' && depths.frameDepth.e > 0){
             createDimension(0, template.dimension.dimX[dx], dimGroup, lineCreator, depths,sizeConstr);
           }
         }
         for (var dy = 0; dy < dimYQty; dy++) {
+          if (template.dimension.dimY[dy].isSum) {
+            continue;
+          }
           createDimension(1, template.dimension.dimY[dy], dimGroup, lineCreator, 0, sizeConstr);
           if(template.dimension.dimY[dy].blockId == 'block_1' && depths.frameDepth.e > 0){
             createDimension(1, template.dimension.dimY[dy], dimGroup, lineCreator, depths,sizeConstr);
@@ -1344,6 +1714,13 @@ $(function() {
   }
 
 
+  /**
+   * Шаг между рядами размеров проёмов, в единицах чертежа: высота подписи с
+   * зазором. Подписи по высоте повёрнуты вдоль линии, поэтому шаг общий.
+   * @type {number}
+   */
+  var DIM_LANE_GAP = 150;
+
   function createDimension(dir, dim, dimGroup, lineCreator, depths, sizeConstr) {
     let renov = 0,
     sizeConstruction = 0;
@@ -1359,6 +1736,9 @@ $(function() {
     let positionLine = sizeConstruction;
     if (dim.blockId === "block_1" && !depths) {
       positionLine = dir ? 50 : 30;
+    } else if (dim.lane) {
+      //------- размеры проёмов стоят снизу и справа: дальний ряд — дальше от рамы
+      positionLine += dim.lane * DIM_LANE_GAP;
     }
 
     var dimLineHeight = renov ? (dir?300+sizeConstruction:250+sizeConstruction) :positionLine,     // отступ блока размера 
@@ -2830,6 +3210,13 @@ $(function() {
 
           }
           part.path = assamblingPath(part.points);
+          //------- окружности гнутой детали: по ним кладётся радиальная заливка
+          if(part.points.length === 6) {
+            part.arcs = [
+              quadArc(part.points[0], part.points[1], part.points[2]),
+              quadArc(part.points[3], part.points[4], part.points[5])
+            ];
+          }
           //------- culc length
           part.size = culcLength(part.points);
 
@@ -2878,7 +3265,8 @@ $(function() {
             if(p === 3) {
               path += ' L ' + arrPoints[p].x + ',' + arrPoints[p].y;
             } else {
-              path += ' Q '+ arrPoints[p].x +','+ arrPoints[p].y + ' ' + arrPoints[p+1].x +','+ arrPoints[p+1].y;
+              //------- дуга окружности, как в калькуляторе, а не парабола
+              path += arcCommand(arrPoints[p-1], arrPoints[p], arrPoints[p+1]);
               p++;
             }
 
@@ -2940,11 +3328,12 @@ $(function() {
           }
           //------- if curve
           if(glassPoints[i].dir === 'curv') {
-            part.path += ' Q ' + glassPoints[i].x + ',' + glassPoints[i].y + ',';
+            //------- дуга окружности, как в калькуляторе, а не парабола
+            var glassFrom = glassPoints[i === 0 ? pointsQty - 1 : i - 1];
             if(glassPoints[i+1]) {
-              part.path += glassPoints[i+1].x + ',' + glassPoints[i+1].y;
+              part.path += arcCommand(glassFrom, glassPoints[i], glassPoints[i+1]);
             } else {
-              part.path += glassPoints[0].x + ',' + glassPoints[0].y + ' Z';
+              part.path += arcCommand(glassFrom, glassPoints[i], glassPoints[0]) + ' Z';
             }
             i++;
           //-------- if line
@@ -3849,6 +4238,9 @@ $(function() {
 
   //          console.log('`````````` blockLimits ``````````', blockLimits);
             blockDimY = JSON.parse(JSON.stringify(blockDimX));
+            //------- координаты, которые задаёт не пользователь, а упор импоста
+            blockDimY = withoutDerivedCoords(blockDimY, 'y');
+            blockDimX = withoutDerivedCoords(blockDimX, 'x');
 
 
             //========== build Dimension
@@ -3880,6 +4272,11 @@ $(function() {
 
         dimension.dimX = JSON.parse(JSON.stringify(deleteDublicatDim(dimension.dimX)));
         dimension.dimY = JSON.parse(JSON.stringify(deleteDublicatDim(dimension.dimY)));
+        //------- в КП размеры видны все сразу: суммы не рисуем, остальное по рядам
+        markSumDims(dimension.dimX);
+        markSumDims(dimension.dimY);
+        setDimLanes(dimension.dimX);
+        setDimLanes(dimension.dimY);
         // console.log('dim', dimension)
         return dimension;
       }
