@@ -56,6 +56,13 @@ jobs:
           echo "PRO_URL=${{ vars.PRO_URL }}" >> .env
           echo "DOCUMENTS_URL=${{ vars.DOCUMENTS_URL }}" >> .env
           echo "STATISTIC_LINK=${{ vars.STATISTIC_LINK }}" >> .env
+          # Homefash IDS API
+          echo "HOMEFASH_API_KEY=${{ secrets.HOMEFASH_API_KEY }}" >> .env
+          echo "HOMEFASH_SUPPLIER_ID=${{ vars.HOMEFASH_SUPPLIER_ID }}" >> .env
+          echo "HOMEFASH_SUPPLIER_NAME=${{ vars.HOMEFASH_SUPPLIER_NAME }}" >> .env
+          echo "HOMEFASH_OFFER_VAT_RATE=${{ vars.HOMEFASH_OFFER_VAT_RATE }}" >> .env
+          echo "HOMEFASH_OFFER_PREFIX=${{ vars.HOMEFASH_OFFER_PREFIX }}" >> .env
+          echo "HOMEFASH_DRY_RUN=${{ vars.HOMEFASH_DRY_RUN }}" >> .env
           # Сервер
           echo "PORT=${{ vars.PORT }}" >> .env
           echo "SESSION_SECRET=${{ secrets.SESSION_SECRET }}" >> .env
