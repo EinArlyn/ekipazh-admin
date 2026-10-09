@@ -130,115 +130,128 @@ function _setPrices(orderRow, user, factory, childPurchase, seller) {
         user_id: seller.id
       }
     }).then(function(sellerDiscounts) {
-      var userMarginPrice = 0.00;
-      var constructDiscount = 0;
-      var addElemDiscount = 0;
-      var orderSalePrice = 0;
-      // var userPurchasePrice = parseFloat(parseFloat(orderRow.order_price) - (parseFloat(orderRow.templates_price * (userDiscounts.max_construct / 100)) + parseFloat(orderRow.addelems_price * (userDiscounts.max_add_elem / 100)))).toFixed(2);
-      var userPurchasePrice = (+orderRow.order_price) - ((+orderRow.templates_price - (+orderRow.templates_price / ((+userDiscounts.default_construct + 100) / 100))) + (+orderRow.addelems_price - (+orderRow.addelems_price / ((+userDiscounts.default_add_elem + 100) / 100)))).toFixed(2);
-
-      var userBasePrice = parseFloat(orderRow.order_price).toFixed(2);
-      var userSalePrice = parseFloat(childPurchase).toFixed(2);
-      var userMountingPrice = 0.00;
-      var userDeliveryPrice = 0.00;
-
-      if(parseInt(user.id, 10) !== parseInt(seller.id, 10)) {
-        userPurchasePrice = userSalePrice;
-      }
-
-      /** mouting */
-      if (parseInt(orderRow.mounting_user_id, 10) === parseInt(user.id, 10) || parseInt(orderRow.mounting_user_id, 10) === parseInt(factory.id, 10)) {
-        userMountingPrice = parseFloat(orderRow.mounting_price);
-      }
-      // delivery
-      if (parseInt(orderRow.delivery_user_id, 10) === parseInt(user.id, 10) || parseInt(orderRow.delivery_user_id, 10) === parseInt(factory.id, 10)) {
-        userDeliveryPrice = parseFloat(orderRow.floor_price);
-      }
-
-      /** Checks if mounting from factory */
-      if (parseInt(orderRow.mounting_user_id, 10) === parseInt(factory.id, 10)) {
-        console.log('mounting from factory +');
-        console.log(parseFloat(userPurchasePrice).toFixed(2) + ' + ' + parseFloat(orderRow.mounting_price).toFixed(2) + ' = ' + (+parseFloat(userPurchasePrice).toFixed(2) + +parseFloat(orderRow.mounting_price).toFixed(2)));
-        userPurchasePrice = +parseFloat(userPurchasePrice).toFixed(2) + +parseFloat(orderRow.mounting_price).toFixed(2);
-      }
-
-      /** Checks if delivery from factory */
-      if (parseInt(orderRow.delivery_user_id, 10) === parseInt(factory.id, 10)) {
-        console.log('delivery from factory +');
-        console.log(parseFloat(userPurchasePrice).toFixed(2) + ' + ' + parseFloat(orderRow.floor_price).toFixed(2) + ' = ' + (+parseFloat(userPurchasePrice).toFixed(2) + +parseFloat(orderRow.floor_price).toFixed(2)));
-        userPurchasePrice = +parseFloat(userPurchasePrice).toFixed(2) + +parseFloat(orderRow.floor_price).toFixed(2);
-      }
-
-      /** Discounts for order printout */
-      if (seller.is_customer) {
-        constructDiscount = +parseFloat(orderRow.discount_construct);
-        addElemDiscount = +parseFloat(orderRow.discount_addelem);
-      } else {
-        constructDiscount = +parseFloat(sellerDiscounts.max_construct);
-        addElemDiscount = +parseFloat(sellerDiscounts.max_add_elem);
-      }
-
-      userMarginPrice = (userSalePrice - userPurchasePrice).toFixed(2);
-      orderSalePrice = +parseFloat(orderRow.sale_price).toFixed(2);
-
-      if (parseInt(user.id, 10) !== parseInt(factory.id, 10)) {
-        userMarginPrice = (userMarginPrice - userMountingPrice - userDeliveryPrice - orderSalePrice).toFixed(2);
-      }
-
-      if (parseFloat(user.id) !== parseFloat(seller.id)) {
-        constructDiscount = 0;
-        addElemDiscount = 0;
-      }
+      models.user_margins.find({
+        where: {
+          user_id: user.id
+        }
+      }).then(function(hiddingMargin) {
+        
       
-      models.order_prices.create({
-        order_id: orderRow.id,
-        user_id: parseInt(user.id, 10),
-        seller_id: parseInt(seller.id, 10),
-        purchase_price: userPurchasePrice,
-        margin_price: userMarginPrice,
-        base_price: userBasePrice,
-        sale_price: userSalePrice,
-        mounting: userMountingPrice,
-        delivery: userDeliveryPrice,
-        is_own: 1,
-        discount_construct: constructDiscount,
-        discount_addelem: addElemDiscount
-      }).then(function() {
-        if (parseInt(user.id, 10) === parseInt(factory.id)) {return;} //__setParallelPrices(orderRow, user.id, seller.id, childPurchase, userDeliveryPrice, userMountingPrice, constructDiscount, addElemDiscount);
+        var userMarginPrice = 0.00;
+        var constructDiscount = 0;
+        var addElemDiscount = 0;
+        var orderSalePrice = 0;
+        // var userPurchasePrice = parseFloat(parseFloat(orderRow.order_price) - (parseFloat(orderRow.templates_price * (userDiscounts.max_construct / 100)) + parseFloat(orderRow.addelems_price * (userDiscounts.max_add_elem / 100)))).toFixed(2);
+        var userPurchasePrice = (+orderRow.order_price) - ((+orderRow.templates_price - (+orderRow.templates_price / ((+userDiscounts.default_construct + 100) / 100))) + (+orderRow.addelems_price - (+orderRow.addelems_price / ((+userDiscounts.default_add_elem + 100) / 100)))).toFixed(2);
 
-        models.users.find({
-          where: {
-            id: user.parent_id
+        var userBasePrice = parseFloat(orderRow.order_price).toFixed(2);
+        var userSalePrice = parseFloat(childPurchase).toFixed(2);
+        var userMountingPrice = 0.00;
+        var userDeliveryPrice = 0.00;
+
+        if(parseInt(user.id, 10) !== parseInt(seller.id, 10)) {
+          if (hiddingMargin && hiddingMargin.margin_construct) {
+            userSalePrice = userSalePrice / (1 + Number(hiddingMargin.margin_construct) / 100);
           }
-        }).then(function(parentUser) {
-          var currentSeller = seller;
-          /** PURCHASE? */
-          var currentPurchase = userPurchasePrice;
+          userPurchasePrice = userSalePrice;
+        }
 
-          if (seller.is_payer && !seller.is_customer) {
-            currentPurchase = childPurchase;
-          } else {
-            if (seller.is_customer) {
-              currentSeller.is_customer = false;
-            } else {
-              var isPayer = false;
+        /** mouting */
+        if (parseInt(orderRow.mounting_user_id, 10) === parseInt(user.id, 10) || parseInt(orderRow.mounting_user_id, 10) === parseInt(factory.id, 10)) {
+          userMountingPrice = parseFloat(orderRow.mounting_price);
+        }
+        // delivery
+        if (parseInt(orderRow.delivery_user_id, 10) === parseInt(user.id, 10) || parseInt(orderRow.delivery_user_id, 10) === parseInt(factory.id, 10)) {
+          userDeliveryPrice = parseFloat(orderRow.floor_price);
+        }
 
-              /** Seller === payer? */
-              if (parentUser.is_payer || parentUser.id === parentUser.factory_id) {
-                isPayer = true;
-              }
+        /** Checks if mounting from factory */
+        if (parseInt(orderRow.mounting_user_id, 10) === parseInt(factory.id, 10)) {
+          console.log('mounting from factory +');
+          console.log(parseFloat(userPurchasePrice).toFixed(2) + ' + ' + parseFloat(orderRow.mounting_price).toFixed(2) + ' = ' + (+parseFloat(userPurchasePrice).toFixed(2) + +parseFloat(orderRow.mounting_price).toFixed(2)));
+          userPurchasePrice = +parseFloat(userPurchasePrice).toFixed(2) + +parseFloat(orderRow.mounting_price).toFixed(2);
+        }
 
-              currentSeller.id = parentUser.id;
-              currentSeller.is_payer = isPayer;
+        /** Checks if delivery from factory */
+        if (parseInt(orderRow.delivery_user_id, 10) === parseInt(factory.id, 10)) {
+          console.log('delivery from factory +');
+          console.log(parseFloat(userPurchasePrice).toFixed(2) + ' + ' + parseFloat(orderRow.floor_price).toFixed(2) + ' = ' + (+parseFloat(userPurchasePrice).toFixed(2) + +parseFloat(orderRow.floor_price).toFixed(2)));
+          userPurchasePrice = +parseFloat(userPurchasePrice).toFixed(2) + +parseFloat(orderRow.floor_price).toFixed(2);
+        }
+
+        /** Discounts for order printout */
+        if (seller.is_customer) {
+          constructDiscount = +parseFloat(orderRow.discount_construct);
+          addElemDiscount = +parseFloat(orderRow.discount_addelem);
+        } else {
+          constructDiscount = +parseFloat(sellerDiscounts.max_construct);
+          addElemDiscount = +parseFloat(sellerDiscounts.max_add_elem);
+        }
+
+        userMarginPrice = (userSalePrice - userPurchasePrice).toFixed(2);
+        orderSalePrice = +parseFloat(orderRow.sale_price).toFixed(2);
+
+        if (parseInt(user.id, 10) !== parseInt(factory.id, 10)) {
+          userMarginPrice = (userMarginPrice - userMountingPrice - userDeliveryPrice - orderSalePrice).toFixed(2);
+        }
+
+        if (parseFloat(user.id) !== parseFloat(seller.id)) {
+          constructDiscount = 0;
+          addElemDiscount = 0;
+        }
+        
+        models.order_prices.create({
+          order_id: orderRow.id,
+          user_id: parseInt(user.id, 10),
+          seller_id: parseInt(seller.id, 10),
+          purchase_price: userPurchasePrice,
+          margin_price: userMarginPrice,
+          base_price: userBasePrice,
+          sale_price: userSalePrice,
+          mounting: userMountingPrice,
+          delivery: userDeliveryPrice,
+          is_own: 1,
+          discount_construct: constructDiscount,
+          discount_addelem: addElemDiscount
+        }).then(function() {
+          if (parseInt(user.id, 10) === parseInt(factory.id)) {return;} //__setParallelPrices(orderRow, user.id, seller.id, childPurchase, userDeliveryPrice, userMountingPrice, constructDiscount, addElemDiscount);
+
+          models.users.find({
+            where: {
+              id: user.parent_id
             }
-          }
+          }).then(function(parentUser) {
+            var currentSeller = seller;
+            /** PURCHASE? */
+            var currentPurchase = userPurchasePrice;
 
-          _setPrices(orderRow, parentUser, factory, currentPurchase, currentSeller);
+            if (seller.is_payer && !seller.is_customer) {
+              currentPurchase = childPurchase;
+            } else {
+              if (seller.is_customer) {
+                currentSeller.is_customer = false;
+              } else {
+                var isPayer = false;
+
+                /** Seller === payer? */
+                if (parentUser.is_payer || parentUser.id === parentUser.factory_id) {
+                  isPayer = true;
+                }
+
+                currentSeller.id = parentUser.id;
+                currentSeller.is_payer = isPayer;
+              }
+            }
+
+            _setPrices(orderRow, parentUser, factory, currentPurchase, currentSeller);
+          }).catch(function(err) {
+            console.log(err);
+          });
         }).catch(function(err) {
-          console.log(err);
+          console.log('__setPriceForFactory', err);
         });
       }).catch(function(err) {
-        console.log('__setPriceForFactory', err);
+        console.log('_setPrices', err);
       });
     }).catch(function(err) {
       console.log('_setPrices', err);
